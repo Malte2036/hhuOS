@@ -52,6 +52,8 @@ public:
 
     void drawPolygon(const Data::Array<double> &x, const Data::Array<double> &y) const;
 
+    void drawSquare( double x, double y, double size) const;
+
     void drawString(double x, double y, const char *string) const;
 
     void drawString(double x, double y, const Util::Memory::String &string) const;

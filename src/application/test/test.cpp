@@ -26,9 +26,10 @@ bool isRunning = true;
 int32_t main(int32_t argc, char *argv[]) {
     Util::System::out << "Starting test...\n";
 
-    TestDemo game = TestDemo();
     auto lfbFile = Util::File::File("/device/lfb");
     auto lfb = Util::Graphic::LinearFrameBuffer(lfbFile);
+
+    TestDemo game = TestDemo();
     auto engine = Util::Game::Engine(game, lfb);
 
     engine.run();

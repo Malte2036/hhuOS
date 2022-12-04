@@ -26,6 +26,6 @@ set(SOURCE_FILES
         ${HHUOS_SRC_DIR}/application/test/test.cpp
         ${HHUOS_SRC_DIR}/application/test/TestDemo.cpp)
 
-add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+add_executable(${PROJECT_NAME} ${SOURCE_FILES} ../../../src/application/test/DemoSprite.h ../../../src/application/test/DemoSprite.cpp)
 
 target_link_libraries(${PROJECT_NAME} lib.crt0 lib.user)
