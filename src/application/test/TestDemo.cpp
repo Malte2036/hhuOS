@@ -9,8 +9,8 @@
 #include "DemoSprite.h"
 
 
+auto sprites = Util::Data::Array<DemoSprite *>(2);
 
-auto sprites = Util::Data::Array<DemoSprite*>(2);
 TestDemo::TestDemo() {
     Util::System::out << "Starting testDemo\n";
 
@@ -18,26 +18,62 @@ TestDemo::TestDemo() {
     sprites[0] = s;
 
     addObject(s);
+
+    setKeyListener(*this);
 }
 
 
 void TestDemo::update(double delta) {
     auto player = sprites[0];
-    if(player->getX() >= 1){
+    /*if(player->getX() >= 1){
         player->setDirection(left);
         player->setColor(Util::Graphic::Colors::CYAN);
     }else if(player->getX() <= -1){
         player->setDirection(right);
         player->setColor(Util::Graphic::Colors::GREEN);
+    }*/
+
+    double xForce = 0;
+    double yForce = 0;
+
+    switch (player->getDirection()) {
+        case up:
+            yForce = 0.01;
+            break;
+        case down:
+            yForce = -0.01;
+            break;
+        case left:
+            xForce = -0.01;
+            break;
+        case right:
+            xForce = 0.01;
+            break;
     }
 
-    double xForce = 0.02;
-    if(player->getDirection() == left){
-        xForce *= -1;
-    }
-    sprites[0]->transform(xForce, 0);
+    sprites[0]->transform(xForce, yForce);
 
     //Util::System::out << "update\n";
 
     auto color = Util::Graphic::Colors::BLACK;
+}
+
+void TestDemo::keyPressed(char c) {
+    auto player = sprites[0];
+    switch (c) {
+        case 'w':
+            player->setDirection(up);
+            break;
+        case 'a':
+            player->setDirection(left);
+            break;
+        case 's':
+            player->setDirection(down);
+            break;
+        case 'd':
+            player->setDirection(right);
+            break;
+        default:
+            player->setColor(Util::Graphic::Colors::RED);
+    }
 }

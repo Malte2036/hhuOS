@@ -8,12 +8,14 @@
 
 #include "lib/util/game/Game.h"
 
-class TestDemo : public Util::Game::Game{
+class TestDemo : public Util::Game::Game, public Util::Game::KeyListener{
 
 public:
     TestDemo();
 
     void update(double delta);
+
+    void keyPressed(char c) override;
 };
 
 
