@@ -14,7 +14,7 @@ auto sprites = Util::Data::Array<DemoSprite *>(2);
 TestDemo::TestDemo() {
     Util::System::out << "Starting testDemo\n";
 
-    DemoSprite *s = new DemoSprite(0, 0, Util::Graphic::Colors::BLUE, right);
+    DemoSprite *s = new DemoSprite(0, 0, Util::Graphic::Colors::HHU_BLUE, right);
     sprites[0] = s;
 
     addObject(s);
@@ -33,21 +33,22 @@ void TestDemo::update(double delta) {
         player->setColor(Util::Graphic::Colors::GREEN);
     }*/
 
+    double speed = 0.03;
     double xForce = 0;
     double yForce = 0;
 
     switch (player->getDirection()) {
         case up:
-            yForce = 0.01;
+            yForce = speed;
             break;
         case down:
-            yForce = -0.01;
+            yForce = -speed;
             break;
         case left:
-            xForce = -0.01;
+            xForce = -speed;
             break;
         case right:
-            xForce = 0.01;
+            xForce = speed;
             break;
     }
 
@@ -72,6 +73,9 @@ void TestDemo::keyPressed(char c) {
             break;
         case 'd':
             player->setDirection(right);
+            break;
+        case 'q':
+            stop();
             break;
         default:
             player->setColor(Util::Graphic::Colors::RED);
