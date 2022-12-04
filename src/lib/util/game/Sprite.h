@@ -11,6 +11,14 @@ namespace Util::Game {
 
         void draw(Graphics2D &graphics) const override;
 
+        void transform(double xTransform, double yTransform);
+
+        double getX();
+
+        double getY();
+
+        void setColor(Graphic::Color newColor);
+
     private:
         double x, y;
         Graphic::Color color;

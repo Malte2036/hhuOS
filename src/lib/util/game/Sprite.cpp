@@ -18,4 +18,21 @@ namespace Util::Game {
         graphics.setColor(color);
         graphics.drawSquare(x, y, 0.1);
     }
+
+    void Sprite::transform(double xTransform, double yTransform) {
+        x += xTransform;
+        y += yTransform;
+    }
+
+    double Sprite::getX() {
+        return x;
+    }
+
+    double Sprite::getY() {
+        return y;
+    }
+
+    void Sprite::setColor(Graphic::Color newColor) {
+        color = newColor;
+    }
 }
