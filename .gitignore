@@ -35,3 +35,5 @@ _deps
 .settings/
 .idea
 .memory.hex
+
+src/os/

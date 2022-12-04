@@ -23,7 +23,8 @@ include_directories(${HHUOS_SRC_DIR})
 
 # Set source files
 set(SOURCE_FILES
-        ${HHUOS_SRC_DIR}/application/test/test.cpp)
+        ${HHUOS_SRC_DIR}/application/test/test.cpp
+        ${HHUOS_SRC_DIR}/application/test/TestDemo.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 

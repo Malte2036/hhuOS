@@ -6,7 +6,7 @@
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
  * License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- *HHUOS_SRC_DIR
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
  * details.
@@ -17,8 +17,20 @@
 
 #include <cstdint>
 #include "lib/util/system/System.h"
+#include "lib/util/graphic/LinearFrameBuffer.h"
+#include "lib/util/game/Engine.h"
+#include "TestDemo.h"
+
+bool isRunning = true;
 
 int32_t main(int32_t argc, char *argv[]) {
-    Util::System::out << "Hello test!" << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
+    Util::System::out << "Starting test...\n";
+
+    TestDemo game = TestDemo();
+    auto lfbFile = Util::File::File("/device/lfb");
+    auto lfb = Util::Graphic::LinearFrameBuffer(lfbFile);
+    auto engine = Util::Game::Engine(game, lfb);
+
+    engine.run();
     return 0;
 }
