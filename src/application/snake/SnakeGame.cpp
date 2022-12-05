@@ -4,14 +4,17 @@
 
 #include "SnakeGame.h"
 #include "SnakeEntity.h"
+#include "lib/util/log/Logger.h"
 
 SnakeEntity *snake = nullptr;
 
 SnakeGame::SnakeGame() {
-    snake = new SnakeEntity(Vector2(0,0), 0.3, Util::Graphic::Colors::MAGENTA, left, 0.04);
+    snake = new SnakeEntity(Vector2(0,0), 0.3, Util::Graphic::Colors::MAGENTA, none, 0.04);
     addObject(snake);
 
     setKeyListener(*this);
+
+    Logger::logMessage("Starting SnakeGame");
 }
 
 void SnakeGame::update(double delta) {

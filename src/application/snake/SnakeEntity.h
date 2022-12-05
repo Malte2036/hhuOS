@@ -11,10 +11,7 @@
 #include "lib/util/game/collider/RectangleCollider.h"
 
 enum DirectionType {
-    left = 0,
-    right = 1,
-    up = 2,
-    down = 3
+    none, left, right, up, down
 };
 
 class SnakeEntity : public Util::Game::Entity {

@@ -3,6 +3,7 @@
 //
 
 #include "SnakeEntity.h"
+#include "lib/util/log/Logger.h"
 
 SnakeEntity::SnakeEntity(const Vector2 &position, double size, Util::Graphic::Color color, DirectionType direction,
                          double speed)
@@ -36,6 +37,9 @@ void SnakeEntity::onTransformEvent(Util::Game::TransformEvent *event) {
     if (transformTo.getX() > 1 || transformTo.getX() < (-1 - getSize())
         || transformTo.getY() > (1 - getSize()) || transformTo.getY() < -1) {
         event->setCanceled(true);
+        setDirection(none);
+
+        Logger::logMessage("TransformEvent cancelled");
     }
 }
 
