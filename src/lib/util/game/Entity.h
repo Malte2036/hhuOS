@@ -3,24 +3,25 @@
 //
 
 #include "Drawable.h"
+#include "lib/util/math/Vector2.h"
 
 namespace Util::Game {
     class Entity : public Drawable {
     public:
-        Entity(double initialX, double initialY, Graphic::Color initialColor);
+        Entity(Vector2 position, Graphic::Color color);
 
         void draw(Graphics2D &graphics) const override;
 
-        void transform(double xTransform, double yTransform);
+        void transform(Vector2 vector2);
 
-        double getX();
+        Vector2 getPosition();
 
-        double getY();
+        void setPosition(Vector2 vector2);
 
         void setColor(Graphic::Color newColor);
 
     private:
-        double x, y;
+        Vector2 position;
         Graphic::Color color;
     };
 

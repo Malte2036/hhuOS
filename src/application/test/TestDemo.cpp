@@ -5,7 +5,6 @@
 #include "TestDemo.h"
 
 #include "lib/util/system/System.h"
-#include "lib/util/data/Array.h"
 #include "DemoEntity.h"
 
 
@@ -14,7 +13,7 @@ auto sprites = Util::Data::Array<DemoEntity *>(2);
 TestDemo::TestDemo() {
     Util::System::out << "Starting testDemo\n";
 
-    DemoEntity *s = new DemoEntity(0, 0, Util::Graphic::Colors::HHU_BLUE, right);
+    DemoEntity *s = new DemoEntity(Vector2(0, 0), Util::Graphic::Colors::HHU_BLUE, right);
     sprites[0] = s;
 
     addObject(s);
@@ -52,7 +51,7 @@ void TestDemo::update(double delta) {
             break;
     }
 
-    sprites[0]->transform(xForce, yForce);
+    sprites[0]->transform(Vector2(xForce, yForce));
 
     //Util::System::out << "update\n";
 

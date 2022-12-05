@@ -3,11 +3,8 @@
 //
 
 #include "DemoEntity.h"
-#include "lib/util/system/System.h"
 
-DemoEntity::DemoEntity(double initialX, double initialY, Util::Graphic::Color initialColor, DirectionType initialDirection) : Entity(initialX, initialY, initialColor) {
-    direction = initialDirection;
-}
+DemoEntity::DemoEntity(Vector2 position, Util::Graphic::Color color, DirectionType direction) : Entity(position, color), direction{direction} {}
 
 void DemoEntity::draw(Util::Game::Graphics2D &graphics) const {
     Entity::draw(graphics);

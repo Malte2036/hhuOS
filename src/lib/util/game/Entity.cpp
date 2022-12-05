@@ -1,50 +1,46 @@
 //
 // Created by malte on 04.12.22.
 //
-//#include "iostream"
 #include "Entity.h"
 
 
 namespace Util::Game {
 
-    Entity::Entity(double initialX, double initialY, Graphic::Color initialColor) {
-        //std::cout << "Entity constructor called!";
-        x = initialX;
-        y = initialY;
-        color = initialColor;
-    }
+    Entity::Entity(Vector2 position, Graphic::Color color) : position{position},
+                                                             color{color} {}
 
     void Entity::draw(Graphics2D &graphics) const {
         graphics.setColor(color);
-        graphics.drawSquare(x, y, 0.1);
+        graphics.drawSquare(position.getX(), position.getY(), 0.1);
     }
 
-    void Entity::transform(double xTransform, double yTransform) {
-        x += xTransform;
-        y += yTransform;
+    void Entity::transform(Vector2 vector2) {
+        auto newVector2 = position.add(vector2);
 
-        if (x > 1) {
-            x = 1;
-        } else if (x < -1) {
-            x = -1;
+        if (newVector2.getX() > 1) {
+            newVector2 = Vector2(1, newVector2.getY());
+        } else if (newVector2.getX() < -1) {
+            newVector2 = Vector2(-1, newVector2.getY());
         }
 
-        if (y > (1 - 0.1)) {
-            y = (1 - 0.1);
-        } else if (y < -1) {
-            y = -1;
+        if (newVector2.getY() > (1 - 0.1)) {
+            newVector2 = Vector2(newVector2.getX(), 1 - 0.1);
+        } else if (newVector2.getY() < -1) {
+            newVector2 = Vector2(newVector2.getX(), -1);
         }
-    }
 
-    double Entity::getX() {
-        return x;
-    }
-
-    double Entity::getY() {
-        return y;
+        setPosition(newVector2);
     }
 
     void Entity::setColor(Graphic::Color newColor) {
         color = newColor;
+    }
+
+    Vector2 Entity::getPosition() {
+        return position;
+    }
+
+    void Entity::setPosition(Vector2 vector2) {
+        position = vector2;
     }
 }

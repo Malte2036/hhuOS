@@ -18,4 +18,5 @@ cmake_minimum_required(VERSION 3.14)
 
 target_sources(lib.util PUBLIC
         ${HHUOS_SRC_DIR}/lib/util/math/Math.cpp
-        ${HHUOS_SRC_DIR}/lib/util/math/Random.cpp)
+        ${HHUOS_SRC_DIR}/lib/util/math/Random.cpp
+        ${HHUOS_SRC_DIR}/lib/util/math/Vector2.cpp)
