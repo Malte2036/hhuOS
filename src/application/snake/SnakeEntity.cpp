@@ -12,7 +12,7 @@ SnakeEntity::SnakeEntity(const Vector2 &position, double size, Util::Graphic::Co
 
 void SnakeEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.setColor(color);
-    graphics.drawRectangle(getPosition(), size);
+    graphics.drawSquare(getPosition(), size);
 }
 
 

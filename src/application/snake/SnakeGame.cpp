@@ -3,14 +3,18 @@
 //
 
 #include "SnakeGame.h"
-#include "SnakeEntity.h"
 #include "lib/util/log/Logger.h"
+#include "SnakeEntity.h"
+#include "FoodEntity.h"
 
 SnakeEntity *snake = nullptr;
 
 SnakeGame::SnakeGame() {
-    snake = new SnakeEntity(Vector2(0,0), 0.3, Util::Graphic::Colors::MAGENTA, none, 0.04);
+    snake = new SnakeEntity(Vector2(0,0), 0.1, Util::Graphic::Colors::MAGENTA, none, 0.02);
     addObject(snake);
+
+    auto food = new FoodEntity(Vector2(0.3, 0.4), 0.05);
+    addObject(food);
 
     setKeyListener(*this);
 

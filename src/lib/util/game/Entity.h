@@ -1,6 +1,8 @@
 //
 // Created by malte on 04.12.22.
 //
+#ifndef HHUOS_ENTITY_H
+#define HHUOS_ENTITY_H
 
 #include "Drawable.h"
 #include "lib/util/math/Vector2.h"
@@ -29,3 +31,4 @@ namespace Util::Game {
 
 }
 
+#endif //HHUOS_ENTITY_H

@@ -10,6 +10,8 @@ set(SOURCE_FILES
         ${HHUOS_SRC_DIR}/application/snake/snake.cpp
         ${HHUOS_SRC_DIR}/application/snake/SnakeGame.cpp)
 
-add_executable(${PROJECT_NAME} ${SOURCE_FILES} ../../../src/application/snake/SnakeEntity.h ../../../src/application/snake/SnakeEntity.cpp)
+add_executable(${PROJECT_NAME} ${SOURCE_FILES}
+        ../../../src/application/snake/SnakeEntity.h ../../../src/application/snake/SnakeEntity.cpp
+        ../../../src/application/snake/FoodEntity.h ../../../src/application/snake/FoodEntity.cpp)
 
 target_link_libraries(${PROJECT_NAME} lib.crt0 lib.user)

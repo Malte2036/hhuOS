@@ -6,7 +6,6 @@
 #define HHUOS_SNAKEENTITY_H
 
 
-#include "lib/util/game/Game.h"
 #include "lib/util/game/Entity.h"
 #include "lib/util/game/collider/RectangleCollider.h"
 

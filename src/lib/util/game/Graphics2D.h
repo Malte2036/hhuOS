@@ -53,7 +53,7 @@ public:
 
     void drawPolygon(const Data::Array<double> &x, const Data::Array<double> &y) const;
 
-    void drawRectangle(const Vector2& position, double size) const;
+    void drawSquare(const Vector2& position, double size) const;
 
     void drawString(double x, double y, const char *string) const;
 
