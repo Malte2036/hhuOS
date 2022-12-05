@@ -22,6 +22,7 @@
 #include "lib/util/graphic/LineDrawer.h"
 #include "lib/util/graphic/StringDrawer.h"
 #include "lib/util/graphic/Colors.h"
+#include "lib/util/math/Vector2.h"
 
 namespace Util::Game {
 
@@ -52,7 +53,7 @@ public:
 
     void drawPolygon(const Data::Array<double> &x, const Data::Array<double> &y) const;
 
-    void drawSquare( double x, double y, double size) const;
+    void drawRectangle(const Vector2& position, double size) const;
 
     void drawString(double x, double y, const char *string) const;
 

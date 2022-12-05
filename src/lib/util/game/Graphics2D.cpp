@@ -39,7 +39,9 @@ void Graphics2D::drawPolygon(const Data::Array<double> &x, const Data::Array<dou
     drawLine(x[x.length() - 1], y[y.length() - 1], x[0], y[0]);
 }
 
-void Graphics2D::drawSquare( double x, double y, double size) const {
+void Graphics2D::drawRectangle(const Vector2& position, double size) const {
+    double x = position.getX();
+    double y = position.getY();
     drawLine(x, y, x + size, y);
     drawLine(x, y + size, x + size, y + size);
     drawLine(x, y, x, y + size);

@@ -8,10 +8,8 @@ DemoEntity::DemoEntity(const Vector2& position, double size, Util::Graphic::Colo
         position, size), color{color}, direction{direction} {}
 
 void DemoEntity::draw(Util::Game::Graphics2D &graphics) const {
-    auto position = getPosition();
-
     graphics.setColor(color);
-    graphics.drawSquare(position.getX(), position.getY(), getSize());
+    graphics.drawRectangle(getPosition(), getSize());
 }
 
 DirectionType DemoEntity::getDirection() {
