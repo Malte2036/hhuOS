@@ -3,11 +3,27 @@
 //
 
 #include "RectangleCollider.h"
+#include "lib/util/log/Logger.h"
 
 
-Util::Game::RectangleCollider::RectangleCollider(double height, double width) : height{height}, width{width} {}
+Util::Game::RectangleCollider::RectangleCollider(Vector2 position, double height, double width) : Collider(
+        "RectangleCollider", position), height{height}, width{width} {}
 
+double Util::Game::RectangleCollider::getHeight() {
+    return height;
+}
 
-bool Util::Game::RectangleCollider::isColliding(Util::Game::Collider &other) {
+double Util::Game::RectangleCollider::getWidth() {
+    return width;
+}
+
+bool Util::Game::RectangleCollider::isColliding(RectangleCollider other) {
+    if (getPosition().getX() < other.getPosition().getX() + other.getWidth() &&
+        getPosition().getX() + getWidth() > other.getPosition().getX() &&
+        getPosition().getY() < other.getPosition().getY() + other.getHeight() &&
+        getHeight() + getPosition().getY() > other.getPosition().getY()) {
+        Logger::logMessage("collided");
+        return true;
+    }
     return false;
 }

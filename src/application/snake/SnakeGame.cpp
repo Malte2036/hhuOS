@@ -8,12 +8,13 @@
 #include "FoodEntity.h"
 
 SnakeEntity *snake = nullptr;
+FoodEntity *food = nullptr;
 
 SnakeGame::SnakeGame() {
     snake = new SnakeEntity(Vector2(0,0), 0.1, Util::Graphic::Colors::MAGENTA, none, 0.02);
     addObject(snake);
 
-    auto food = new FoodEntity(Vector2(0.3, 0.4), 0.05);
+    food = new FoodEntity(Vector2(0.3, 0.4), 0.05);
     addObject(food);
 
     setKeyListener(*this);
@@ -22,6 +23,12 @@ SnakeGame::SnakeGame() {
 }
 
 void SnakeGame::update(double delta) {
+    if(food != nullptr) {
+        bool collided = snake->getCollider().isColliding(food->getCollider());
+        if(collided){
+            food->setPosition(Vector2(-0.1, 0.6));
+        }
+    }
     snake->move();
 }
 

@@ -16,6 +16,6 @@ void FoodEntity::onTransformEvent(Util::Game::TransformEvent *event) {
 }
 
 Util::Game::RectangleCollider FoodEntity::getCollider() const {
-    return Util::Game::RectangleCollider(size, size);
+    return Util::Game::RectangleCollider(getPosition(), size, size);
 }
 

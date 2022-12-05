@@ -29,7 +29,7 @@ void SnakeEntity::setColor(Util::Graphic::Color value) {
 }
 
 Util::Game::RectangleCollider SnakeEntity::getCollider() const {
-    return Util::Game::RectangleCollider(size, size);
+    return Util::Game::RectangleCollider(getPosition(), size, size);
 }
 
 void SnakeEntity::onTransformEvent(Util::Game::TransformEvent *event) {
@@ -40,6 +40,7 @@ void SnakeEntity::onTransformEvent(Util::Game::TransformEvent *event) {
         setDirection(none);
 
         Logger::logMessage("TransformEvent cancelled");
+        Logger::logMessage(getCollider().getType());
     }
 }
 

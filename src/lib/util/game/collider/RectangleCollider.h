@@ -10,9 +10,12 @@
 namespace Util::Game {
     class RectangleCollider : public Collider {
     public:
-        explicit RectangleCollider(double height, double width);
+        explicit RectangleCollider(Vector2 position, double height, double width);
 
-        bool isColliding(Collider &other) override;
+        double getHeight();
+        double getWidth();
+
+        bool isColliding(RectangleCollider other);
 
     private:
         const double height, width;
