@@ -13,10 +13,16 @@
 
 namespace Util::Game {
     class Entity : public Drawable {
+        friend class Game;
+
     public:
         explicit Entity(const Vector2 &position);
 
         void transform(const Vector2 &vector2);
+
+        void transformX(const double x);
+
+        void transformY(const double y);
 
         virtual void onTransformEvent(TransformEvent *event) = 0;
 
@@ -28,8 +34,12 @@ namespace Util::Game {
 
         virtual Util::Game::RectangleCollider getCollider() const = 0;
 
+
     private:
+        void performTransformation(double frameTime);
+
         Vector2 position;
+        Vector2 force = Vector2();
     };
 
 }

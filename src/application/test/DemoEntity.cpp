@@ -4,31 +4,19 @@
 
 #include "DemoEntity.h"
 
-DemoEntity::DemoEntity(const Vector2& position, double size, Util::Graphic::Color color, DirectionType direction) : Entity(
-        position), color{color}, direction{direction}, size{size} {}
+const double speed = 0.5;
+
+DemoEntity::DemoEntity(const Vector2 &position, double size, Util::Graphic::Color color) : Entity(
+        position), color{color}, size{size} {}
 
 void DemoEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.setColor(color);
     graphics.drawSquare(getPosition(), size);
 }
 
-DirectionType DemoEntity::getDirection() {
-    return direction;
-}
-
-void DemoEntity::setDirection(DirectionType directionType) {
-    direction = directionType;
-}
-
-void DemoEntity::setColor(Util::Graphic::Color value) {
-    color = value;
-}
-
 void DemoEntity::onTransformEvent(Util::Game::TransformEvent *event) {
     auto transformTo = event->getTransformTo();
-
-    if (transformTo.getX() > 1 || transformTo.getX() < -1 ||
-        transformTo.getY() > (1 - size) || transformTo.getY() < -1) {
+    if(transformTo.getX() > 1 || transformTo.getX() < -1){
         event->setCanceled(true);
     }
 }
@@ -39,4 +27,16 @@ Util::Game::RectangleCollider DemoEntity::getCollider() const {
 
 void DemoEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
 
+}
+
+void DemoEntity::moveRight() {
+    transformX(speed);
+}
+
+void DemoEntity::moveLeft() {
+    transformX(-speed);
+}
+
+void DemoEntity::jump() {
+    transformY(speed);
 }

@@ -8,75 +8,35 @@
 #include "DemoEntity.h"
 
 
-auto sprites = Util::Data::Array<DemoEntity *>(2);
+DemoEntity *player = nullptr;
 
 TestDemo::TestDemo() {
     Util::System::out << "Starting testDemo\n";
 
-    DemoEntity *s = new DemoEntity(Vector2(0, 0),0.2, Util::Graphic::Colors::HHU_BLUE, right);
-    sprites[0] = s;
-
-    addObject(s);
+    player = new DemoEntity(Vector2(0, 0), 0.2, Util::Graphic::Colors::HHU_BLUE);
+    addEntity(player);
 
     setKeyListener(*this);
 }
 
 
 void TestDemo::update(double delta) {
-    auto player = sprites[0];
-    /*if(player->getX() >= 1){
-        player->setDirection(left);
-        player->setColor(Util::Graphic::Colors::CYAN);
-    }else if(player->getX() <= -1){
-        player->setDirection(right);
-        player->setColor(Util::Graphic::Colors::GREEN);
-    }*/
 
-    double speed = 0.03;
-    double xForce = 0;
-    double yForce = 0;
-
-    switch (player->getDirection()) {
-        case up:
-            yForce = speed;
-            break;
-        case down:
-            yForce = -speed;
-            break;
-        case left:
-            xForce = -speed;
-            break;
-        case right:
-            xForce = speed;
-            break;
-    }
-
-    sprites[0]->transform(Vector2(xForce, yForce));
-
-    //Util::System::out << "update\n";
-
-    auto color = Util::Graphic::Colors::BLACK;
 }
 
 void TestDemo::keyPressed(char c) {
-    auto player = sprites[0];
     switch (c) {
-        case 'w':
-            player->setDirection(up);
-            break;
         case 'a':
-            player->setDirection(left);
-            break;
-        case 's':
-            player->setDirection(down);
-            break;
+            player->moveLeft();
+            return;
         case 'd':
-            player->setDirection(right);
-            break;
+            player->moveRight();
+            return;
+        case 'w':
+            player->jump();
+            return;
         case 'q':
             stop();
-            break;
-        default:
-            player->setColor(Util::Graphic::Colors::RED);
+            return;
     }
 }

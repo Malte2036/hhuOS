@@ -15,6 +15,12 @@ public:
     Vector2 &operator=(const Vector2 &other) = default;
     virtual ~Vector2() = default;
 
+    Vector2 &operator*(const double value);
+
+    Vector2 &operator+(const Vector2 &other);
+
+    Vector2 &operator-(const Vector2 &other);
+
     Vector2 add(Vector2 other);
 
     double getX() const;

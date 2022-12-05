@@ -3,6 +3,7 @@
 //
 
 #include "Vector2.h"
+#include "Math.h"
 
 Vector2::Vector2() : x{0}, y{0} {}
 
@@ -18,4 +19,16 @@ double Vector2::getY() const {
 
 Vector2 Vector2::add(Vector2 other) {
     return {x + other.getX(), y + other.getY()};
+}
+
+Vector2 &Vector2::operator*(const double value) {
+    return *new Vector2(x * value, y * value);
+}
+
+Vector2 &Vector2::operator+(const Vector2 &other) {
+    return *new Vector2(x + other.x, y + other.y);
+}
+
+Vector2 &Vector2::operator-(const Vector2 &other) {
+    return *new Vector2(x - other.x, y - other.y);
 }

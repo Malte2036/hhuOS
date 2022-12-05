@@ -81,6 +81,13 @@ namespace Util::Game {
         entities.add(entity);
     }
 
+
+    void Game::performEntityTransformations(double frameTime) {
+        for (Entity *entity: entities) {
+            entity->performTransformation(frameTime);
+        }
+    }
+
     void Game::checkCollision() {
         for (Entity *entity: entities) {
             for (Entity *otherEntity: entities) {

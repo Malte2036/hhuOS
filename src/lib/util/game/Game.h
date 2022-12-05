@@ -62,8 +62,6 @@ namespace Util::Game {
 
         void draw(Graphics2D &graphics);
 
-        void checkCollision();
-
         virtual void update(double delta) = 0;
 
     protected:
@@ -78,12 +76,14 @@ namespace Util::Game {
 
         void setMouseListener(MouseListener &listener);
 
+        void checkCollision();
+
+        void performEntityTransformations(double frameTime);
+
     private:
 
         KeyListener *keyListener = nullptr;
         MouseListener *mouseListener = nullptr;
-
-        Data::ArrayList<Entity *> getEntities();
 
         Util::Data::ArrayList<Entity *> entities;
 
