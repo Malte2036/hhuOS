@@ -16,63 +16,80 @@
  */
 
 #include "Game.h"
+#include "lib/util/log/Logger.h"
 
 namespace Util::Game {
 
-Game::~Game() {
-    for (const auto *drawable : drawables) {
-        delete drawable;
+    Game::~Game() {
+        for (const auto *drawable: drawables) {
+            delete drawable;
+        }
+
+        drawables.clear();
     }
 
-    drawables.clear();
-}
-
-void Game::addObject(Drawable *drawable) {
-    addList.add(drawable);
-}
-
-void Game::removeObject(Drawable *drawable) {
-    removeList.add(drawable);
-}
-
-void Game::applyChanges() {
-    for (auto *object : addList) {
-        drawables.add(object);
+    void Game::addObject(Drawable *drawable) {
+        addList.add(drawable);
     }
 
-    for (auto *object : removeList) {
-        drawables.remove(object);
-        delete object;
+    void Game::removeObject(Drawable *drawable) {
+        removeList.add(drawable);
     }
 
-    addList.clear();
-    removeList.clear();
-}
+    void Game::applyChanges() {
+        for (auto *object: addList) {
+            drawables.add(object);
+        }
 
-void Game::draw(Graphics2D &graphics) {
-    for (const auto *object : drawables) {
-        object->draw(graphics);
+        for (auto *object: removeList) {
+            drawables.remove(object);
+            delete object;
+        }
+
+        addList.clear();
+        removeList.clear();
     }
-}
 
-bool Game::isRunning() const {
-    return running;
-}
+    void Game::draw(Graphics2D &graphics) {
+        for (const auto *object: drawables) {
+            object->draw(graphics);
+        }
+    }
 
-void Game::stop() {
-    Game::running = false;
-}
+    bool Game::isRunning() const {
+        return running;
+    }
 
-uint32_t Game::getObjectCount() const {
-    return drawables.size();
-}
+    void Game::stop() {
+        Game::running = false;
+    }
 
-void Game::setKeyListener(KeyListener &listener) {
-    keyListener = &listener;
-}
+    uint32_t Game::getObjectCount() const {
+        return drawables.size();
+    }
 
-void Game::setMouseListener(MouseListener &listener) {
-    mouseListener = &listener;
-}
+    void Game::setKeyListener(KeyListener &listener) {
+        keyListener = &listener;
+    }
 
+    void Game::setMouseListener(MouseListener &listener) {
+        mouseListener = &listener;
+    }
+
+    void Game::addEntity(Entity *entity) {
+        addList.add(entity);
+        entities.add(entity);
+    }
+
+    void Game::checkCollision() {
+        for (Entity *entity: entities) {
+            for (Entity *otherEntity: entities) {
+                if (entity != otherEntity) {
+                    if (entity->getCollider().isColliding(otherEntity->getCollider())) {
+                        entity->onCollisionEvent(new CollisionEvent());
+                    }
+                }
+            }
+        }
+    }
 }

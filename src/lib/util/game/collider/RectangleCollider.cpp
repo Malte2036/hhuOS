@@ -3,7 +3,6 @@
 //
 
 #include "RectangleCollider.h"
-#include "lib/util/log/Logger.h"
 
 
 Util::Game::RectangleCollider::RectangleCollider(Vector2 position, double height, double width) : Collider(
@@ -22,7 +21,6 @@ bool Util::Game::RectangleCollider::isColliding(RectangleCollider other) {
         getPosition().getX() + getWidth() > other.getPosition().getX() &&
         getPosition().getY() < other.getPosition().getY() + other.getHeight() &&
         getHeight() + getPosition().getY() > other.getPosition().getY()) {
-        Logger::logMessage("collided");
         return true;
     }
     return false;

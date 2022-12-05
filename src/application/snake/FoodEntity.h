@@ -16,6 +16,8 @@ public:
 
     void onTransformEvent(Util::Game::TransformEvent *event);
 
+    void onCollisionEvent(Util::Game::CollisionEvent *event);
+
     [[nodiscard]] Util::Game::RectangleCollider getCollider() const;
 
 

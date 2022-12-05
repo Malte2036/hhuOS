@@ -4,15 +4,17 @@
 
 #include "Event.h"
 
-Util::Memory::String Util::Game::Event::getType() {
-    return type;
-}
+namespace Util::Game {
+    Util::Memory::String Util::Game::Event::getType() {
+        return type;
+    }
 
-bool Util::Game::Event::isCanceled() {
-    return canceled;
-}
+    bool Event::isCanceled() {
+        return canceled;
+    }
 
-void Util::Game::Event::setCanceled(bool value) {
-    canceled = value;
+    void Event::setCanceled(bool value) {
+        canceled = value;
+    }
 }
 

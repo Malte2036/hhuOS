@@ -37,6 +37,7 @@ private:
     double speed;
 
     void onTransformEvent(Util::Game::TransformEvent *event) override;
+    void onCollisionEvent(Util::Game::CollisionEvent *event) override;
 };
 
 

@@ -23,66 +23,75 @@
 #include "Drawable.h"
 #include "KeyListener.h"
 #include "MouseListener.h"
+#include "Entity.h"
 
 namespace Util::Game {
 
-class Game {
+    class Game {
 
-friend class Engine;
+        friend class Engine;
 
-public:
-    /**
-     * Default Constructor.
-     */
-    Game() = default;
+    public:
+        /**
+         * Default Constructor.
+         */
+        Game() = default;
 
-    /**
-     * Copy Constructor.
-     */
-    Game(const Game &other) = delete;
+        /**
+         * Copy Constructor.
+         */
+        Game(const Game &other) = delete;
 
-    /**
-     * Assignment operator.
-     */
-    Game &operator=(const Game &other) = delete;
+        /**
+         * Assignment operator.
+         */
+        Game &operator=(const Game &other) = delete;
 
-    /**
-     * Destructor.
-     */
-    virtual ~Game();
+        /**
+         * Destructor.
+         */
+        virtual ~Game();
 
-    [[nodiscard]] bool isRunning() const;
+        [[nodiscard]] bool isRunning() const;
 
-    [[nodiscard]] uint32_t getObjectCount() const;
+        [[nodiscard]] uint32_t getObjectCount() const;
 
-    void stop();
+        void stop();
 
-    void applyChanges();
+        void applyChanges();
 
-    void draw(Graphics2D &graphics);
+        void draw(Graphics2D &graphics);
 
-    virtual void update(double delta) = 0;
+        void checkCollision();
 
-protected:
+        virtual void update(double delta) = 0;
 
-    void addObject(Drawable *drawable);
+    protected:
 
-    void removeObject(Drawable *drawable);
+        void addObject(Drawable *drawable);
 
-    void setKeyListener(KeyListener &listener);
+        void removeObject(Drawable *drawable);
 
-    void setMouseListener(MouseListener &listener);
+        void addEntity(Entity *entity);
 
-private:
+        void setKeyListener(KeyListener &listener);
 
-    KeyListener *keyListener = nullptr;
-    MouseListener *mouseListener = nullptr;
+        void setMouseListener(MouseListener &listener);
 
-    Util::Data::ArrayList<Drawable*> drawables;
-    Util::Data::ArrayList<Drawable*> addList;
-    Util::Data::ArrayList<Drawable*> removeList;
-    bool running = true;
-};
+    private:
+
+        KeyListener *keyListener = nullptr;
+        MouseListener *mouseListener = nullptr;
+
+        Data::ArrayList<Entity *> getEntities();
+
+        Util::Data::ArrayList<Entity *> entities;
+
+        Util::Data::ArrayList<Drawable *> drawables;
+        Util::Data::ArrayList<Drawable *> addList;
+        Util::Data::ArrayList<Drawable *> removeList;
+        bool running = true;
+    };
 
 }
 

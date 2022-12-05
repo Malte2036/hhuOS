@@ -3,6 +3,10 @@
 //
 
 #include "FoodEntity.h"
+#include "lib/util/log/Logger.h"
+#include "lib/util/math/Random.h"
+
+auto random = Util::Math::Random(12221);
 
 FoodEntity::FoodEntity(const Vector2 &position, double size) : Entity(position), size{size} {}
 
@@ -17,5 +21,10 @@ void FoodEntity::onTransformEvent(Util::Game::TransformEvent *event) {
 
 Util::Game::RectangleCollider FoodEntity::getCollider() const {
     return Util::Game::RectangleCollider(getPosition(), size, size);
+}
+
+void FoodEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
+    Logger::logMessage("Food collided!");
+    setPosition(Vector2(random.nextRandomNumber() / 65536, random.nextRandomNumber()/ 65536));
 }
 

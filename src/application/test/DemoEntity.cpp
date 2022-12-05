@@ -36,3 +36,7 @@ void DemoEntity::onTransformEvent(Util::Game::TransformEvent *event) {
 Util::Game::RectangleCollider DemoEntity::getCollider() const {
     return Util::Game::RectangleCollider(getPosition(), size, size);
 }
+
+void DemoEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
+
+}

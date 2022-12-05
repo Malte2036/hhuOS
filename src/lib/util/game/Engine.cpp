@@ -45,6 +45,7 @@ void Engine::run() {
 
         updateLock.acquire();
         game.update(frameTime);
+        game.checkCollision();
         game.applyChanges();
         statistics.stopUpdateTimeTime();
         updateLock.release();

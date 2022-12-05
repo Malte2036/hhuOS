@@ -44,6 +44,10 @@ void SnakeEntity::onTransformEvent(Util::Game::TransformEvent *event) {
     }
 }
 
+void SnakeEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
+    Logger::logMessage("Snake collided!");
+}
+
 void SnakeEntity::move() {
     switch (direction) {
         case right:

@@ -4,8 +4,10 @@
 
 #include "TransformEvent.h"
 
-Util::Game::TransformEvent::TransformEvent(Vector2 transformTo) : transformTo{transformTo} {}
+namespace Util::Game {
+    TransformEvent::TransformEvent(Vector2 transformTo) : transformTo{transformTo} {}
 
-Vector2 Util::Game::TransformEvent::getTransformTo() {
-    return transformTo;
+    Vector2 TransformEvent::getTransformTo() {
+        return transformTo;
+    }
 }

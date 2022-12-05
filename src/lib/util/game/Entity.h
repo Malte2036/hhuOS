@@ -7,6 +7,7 @@
 #include "Drawable.h"
 #include "lib/util/math/Vector2.h"
 #include "lib/util/game/event/TransformEvent.h"
+#include "lib/util/game/event/CollisionEvent.h"
 #include "lib/util/game/collider/Collider.h"
 #include "lib/util/game/collider/RectangleCollider.h"
 
@@ -18,6 +19,8 @@ namespace Util::Game {
         void transform(const Vector2 &vector2);
 
         virtual void onTransformEvent(TransformEvent *event) = 0;
+
+        virtual void onCollisionEvent(CollisionEvent *event) = 0;
 
         [[nodiscard]] Vector2 getPosition() const;
 
