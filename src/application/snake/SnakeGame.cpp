@@ -6,6 +6,7 @@
 #include "lib/util/log/Logger.h"
 #include "SnakeEntity.h"
 #include "FoodEntity.h"
+#include "lib/util/game/GameText.h"
 
 SnakeEntity *snake = nullptr;
 FoodEntity *food = nullptr;
@@ -16,6 +17,9 @@ SnakeGame::SnakeGame() {
 
     food = new FoodEntity(Vector2(0.3, 0.4), 0.05);
     addEntity(food);
+
+    auto text = new Util::Game::GameText(Vector2(-1, 0.95), "Snake Game", Util::Graphic::Colors::YELLOW);
+    addObject(text);
 
     setKeyListener(*this);
 
