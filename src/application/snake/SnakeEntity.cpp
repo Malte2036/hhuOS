@@ -7,12 +7,12 @@
 
 SnakeEntity::SnakeEntity(const Vector2 &position, double size, Util::Graphic::Color color, DirectionType direction,
                          double speed)
-        : Util::Game::Entity(position, size), color{color}, direction{direction}, speed{speed} {}
+        : Util::Game::Entity(position), color{color}, direction{direction}, size{size}, speed{speed} {}
 
 
 void SnakeEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.setColor(color);
-    graphics.drawRectangle(getPosition(), getSize());
+    graphics.drawRectangle(getPosition(), size);
 }
 
 
@@ -29,13 +29,13 @@ void SnakeEntity::setColor(Util::Graphic::Color value) {
 }
 
 Util::Game::RectangleCollider SnakeEntity::getCollider() const {
-    return Util::Game::RectangleCollider(getSize(), getSize());
+    return Util::Game::RectangleCollider(size, size);
 }
 
 void SnakeEntity::onTransformEvent(Util::Game::TransformEvent *event) {
     auto transformTo = event->getTransformTo();
-    if (transformTo.getX() > 1 || transformTo.getX() < (-1 - getSize())
-        || transformTo.getY() > (1 - getSize()) || transformTo.getY() < -1) {
+    if (transformTo.getX() > 1 || transformTo.getX() < (-1 - size)
+        || transformTo.getY() > (1 - size) || transformTo.getY() < -1) {
         event->setCanceled(true);
         setDirection(none);
 

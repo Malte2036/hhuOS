@@ -11,7 +11,7 @@
 namespace Util::Game {
     class Entity : public Drawable {
     public:
-        Entity(const Vector2 &position, double size);
+        explicit Entity(const Vector2 &position);
 
         void transform(const Vector2 &vector2);
 
@@ -21,13 +21,10 @@ namespace Util::Game {
 
         void setPosition(const Vector2 &vector2);
 
-        [[nodiscard]] double getSize() const;
-
         virtual Util::Game::RectangleCollider getCollider() const = 0;
 
     private:
         Vector2 position;
-        double size;
     };
 
 }

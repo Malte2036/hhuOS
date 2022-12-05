@@ -34,6 +34,7 @@ public:
 private:
     Util::Graphic::Color color;
     DirectionType direction;
+    double size;
     double speed;
 
     void onTransformEvent(Util::Game::TransformEvent *event) override;

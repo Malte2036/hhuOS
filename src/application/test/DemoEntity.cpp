@@ -5,11 +5,11 @@
 #include "DemoEntity.h"
 
 DemoEntity::DemoEntity(const Vector2& position, double size, Util::Graphic::Color color, DirectionType direction) : Entity(
-        position, size), color{color}, direction{direction} {}
+        position), color{color}, direction{direction}, size{size} {}
 
 void DemoEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.setColor(color);
-    graphics.drawRectangle(getPosition(), getSize());
+    graphics.drawRectangle(getPosition(), size);
 }
 
 DirectionType DemoEntity::getDirection() {
@@ -28,11 +28,11 @@ void DemoEntity::onTransformEvent(Util::Game::TransformEvent *event) {
     auto transformTo = event->getTransformTo();
 
     if (transformTo.getX() > 1 || transformTo.getX() < -1 ||
-        transformTo.getY() > (1 - getSize()) || transformTo.getY() < -1) {
+        transformTo.getY() > (1 - size) || transformTo.getY() < -1) {
         event->setCanceled(true);
     }
 }
 
 Util::Game::RectangleCollider DemoEntity::getCollider() const {
-    return Util::Game::RectangleCollider(getSize(), getSize());
+    return Util::Game::RectangleCollider(size, size);
 }
