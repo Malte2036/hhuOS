@@ -6,15 +6,15 @@
 
 #include "lib/util/system/System.h"
 #include "lib/util/data/Array.h"
-#include "DemoSprite.h"
+#include "DemoEntity.h"
 
 
-auto sprites = Util::Data::Array<DemoSprite *>(2);
+auto sprites = Util::Data::Array<DemoEntity *>(2);
 
 TestDemo::TestDemo() {
     Util::System::out << "Starting testDemo\n";
 
-    DemoSprite *s = new DemoSprite(0, 0, Util::Graphic::Colors::HHU_BLUE, right);
+    DemoEntity *s = new DemoEntity(0, 0, Util::Graphic::Colors::HHU_BLUE, right);
     sprites[0] = s;
 
     addObject(s);

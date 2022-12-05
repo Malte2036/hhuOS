@@ -2,12 +2,12 @@
 // Created by malte on 04.12.22.
 //
 
-#ifndef HHUOS_DEMOSPRITE_H
-#define HHUOS_DEMOSPRITE_H
+#ifndef HHUOS_DEMOENTITY_H
+#define HHUOS_DEMOENTITY_H
 
 
 #include "lib/util/game/Game.h"
-#include "lib/util/game/Sprite.h"
+#include "lib/util/game/Entity.h"
 
 enum DirectionType {
     left = 0,
@@ -16,9 +16,9 @@ enum DirectionType {
     down = 3
 };
 
-class DemoSprite : public Util::Game::Sprite {
+class DemoEntity : public Util::Game::Entity {
 public:
-    DemoSprite(double initialX, double initialY, Util::Graphic::Color initialColor, DirectionType initialDirection);
+    DemoEntity(double initialX, double initialY, Util::Graphic::Color initialColor, DirectionType initialDirection);
 
     void draw(Util::Game::Graphics2D &graphics) const override;
 
@@ -31,4 +31,4 @@ private:
 };
 
 
-#endif //HHUOS_DEMOSPRITE_H
+#endif //HHUOS_DEMOENTITY_H

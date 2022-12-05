@@ -2,24 +2,24 @@
 // Created by malte on 04.12.22.
 //
 //#include "iostream"
-#include "Sprite.h"
+#include "Entity.h"
 
 
 namespace Util::Game {
 
-    Sprite::Sprite(double initialX, double initialY, Graphic::Color initialColor) {
-        //std::cout << "Sprite constructor called!";
+    Entity::Entity(double initialX, double initialY, Graphic::Color initialColor) {
+        //std::cout << "Entity constructor called!";
         x = initialX;
         y = initialY;
         color = initialColor;
     }
 
-    void Sprite::draw(Graphics2D &graphics) const {
+    void Entity::draw(Graphics2D &graphics) const {
         graphics.setColor(color);
         graphics.drawSquare(x, y, 0.1);
     }
 
-    void Sprite::transform(double xTransform, double yTransform) {
+    void Entity::transform(double xTransform, double yTransform) {
         x += xTransform;
         y += yTransform;
 
@@ -36,15 +36,15 @@ namespace Util::Game {
         }
     }
 
-    double Sprite::getX() {
+    double Entity::getX() {
         return x;
     }
 
-    double Sprite::getY() {
+    double Entity::getY() {
         return y;
     }
 
-    void Sprite::setColor(Graphic::Color newColor) {
+    void Entity::setColor(Graphic::Color newColor) {
         color = newColor;
     }
 }

@@ -5,9 +5,9 @@
 #include "Drawable.h"
 
 namespace Util::Game {
-    class Sprite : public Drawable {
+    class Entity : public Drawable {
     public:
-        Sprite(double initialX, double initialY, Graphic::Color initialColor);
+        Entity(double initialX, double initialY, Graphic::Color initialColor);
 
         void draw(Graphics2D &graphics) const override;
 
