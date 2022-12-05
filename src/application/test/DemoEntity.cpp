@@ -34,3 +34,7 @@ void DemoEntity::onTransformEvent(Util::Game::TransformEvent *event) {
         event->setCanceled(true);
     }
 }
+
+Util::Game::RectangleCollider DemoEntity::getCollider() const {
+    return Util::Game::RectangleCollider(getSize(), getSize());
+}

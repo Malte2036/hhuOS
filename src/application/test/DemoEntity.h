@@ -8,6 +8,7 @@
 
 #include "lib/util/game/Game.h"
 #include "lib/util/game/Entity.h"
+#include "lib/util/game/collider/RectangleCollider.h"
 
 enum DirectionType {
     left = 0,
@@ -27,6 +28,8 @@ public:
     DirectionType getDirection();
 
     void setDirection(DirectionType directionType);
+
+    [[nodiscard]] Util::Game::RectangleCollider getCollider() const;
 
 private:
     Util::Graphic::Color color;
