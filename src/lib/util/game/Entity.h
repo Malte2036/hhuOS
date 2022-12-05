@@ -4,6 +4,7 @@
 
 #include "Drawable.h"
 #include "lib/util/math/Vector2.h"
+#include "lib/util/game/event/TransformEvent.h"
 
 namespace Util::Game {
     class Entity : public Drawable {
@@ -14,7 +15,7 @@ namespace Util::Game {
 
         void transform(Vector2 vector2);
 
-        virtual void onTransformEvent(Vector2 vector2) = 0;
+        virtual void onTransformEvent(TransformEvent *event) = 0;
 
         Vector2 getPosition();
 

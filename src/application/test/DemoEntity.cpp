@@ -19,17 +19,11 @@ void DemoEntity::setDirection(DirectionType directionType) {
     direction = directionType;
 }
 
-void DemoEntity::onTransformEvent(Vector2 vector2) {
-    if (vector2.getX() > 1) {
-        vector2 = Vector2(1, vector2.getY());
-    } else if (vector2.getX() < -1) {
-        vector2 = Vector2(-1, vector2.getY());
-    }
+void DemoEntity::onTransformEvent(Util::Game::TransformEvent *event) {
+    auto transformTo = event->getTransformTo();
 
-    if (vector2.getY() > (1 - getSize())) {
-        vector2 = Vector2(vector2.getX(), 1 - getSize());
-    } else if (vector2.getY() < -1) {
-        vector2 = Vector2(vector2.getX(), -1);
+    if (transformTo.getX() > 1 || transformTo.getX() < -1 ||
+        transformTo.getY() > (1 - getSize()) || transformTo.getY() < -1) {
+        event->setCanceled(true);
     }
-    setPosition(vector2);
 }

@@ -22,3 +22,6 @@ target_sources(lib.util PUBLIC
         ${HHUOS_SRC_DIR}/lib/util/game/Graphics2D.cpp
         ${HHUOS_SRC_DIR}/lib/util/game/Polygon.cpp
         ${HHUOS_SRC_DIR}/lib/util/game/Entity.cpp)
+
+
+add_subdirectory(event)

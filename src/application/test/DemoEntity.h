@@ -29,7 +29,7 @@ public:
 private:
     DirectionType direction;
 
-    void onTransformEvent(Vector2 vector2) override;
+    void onTransformEvent(Util::Game::TransformEvent *event) override;
 };
 
 

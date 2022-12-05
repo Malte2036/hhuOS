@@ -16,9 +16,13 @@ namespace Util::Game {
 
     void Entity::transform(Vector2 vector2) {
         auto newVector2 = position.add(vector2);
-        setPosition(newVector2);
 
-        onTransformEvent(newVector2);
+        auto event = new TransformEvent(newVector2);
+
+        onTransformEvent(event);
+        if(!event->isCanceled()){
+            setPosition(newVector2);
+        }
     }
 
     void Entity::setColor(Graphic::Color newColor) {
