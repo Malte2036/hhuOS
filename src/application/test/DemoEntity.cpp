@@ -4,11 +4,14 @@
 
 #include "DemoEntity.h"
 
-DemoEntity::DemoEntity(Vector2 position, double size, Util::Graphic::Color color, DirectionType direction) : Entity(
-        position, size, color), direction{direction} {}
+DemoEntity::DemoEntity(const Vector2& position, double size, Util::Graphic::Color color, DirectionType direction) : Entity(
+        position, size), color{color}, direction{direction} {}
 
 void DemoEntity::draw(Util::Game::Graphics2D &graphics) const {
-    Entity::draw(graphics);
+    auto position = getPosition();
+
+    graphics.setColor(color);
+    graphics.drawSquare(position.getX(), position.getY(), getSize());
 }
 
 DirectionType DemoEntity::getDirection() {
@@ -17,6 +20,10 @@ DirectionType DemoEntity::getDirection() {
 
 void DemoEntity::setDirection(DirectionType directionType) {
     direction = directionType;
+}
+
+void DemoEntity::setColor(Util::Graphic::Color value) {
+    color = value;
 }
 
 void DemoEntity::onTransformEvent(Util::Game::TransformEvent *event) {

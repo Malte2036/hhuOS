@@ -9,26 +9,21 @@
 namespace Util::Game {
     class Entity : public Drawable {
     public:
-        Entity(Vector2 position, double size, Graphic::Color color);
+        Entity(const Vector2& position, double size);
 
-        void draw(Graphics2D &graphics) const override;
-
-        void transform(Vector2 vector2);
+        void transform(const Vector2& vector2);
 
         virtual void onTransformEvent(TransformEvent *event) = 0;
 
-        Vector2 getPosition();
+        [[nodiscard]] Vector2 getPosition() const;
 
-        void setPosition(Vector2 vector2);
+        void setPosition(const Vector2& vector2);
 
-        double getSize();
-
-        void setColor(Graphic::Color newColor);
+        [[nodiscard]] double getSize() const;
 
     private:
         Vector2 position;
         double size;
-        Graphic::Color color;
     };
 
 }

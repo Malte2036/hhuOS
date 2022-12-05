@@ -6,15 +6,9 @@
 
 namespace Util::Game {
 
-    Entity::Entity(Vector2 position, double size, Graphic::Color color) : position{position}, size{size},
-                                                                          color{color} {}
+    Entity::Entity(const Vector2& position, double size) : position{position}, size{size} {}
 
-    void Entity::draw(Graphics2D &graphics) const {
-        graphics.setColor(color);
-        graphics.drawSquare(position.getX(), position.getY(), size);
-    }
-
-    void Entity::transform(Vector2 vector2) {
+    void Entity::transform(const Vector2& vector2) {
         auto newVector2 = position.add(vector2);
 
         auto event = new TransformEvent(newVector2);
@@ -25,19 +19,15 @@ namespace Util::Game {
         }
     }
 
-    void Entity::setColor(Graphic::Color newColor) {
-        color = newColor;
-    }
-
-    Vector2 Entity::getPosition() {
+    Vector2 Entity::getPosition() const {
         return position;
     }
 
-    void Entity::setPosition(Vector2 vector2) {
+    void Entity::setPosition(const Vector2& vector2) {
         position = vector2;
     }
 
-    double Entity::getSize() {
+    double Entity::getSize() const {
         return size;
     }
 }

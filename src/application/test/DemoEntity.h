@@ -18,15 +18,18 @@ enum DirectionType {
 
 class DemoEntity : public Util::Game::Entity {
 public:
-    DemoEntity(Vector2 position, double size, Util::Graphic::Color color, DirectionType direction);
+    DemoEntity(const Vector2& position, double size, Util::Graphic::Color color, DirectionType direction);
 
     void draw(Util::Game::Graphics2D &graphics) const override;
+
+    void setColor(Util::Graphic::Color value);
 
     DirectionType getDirection();
 
     void setDirection(DirectionType directionType);
 
 private:
+    Util::Graphic::Color color;
     DirectionType direction;
 
     void onTransformEvent(Util::Game::TransformEvent *event) override;
