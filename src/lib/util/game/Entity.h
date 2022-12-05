@@ -14,6 +14,8 @@ namespace Util::Game {
 
         void transform(Vector2 vector2);
 
+        virtual void onTransformEvent(Vector2 vector2) = 0;
+
         Vector2 getPosition();
 
         void setPosition(Vector2 vector2);

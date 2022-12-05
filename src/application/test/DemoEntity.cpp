@@ -18,3 +18,18 @@ DirectionType DemoEntity::getDirection() {
 void DemoEntity::setDirection(DirectionType directionType) {
     direction = directionType;
 }
+
+void DemoEntity::onTransformEvent(Vector2 vector2) {
+    if (vector2.getX() > 1) {
+        vector2 = Vector2(1, vector2.getY());
+    } else if (vector2.getX() < -1) {
+        vector2 = Vector2(-1, vector2.getY());
+    }
+
+    if (vector2.getY() > (1 - getSize())) {
+        vector2 = Vector2(vector2.getX(), 1 - getSize());
+    } else if (vector2.getY() < -1) {
+        vector2 = Vector2(vector2.getX(), -1);
+    }
+    setPosition(vector2);
+}

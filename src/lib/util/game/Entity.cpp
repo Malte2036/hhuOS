@@ -16,20 +16,9 @@ namespace Util::Game {
 
     void Entity::transform(Vector2 vector2) {
         auto newVector2 = position.add(vector2);
-
-        if (newVector2.getX() > 1) {
-            newVector2 = Vector2(1, newVector2.getY());
-        } else if (newVector2.getX() < -1) {
-            newVector2 = Vector2(-1, newVector2.getY());
-        }
-
-        if (newVector2.getY() > (1 - size)) {
-            newVector2 = Vector2(newVector2.getX(), 1 - size);
-        } else if (newVector2.getY() < -1) {
-            newVector2 = Vector2(newVector2.getX(), -1);
-        }
-
         setPosition(newVector2);
+
+        onTransformEvent(newVector2);
     }
 
     void Entity::setColor(Graphic::Color newColor) {

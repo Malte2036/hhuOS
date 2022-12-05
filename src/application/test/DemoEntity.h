@@ -28,6 +28,8 @@ public:
 
 private:
     DirectionType direction;
+
+    void onTransformEvent(Vector2 vector2) override;
 };
 
 
