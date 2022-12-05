@@ -12,8 +12,7 @@ namespace Util::Game {
     public:
         Memory::String getType();
 
-        bool isCanceled();
-        void setCanceled(bool value);
+
 
     private:
         Memory::String type;

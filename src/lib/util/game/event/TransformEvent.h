@@ -5,13 +5,13 @@
 #ifndef HHUOS_TRANSFORMEVENT_H
 #define HHUOS_TRANSFORMEVENT_H
 
-#include "Event.h"
 #include "lib/util/memory/String.h"
 #include "lib/util/math/Vector2.h"
+#include "CancelableEvent.h"
 
 
 namespace Util::Game {
-    class TransformEvent : public Event {
+    class TransformEvent : public CancelableEvent {
     public:
         explicit TransformEvent(Vector2 transformTo);
 
