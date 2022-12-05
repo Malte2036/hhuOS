@@ -18,7 +18,7 @@ enum DirectionType {
 
 class DemoEntity : public Util::Game::Entity {
 public:
-    DemoEntity(Vector2 position, Util::Graphic::Color color, DirectionType direction);
+    DemoEntity(Vector2 position, double size, Util::Graphic::Color color, DirectionType direction);
 
     void draw(Util::Game::Graphics2D &graphics) const override;
 

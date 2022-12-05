@@ -8,7 +8,7 @@
 namespace Util::Game {
     class Entity : public Drawable {
     public:
-        Entity(Vector2 position, Graphic::Color color);
+        Entity(Vector2 position, double size, Graphic::Color color);
 
         void draw(Graphics2D &graphics) const override;
 
@@ -18,10 +18,13 @@ namespace Util::Game {
 
         void setPosition(Vector2 vector2);
 
+        double getSize();
+
         void setColor(Graphic::Color newColor);
 
     private:
         Vector2 position;
+        double size;
         Graphic::Color color;
     };
 

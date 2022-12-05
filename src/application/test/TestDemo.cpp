@@ -13,7 +13,7 @@ auto sprites = Util::Data::Array<DemoEntity *>(2);
 TestDemo::TestDemo() {
     Util::System::out << "Starting testDemo\n";
 
-    DemoEntity *s = new DemoEntity(Vector2(0, 0), Util::Graphic::Colors::HHU_BLUE, right);
+    DemoEntity *s = new DemoEntity(Vector2(0, 0),0.2, Util::Graphic::Colors::HHU_BLUE, right);
     sprites[0] = s;
 
     addObject(s);
