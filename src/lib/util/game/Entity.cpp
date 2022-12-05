@@ -7,8 +7,6 @@
 
 namespace Util::Game {
 
-    const double friction = 1.5;
-
     Entity::Entity(const Vector2 &position) : position{position} {}
 
     void Entity::transform(const Vector2 &vector2) {
@@ -32,25 +30,15 @@ namespace Util::Game {
     }
 
     void Entity::performTransformation(double frameTime) {
-        if (!(force.getX() == 0 && force.getY() == 0)) {
-            Logger::logMessage(Util::Memory::String::format("frameTime: 0.%04u", frameTime));
-            auto calculatedForce = force * frameTime;
 
-            auto newPosition = position.add(calculatedForce);
+        auto newPosition = position.add(force);
 
-            auto event = new TransformEvent(newPosition);
-            onTransformEvent(event);
-            
-            if (!event->isCanceled()) {
-                setPosition(newPosition);
-                force = force - (calculatedForce * friction);
+        auto event = new TransformEvent(newPosition);
+        onTransformEvent(event);
 
-                if (!(force.getX() > 0.01 || force.getX() < -0.01)) {
-                    force = Vector2();
-                }
-            } else {
-                force = Vector2();
-            }
+        if (!event->isCanceled()) {
+            setPosition(newPosition);
         }
+        force = Vector2();
     }
 }

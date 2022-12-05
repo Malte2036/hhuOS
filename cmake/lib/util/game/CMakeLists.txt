@@ -22,7 +22,8 @@ target_sources(lib.util PUBLIC
         ${HHUOS_SRC_DIR}/lib/util/game/GameText.cpp
         ${HHUOS_SRC_DIR}/lib/util/game/Graphics2D.cpp
         ${HHUOS_SRC_DIR}/lib/util/game/Polygon.cpp
-        ${HHUOS_SRC_DIR}/lib/util/game/Entity.cpp)
+        ${HHUOS_SRC_DIR}/lib/util/game/Entity.cpp
+        ${HHUOS_SRC_DIR}/lib/util/game/GravityEntity.cpp)
 
 
 add_subdirectory(event)

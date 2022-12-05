@@ -13,7 +13,7 @@ DemoEntity *player = nullptr;
 TestDemo::TestDemo() {
     Util::System::out << "Starting testDemo\n";
 
-    player = new DemoEntity(Vector2(0, 0), 0.2, Util::Graphic::Colors::HHU_BLUE);
+    player = new DemoEntity(Vector2(0, 0), 0.1, Util::Graphic::Colors::HHU_BLUE);
     addEntity(player);
 
     setKeyListener(*this);
@@ -33,7 +33,10 @@ void TestDemo::keyPressed(char c) {
             player->moveRight();
             return;
         case 'w':
-            player->jump();
+            player->moveUp();
+            return;
+        case 's':
+            player->moveDown();
             return;
         case 'q':
             stop();

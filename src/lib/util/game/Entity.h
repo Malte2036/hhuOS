@@ -36,10 +36,11 @@ namespace Util::Game {
 
 
     private:
-        void performTransformation(double frameTime);
+        virtual void performTransformation(double frameTime);
 
-        Vector2 position;
+    protected:
         Vector2 force = Vector2();
+        Vector2 position;
     };
 
 }
