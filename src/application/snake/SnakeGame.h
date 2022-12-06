@@ -7,13 +7,24 @@
 
 #include "lib/util/game/Game.h"
 
+
+struct SnakeGameData {
+    int score;
+};
+
 class SnakeGame : public Util::Game::Game, public Util::Game::KeyListener {
+
+
 public:
+
     SnakeGame();
 
     void update(double delta);
 
     void keyPressed(char c) override;
+
+private:
+    SnakeGameData gameData;
 };
 
 

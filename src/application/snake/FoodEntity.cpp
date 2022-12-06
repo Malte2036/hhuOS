@@ -8,7 +8,8 @@
 
 auto random = Util::Math::Random(12221);
 
-FoodEntity::FoodEntity(const Vector2 &position, double size) : Entity(position), size{size} {}
+FoodEntity::FoodEntity(const Vector2 &position, double size, SnakeGameData *gameData) : Entity(position), size{size},
+                                                                                        gameData{gameData} {}
 
 void FoodEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.setColor(Util::Graphic::Colors::YELLOW);
@@ -25,6 +26,8 @@ Util::Game::RectangleCollider FoodEntity::getCollider() const {
 
 void FoodEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
     Logger::logMessage("Food collided!");
-    setPosition(Vector2(random.nextRandomNumber() / 65536, random.nextRandomNumber()/ 65536));
+    setPosition(Vector2(random.nextRandomNumber(), random.nextRandomNumber()));
+
+    gameData->score = gameData->score + 1;
 }
 

@@ -10,16 +10,19 @@
 
 SnakeEntity *snake = nullptr;
 FoodEntity *food = nullptr;
+Util::Game::GameText *scoreText = nullptr;
 
 SnakeGame::SnakeGame() {
+    gameData = {12};
+
     snake = new SnakeEntity(Vector2(0, 0), 0.1, Util::Graphic::Colors::MAGENTA, none, 0.02);
     addEntity(snake);
 
-    food = new FoodEntity(Vector2(0.3, 0.4), 0.05);
+    food = new FoodEntity(Vector2(0.3, 0.4), 0.05, &gameData);
     addEntity(food);
 
-    auto text = new Util::Game::GameText(Vector2(-1, 0.95), "Snake Game", Util::Graphic::Colors::YELLOW);
-    addObject(text);
+    scoreText = new Util::Game::GameText(Vector2(-1, 0.95), "Snake Game", Util::Graphic::Colors::YELLOW);
+    addObject(scoreText);
 
     setKeyListener(*this);
 

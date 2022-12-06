@@ -40,7 +40,6 @@ void SnakeEntity::onTransformEvent(Util::Game::TransformEvent *event) {
         setDirection(none);
 
         Logger::logMessage("TransformEvent cancelled");
-        Logger::logMessage(getCollider().getType());
     }
 }
 
