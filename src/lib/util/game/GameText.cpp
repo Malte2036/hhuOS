@@ -15,4 +15,8 @@ namespace Util::Game {
         graphics.setColor(color);
         graphics.drawString(position.getX(), position.getY(), text);
     }
+
+    void GameText::setText(Memory::String value) {
+        text = value;
+    }
 }

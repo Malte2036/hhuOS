@@ -18,6 +18,9 @@ namespace Util::Game {
 
         void draw(Util::Game::Graphics2D &graphics) const override;
 
+    protected:
+        void setText(Memory::String value);
+
     private:
         Vector2 position;
         Memory::String text;

@@ -26,7 +26,7 @@ Util::Game::RectangleCollider FoodEntity::getCollider() const {
 
 void FoodEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
     Logger::logMessage("Food collided!");
-    setPosition(Vector2(random.nextRandomNumber(), random.nextRandomNumber()));
+    setPosition(Vector2((random.nextRandomNumber() * 2) - 1, (random.nextRandomNumber() * 2) - 1));
 
     gameData->score = gameData->score + 1;
 }

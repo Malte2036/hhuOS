@@ -12,6 +12,7 @@ set(SOURCE_FILES
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES}
         ../../../src/application/snake/SnakeEntity.h ../../../src/application/snake/SnakeEntity.cpp
+        ../../../src/application/snake/FoodEntity.h ../../../src/application/snake/SnakeScoreText.cpp
         ../../../src/application/snake/FoodEntity.h ../../../src/application/snake/FoodEntity.cpp)
 
 target_link_libraries(${PROJECT_NAME} lib.crt0 lib.user)

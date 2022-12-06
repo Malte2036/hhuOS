@@ -25,6 +25,8 @@ public:
 
 private:
     SnakeGameData gameData;
+
+    void setScore(int value);
 };
 
 

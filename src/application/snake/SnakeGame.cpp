@@ -7,13 +7,14 @@
 #include "SnakeEntity.h"
 #include "FoodEntity.h"
 #include "lib/util/game/GameText.h"
+#include "SnakeScoreText.h"
 
 SnakeEntity *snake = nullptr;
 FoodEntity *food = nullptr;
-Util::Game::GameText *scoreText = nullptr;
+SnakeScoreText *scoreText = nullptr;
 
 SnakeGame::SnakeGame() {
-    gameData = {12};
+    gameData = {0};
 
     snake = new SnakeEntity(Vector2(0, 0), 0.1, Util::Graphic::Colors::MAGENTA, none, 0.02);
     addEntity(snake);
@@ -21,7 +22,7 @@ SnakeGame::SnakeGame() {
     food = new FoodEntity(Vector2(0.3, 0.4), 0.05, &gameData);
     addEntity(food);
 
-    scoreText = new Util::Game::GameText(Vector2(-1, 0.95), "Snake Game", Util::Graphic::Colors::YELLOW);
+    scoreText = new SnakeScoreText(Vector2(-1, 0.95), gameData.score);
     addObject(scoreText);
 
     setKeyListener(*this);
@@ -29,8 +30,14 @@ SnakeGame::SnakeGame() {
     Logger::logMessage("Starting SnakeGame");
 }
 
+int lastScore = 0;
+
 void SnakeGame::update(double delta) {
     snake->move();
+    if (lastScore != gameData.score) {
+        scoreText->setScore(gameData.score);
+        lastScore = gameData.score;
+    }
 }
 
 void SnakeGame::keyPressed(char c) {
