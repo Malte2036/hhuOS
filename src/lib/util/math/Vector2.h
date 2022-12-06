@@ -23,6 +23,8 @@ public:
 
     Vector2 add(Vector2 other);
 
+    double length() const;
+
     double getX() const;
     double getY() const;
 private:

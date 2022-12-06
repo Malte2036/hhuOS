@@ -3,7 +3,6 @@
 //
 
 #include "GravityEntity.h"
-#include "lib/util/log/Logger.h"
 
 namespace Util::Game {
 
@@ -12,8 +11,7 @@ namespace Util::Game {
     GravityEntity::GravityEntity(const Vector2 position) : Entity(position) {}
 
     void GravityEntity::performTransformation(double frameTime) {
-        if (!(force.getX() == 0 && force.getY() == 0)) {
-            Logger::logMessage(Util::Memory::String::format("frameTime: 0.%04u", frameTime));
+        if (force.length() != 0) {
             auto calculatedForce = force * frameTime;
 
             auto newPosition = position.add(calculatedForce);
@@ -25,7 +23,7 @@ namespace Util::Game {
                 setPosition(newPosition);
                 force = force - (calculatedForce * friction);
 
-                if (!(force.getX() > 0.01 || force.getX() < -0.01)) {
+                if (force.length() <= 0.01) {
                     force = Vector2();
                 }
             } else {
