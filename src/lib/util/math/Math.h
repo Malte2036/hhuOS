@@ -61,6 +61,7 @@ public:
 
     static double cosine(double value);
 
+    static double sqrt(double value);
 };
 
 }

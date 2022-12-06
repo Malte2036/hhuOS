@@ -16,71 +16,85 @@
  */
 
 #include "Math.h"
+#include "lib/util/data/HashMap.h"
+#include "lib/util/log/Logger.h"
 
 namespace Util::Math {
 
-void Math::endMmx() {
-    asm volatile ("emms");
-}
+    void Math::endMmx() {
+        asm volatile ("emms");
+    }
 
-uint32_t Math::absolute(int32_t value) {
-    return value < 0 ? value * -1 : value;
-}
+    uint32_t Math::absolute(int32_t value) {
+        return value < 0 ? value * -1 : value;
+    }
 
-uint64_t Math::absolute(int64_t value) {
-    return value < 0 ? value * -1 : value;
-}
+    uint64_t Math::absolute(int64_t value) {
+        return value < 0 ? value * -1 : value;
+    }
 
-float Math::sine(float value) {
-    float ret = 0;
-    asm volatile (
-            "flds (%0);"
-            "fsin;"
-            "fstps (%1)"
-            : :
-            "r"(&value), "r"(&ret)
-            );
+    float Math::sine(float value) {
+        float ret = 0;
+        asm volatile (
+                "flds (%0);"
+                "fsin;"
+                "fstps (%1)"
+                : :
+                "r"(&value), "r"(&ret)
+                );
 
-    return ret;
-}
+        return ret;
+    }
 
-double Math::sine(double value) {
-    double ret = 0;
-    asm volatile (
-            "fldl (%0);"
-            "fsin;"
-            "fstpl (%1);"
-            : :
-            "r"(&value), "r"(&ret)
-            );
+    double Math::sine(double value) {
+        double ret = 0;
+        asm volatile (
+                "fldl (%0);"
+                "fsin;"
+                "fstpl (%1);"
+                : :
+                "r"(&value), "r"(&ret)
+                );
 
-    return ret;
-}
+        return ret;
+    }
 
-float Math::cosine(float value) {
-    float ret = 0;
-    asm volatile (
-            "flds (%0);"
-            "fcos;"
-            "fstps (%1);"
-            : :
-            "r"(&value), "r"(&ret)
-            );
+    float Math::cosine(float value) {
+        float ret = 0;
+        asm volatile (
+                "flds (%0);"
+                "fcos;"
+                "fstps (%1);"
+                : :
+                "r"(&value), "r"(&ret)
+                );
 
-    return ret;
-}
+        return ret;
+    }
 
-double Math::cosine(double value) {
-    double ret = 0;
-    asm volatile (
-            "fldl (%0);"
-            "fcos;"
-            "fstpl (%1)"
-            : :
-            "r"(&value), "r"(&ret)
-            );
+    double Math::cosine(double value) {
+        double ret = 0;
+        asm volatile (
+                "fldl (%0);"
+                "fcos;"
+                "fstpl (%1)"
+                : :
+                "r"(&value), "r"(&ret)
+                );
 
-    return ret;
-}
+        return ret;
+    }
+
+    double Math::sqrt(double value) {
+        double ret = 0;
+        asm volatile(
+                "fldl (%0);"
+                "fsqrt;"
+                "fstpl (%1)"
+                : :
+                "r"(&value), "r"(&ret)
+                );
+        return ret;
+    }
 
 }
