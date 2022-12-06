@@ -32,8 +32,8 @@ Util::Game::RectangleCollider SnakeEntity::getCollider() const {
     return Util::Game::RectangleCollider(getPosition(), size, size);
 }
 
-void SnakeEntity::onTransformEvent(Util::Game::TransformEvent *event) {
-    auto transformTo = event->getTransformTo();
+void SnakeEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
+    auto transformTo = event->getTranslateTo();
     if (transformTo.getX() > 1 || transformTo.getX() < (-1 - size)
         || transformTo.getY() > (1 - size) || transformTo.getY() < -1) {
         event->setCanceled(true);
@@ -50,16 +50,16 @@ void SnakeEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
 void SnakeEntity::move() {
     switch (direction) {
         case right:
-            transform(Vector2(speed, 0));
+            translate(Vector2(speed, 0));
             return;
         case left:
-            transform(Vector2(-speed, 0));
+            translate(Vector2(-speed, 0));
             return;
         case up:
-            transform(Vector2(0, speed));
+            translate(Vector2(0, speed));
             return;
         case down:
-            transform(Vector2(0, -speed));
+            translate(Vector2(0, -speed));
             return;
     }
 }

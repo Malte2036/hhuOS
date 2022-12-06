@@ -14,8 +14,8 @@ void DemoEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.drawSquare(getPosition(), size);
 }
 
-void DemoEntity::onTransformEvent(Util::Game::TransformEvent *event) {
-    auto transformTo = event->getTransformTo();
+void DemoEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
+    auto transformTo = event->getTranslateTo();
     if (transformTo.getX() > 1 || transformTo.getX() < -1) {
         event->setCanceled(true);
     }
@@ -33,15 +33,15 @@ void DemoEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
 }
 
 void DemoEntity::moveRight() {
-    transformX(speed);
+    translateX(speed);
 }
 
 void DemoEntity::moveLeft() {
-    transformX(-speed);
+    translateX(-speed);
 }
 
 void DemoEntity::jump() {
     if (getPosition().getY() <= (-1 + 0.05)) {
-        transformY(speed * 5);
+        translateY(speed * 5);
     }
 }

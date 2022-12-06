@@ -24,8 +24,8 @@ namespace Util::Game {
 
             auto newPosition = position + calculatedForce;
 
-            auto event = new TransformEvent(newPosition);
-            onTransformEvent(event);
+            auto event = new TranslateEvent(newPosition);
+            onTranslateEvent(event);
 
             if (!event->isCanceled()) {
                 setPosition(newPosition);

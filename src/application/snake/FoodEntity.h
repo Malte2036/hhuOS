@@ -15,7 +15,7 @@ public:
 
     void draw(Util::Game::Graphics2D &graphics) const override;
 
-    void onTransformEvent(Util::Game::TransformEvent *event);
+    void onTranslateEvent(Util::Game::TranslateEvent *event);
 
     void onCollisionEvent(Util::Game::CollisionEvent *event);
 

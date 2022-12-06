@@ -29,7 +29,7 @@ private:
     Util::Graphic::Color color;
     double size;
 
-    void onTransformEvent(Util::Game::TransformEvent *event) override;
+    void onTranslateEvent(Util::Game::TranslateEvent *event) override;
 
     void onCollisionEvent(Util::Game::CollisionEvent *event) override;
 };

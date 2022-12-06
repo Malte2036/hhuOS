@@ -4,4 +4,4 @@ target_sources(lib.util PUBLIC
         ${HHUOS_SRC_DIR}/lib/util/game/event/Event.cpp
         ${HHUOS_SRC_DIR}/lib/util/game/event/CancelableEvent.cpp
         ${HHUOS_SRC_DIR}/lib/util/game/event/CollisionEvent.cpp
-        ${HHUOS_SRC_DIR}/lib/util/game/event/TransformEvent.cpp)
+        ${HHUOS_SRC_DIR}/lib/util/game/event/TranslateEvent.cpp)

@@ -17,7 +17,7 @@ void FoodEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.drawSquare(getPosition(), size);
 }
 
-void FoodEntity::onTransformEvent(Util::Game::TransformEvent *event) {
+void FoodEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
 
 }
 

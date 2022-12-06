@@ -78,7 +78,7 @@ namespace Util::Game {
 
         void checkCollision();
 
-        void performEntityTransformations(double frameTime);
+        void performEntityTranslations(double frameTime);
 
     private:
 

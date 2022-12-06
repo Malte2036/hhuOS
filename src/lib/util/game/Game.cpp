@@ -82,7 +82,7 @@ namespace Util::Game {
     }
 
 
-    void Game::performEntityTransformations(double frameTime) {
+    void Game::performEntityTranslations(double frameTime) {
         for (Entity *entity: entities) {
             entity->performTransformation(frameTime);
         }
