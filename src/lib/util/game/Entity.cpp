@@ -7,7 +7,7 @@
 
 namespace Util::Game {
 
-    Entity::Entity(const Vector2 &position) : position{position} {}
+    Entity::Entity(const Memory::String tag, const Vector2 &position) : tag{tag}, position{position} {}
 
     void Entity::transform(const Vector2 &vector2) {
         force = force + vector2;
@@ -19,6 +19,10 @@ namespace Util::Game {
 
     void Entity::transformY(const double y) {
         force = Vector2(force.getX(), y);
+    }
+
+    Memory::String Entity::getTag() const {
+        return tag;
     }
 
     Vector2 Entity::getPosition() const {

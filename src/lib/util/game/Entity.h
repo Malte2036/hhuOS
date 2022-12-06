@@ -16,7 +16,7 @@ namespace Util::Game {
         friend class Game;
 
     public:
-        explicit Entity(const Vector2 &position);
+        explicit Entity(const Memory::String tag, const Vector2 &position);
 
         void transform(const Vector2 &vector2);
 
@@ -27,6 +27,8 @@ namespace Util::Game {
         virtual void onTransformEvent(TransformEvent *event) = 0;
 
         virtual void onCollisionEvent(CollisionEvent *event) = 0;
+
+        [[nodiscard]] Memory::String getTag() const;
 
         [[nodiscard]] Vector2 getPosition() const;
 
@@ -40,6 +42,7 @@ namespace Util::Game {
 
     protected:
         Vector2 force = Vector2();
+        Memory::String tag;
         Vector2 position;
     };
 

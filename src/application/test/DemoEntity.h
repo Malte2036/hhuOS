@@ -20,7 +20,9 @@ public:
     [[nodiscard]] Util::Game::RectangleCollider getCollider() const;
 
     void moveRight();
+
     void moveLeft();
+
     void jump();
 
 private:
@@ -28,6 +30,7 @@ private:
     double size;
 
     void onTransformEvent(Util::Game::TransformEvent *event) override;
+
     void onCollisionEvent(Util::Game::CollisionEvent *event) override;
 };
 

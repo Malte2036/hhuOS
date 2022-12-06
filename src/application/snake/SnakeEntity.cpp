@@ -7,7 +7,7 @@
 
 SnakeEntity::SnakeEntity(const Vector2 &position, double size, Util::Graphic::Color color, DirectionType direction,
                          double speed)
-        : Util::Game::Entity(position), color{color}, direction{direction}, size{size}, speed{speed} {}
+        : Util::Game::Entity("SnakeEntity", position), color{color}, direction{direction}, size{size}, speed{speed} {}
 
 
 void SnakeEntity::draw(Util::Game::Graphics2D &graphics) const {

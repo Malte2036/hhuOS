@@ -6,8 +6,8 @@
 
 const double speed = 0.75;
 
-DemoEntity::DemoEntity(const Vector2 &position, double size, Util::Graphic::Color color) : GravityEntity(
-        position), color{color}, size{size} {}
+DemoEntity::DemoEntity(const Vector2 &position, double size, Util::Graphic::Color color)
+        : GravityEntity("DemoEntity", position), color{color}, size{size} {}
 
 void DemoEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.setColor(color);

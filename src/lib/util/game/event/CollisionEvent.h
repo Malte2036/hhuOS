@@ -14,10 +14,14 @@
 namespace Util::Game {
     class CollisionEvent : public Event {
     public:
-        CollisionEvent() = default;
+        CollisionEvent(const Memory::String& collidedWithTag);
+
+        Memory::String getCollidedWithTag();
 
     private:
         Memory::String type = "CollisionEvent";
+
+        Memory::String collidedWithTag;
     };
 }
 

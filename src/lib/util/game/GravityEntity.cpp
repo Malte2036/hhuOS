@@ -10,7 +10,7 @@ namespace Util::Game {
 
     const double friction = 1.5;
 
-    GravityEntity::GravityEntity(const Vector2 position) : Entity(position) {}
+    GravityEntity::GravityEntity(const Memory::String tag, const Vector2 position) : Entity(tag, position) {}
 
     const double gravity = 0.1;
     const double groundY = -1;
