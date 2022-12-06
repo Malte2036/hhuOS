@@ -21,8 +21,7 @@ public:
 
     void moveRight();
     void moveLeft();
-    void moveUp();
-    void moveDown();
+    void jump();
 
 private:
     Util::Graphic::Color color;

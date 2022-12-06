@@ -53,6 +53,8 @@ public:
 
     static uint64_t absolute(int64_t value);
 
+    static double absolute(double value);
+
     static float sine(float value);
 
     static double sine(double value);
@@ -62,6 +64,8 @@ public:
     static double cosine(double value);
 
     static double sqrt(double value);
+
+    static double pow(double value, int exponent);
 };
 
 }

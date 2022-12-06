@@ -23,6 +23,10 @@ public:
 
     Vector2 add(Vector2 other);
 
+    double mult(Vector2 other);
+
+    Vector2 normalize();
+
     double length() const;
 
     double getX() const;

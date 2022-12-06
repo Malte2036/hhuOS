@@ -36,3 +36,11 @@ Vector2 &Vector2::operator-(const Vector2 &other) {
 double Vector2::length() const {
     return Util::Math::Math::sqrt(x * x + y * y);
 }
+
+double Vector2::mult(Vector2 other) {
+    return (x * other.y - other.x * y);
+}
+
+Vector2 Vector2::normalize() {
+    return *this * (1 / length());
+}

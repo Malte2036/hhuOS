@@ -16,10 +16,10 @@ void DemoEntity::draw(Util::Game::Graphics2D &graphics) const {
 
 void DemoEntity::onTransformEvent(Util::Game::TransformEvent *event) {
     auto transformTo = event->getTransformTo();
-    if(transformTo.getX() > 1 || transformTo.getX() < -1){
+    if (transformTo.getX() > 1 || transformTo.getX() < -1) {
         event->setCanceled(true);
     }
-    if(transformTo.getY() > (1 - size) || transformTo.getY() < -1){
+    if (transformTo.getY() > (1 - size) || transformTo.getY() < -1) {
         event->setCanceled(true);
     }
 }
@@ -40,11 +40,8 @@ void DemoEntity::moveLeft() {
     transformX(-speed);
 }
 
-void DemoEntity::moveUp() {
-    transformY(speed);
-}
-
-
-void DemoEntity::moveDown() {
-    transformY(-speed);
+void DemoEntity::jump() {
+    if (getPosition().getY() <= (-1 + 0.05)) {
+        transformY(speed * 5);
+    }
 }

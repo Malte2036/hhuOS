@@ -33,6 +33,10 @@ namespace Util::Math {
         return value < 0 ? value * -1 : value;
     }
 
+    double Math::absolute(double value) {
+        return value < 0 ? value * -1 : value;
+    }
+
     float Math::sine(float value) {
         float ret = 0;
         asm volatile (
@@ -94,6 +98,14 @@ namespace Util::Math {
                 : :
                 "r"(&value), "r"(&ret)
                 );
+        return ret;
+    }
+
+    double Math::pow(double value, int exponent) {
+        double ret = 1;
+        for(int i = 1; i <= exponent; i++){
+            ret *= value;
+        }
         return ret;
     }
 

@@ -14,6 +14,7 @@ namespace Util::Game {
 
     private:
         void performTransformation(double frameTime) override;
+        Vector2 calculateNewtonGravity();
 
     };
 }

@@ -33,10 +33,7 @@ void TestDemo::keyPressed(char c) {
             player->moveRight();
             return;
         case 'w':
-            player->moveUp();
-            return;
-        case 's':
-            player->moveDown();
+            player->jump();
             return;
         case 'q':
             stop();
