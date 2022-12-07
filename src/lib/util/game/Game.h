@@ -32,9 +32,6 @@ namespace Util::Game {
         friend class Engine;
 
     public:
-        /**
-         * Default Constructor.
-         */
         Game() = default;
 
         /**
@@ -52,11 +49,16 @@ namespace Util::Game {
          */
         virtual ~Game();
 
+        void stop();
+
+        void addEntity(Entity *entity);
+
+        void removeEntity(Entity *entity);
+
+    protected:
         [[nodiscard]] bool isRunning() const;
 
         [[nodiscard]] uint32_t getObjectCount() const;
-
-        void stop();
 
         void applyChanges();
 
@@ -64,15 +66,9 @@ namespace Util::Game {
 
         virtual void update(double delta) = 0;
 
-    protected:
-
         void addObject(Drawable *drawable);
 
         void removeObject(Drawable *drawable);
-
-        void addEntity(Entity *entity);
-
-        void removeEntity(Entity *entity);
 
         void setKeyListener(KeyListener &listener);
 

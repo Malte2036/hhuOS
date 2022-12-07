@@ -3,6 +3,8 @@
 //
 
 #include "MarioItemBlockEntity.h"
+#include "lib/util/game/GameManager.h"
+#include "MarioGame.h"
 
 MarioItemBlockEntity::MarioItemBlockEntity(const Util::Memory::String &tag, const Vector2 &position)
         : Util::Game::Entity(tag, position) {
@@ -23,5 +25,7 @@ void MarioItemBlockEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
 }
 
 void MarioItemBlockEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
-
+    if(event->getCollidedWithTag() == "Player"){
+        Util::Game::GameManager<MarioGame>::getGame()->removeEntity(this);
+    }
 }

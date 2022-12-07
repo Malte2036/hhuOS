@@ -17,6 +17,7 @@
 
 #include "Game.h"
 #include "lib/util/log/Logger.h"
+#include "GameManager.h"
 
 namespace Util::Game {
 

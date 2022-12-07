@@ -19,6 +19,7 @@
 #include "lib/util/system/System.h"
 #include "lib/util/graphic/LinearFrameBuffer.h"
 #include "lib/util/game/Engine.h"
+#include "lib/util/game/GameManager.h"
 #include "TestDemo.h"
 
 bool isRunning = true;
@@ -29,8 +30,9 @@ int32_t main(int32_t argc, char *argv[]) {
     auto lfbFile = Util::File::File("/device/lfb");
     auto lfb = Util::Graphic::LinearFrameBuffer(lfbFile);
 
-    TestDemo game = TestDemo();
-    auto engine = Util::Game::Engine(game, lfb);
+    auto game = new TestDemo();
+    auto engine = Util::Game::Engine(*game, lfb);
+    Util::Game::GameManager<TestDemo>::setGame(game);
 
     engine.run();
     return 0;

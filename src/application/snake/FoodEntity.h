@@ -11,7 +11,7 @@
 
 class FoodEntity : public Util::Game::Entity {
 public:
-    FoodEntity(const Vector2 &position, double size, SnakeGameData *currentScore);
+    FoodEntity(const Vector2 &position, double size, SnakeGameData *gameData);
 
     void draw(Util::Game::Graphics2D &graphics) const override;
 

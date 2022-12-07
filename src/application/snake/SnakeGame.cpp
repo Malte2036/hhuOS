@@ -10,7 +10,6 @@
 #include "SnakeScoreText.h"
 
 SnakeEntity *snake = nullptr;
-FoodEntity *food = nullptr;
 SnakeScoreText *scoreText = nullptr;
 
 SnakeGame::SnakeGame() {
@@ -19,8 +18,7 @@ SnakeGame::SnakeGame() {
     snake = new SnakeEntity(Vector2(0, 0), 0.1, Util::Graphic::Colors::MAGENTA, none, 0.02);
     addEntity(snake);
 
-    food = new FoodEntity(Vector2(0.3, 0.4), 0.05, &gameData);
-    addEntity(food);
+    addEntity(new FoodEntity(Vector2(0.3, 0.4), 0.05, &gameData));
 
     scoreText = new SnakeScoreText(Vector2(-1, 0.95), gameData.score);
     addObject(scoreText);

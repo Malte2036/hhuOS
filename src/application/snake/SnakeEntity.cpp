@@ -3,7 +3,9 @@
 //
 
 #include "SnakeEntity.h"
+#include "lib/util/game/GameManager.h"
 #include "lib/util/log/Logger.h"
+#include "SnakeGame.h"
 
 SnakeEntity::SnakeEntity(const Vector2 &position, double size, Util::Graphic::Color color, DirectionType direction,
                          double speed)
@@ -40,6 +42,8 @@ void SnakeEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
         setDirection(none);
 
         Logger::logMessage("TransformEvent cancelled");
+
+        Util::Game::GameManager<SnakeGame>::getGame()->stop();
     }
 }
 

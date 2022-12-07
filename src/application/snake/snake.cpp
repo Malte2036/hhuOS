@@ -5,8 +5,7 @@
 
 #include <cstdint>
 #include "lib/util/system/System.h"
-#include "lib/util/graphic/LinearFrameBuffer.h"
-#include "lib/util/game/Engine.h"
+#include "lib/util/game/GameManager.h"
 #include "SnakeGame.h"
 
 bool isRunning = true;
@@ -17,8 +16,9 @@ int32_t main(int32_t argc, char *argv[]) {
     auto lfbFile = Util::File::File("/device/lfb");
     auto lfb = Util::Graphic::LinearFrameBuffer(lfbFile);
 
-    auto game = SnakeGame();
-    auto engine = Util::Game::Engine(game, lfb);
+    auto game = new SnakeGame();
+    auto engine = Util::Game::Engine(*game, lfb);
+    Util::Game::GameManager<SnakeGame>::setGame(game);
 
     engine.run();
     return 0;

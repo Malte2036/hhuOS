@@ -5,6 +5,7 @@
 #include "FoodEntity.h"
 #include "lib/util/log/Logger.h"
 #include "lib/util/math/Random.h"
+#include "lib/util/game/GameManager.h"
 
 auto random = Util::Math::Random(12221);
 
@@ -28,9 +29,13 @@ Util::Game::RectangleCollider FoodEntity::getCollider() const {
 void FoodEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
     if (event->getCollidedWithTag() == "SnakeEntity") {
         Logger::logMessage("FoodEntity collided with SnakeEntity!");
-        setPosition(Vector2((random.nextRandomNumber() * 2) - 1, (random.nextRandomNumber() * 2) - 1));
 
         gameData->score = gameData->score + 1;
+
+        Util::Game::GameManager<SnakeGame>::getGame()->addEntity(
+                new FoodEntity(Vector2((random.nextRandomNumber() * 2) - 1, (random.nextRandomNumber() * 2) - 1), size,
+                               gameData));
+        Util::Game::GameManager<SnakeGame>::getGame()->removeEntity(this);
     }
 }
 
