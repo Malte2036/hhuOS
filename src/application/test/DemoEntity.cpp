@@ -4,6 +4,7 @@
 
 #include "DemoEntity.h"
 #include "lib/util/log/Logger.h"
+#include "lib/util/file/image/Image.h"
 
 const double speed = 0.75;
 
@@ -13,6 +14,9 @@ DemoEntity::DemoEntity(const Vector2 &position, double size, Util::Graphic::Colo
 void DemoEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.setColor(color);
     graphics.drawSquare(getPosition(), size);
+
+    auto image = Util::File::Image::Image();
+    image.draw(graphics.pixelDrawer, (getPosition().getX()+2)* 300, (getPosition().getY()+2) * 300);
 }
 
 void DemoEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {

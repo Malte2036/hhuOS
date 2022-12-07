@@ -69,12 +69,14 @@ public:
 
     [[nodiscard]] Graphic::Color getColor() const;
 
+    const Graphic::PixelDrawer pixelDrawer;
+
 private:
 
     void drawString(const Graphic::Font &font, double x, double y, const char *string) const;
 
     const Graphic::BufferedLinearFrameBuffer lfb;
-    const Graphic::PixelDrawer pixelDrawer;
+
     const Graphic::LineDrawer lineDrawer;
     const Graphic::StringDrawer stringDrawer;
 

@@ -20,6 +20,7 @@
 #include "lib/util/graphic/Terminal.h"
 #include "MouseListener.h"
 #include "Engine.h"
+#include "lib/util/file/image/Image.h"
 
 namespace Util::Game {
 
@@ -53,6 +54,7 @@ void Engine::run() {
 
         statistics.startDrawTime();
         game.draw(graphics);
+
         drawStatus();
         graphics.show();
         statistics.stopDrawTime();
