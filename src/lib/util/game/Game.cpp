@@ -81,6 +81,10 @@ namespace Util::Game {
         entities.add(entity);
     }
 
+    void Game::removeEntity(Entity *entity) {
+        entities.remove(entity);
+        removeList.add(entity);
+    }
 
     void Game::performEntityTranslations(double frameTime) {
         for (Entity *entity: entities) {

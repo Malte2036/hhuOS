@@ -72,6 +72,8 @@ namespace Util::Game {
 
         void addEntity(Entity *entity);
 
+        void removeEntity(Entity *entity);
+
         void setKeyListener(KeyListener &listener);
 
         void setMouseListener(MouseListener &listener);
