@@ -5,7 +5,7 @@
 #include "MarioEntity.h"
 #include "lib/util/log/Logger.h"
 
-MarioEntity::MarioEntity(const Util::Memory::String &tag, const Vector2 &position) : GravityEntity(tag, position) {
+MarioEntity::MarioEntity(const Util::Memory::String &tag, const Vector2 &position) : GravityEntity(tag, position, 2) {
 
 }
 
@@ -25,7 +25,7 @@ void MarioEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
 }
 
 void MarioEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
-    if(event->getCollidedWithTag() == "ItemBlock"){
+    if (event->getCollidedWithTag() == "ItemBlock") {
         Logger::logMessage("Mario collected ItemBlock");
     }
 }
@@ -44,5 +44,7 @@ void MarioEntity::moveLeft() {
 }
 
 void MarioEntity::jump() {
-    translateY(jumpSpeed);
+    if (getPosition().getY() <= (-1 + 0.025)) {
+        translateY(jumpSpeed);
+    }
 }

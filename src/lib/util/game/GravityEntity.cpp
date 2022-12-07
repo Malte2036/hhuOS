@@ -10,45 +10,30 @@ namespace Util::Game {
 
     const double friction = 1.5;
 
-    GravityEntity::GravityEntity(const Memory::String tag, const Vector2 position) : Entity(tag, position) {}
+    GravityEntity::GravityEntity(const Memory::String &tag, const Vector2 &position, const double mass) : Entity(tag,
+                                                                                                                 position),
+                                                                                                          mass{mass} {}
 
-    const double gravity = 0.1;
     const double groundY = -1;
+    const double gravityValue = -1;
 
     void GravityEntity::performTransformation(double frameTime) {
-        if (position.getY() > (groundY + 0.05)) {
-            force = force + calculateNewtonGravity();
+        if (position.getY() > (groundY + 0.025)) {
+            auto force = Vector2(0, mass * gravityValue);
+            auto acceleration = Vector2(force.getX() / mass, force.getY() / mass);
+
+            velocity = velocity + Vector2(acceleration.getX() * frameTime, acceleration.getY() * frameTime);
         }
-        if (force.length() != 0) {
-            auto calculatedForce = force * frameTime;
 
-            auto newPosition = position + calculatedForce;
+        auto computedPosition = position + Vector2(velocity.getX() * frameTime, velocity.getY() * frameTime);
 
-            auto event = new TranslateEvent(newPosition);
-            onTranslateEvent(event);
+        auto event = new TranslateEvent(computedPosition);
+        onTranslateEvent(event);
 
-            if (!event->isCanceled()) {
-                setPosition(newPosition);
-                force = force - (calculatedForce * friction);
-
-                if (force.length() <= 0.01) {
-                    force = Vector2();
-                }
-            } else {
-                force = Vector2();
-            }
+        if (!event->isCanceled()) {
+            setPosition(computedPosition);
+        } else {
+            velocity = Vector2();
         }
-    }
-
-    Vector2 GravityEntity::calculateNewtonGravity() {
-        auto groundPosition = Vector2(position.getX(), groundY);
-        auto r2 = Math::Math::pow((groundPosition - position).length(), 2);
-
-        auto m = groundPosition.mult(position);
-        m = -1 * Math::Math::absolute(m);
-
-        double gravityForce = gravity * (m / r2);
-
-        return {0, gravityForce};
     }
 }

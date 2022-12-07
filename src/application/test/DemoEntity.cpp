@@ -3,11 +3,12 @@
 //
 
 #include "DemoEntity.h"
+#include "lib/util/log/Logger.h"
 
 const double speed = 0.75;
 
 DemoEntity::DemoEntity(const Vector2 &position, double size, Util::Graphic::Color color)
-        : GravityEntity("DemoEntity", position), color{color}, size{size} {}
+        : GravityEntity("DemoEntity", position, 1), color{color}, size{size} {}
 
 void DemoEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.setColor(color);
@@ -41,7 +42,7 @@ void DemoEntity::moveLeft() {
 }
 
 void DemoEntity::jump() {
-    if (getPosition().getY() <= (-1 + 0.05)) {
-        translateY(speed * 5);
+    if (getPosition().getY() <= (-1 + 0.025)) {
+        translateY(speed * 2);
     }
 }

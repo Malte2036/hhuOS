@@ -10,15 +10,15 @@ namespace Util::Game {
     Entity::Entity(const Memory::String tag, const Vector2 &position) : tag{tag}, position{position} {}
 
     void Entity::translate(const Vector2 &vector2) {
-        force = force + vector2;
+        velocity = velocity + vector2;
     }
 
     void Entity::translateX(const double x) {
-        force = Vector2(x, force.getY());
+        velocity = Vector2(x, velocity.getY());
     }
 
     void Entity::translateY(const double y) {
-        force = Vector2(force.getX(), y);
+        velocity = Vector2(velocity.getX(), y);
     }
 
     Memory::String Entity::getTag() const {
@@ -35,7 +35,7 @@ namespace Util::Game {
 
     void Entity::performTransformation(double frameTime) {
 
-        auto newPosition = position.add(force);
+        auto newPosition = position.add(velocity);
 
         auto event = new TranslateEvent(newPosition);
         onTranslateEvent(event);
@@ -43,6 +43,6 @@ namespace Util::Game {
         if (!event->isCanceled()) {
             setPosition(newPosition);
         }
-        force = Vector2();
+        velocity = Vector2();
     }
 }

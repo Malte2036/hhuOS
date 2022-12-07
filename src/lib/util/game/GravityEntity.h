@@ -10,12 +10,12 @@
 namespace Util::Game {
     class GravityEntity : public Entity {
     public:
-        GravityEntity(const Memory::String tag, const Vector2 position);
+        GravityEntity(const Memory::String& tag, const Vector2& position, double mass);
 
     private:
         void performTransformation(double frameTime) override;
 
-        Vector2 calculateNewtonGravity();
+        const double mass;
 
     };
 }

@@ -17,8 +17,8 @@ public:
     void jump();
 
 private:
-    const double speed = 1;
-    const double jumpSpeed = speed * 4;
+    const double speed = 0.75;
+    const double jumpSpeed = speed * 2;
     const double size = 0.15;
 
     [[nodiscard]] Util::Game::RectangleCollider getCollider() const override;
