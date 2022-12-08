@@ -23,6 +23,7 @@
 #include "lib/util/graphic/StringDrawer.h"
 #include "lib/util/graphic/Colors.h"
 #include "lib/util/math/Vector2.h"
+#include "lib/util/file/image/Image.h"
 
 namespace Util::Game {
 
@@ -63,13 +64,13 @@ public:
 
     void drawStringSmall(double x, double y, const Util::Memory::String &string) const;
 
+    void drawImage(double x, double y, const Util::File::Image::Image &image) const;
+
     void show() const;
 
     void setColor(const Graphic::Color &color);
 
     [[nodiscard]] Graphic::Color getColor() const;
-
-    const Graphic::PixelDrawer pixelDrawer;
 
 private:
 
@@ -77,6 +78,7 @@ private:
 
     const Graphic::BufferedLinearFrameBuffer lfb;
 
+    const Graphic::PixelDrawer pixelDrawer;
     const Graphic::LineDrawer lineDrawer;
     const Graphic::StringDrawer stringDrawer;
 
