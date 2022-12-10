@@ -139,6 +139,12 @@ void PrintWriter::print(uint8_t number) {
     print(static_cast<uint32_t>(number));
 }
 
+void PrintWriter::print(double number) {
+    print(static_cast<uint32_t>(number));
+    print(".");
+    print(static_cast<uint32_t>(number * 1000) % 1000);
+}
+
 void PrintWriter::print(void *pointer) {
     print(reinterpret_cast<uint32_t>(pointer));
 }
@@ -237,6 +243,11 @@ PrintWriter &PrintWriter::operator<<(int32_t number) {
 
 PrintWriter &PrintWriter::operator<<(uint32_t number) {
     print(number);
+    return *this;
+}
+
+PrintWriter &PrintWriter::operator<<(double value) {
+    print(value);
     return *this;
 }
 

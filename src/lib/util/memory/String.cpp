@@ -444,6 +444,9 @@ String String::vformat(const char *format, va_list args) {
                 case 'o':
                     writer << Stream::PrintWriter::oct << va_arg(args, uint32_t);
                     break;
+                case 'f':
+                    writer << Stream::PrintWriter::dec << va_arg(args, double);
+                    break;
                 case 's':
                     writer << va_arg(args, char*);
                     break;

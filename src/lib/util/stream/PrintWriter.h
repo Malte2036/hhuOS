@@ -71,6 +71,8 @@ public:
 
     void print(uint8_t number);
 
+    void print(double number);
+
     void print(void *pointer);
 
     void println();
@@ -110,6 +112,8 @@ public:
     PrintWriter& operator<<(int32_t value);
 
     PrintWriter& operator<<(uint32_t value);
+
+    PrintWriter& operator<<(double value);
 
     PrintWriter& operator<<(void *ptr);
 
