@@ -164,6 +164,14 @@ void File::ensureFileIsOpened() {
     }
 }
 
+uint32_t File::getFileDescriptor() {
+    ensureFileIsOpened();
+    if (fileDescriptor < 0) {
+        Util::Exception::throwException(Exception::INVALID_ARGUMENT, "File: Could not open file!");
+    }
+    return fileDescriptor;
+}
+
 bool mount(const Util::Memory::String &device, const Util::Memory::String &targetPath, const Util::Memory::String &driverName) {
     return ::mount(device, targetPath, driverName);
 }

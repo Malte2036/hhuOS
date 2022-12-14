@@ -57,6 +57,8 @@ public:
 
     [[nodiscard]] uint32_t getLength();
 
+    [[nodiscard]] uint32_t getFileDescriptor();
+
     [[nodiscard]] Memory::String getName() const;
 
     [[nodiscard]] Memory::String getCanonicalPath() const;

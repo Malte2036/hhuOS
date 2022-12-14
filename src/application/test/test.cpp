@@ -19,6 +19,7 @@
 #include "lib/util/log/Logger.h"
 #include "lib/util/stream/BufferedReader.h"
 #include "lib/util/file/image/Image.h"
+#include "lib/util/file/bmp/BMP.h"
 #include "TestDemo.h"
 #include "lib/util/game/Engine.h"
 #include "lib/util/game/GameManager.h"

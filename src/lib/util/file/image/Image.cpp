@@ -3,7 +3,6 @@
 //
 
 #include "Image.h"
-#include "lib/util/log/Logger.h"
 
 namespace Util::File::Image {
 
