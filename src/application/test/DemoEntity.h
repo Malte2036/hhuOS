@@ -29,6 +29,8 @@ private:
     Util::Graphic::Color color;
     double size;
 
+    Util::File::Image::Image *image = nullptr;
+
     void onTranslateEvent(Util::Game::TranslateEvent *event) override;
 
     void onCollisionEvent(Util::Game::CollisionEvent *event) override;

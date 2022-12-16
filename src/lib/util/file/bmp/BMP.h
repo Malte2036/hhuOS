@@ -12,7 +12,7 @@ namespace Util::File::Image {
 
     class BMP : public Image {
     public:
-        static BMP *fromFile(uint8_t *buffer);
+        static BMP *fromFile(const Memory::String& filename);
 
         struct Header {
             char signature[2];
@@ -30,6 +30,8 @@ namespace Util::File::Image {
         BMP(int width, int height, Graphic::Color *pixelBuff);
 
         static int32_t headerDataToInt(const uint8_t *buffer, int size);
+
+        static uint8_t *getFileBuffer(const Memory::String& filename);
     };
 }
 

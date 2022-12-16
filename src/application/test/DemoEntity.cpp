@@ -3,24 +3,17 @@
 //
 
 #include "DemoEntity.h"
-#include "lib/util/log/Logger.h"
-#include "lib/util/file/image/Image.h"
-#include "lib/util/stream/FileInputStream.h"
 #include "lib/util/file/bmp/BMP.h"
 
 const double speed = 0.75;
 
-
-Util::File::Image::Image *image = nullptr;
-
-DemoEntity::DemoEntity(const Vector2 &position, double size, Util::Graphic::Color color)
-        : GravityEntity("DemoEntity", position, 1), color{color}, size{size} {
+DemoEntity::DemoEntity(const Vector2 &position, double size, Util::Graphic::Color color) : GravityEntity("DemoEntity",
+                                                                                                         position, 1),
+                                                                                           color{color}, size{size},
+                                                                                           image{Util::File::Image::BMP::fromFile(
+                                                                                                   "/initrd/coin.bmp")} {
     {
-        auto file =  Util::File::File("/initrd/coin.bmp");
-        auto *buffer = new uint8_t[file.getLength()];
-        auto binaryStream = Util::Stream::FileInputStream(file);
-        binaryStream.read(buffer, 0, file.getLength());
-        image = Util::File::Image::BMP::fromFile(buffer);
+
     };
 }
 

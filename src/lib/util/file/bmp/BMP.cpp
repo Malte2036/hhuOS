@@ -4,6 +4,7 @@
 
 #include "BMP.h"
 #include "lib/util/math/Math.h"
+#include "lib/util/stream/FileInputStream.h"
 
 namespace Util::File::Image {
 
@@ -11,7 +12,9 @@ namespace Util::File::Image {
 
     }
 
-    BMP* BMP::fromFile(uint8_t *buffer) {
+    BMP* BMP::fromFile( const Memory::String& filename){
+        auto buffer = getFileBuffer(filename);
+
         auto *header = reinterpret_cast<Header *>(buffer);
 
         auto dataOffset = headerDataToInt(header->data_offset, 4);
@@ -39,6 +42,15 @@ namespace Util::File::Image {
         }
 
         return new BMP(bitmapWidth, bitmapHeight, pixelBuf);
+    }
+
+    uint8_t *BMP::getFileBuffer(const Memory::String& filename){
+        auto file =  Util::File::File(filename);
+        auto *buffer = new uint8_t[file.getLength()];
+        auto binaryStream = Util::Stream::FileInputStream(file);
+        binaryStream.read(buffer, 0, file.getLength());
+
+        return buffer;
     }
 
     int32_t BMP::headerDataToInt(const uint8_t *buffer, int size) {
