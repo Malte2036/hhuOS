@@ -38,7 +38,7 @@ public:
     /**
      * Copy Constructor.
      */
-    PixelDrawer(const PixelDrawer &copy) = delete;
+    PixelDrawer(const PixelDrawer &copy) = default;
 
     /**
      * Assignment operator.

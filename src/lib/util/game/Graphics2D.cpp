@@ -17,6 +17,7 @@
 
 #include "lib/util/graphic/Fonts.h"
 #include "Graphics2D.h"
+#include "lib/util/file/image/Image.h"
 
 namespace Util::Game {
 
@@ -46,6 +47,19 @@ void Graphics2D::drawSquare(const Vector2& position, double size) const {
     drawLine(x, y + size, x + size, y + size);
     drawLine(x, y, x, y + size);
     drawLine(x + size, y, x + size, y + size);
+}
+
+void Graphics2D::drawImage(double x, double y, const Util::File::Image::Image& image) const {
+    auto width = image.getWidth();
+    auto pixelBuf = image.getPixelBuffer();
+
+    int32_t xPixelOffset = x * transformation + offsetX;
+    int32_t yPixelOffset = -y * transformation + offsetY;
+    for (int32_t i = 0; i < image.getHeight(); i++) {
+        for (int32_t j = 0; j < width; j++) {
+            pixelDrawer.drawPixel(xPixelOffset + j, yPixelOffset - i, pixelBuf[i * width + j]);
+        }
+    }
 }
 
 void Graphics2D::drawString(const Graphic::Font &font, double x, double y, const char *string) const {
