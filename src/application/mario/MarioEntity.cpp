@@ -5,13 +5,13 @@
 #include "MarioEntity.h"
 #include "lib/util/log/Logger.h"
 
-MarioEntity::MarioEntity(const Util::Memory::String &tag, const Vector2 &position) : GravityEntity(tag, position, 2) {
+MarioEntity::MarioEntity(const Util::Memory::String &tag, const Vector2 &position) : GravityEntity(tag, position, 2),
+                                                                                     sprite{new Util::Game::Sprite("/initrd/mario.bmp")} {
 
 }
 
 void MarioEntity::draw(Util::Game::Graphics2D &graphics) const {
-    graphics.setColor(Util::Graphic::Colors::GREEN);
-    graphics.drawSquare(position, size);
+   graphics.drawImage(position, *sprite->getImage());
 }
 
 void MarioEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {

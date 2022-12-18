@@ -7,6 +7,7 @@
 
 
 #include "lib/util/game/GravityEntity.h"
+#include "lib/util/game/Sprite.h"
 
 class MarioEntity : public Util::Game::GravityEntity {
 public:
@@ -17,6 +18,8 @@ public:
     void jump();
 
 private:
+    Util::Game::Sprite *sprite;
+
     const double speed = 0.75;
     const double jumpSpeed = speed * 2;
     const double size = 0.15;

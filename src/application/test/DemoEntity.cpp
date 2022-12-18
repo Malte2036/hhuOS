@@ -12,7 +12,7 @@ DemoEntity::DemoEntity(const Vector2 &position, const double size) : GravityEnti
 }
 
 void DemoEntity::draw(Util::Game::Graphics2D &graphics) const {
-    graphics.drawImage(getPosition().getX(), getPosition().getY(), *sprite.getImage());
+    graphics.drawImage(getPosition(), *sprite.getImage());
 }
 
 void DemoEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
