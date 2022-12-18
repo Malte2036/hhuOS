@@ -13,7 +13,7 @@ DemoEntity *player = nullptr;
 TestDemo::TestDemo() {
     Util::System::out << "Starting testDemo\n";
 
-    player = new DemoEntity(Vector2(0, 0), 0.1, Util::Graphic::Colors::HHU_BLUE);
+    player = new DemoEntity(Vector2(0, 0), 0.1);
     addEntity(player);
 
     setKeyListener(*this);

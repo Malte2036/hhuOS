@@ -3,25 +3,16 @@
 //
 
 #include "DemoEntity.h"
-#include "lib/util/file/bmp/BMP.h"
 
 const double speed = 0.75;
 
-DemoEntity::DemoEntity(const Vector2 &position, double size, Util::Graphic::Color color) : GravityEntity("DemoEntity",
-                                                                                                         position, 1),
-                                                                                           color{color}, size{size},
-                                                                                           image{Util::File::Image::BMP::fromFile(
-                                                                                                   "/initrd/coin.bmp")} {
-    {
+DemoEntity::DemoEntity(const Vector2 &position, const double size) : GravityEntity("DemoEntity", position, 1), size{size},
+                                                  sprite{Util::Game::Sprite("/initrd/mario.bmp")} {
 
-    };
 }
 
 void DemoEntity::draw(Util::Game::Graphics2D &graphics) const {
-    /*graphics.setColor(color);
-    graphics.drawSquare(getPosition(), size);*/
-
-    graphics.drawImage(getPosition().getX(), getPosition().getY(), *image);
+    graphics.drawImage(getPosition().getX(), getPosition().getY(), *sprite.getImage());
 }
 
 void DemoEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {

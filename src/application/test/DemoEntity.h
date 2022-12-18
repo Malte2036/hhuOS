@@ -8,12 +8,13 @@
 
 #include "lib/util/game/Game.h"
 #include "lib/util/game/GravityEntity.h"
+#include "lib/util/game/Sprite.h"
 #include "lib/util/game/collider/RectangleCollider.h"
 
 
 class DemoEntity : public Util::Game::GravityEntity {
 public:
-    DemoEntity(const Vector2 &position, double size, Util::Graphic::Color color);
+    DemoEntity(const Vector2 &position, double size);
 
     void draw(Util::Game::Graphics2D &graphics) const override;
 
@@ -29,7 +30,7 @@ private:
     Util::Graphic::Color color;
     double size;
 
-    Util::File::Image::Image *image = nullptr;
+    Util::Game::Sprite sprite;
 
     void onTranslateEvent(Util::Game::TranslateEvent *event) override;
 

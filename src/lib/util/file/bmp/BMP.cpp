@@ -26,6 +26,10 @@ namespace Util::File::Image {
 
         auto pixelLength = bitmapBitsPerPixel / 8;
 
+        if(pixelLength != 3 && pixelLength != 4){
+            Exception::throwException(Exception::UNSUPPORTED_OPERATION, "BMP: Unsupported pixel length");
+        }
+
         auto* pixelBuf = new Graphic::Color[bitmapWidth * bitmapHeight];
 
         for (auto y = bitmapHeight - 1; y >= 0; y--) {
@@ -35,7 +39,11 @@ namespace Util::File::Image {
                 auto blue = *(bitmap + pos);
                 auto green = *(bitmap + pos + 1);
                 auto red = *(bitmap + pos + 2);
-                auto color =  Graphic::Color(red, green, blue);
+                auto alpha = 0;
+                if(pixelLength == 4){
+                    alpha = *(bitmap + pos + 3);
+                }
+                auto color =  Graphic::Color(red, green, blue, alpha);
                 pixelBuf[(y * bitmapWidth) + x] = color;
             }
 
