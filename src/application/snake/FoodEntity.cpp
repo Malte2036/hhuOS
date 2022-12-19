@@ -27,7 +27,7 @@ Util::Game::RectangleCollider FoodEntity::getCollider() const {
 }
 
 void FoodEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
-    if (event->getCollidedWithTag() == "SnakeEntity") {
+    if (event->getCollidedWith()->getTag() == "SnakeEntity") {
         Logger::logMessage("FoodEntity collided with SnakeEntity!");
 
         gameData->score = gameData->score + 1;

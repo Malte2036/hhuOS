@@ -7,21 +7,21 @@
 
 #include "Event.h"
 #include "lib/util/memory/String.h"
-#include "lib/util/math/Vector2.h"
-#include "lib/util/game/collider/RectangleCollider.h"
 
 
 namespace Util::Game {
+    class Entity;
+
     class CollisionEvent : public Event {
     public:
-        CollisionEvent(const Memory::String& collidedWithTag);
+        explicit CollisionEvent(Entity *other);
 
-        Memory::String getCollidedWithTag();
+        const Entity *getCollidedWith();
 
     private:
         Memory::String type = "CollisionEvent";
 
-        Memory::String collidedWithTag;
+        const Entity *other;
     };
 }
 

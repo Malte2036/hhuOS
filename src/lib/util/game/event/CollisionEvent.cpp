@@ -5,9 +5,12 @@
 #include "CollisionEvent.h"
 
 namespace Util::Game {
-    CollisionEvent::CollisionEvent(const Memory::String &collidedWithTag) : collidedWithTag{collidedWithTag} {}
+    CollisionEvent::CollisionEvent(Entity *other) : Event(), other{other} {
 
-    Memory::String CollisionEvent::getCollidedWithTag() {
-        return collidedWithTag;
     }
+
+    const Entity *CollisionEvent::getCollidedWith() {
+        return other;
+    }
+
 }

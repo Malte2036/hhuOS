@@ -39,12 +39,12 @@
 - `Vector2 translateTo`: Vector to move to.
 - `Vector2 getTranslateTo()`
 
-### `CollisionEvent(String collidedWithTag)`:
+### `CollisionEvent(Entity *other)`:
 
 - *extends `Event`*
   - with `type = "CollisionEvent"`
-- `String collidedWithTag`: Tag of the entity that was collided with.
-- `String getCollidedWithTag()`
+- `Entity *entity`: entity that was collided with.
+- `Entity *getCollidedWith()`
 
 ## Collider:
 

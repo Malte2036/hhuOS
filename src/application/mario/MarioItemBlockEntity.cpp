@@ -25,7 +25,7 @@ void MarioItemBlockEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
 }
 
 void MarioItemBlockEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
-    if(event->getCollidedWithTag() == "Player"){
+    if(event->getCollidedWith()->getTag() == "Player"){
         //Util::Game::GameManager<MarioGame>::getGame()->removeEntity(this);
     }
 }
