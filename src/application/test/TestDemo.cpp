@@ -5,6 +5,7 @@
 #include "TestDemo.h"
 
 #include "lib/util/system/System.h"
+#include "lib/util/game/entity/component/GravityComponent.h"
 #include "DemoEntity.h"
 
 
@@ -14,6 +15,7 @@ TestDemo::TestDemo() {
     Util::System::out << "Starting testDemo\n";
 
     player = new DemoEntity(Vector2(0, 0), 0.1);
+    player->addComponent(new Util::Game::GravityComponent());
     addEntity(player);
 
     setKeyListener(*this);

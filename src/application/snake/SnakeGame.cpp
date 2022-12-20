@@ -7,6 +7,7 @@
 #include "SnakeEntity.h"
 #include "FoodEntity.h"
 #include "lib/util/game/GameText.h"
+#include "lib/util/game/entity/component/LinearMovementComponent.h"
 #include "SnakeScoreText.h"
 
 SnakeEntity *snake = nullptr;
@@ -16,6 +17,7 @@ SnakeGame::SnakeGame() {
     gameData = {0};
 
     snake = new SnakeEntity(Vector2(0, 0), 0.1, Util::Graphic::Colors::MAGENTA, none, 0.02);
+    snake->addComponent(new Util::Game::LinearMovementComponent());
     addEntity(snake);
 
     addEntity(new FoodEntity(Vector2(0.3, 0.4), 0.05, &gameData));

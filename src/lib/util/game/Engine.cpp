@@ -20,7 +20,6 @@
 #include "lib/util/graphic/Terminal.h"
 #include "MouseListener.h"
 #include "Engine.h"
-#include "lib/util/file/image/Image.h"
 
 namespace Util::Game {
 
@@ -46,7 +45,7 @@ void Engine::run() {
 
         updateLock.acquire();
         game.update(frameTime);
-        game.performEntityTranslations(frameTime);
+        game.updateEntities(frameTime);
         game.checkCollision();
         game.applyChanges();
         statistics.stopUpdateTimeTime();

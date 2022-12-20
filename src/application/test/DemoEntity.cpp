@@ -6,7 +6,7 @@
 
 const double speed = 0.75;
 
-DemoEntity::DemoEntity(const Vector2 &position, const double size) : GravityEntity("DemoEntity", position, 1), size{size},
+DemoEntity::DemoEntity(const Vector2 &position, const double size) : Entity("DemoEntity", position), size{size},
                                                   sprite{Util::Game::Sprite("/initrd/mario.bmp")} {
 
 }

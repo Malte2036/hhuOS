@@ -6,7 +6,7 @@
 #define HHUOS_FOODENTITY_H
 
 
-#include "lib/util/game/Entity.h"
+#include "lib/util/game/entity/Entity.h"
 #include "SnakeGame.h"
 
 class FoodEntity : public Util::Game::Entity {

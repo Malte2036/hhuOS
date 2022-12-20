@@ -6,7 +6,7 @@
 #define HHUOS_SNAKEENTITY_H
 
 
-#include "lib/util/game/Entity.h"
+#include "lib/util/game/entity/Entity.h"
 #include "lib/util/game/collider/RectangleCollider.h"
 
 enum DirectionType {

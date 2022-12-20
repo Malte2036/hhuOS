@@ -6,10 +6,10 @@
 #define HHUOS_MARIOENTITY_H
 
 
-#include "lib/util/game/GravityEntity.h"
 #include "lib/util/game/Sprite.h"
+#include "lib/util/game/entity/Entity.h"
 
-class MarioEntity : public Util::Game::GravityEntity {
+class MarioEntity : public Util::Game::Entity {
 public:
     MarioEntity(const Util::Memory::String &tag, const Vector2 &position);
 

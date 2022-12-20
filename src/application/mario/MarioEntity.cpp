@@ -7,7 +7,7 @@
 
 bool cancelTranslate = false;
 
-MarioEntity::MarioEntity(const Util::Memory::String &tag, const Vector2 &position) : GravityEntity(tag, position, 2),
+MarioEntity::MarioEntity(const Util::Memory::String &tag, const Vector2 &position) : Util::Game::Entity(tag, position),
                                                                                      sprite{new Util::Game::Sprite("/initrd/mario.bmp")} {
 
 }

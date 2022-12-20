@@ -6,7 +6,7 @@
 #define HHUOS_MARIOITEMBLOCKENTITY_H
 
 
-#include "lib/util/game/Entity.h"
+#include "lib/util/game/entity/Entity.h"
 
 class MarioItemBlockEntity : public Util::Game::Entity {
 public:

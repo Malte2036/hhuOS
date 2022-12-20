@@ -4,14 +4,17 @@
 #ifndef HHUOS_ENTITY_H
 #define HHUOS_ENTITY_H
 
-#include "Drawable.h"
+#include "lib/util/game/Drawable.h"
 #include "lib/util/math/Vector2.h"
-#include "lib/util/game/event/TranslateEvent.h"
-#include "lib/util/game/event/CollisionEvent.h"
-#include "lib/util/game/collider/Collider.h"
-#include "lib/util/game/collider/RectangleCollider.h"
+#include "lib/util/game/entity/event/TranslateEvent.h"
+#include "lib/util/game/entity/event/CollisionEvent.h"
+#include "lib/util/game/entity/collider/Collider.h"
+#include "lib/util/game/entity/collider/RectangleCollider.h"
+#include "lib/util/data/ArrayList.h"
 
 namespace Util::Game {
+    class Component;
+
     class Entity : public Drawable {
         friend class Game;
 
@@ -34,16 +37,24 @@ namespace Util::Game {
 
         void setPosition(const Vector2 &vector2);
 
+        [[nodiscard]] Vector2 getVelocity() const;
+
+        void setVelocity(const Vector2 &vector2);
+
         virtual Util::Game::RectangleCollider getCollider() const = 0;
+
+        void addComponent(Component *component);
 
 
     private:
-        virtual void performTransformation(double frameTime);
+        virtual void update(double dt);
 
     protected:
         Vector2 velocity = Vector2();
         Memory::String tag;
         Vector2 position;
+
+        Data::ArrayList<Component*> components;
     };
 
 }

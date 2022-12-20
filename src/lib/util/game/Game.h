@@ -23,7 +23,7 @@
 #include "Drawable.h"
 #include "KeyListener.h"
 #include "MouseListener.h"
-#include "Entity.h"
+#include "lib/util/game/entity/Entity.h"
 
 namespace Util::Game {
 
@@ -76,7 +76,7 @@ namespace Util::Game {
 
         void checkCollision();
 
-        void performEntityTranslations(double frameTime);
+        void updateEntities(double frameTime);
 
     private:
 

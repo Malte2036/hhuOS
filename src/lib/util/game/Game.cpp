@@ -16,7 +16,6 @@
  */
 
 #include "Game.h"
-#include "lib/util/log/Logger.h"
 #include "GameManager.h"
 
 namespace Util::Game {
@@ -87,9 +86,9 @@ namespace Util::Game {
         removeList.add(entity);
     }
 
-    void Game::performEntityTranslations(double frameTime) {
+    void Game::updateEntities(double frameTime) {
         for (Entity *entity: entities) {
-            entity->performTransformation(frameTime);
+            entity->update(frameTime);
         }
     }
 

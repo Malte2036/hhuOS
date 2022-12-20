@@ -3,9 +3,11 @@
 //
 
 #include "MarioGame.h"
+#include "lib/util/game/entity/component/GravityComponent.h"
 
 MarioGame::MarioGame() {
     player = new MarioEntity("Player", Vector2());
+    player->addComponent(new Util::Game::GravityComponent());
     addEntity(player);
 
     itemBlocks.add(new MarioItemBlockEntity("ItemBlock", Vector2(-0.2, 0.3)));

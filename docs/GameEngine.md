@@ -1,5 +1,8 @@
 # Docs: GameEngine
 
+This documentation, is intended to document the public interfaces for the end user
+and not the internal interfaces of the game engine.
+
 ## Entity:
 
 ### `Entity(String tag, Vector2 position)`:
@@ -12,47 +15,60 @@
 - `void translate(Vector2 vector2)`: move the entity relatively in the direction of the vector
 - `void translateX(double x)`: move the entity by `x` in x-direction
 - `void translateY(double y)`
-- `void onTranslateEvent(TranslateEvent *event)`: every time `translate(...)`, `translateX(...)` or `translateY(...)` is called, this function is automatically triggered. If the event is canceled (`event→setCanceled(true)`), the entity will not be translated. *[also see 🔗 Events/TranslateEvent]*
-- `void onCollisionEvent(CollisionEvent *event)`: is called when the collider of this entity overlaps with another collider. *[also see 🔗 Events/CollisionEvent]*
+- `void onTranslateEvent(TranslateEvent *event)`: every time `translate(...)`, `translateX(...)` or `translateY(...)` is called, this function is automatically triggered. If the event is canceled (`event→setCanceled(true)`), the entity will not be translated. *[also see 🔗 Entity/Event/TranslateEvent]*
+- `void onCollisionEvent(CollisionEvent *event)`: is called when the collider of this entity overlaps with another collider. *[also see 🔗 Entity/Event/CollisionEvent]*
+- `void addComponent(Component *component)`: call this function, to add Components to this Entity. For example the GravityComponent. *[also see 🔗 Entity/Component/GravityComponent]*
 
-### `GravityEntity(String tag, Vector2 position)`:
+### Component:
 
-- *extends `Entity`*
-- same properties as `Entity`, except that `GravityEntity` moves “smoother” and follows the laws of gravity.
+#### `Component()`:
 
-## Events:
+- `String getType()`: returns the component type
+- `Entity* getEntity()`: returns the entity
 
-### `Event()`:
+#### `LinearMovementComponent()`:
+
+- *extends `Component`*
+  - with `type = "LinearMovementComponent"`
+
+#### `GravityComponent()`:
+
+- *extends `Component`*
+  - with `type = "GravityComponent"`
+
+### Event:
+
+#### `Event()`:
 
 - `String getType()`: returns the event type
 
-### `CancelableEvent()`:
+#### `CancelableEvent()`:
 
 - *extends `Event`*
 - `bool isCanceled()`
 - `void setCanceled(bool value)`: sets the event to canceled
 
-### `TranslateEvent(Vector2 translateTo)`:
+#### `TranslateEvent(Vector2 translateTo)`:
 
 - *extends `CancelableEvent`*
   - `type = "TranslateEvent"`
 - `Vector2 translateTo`: Vector to move to.
 - `Vector2 getTranslateTo()`
 
-### `CollisionEvent(Entity *other)`:
+#### `CollisionEvent(Entity *other)`:
 
 - *extends `Event`*
   - with `type = "CollisionEvent"`
 - `Entity *entity`: entity that was collided with.
 - `Entity *getCollidedWith()`
 
-## Collider:
+### Collider:
 
-### `Collider(String type, Vector2 position)`:
+#### `Collider(String type, Vector2 position)`:
 
 - …
 
-### `RectangleCollider(Vector2 position, double height, double width)`:
+#### `RectangleCollider(Vector2 position, double height, double width)`:
 
 - *extends* `Collider`
   - with `type = “RectangleCollider”`
@@ -62,7 +78,7 @@
 
 ### `GameText(Vector2 position, String text, Color color)`
 
-- `Vector3 position`
+- `Vector2 position`
 - `String text`: text do be drawn
 - `Color color`: text color (can be omitted)
 - `void setText(String value)`: change drawn text

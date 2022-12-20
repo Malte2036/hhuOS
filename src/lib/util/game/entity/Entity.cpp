@@ -2,12 +2,12 @@
 // Created by malte on 04.12.22.
 //
 #include "Entity.h"
-#include "lib/util/log/Logger.h"
+#include "lib/util/game/entity/component/Component.h"
 
 
 namespace Util::Game {
 
-    Entity::Entity(const Memory::String tag, const Vector2 &position) : tag{tag}, position{position} {}
+    Entity::Entity(const Memory::String tag, const Vector2 &position) : tag{tag}, position{position}, components() {}
 
     void Entity::translate(const Vector2 &vector2) {
         velocity = velocity + vector2;
@@ -33,16 +33,24 @@ namespace Util::Game {
         position = vector2;
     }
 
-    void Entity::performTransformation(double frameTime) {
-
-        auto newPosition = position.add(velocity);
-
-        auto event = new TranslateEvent(newPosition);
-        onTranslateEvent(event);
-
-        if (!event->isCanceled()) {
-            setPosition(newPosition);
-        }
-        velocity = Vector2();
+    Vector2 Entity::getVelocity() const {
+        return velocity;
     }
+
+    void Entity::setVelocity(const Vector2 &vector2) {
+        velocity=vector2;
+    }
+
+    void Entity::addComponent(Component *component) {
+        component->setEntity(this);
+        components.add(component);
+    }
+
+    void Entity::update(double dt) {
+        for (const auto &component: components){
+            component->update(dt);
+        }
+    }
+
+
 }
