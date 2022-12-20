@@ -3,6 +3,27 @@
 This documentation, is intended to document the public interfaces for the end user
 and not the internal interfaces of the game engine.
 
+## Engine:
+
+### `Engine(Game &game, const Util::Graphic::LinearFrameBuffer &lfb, const uint8_t targetFrameRate)`
+
+- `Game *game`
+- `Util::Graphic::LinearFrameBuffer *lfb`
+- `uint8_t targetFrameRate`
+- `void setBackgroundColor(Color backgroundColor)`
+
+## Game:
+
+- `void update(double delta);`
+
+## GameManager
+
+### `static GameManager<typename GameType>`
+
+  - with `GameType` type of your Game *[also see 🔗 [Game](#game)]*
+- `static setGame(GameType *value)`: sets the current game, to access it later
+- `static GameType *getGame()`
+
 ## Entity:
 
 ### `Entity(String tag, Vector2 position)`:
@@ -15,9 +36,9 @@ and not the internal interfaces of the game engine.
 - `void translate(Vector2 vector2)`: move the entity relatively in the direction of the vector
 - `void translateX(double x)`: move the entity by `x` in x-direction
 - `void translateY(double y)`
-- `void onTranslateEvent(TranslateEvent *event)`: every time `translate(...)`, `translateX(...)` or `translateY(...)` is called, this function is automatically triggered. If the event is canceled (`event→setCanceled(true)`), the entity will not be translated. *[also see 🔗 Entity/Event/TranslateEvent]*
-- `void onCollisionEvent(CollisionEvent *event)`: is called when the collider of this entity overlaps with another collider. *[also see 🔗 Entity/Event/CollisionEvent]*
-- `void addComponent(Component *component)`: call this function, to add Components to this Entity. For example the GravityComponent. *[also see 🔗 Entity/Component/GravityComponent]*
+- `void onTranslateEvent(TranslateEvent *event)`: every time `translate(...)`, `translateX(...)` or `translateY(...)` is called, this function is automatically triggered. If the event is canceled (`event→setCanceled(true)`), the entity will not be translated. *[also see 🔗 [Entity/Event/TranslateEvent](#translateeventvector2-translateto)]*
+- `void onCollisionEvent(CollisionEvent *event)`: is called when the collider of this entity overlaps with another collider. *[also see 🔗 [Entity/Event/CollisionEvent](#collisionevententity-other)]*
+- `void addComponent(Component *component)`: call this function, to add Components to this Entity. For example the GravityComponent. *[also see 🔗 [Entity/Component/GravityComponent](#gravitycomponent)]*
 
 ### Component:
 
@@ -51,7 +72,7 @@ and not the internal interfaces of the game engine.
 #### `TranslateEvent(Vector2 translateTo)`:
 
 - *extends `CancelableEvent`*
-  - `type = "TranslateEvent"`
+  - with `type = "TranslateEvent"`
 - `Vector2 translateTo`: Vector to move to.
 - `Vector2 getTranslateTo()`
 
