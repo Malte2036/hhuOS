@@ -39,3 +39,7 @@ void FoodEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
     }
 }
 
+void FoodEntity::onUpdate(double dt) {
+
+}
+

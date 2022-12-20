@@ -68,4 +68,8 @@ void SnakeEntity::move() {
     }
 }
 
+void SnakeEntity::onUpdate(double dt) {
+
+}
+
 

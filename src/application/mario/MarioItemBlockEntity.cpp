@@ -29,3 +29,7 @@ void MarioItemBlockEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
         //Util::Game::GameManager<MarioGame>::getGame()->removeEntity(this);
     }
 }
+
+void MarioItemBlockEntity::onUpdate(double dt) {
+
+}

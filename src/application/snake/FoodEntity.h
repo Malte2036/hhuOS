@@ -13,6 +13,8 @@ class FoodEntity : public Util::Game::Entity {
 public:
     FoodEntity(const Vector2 &position, double size, SnakeGameData *gameData);
 
+    void onUpdate(double dt) override;
+
     void draw(Util::Game::Graphics2D &graphics) const override;
 
     void onTranslateEvent(Util::Game::TranslateEvent *event);

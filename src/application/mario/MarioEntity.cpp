@@ -57,3 +57,7 @@ void MarioEntity::jump() {
         translateY(jumpSpeed);
     }
 }
+
+void MarioEntity::onUpdate(double dt) {
+
+}

@@ -15,6 +15,8 @@ class DemoEntity : public Util::Game::Entity {
 public:
     DemoEntity(const Vector2 &position, double size);
 
+    void onUpdate(double dt) override;
+
     void draw(Util::Game::Graphics2D &graphics) const override;
 
     [[nodiscard]] Util::Game::RectangleCollider getCollider() const;

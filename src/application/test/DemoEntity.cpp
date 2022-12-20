@@ -46,3 +46,7 @@ void DemoEntity::jump() {
         translateY(speed * 2);
     }
 }
+
+void DemoEntity::onUpdate(double dt) {
+
+}

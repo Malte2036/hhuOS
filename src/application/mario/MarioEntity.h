@@ -13,6 +13,8 @@ class MarioEntity : public Util::Game::Entity {
 public:
     MarioEntity(const Util::Memory::String &tag, const Vector2 &position);
 
+    void onUpdate(double dt) override;
+
     void moveRight();
     void moveLeft();
     void jump();

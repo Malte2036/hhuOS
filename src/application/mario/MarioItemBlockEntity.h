@@ -13,6 +13,8 @@ class MarioItemBlockEntity : public Util::Game::Entity {
 public:
     MarioItemBlockEntity(const Util::Memory::String &tag, const Vector2 &position);
 
+    void onUpdate(double dt) override;
+
 private:
     Util::Game::Sprite *sprite;
 

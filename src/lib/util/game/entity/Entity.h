@@ -21,6 +21,8 @@ namespace Util::Game {
     public:
         explicit Entity(Memory::String tag, const Vector2 &position);
 
+        virtual void onUpdate(double dt) = 0;
+
         void translate(const Vector2 &vector2);
 
         void translateX(double x);
@@ -47,7 +49,7 @@ namespace Util::Game {
 
 
     private:
-        virtual void update(double dt);
+        void update(double dt);
 
     protected:
         Vector2 velocity = Vector2();

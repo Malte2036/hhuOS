@@ -18,6 +18,8 @@ public:
     SnakeEntity(const Vector2 &position, double size, Util::Graphic::Color color, DirectionType direction,
                 double speed);
 
+    void onUpdate(double dt) override;
+
     void draw(Util::Game::Graphics2D &graphics) const override;
 
     void setColor(Util::Graphic::Color value);

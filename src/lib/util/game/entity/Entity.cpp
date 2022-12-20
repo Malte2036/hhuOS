@@ -50,6 +50,7 @@ namespace Util::Game {
         for (const auto &component: components){
             component->update(dt);
         }
+        onUpdate(dt);
     }
 
 
