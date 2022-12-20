@@ -7,7 +7,7 @@
 
 
 #include "lib/util/game/entity/Entity.h"
-#include "lib/util/game/collider/RectangleCollider.h"
+#include "lib/util/game/entity/collider/RectangleCollider.h"
 
 enum DirectionType {
     none, left, right, up, down

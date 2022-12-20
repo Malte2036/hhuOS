@@ -7,7 +7,7 @@
 #include "MarioGame.h"
 
 MarioItemBlockEntity::MarioItemBlockEntity(const Util::Memory::String &tag, const Vector2 &position)
-        : Util::Game::Entity(tag, position) {
+        : Util::Game::Entity(tag, position),sprite{new Util::Game::Sprite("/initrd/mario_block.bmp")} {
 
 }
 
@@ -16,7 +16,7 @@ Util::Game::RectangleCollider MarioItemBlockEntity::getCollider() const {
 }
 
 void MarioItemBlockEntity::draw(Util::Game::Graphics2D &graphics) const {
-    graphics.setColor(Util::Graphic::Colors::YELLOW);
+    graphics.drawImage(position, *sprite->getImage());
     graphics.drawSquare(position, size);
 }
 

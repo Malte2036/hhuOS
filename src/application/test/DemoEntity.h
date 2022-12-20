@@ -8,7 +8,7 @@
 
 #include "lib/util/game/Game.h"
 #include "lib/util/game/Sprite.h"
-#include "lib/util/game/collider/RectangleCollider.h"
+#include "lib/util/game/entity/collider/RectangleCollider.h"
 
 
 class DemoEntity : public Util::Game::Entity {

@@ -7,13 +7,16 @@
 
 
 #include "lib/util/game/entity/Entity.h"
+#include "lib/util/game/Sprite.h"
 
 class MarioItemBlockEntity : public Util::Game::Entity {
 public:
     MarioItemBlockEntity(const Util::Memory::String &tag, const Vector2 &position);
 
 private:
-    const double size = 0.15;
+    Util::Game::Sprite *sprite;
+
+    const double size = 0.024 * 3;
 
     [[nodiscard]] Util::Game::RectangleCollider getCollider() const override;
 
