@@ -118,6 +118,8 @@ public:
 
     void clear() const;
 
+    void clear(Color color) const;
+
 private:
 
     bool useMmx = false;
@@ -127,7 +129,6 @@ private:
     uint16_t resolutionY = 0;
     uint8_t colorDepth = 0;
     uint16_t pitch = 0;
-
 };
 
 }

@@ -97,9 +97,12 @@ public:
 
     static Memory::Address<T>* createAcceleratedAddress(T address, bool &useMmx);
 
+    void setRange32(uint32_t value, T length) const;
+
 protected:
 
     T address{};
+
 };
 
 template

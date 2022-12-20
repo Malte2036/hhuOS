@@ -52,6 +52,8 @@ public:
 
     void run() override;
 
+    void setBackgoundColor(Graphic::Color backgroundColor);
+
 private:
 
     struct Statistics {

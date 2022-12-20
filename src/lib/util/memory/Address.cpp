@@ -154,6 +154,17 @@ void Address<T>::setRange(uint8_t value, T length) const {
     }
 }
 
+    template<typename T>
+    void Address<T>::setRange32(uint32_t value, T length) const {
+        auto *target = reinterpret_cast<uint64_t*>(address);
+        auto longValue = static_cast<uint64_t>(value) | static_cast<uint64_t>(value) << 32;
+
+        while (length - sizeof(uint64_t) < length) {
+            *target++ = longValue;
+            length -= sizeof(uint64_t);
+        }
+    }
+
 template<typename T>
 void Address<T>::copyRange(const Address<T> &sourceAddress, T length) const {
     auto *target = reinterpret_cast<uint32_t*>(address);

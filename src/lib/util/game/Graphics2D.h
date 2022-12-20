@@ -72,6 +72,8 @@ public:
 
     [[nodiscard]] Graphic::Color getColor() const;
 
+    void setBackgroundColor(const Graphic::Color &backgroundColor);
+
 private:
 
     void drawString(const Graphic::Font &font, double x, double y, const char *string) const;
@@ -87,6 +89,7 @@ private:
     const uint16_t offsetY;
 
     Graphic::Color color = Graphic::Colors::WHITE;
+    Graphic::Color backgroundColor = Graphic::Colors::BLACK;
 };
 
 }
