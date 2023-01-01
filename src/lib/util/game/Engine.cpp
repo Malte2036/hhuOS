@@ -20,11 +20,17 @@
 #include "lib/util/graphic/Terminal.h"
 #include "MouseListener.h"
 #include "Engine.h"
+#include "GameManager.h"
 
 namespace Util::Game {
 
     Engine::Engine(Game &game, const Util::Graphic::LinearFrameBuffer &lfb, const uint8_t targetFrameRate) :
-            game(game), graphics(lfb, game.getCamera()), targetFrameRate(targetFrameRate) {}
+            game(game), graphics(lfb, game.getCamera()), targetFrameRate(targetFrameRate) {
+        double resX = lfb.getResolutionX();
+        double resY = lfb.getResolutionY();
+        GameManager::setResolution(
+                new Vector2((resX > resY ? resX / resY : 1) * 2, (resY > resX ? resY / resX : 1) * 2));
+    }
 
     void Engine::run() {
         const auto delta = 1.0 / targetFrameRate;
@@ -142,7 +148,7 @@ namespace Util::Game {
         }
     }
 
-    void Engine::setBackgoundColor(Graphic::Color backgroundColor){
+    void Engine::setBackgoundColor(Graphic::Color backgroundColor) {
         graphics.setBackgroundColor(backgroundColor);
     }
 

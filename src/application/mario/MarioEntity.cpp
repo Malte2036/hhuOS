@@ -10,34 +10,43 @@
 bool cancelTranslate = false;
 
 MarioEntity::MarioEntity(const Util::Memory::String &tag, const Vector2 &position) : Util::Game::Entity(tag, position),
-                                                                                     sprite{new Util::Game::Sprite("/initrd/mario.bmp")} {
+                                                                                     sprite{new Util::Game::Sprite(
+                                                                                             "/initrd/mario.bmp")} {
 }
 
 void MarioEntity::draw(Util::Game::Graphics2D &graphics) const {
-   graphics.drawImage(position, *sprite->getImage());
+    graphics.drawImage(position, *sprite->getImage());
 }
 
 void MarioEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
-    if(cancelTranslate){
+    if (cancelTranslate) {
         cancelTranslate = false;
         event->setCanceled(true);
         return;
     }
+    auto camera = Util::Game::GameManager::getGame<MarioGame>()->getCamera();
+
+    //calculate the left window border position offset
+    auto windowBorderOffset = Util::Game::GameManager::getResolution().getX() / 2;
+
     const Vector2 translateTo = event->getTranslateTo();
-    /*if(translateTo.getX() >= 1 || translateTo.getX() <= -1){
+    if (translateTo.getX() <= (camera->getPosition().getX() - windowBorderOffset)) {
         event->setCanceled(true);
-    }*/
+    }
     if (translateTo.getY() <= -1) {
         event->setCanceled(true);
     }
 
-    Util::Game::GameManager<MarioGame>::getGame()->getCamera()->setPosition(event->getTranslateTo() + Vector2(0, 0.5));
+    if (event->getTranslateTo().getX() >= camera->getPosition().getX()) {
+        camera->setPosition(
+                Vector2(event->getTranslateTo().getX(), 0));
+    }
 }
 
 void MarioEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
     if (event->getCollidedWith()->getTag() == "ItemBlock") {
         Logger::logMessage("Mario collected ItemBlock");
-        setPosition( Vector2(position.getX(), event->getCollidedWith()->getPosition().getY() + 0.15));
+        setPosition(Vector2(position.getX(), event->getCollidedWith()->getPosition().getY() + 0.15));
         cancelTranslate = true;
     }
 }

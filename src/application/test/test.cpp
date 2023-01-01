@@ -34,7 +34,7 @@ int32_t main(int32_t argc, char *argv[]) {
 
     auto game = new TestDemo();
     auto engine = Util::Game::Engine(*game, *lfb);
-    Util::Game::GameManager<TestDemo>::setGame(game);
+    Util::Game::GameManager::setGame<TestDemo>(game);
 
     engine.run();
     return 0;

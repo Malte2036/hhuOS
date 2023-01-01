@@ -32,10 +32,10 @@ void FoodEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
 
         gameData->score = gameData->score + 1;
 
-        Util::Game::GameManager<SnakeGame>::getGame()->addEntity(
+        Util::Game::GameManager::getGame<SnakeGame>()->addEntity(
                 new FoodEntity(Vector2((random.nextRandomNumber() * 2) - 1, (random.nextRandomNumber() * 2) - 1), size,
                                gameData));
-        Util::Game::GameManager<SnakeGame>::getGame()->removeEntity(this);
+        Util::Game::GameManager::getGame<SnakeGame>()->removeEntity(this);
     }
 }
 

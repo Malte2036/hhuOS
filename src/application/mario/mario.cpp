@@ -24,7 +24,7 @@ int32_t main(int32_t argc, char *argv[]) {
     auto engine = Util::Game::Engine(*game, lfb);
     engine.setBackgoundColor(Util::Graphic::Colors::HHU_BLUE);
 
-    Util::Game::GameManager<MarioGame>::setGame(game);
+    Util::Game::GameManager::setGame<MarioGame>(game);
 
     engine.run();
     return 0;

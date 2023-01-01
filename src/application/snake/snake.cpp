@@ -18,7 +18,7 @@ int32_t main(int32_t argc, char *argv[]) {
 
     auto game = new SnakeGame();
     auto engine = Util::Game::Engine(*game, lfb);
-    Util::Game::GameManager<SnakeGame>::setGame(game);
+    Util::Game::GameManager::setGame<SnakeGame>(game);
 
     engine.run();
     return 0;

@@ -26,11 +26,13 @@ _[hint: Set the Camera Position to the Position of your Player Entity ([Entity/E
 
 ## GameManager
 
-### `static GameManager<typename GameType>`
+### `static GameManager`
 
-  - with `GameType` type of your Game *[also see 🔗 [Game](#game)]*
 - `static setGame(GameType *value)`: sets the current game, to access it later
+  - with `GameType` type of your Game *[also see 🔗 [Game](#game)]*
 - `static GameType *getGame()`
+  - with `GameType` type of your Game *[also see 🔗 [Game](#game)]*
+- `static Vector2 getResolution()`
 
 ## Entity:
 

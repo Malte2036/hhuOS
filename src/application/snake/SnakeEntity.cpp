@@ -43,7 +43,7 @@ void SnakeEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
 
         Logger::logMessage("TransformEvent cancelled");
 
-        Util::Game::GameManager<SnakeGame>::getGame()->stop();
+        Util::Game::GameManager::getGame<SnakeGame>()->stop();
     }
 }
 
