@@ -24,7 +24,7 @@
 namespace Util::Game {
 
     Engine::Engine(Game &game, const Util::Graphic::LinearFrameBuffer &lfb, const uint8_t targetFrameRate) :
-            game(game), graphics(lfb), targetFrameRate(targetFrameRate) {}
+            game(game), graphics(lfb, game.getCamera()), targetFrameRate(targetFrameRate) {}
 
     void Engine::run() {
         const auto delta = 1.0 / targetFrameRate;

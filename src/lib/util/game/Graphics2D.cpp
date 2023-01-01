@@ -21,8 +21,9 @@
 
 namespace Util::Game {
 
-    Graphics2D::Graphics2D(const Graphic::LinearFrameBuffer &lfb) :
-            lfb(lfb), pixelDrawer(Graphics2D::lfb), lineDrawer(pixelDrawer), stringDrawer(pixelDrawer),
+    Graphics2D::Graphics2D(const Graphic::LinearFrameBuffer &lfb, Camera *camera) :
+            lfb(lfb), camera{camera}, pixelDrawer(Graphics2D::lfb), lineDrawer(pixelDrawer),
+            stringDrawer(pixelDrawer),
             transformation(
                     (lfb.getResolutionX() > lfb.getResolutionY() ? lfb.getResolutionY() : lfb.getResolutionX()) / 2),
             offsetX(transformation +
@@ -33,10 +34,10 @@ namespace Util::Game {
                                                                  : 0)) {}
 
     void Graphics2D::drawLine(double x1, double y1, double x2, double y2) const {
-        lineDrawer.drawLine(static_cast<int32_t>(x1 * transformation + offsetX),
-                            static_cast<int32_t>(-y1 * transformation + offsetY),
-                            static_cast<int32_t>(x2 * transformation + offsetX),
-                            static_cast<int32_t>(-y2 * transformation + offsetY), color);
+        lineDrawer.drawLine(static_cast<int32_t>((x1 - camera->getPosition().getX()) * transformation + offsetX),
+                            static_cast<int32_t>((-y1 + camera->getPosition().getY()) * transformation + offsetY),
+                            static_cast<int32_t>((x2 - camera->getPosition().getX()) * transformation + offsetX),
+                            static_cast<int32_t>((-y2 + camera->getPosition().getY()) * transformation + offsetY), color);
     }
 
     void Graphics2D::drawPolygon(const Data::Array<double> &x, const Data::Array<double> &y) const {
@@ -60,8 +61,8 @@ namespace Util::Game {
         auto width = image.getWidth();
         auto pixelBuf = image.getPixelBuffer();
 
-        int32_t xPixelOffset = position.getX() * transformation + offsetX;
-        int32_t yPixelOffset = -position.getY() * transformation + offsetY;
+        int32_t xPixelOffset = (position.getX() - camera->getPosition().getX()) * transformation + offsetX;
+        int32_t yPixelOffset = (-position.getY() + camera->getPosition().getY()) * transformation + offsetY;
         for (int32_t i = 0; i < image.getHeight(); i++) {
             for (int32_t j = 0; j < width; j++) {
                 pixelDrawer.drawPixel(xPixelOffset + j, yPixelOffset - i, pixelBuf[i * width + j]);

@@ -14,7 +14,15 @@ and not the internal interfaces of the game engine.
 
 ## Game:
 
-- `void update(double delta);`
+- `void update(double delta)`
+- `Camera *getCamera()`: the current camera of the game *[also see 🔗 [Camera](#camera)]*
+
+## Camera:
+`Camera(Vector2 position)`
+- `Vector2 getPosition()`
+- `void setPosition(Vector2 position)`: changes the camera position
+_[hint: Set the Camera Position to the Position of your Player Entity ([Entity/Event/TranslateEvent](#translateeventvector2-translateto)), to let the Camera follow your player.]_
+
 
 ## GameManager
 

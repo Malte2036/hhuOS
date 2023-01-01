@@ -24,6 +24,7 @@
 #include "lib/util/graphic/Colors.h"
 #include "lib/util/math/Vector2.h"
 #include "lib/util/file/image/Image.h"
+#include "Camera.h"
 
 namespace Util::Game {
 
@@ -33,7 +34,7 @@ public:
     /**
      * Constructor.
      */
-    explicit Graphics2D(const Util::Graphic::LinearFrameBuffer &lfb);
+    explicit Graphics2D(const Util::Graphic::LinearFrameBuffer &lfb, Camera *camera);
 
     /**
      * Copy Constructor.
@@ -79,6 +80,7 @@ private:
     void drawString(const Graphic::Font &font, double x, double y, const char *string) const;
 
     const Graphic::BufferedLinearFrameBuffer lfb;
+    Camera *camera;
 
     const Graphic::PixelDrawer pixelDrawer;
     const Graphic::LineDrawer lineDrawer;

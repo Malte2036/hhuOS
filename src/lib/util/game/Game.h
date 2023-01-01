@@ -24,6 +24,7 @@
 #include "KeyListener.h"
 #include "MouseListener.h"
 #include "lib/util/game/entity/Entity.h"
+#include "Camera.h"
 
 namespace Util::Game {
 
@@ -50,6 +51,8 @@ namespace Util::Game {
         virtual ~Game();
 
         void stop();
+
+        Camera* getCamera();
 
         void addEntity(Entity *entity);
 
@@ -82,6 +85,8 @@ namespace Util::Game {
 
         KeyListener *keyListener = nullptr;
         MouseListener *mouseListener = nullptr;
+
+        Camera *camera = new Camera(Vector2());
 
         Util::Data::ArrayList<Entity *> entities;
 

@@ -4,12 +4,13 @@
 
 #include "MarioEntity.h"
 #include "lib/util/log/Logger.h"
+#include "lib/util/game/GameManager.h"
+#include "MarioGame.h"
 
 bool cancelTranslate = false;
 
 MarioEntity::MarioEntity(const Util::Memory::String &tag, const Vector2 &position) : Util::Game::Entity(tag, position),
                                                                                      sprite{new Util::Game::Sprite("/initrd/mario.bmp")} {
-
 }
 
 void MarioEntity::draw(Util::Game::Graphics2D &graphics) const {
@@ -29,6 +30,8 @@ void MarioEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
     if (translateTo.getY() <= -1) {
         event->setCanceled(true);
     }
+
+    Util::Game::GameManager<MarioGame>::getGame()->getCamera()->setPosition(event->getTranslateTo() + Vector2(0, 0.5));
 }
 
 void MarioEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {

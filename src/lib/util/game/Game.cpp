@@ -103,4 +103,8 @@ namespace Util::Game {
             }
         }
     }
+
+    Camera *Game::getCamera() {
+        return camera;
+    }
 }
