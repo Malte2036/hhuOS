@@ -18,7 +18,7 @@ public:
 private:
     Util::Game::Sprite *sprite;
 
-    const double size = 0.024 * 3;
+    const double size = 0.026 * 3;
 
     [[nodiscard]] Util::Game::RectangleCollider getCollider() const override;
 

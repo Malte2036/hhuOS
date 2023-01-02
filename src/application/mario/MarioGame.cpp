@@ -10,6 +10,7 @@ MarioGame::MarioGame() {
     player->addComponent(new Util::Game::GravityComponent());
     addEntity(player);
 
+    itemBlocks.add(new MarioItemBlockEntity("ItemBlock", Vector2(0, -0.3)));
     itemBlocks.add(new MarioItemBlockEntity("ItemBlock", Vector2(-0.2, 0.3)));
     itemBlocks.add(new MarioItemBlockEntity("ItemBlock", Vector2(-0.5, -0.6)));
     itemBlocks.add(new MarioItemBlockEntity("ItemBlock", Vector2(1, 0.3)));

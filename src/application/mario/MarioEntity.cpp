@@ -7,7 +7,8 @@
 #include "lib/util/game/GameManager.h"
 #include "MarioGame.h"
 
-bool cancelTranslate = false;
+bool collsionBottom = false;
+bool collsionTop = false;
 
 Util::File::Image::Image *currentImage = nullptr;
 
@@ -35,17 +36,39 @@ void MarioEntity::draw(Util::Game::Graphics2D &graphics) const {
 }
 
 void MarioEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
-    if (cancelTranslate) {
-        cancelTranslate = false;
-        event->setCanceled(true);
-        return;
+    const Vector2 translateTo = event->getTranslateTo();
+    if (collsionBottom) {
+        collsionBottom = false;
+
+        auto yJump = translateTo.getY() - position.getY();
+
+        if (yJump > 0.01) {
+            event->setCanceled(true);
+            return;
+        }
+    }
+    if (collsionTop) {
+        collsionTop = false;
+
+        auto yJump = translateTo.getY() - position.getY();
+
+        if(translateTo.getX() - position.getX() > 0.01){
+
+            auto x = 1;
+        }
+
+        if (yJump < -0.01) {
+            event->setCanceled(true);
+            return;
+        }else{
+            auto x = 1;
+        }
     }
     auto camera = Util::Game::GameManager::getGame<MarioGame>()->getCamera();
 
     //calculate the left window border position offset
     auto windowBorderOffset = Util::Game::GameManager::getResolution().getX() / 2;
 
-    const Vector2 translateTo = event->getTranslateTo();
     if (translateTo.getX() <= (camera->getPosition().getX() - windowBorderOffset)) {
         event->setCanceled(true);
     }
@@ -66,8 +89,14 @@ void MarioEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
 void MarioEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
     if (event->getCollidedWith()->getTag() == "ItemBlock") {
         Logger::logMessage("Mario collected ItemBlock");
-        setPosition(Vector2(position.getX(), event->getCollidedWith()->getPosition().getY() + 0.15));
-        cancelTranslate = true;
+        if (position.getY() > event->getCollidedWith()->getPosition().getY()) {
+            setPosition(Vector2(position.getX(), event->getCollidedWith()->getPosition().getY() + event->getCollidedWith()->getCollider().getHeight()));
+            collsionTop = true;
+            collsionBottom = false;
+        } else {
+            collsionTop = false;
+            collsionBottom = true;
+        };
     }
 }
 
