@@ -8,6 +8,7 @@ namespace Util::Game {
 
     const double groundY = -1;
     const double gravityValue = -1;
+    const double stopFactorX = 0.9;
 
     const double mass = 1;
 
@@ -18,7 +19,7 @@ namespace Util::Game {
             auto force = Vector2(0, mass * gravityValue);
             auto acceleration = Vector2(force.getX() / mass, force.getY() / mass);
 
-            getEntity()->setVelocity(velocity + Vector2(acceleration.getX() * dt, acceleration.getY() * dt));
+            velocity = velocity + Vector2(acceleration.getX() * dt, acceleration.getY() * dt);
         }
 
         auto computedPosition = position + Vector2(velocity.getX() * dt, velocity.getY() * dt);
@@ -28,9 +29,13 @@ namespace Util::Game {
 
         if (!event->isCanceled()) {
             getEntity()->setPosition(computedPosition);
+
+            velocity = Vector2(velocity.getX() * stopFactorX, velocity.getY());
         } else {
-            getEntity()->setVelocity(Vector2());
+            velocity = Vector2();
         }
+
+        getEntity()->setVelocity(velocity);
 
     }
 }
