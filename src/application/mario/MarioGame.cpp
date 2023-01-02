@@ -12,6 +12,10 @@ MarioGame::MarioGame() {
 
     itemBlocks.add(new MarioItemBlockEntity("ItemBlock", Vector2(-0.2, 0.3)));
     itemBlocks.add(new MarioItemBlockEntity("ItemBlock", Vector2(-0.5, -0.6)));
+    itemBlocks.add(new MarioItemBlockEntity("ItemBlock", Vector2(1, 0.3)));
+    itemBlocks.add(new MarioItemBlockEntity("ItemBlock", Vector2(1.2, 10.1)));
+    itemBlocks.add(new MarioItemBlockEntity("ItemBlock", Vector2(2.0, 0.2)));
+    itemBlocks.add(new MarioItemBlockEntity("ItemBlock", Vector2(2.7, -0.3)));
 
     for(auto block:itemBlocks){
         addEntity(block);

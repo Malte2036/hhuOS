@@ -6,8 +6,8 @@
 #define HHUOS_MARIOENTITY_H
 
 
-#include "lib/util/game/Sprite.h"
 #include "lib/util/game/entity/Entity.h"
+#include "lib/util/game/SpriteAnimation.h"
 
 class MarioEntity : public Util::Game::Entity {
 public:
@@ -20,8 +20,6 @@ public:
     void jump();
 
 private:
-    Util::Game::Sprite *sprite;
-
     const double speed = 0.75;
     const double jumpSpeed = speed * 2;
     const double size = 0.15;
