@@ -15,6 +15,8 @@ Util::Game::Sprite idleSprite = Util::Game::Sprite(
         "/initrd/mario.bmp");
 Util::Game::SpriteAnimation *runAnimation = nullptr;
 
+bool directionLeft = false;
+
 MarioEntity::MarioEntity(const Util::Memory::String &tag, const Vector2 &position) : Util::Game::Entity(tag, position) {
     runAnimation = new Util::Game::SpriteAnimation(
             {
@@ -29,7 +31,7 @@ MarioEntity::MarioEntity(const Util::Memory::String &tag, const Vector2 &positio
 
 
 void MarioEntity::draw(Util::Game::Graphics2D &graphics) const {
-    graphics.drawImage(position, *currentImage);
+    graphics.drawImage(position, *currentImage, directionLeft);
 }
 
 void MarioEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
@@ -55,6 +57,10 @@ void MarioEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
         camera->setPosition(
                 Vector2(event->getTranslateTo().getX(), 0));
     }
+    if (event->isCanceled()) {
+        currentImage = idleSprite.getImage();
+        Logger::logMessage("setIdle");
+    }
 }
 
 void MarioEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
@@ -71,11 +77,13 @@ Util::Game::RectangleCollider MarioEntity::getCollider() const {
 
 void MarioEntity::moveRight() {
     translateX(speed);
+    directionLeft = false;
     currentImage = runAnimation->getNextSprite().getImage();
 }
 
 void MarioEntity::moveLeft() {
     translateX(-speed);
+    directionLeft = true;
     currentImage = runAnimation->getNextSprite().getImage();
 }
 

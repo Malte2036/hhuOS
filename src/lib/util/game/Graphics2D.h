@@ -65,7 +65,7 @@ public:
 
     void drawStringSmall(double x, double y, const Util::Memory::String &string) const;
 
-    void drawImage(const Vector2& position, const Util::File::Image::Image &image) const;
+    void drawImage(const Vector2& position, const Util::File::Image::Image &image, bool flipX = false) const;
 
     void show() const;
 

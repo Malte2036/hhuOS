@@ -57,15 +57,17 @@ namespace Util::Game {
         drawLine(x + size, y, x + size, y + size);
     }
 
-    void Graphics2D::drawImage(const Vector2 &position, const Util::File::Image::Image &image) const {
+    void Graphics2D::drawImage(const Vector2 &position, const Util::File::Image::Image &image, bool flipX) const {
         auto width = image.getWidth();
         auto pixelBuf = image.getPixelBuffer();
+
+        auto xFlipOffset = flipX ? width : 0;
 
         int32_t xPixelOffset = (position.getX() - camera->getPosition().getX()) * transformation + offsetX;
         int32_t yPixelOffset = (-position.getY() + camera->getPosition().getY()) * transformation + offsetY;
         for (int32_t i = 0; i < image.getHeight(); i++) {
             for (int32_t j = 0; j < width; j++) {
-                pixelDrawer.drawPixel(xPixelOffset + j, yPixelOffset - i, pixelBuf[i * width + j]);
+                pixelDrawer.drawPixel( xPixelOffset + xFlipOffset + (flipX ? -1 : 1) * j, yPixelOffset - i, pixelBuf[i * width + j]);
             }
         }
     }
