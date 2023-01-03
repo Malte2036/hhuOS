@@ -25,6 +25,11 @@ private:
     const double height = 0.1;
     const double width = 0.075;
 
+    bool directionLeft = false;
+
+    double groundY = -0.75;
+    bool canJump = false;
+
     [[nodiscard]] Util::Game::RectangleCollider getCollider() const override;
 
     void draw(Util::Game::Graphics2D &graphics) const override;

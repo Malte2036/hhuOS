@@ -4,6 +4,7 @@
 
 #include "MarioGame.h"
 #include "lib/util/game/entity/component/GravityComponent.h"
+#include "MarioGoombaEntity.h"
 
 MarioGame::MarioGame() {
     player = new MarioEntity("Player", Vector2(-0.2, 0));
@@ -22,6 +23,9 @@ MarioGame::MarioGame() {
     for(auto block:itemBlocks){
         addEntity(block);
     }
+
+    spawnGoomba(Vector2(1, -0.5));
+
 
     setKeyListener(*this);
 }
@@ -45,4 +49,10 @@ void MarioGame::keyPressed(char c) {
             stop();
             return;
     }
+}
+
+void MarioGame::spawnGoomba(Vector2 position) {
+    auto newGoomba = new MarioGoombaEntity(position + Vector2(1.5, 0));
+    newGoomba->addComponent(new Util::Game::GravityComponent(-0.75));
+    addEntity(newGoomba);
 }

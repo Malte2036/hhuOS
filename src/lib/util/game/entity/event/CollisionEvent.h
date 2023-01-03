@@ -17,13 +17,13 @@ namespace Util::Game {
     public:
         explicit CollisionEvent(Entity *other, RectangleCollidedSide rectangleCollidedSide);
 
-        const Entity *getCollidedWith();
+        Entity *getCollidedWith();
         const RectangleCollidedSide getRectangleCollidedSide();
 
     private:
         Memory::String type = "CollisionEvent";
 
-        const Entity *other;
+        Entity *other;
         const RectangleCollidedSide rectangleCollidedSide;
     };
 }

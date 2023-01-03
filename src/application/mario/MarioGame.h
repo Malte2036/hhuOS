@@ -18,6 +18,8 @@ public:
 
     void keyPressed(char c) override;
 
+    void spawnGoomba(Vector2 position);
+
 private:
     MarioEntity *player = nullptr;
 

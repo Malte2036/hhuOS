@@ -10,6 +10,7 @@ set(SOURCE_FILES
         ${HHUOS_SRC_DIR}/application/mario/mario.cpp
         ${HHUOS_SRC_DIR}/application/mario/MarioGame.cpp
         ${HHUOS_SRC_DIR}/application/mario/MarioEntity.cpp
+        ${HHUOS_SRC_DIR}/application/mario/MarioGoombaEntity.cpp
         ${HHUOS_SRC_DIR}/application/mario/MarioItemBlockEntity.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})

@@ -10,7 +10,7 @@ namespace Util::Game {
 
     }
 
-    const Entity *CollisionEvent::getCollidedWith() {
+    Entity *CollisionEvent::getCollidedWith() {
         return other;
     }
 

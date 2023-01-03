@@ -13,11 +13,6 @@ Util::Game::Sprite idleSprite = Util::Game::Sprite(
         "/initrd/mario.bmp");
 Util::Game::SpriteAnimation *runAnimation = nullptr;
 
-bool directionLeft = false;
-
-auto groundY = -0.75;
-bool canJump = false;
-
 MarioEntity::MarioEntity(const Util::Memory::String &tag, const Vector2 &position) : Util::Game::Entity(tag, position) {
     runAnimation = new Util::Game::SpriteAnimation(
             {
@@ -64,10 +59,15 @@ void MarioEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
 
 void MarioEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
     if (event->getCollidedWith()->getTag() == "ItemBlock") {
-        Logger::logMessage("Mario collected ItemBlock");
-    }
-    if (event->getRectangleCollidedSide() == Util::Game::BOTTOM_SIDE) {
-        canJump = true;
+        switch (event->getRectangleCollidedSide()) {
+            case Util::Game::BOTTOM_SIDE:
+                canJump = true;
+                break;
+            case Util::Game::TOP_SIDE:
+                Util::Game::GameManager::getGame<MarioGame>()->removeEntity(event->getCollidedWith());
+                Logger::logMessage("Mario destroyed ItemBlock");
+                break;
+        }
     }
 }
 
