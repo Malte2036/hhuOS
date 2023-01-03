@@ -25,7 +25,7 @@ namespace Util::Game {
         auto computedPosition = position + Vector2(velocity.getX() * dt, velocity.getY() * dt);
 
         auto event = new TranslateEvent(computedPosition);
-        getEntity()->onTranslateEvent(event);
+        getEntity()->translateEvent(event);
 
         if (!event->isCanceled()) {
             getEntity()->setPosition(computedPosition);

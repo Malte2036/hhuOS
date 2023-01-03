@@ -7,7 +7,12 @@
 
 namespace Util::Game {
 
-    Entity::Entity(const Memory::String tag, const Vector2 &position) : tag{tag}, position{position}, components() {}
+    bool collsionBottom = false;
+    bool collsionTop = false;
+
+    Entity::Entity(const Memory::String tag, const Vector2 &position, bool fixed) : fixed{fixed}, tag{tag},
+                                                                                    position{position},
+                                                                                    components() {}
 
     void Entity::translate(const Vector2 &vector2) {
         velocity = velocity + vector2;
@@ -38,7 +43,7 @@ namespace Util::Game {
     }
 
     void Entity::setVelocity(const Vector2 &vector2) {
-        velocity=vector2;
+        velocity = vector2;
     }
 
     void Entity::addComponent(Component *component) {
@@ -47,11 +52,55 @@ namespace Util::Game {
     }
 
     void Entity::update(double dt) {
-        for (const auto &component: components){
+        for (const auto &component: components) {
             component->update(dt);
         }
         onUpdate(dt);
+
+        collsionTop = false;
+        collsionBottom = false;
     }
 
+    void Entity::translateEvent(TranslateEvent *event) {
+        const Vector2 translateTo = event->getTranslateTo();
+        auto yJump = translateTo.getY() - position.getY();
 
+        if (collsionBottom) {
+            collsionBottom = false;
+
+            if (yJump > 0.01) {
+                event->setCanceled(true);
+                return;
+            }
+        }
+        if (collsionTop) {
+            collsionTop = false;
+
+            if (yJump < -0.01) {
+                event->setCanceled(true);
+                return;
+            }
+        }
+
+        onTranslateEvent(event);
+    }
+
+    void Entity::collisionEvent(CollisionEvent *event) {
+        if (position.getY() > event->getCollidedWith()->getPosition().getY()) {
+            if (!fixed) {
+                setPosition(Vector2(position.getX(), event->getCollidedWith()->getPosition().getY() +
+                                                     event->getCollidedWith()->getCollider().getHeight()));
+
+            }
+            collsionTop = true;
+            collsionBottom = false;
+
+        } else {
+            collsionTop = false;
+            collsionBottom = true;
+
+        }
+
+        onCollisionEvent(event);
+    }
 }

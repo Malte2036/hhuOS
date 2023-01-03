@@ -17,9 +17,11 @@ namespace Util::Game {
 
     class Entity : public Drawable {
         friend class Game;
+        friend class GravityComponent;
+        friend class LinearMovementComponent;
 
     public:
-        explicit Entity(Memory::String tag, const Vector2 &position);
+        explicit Entity(Memory::String tag, const Vector2 &position, bool fixed = false);
 
         virtual void onUpdate(double dt) = 0;
 
@@ -50,8 +52,11 @@ namespace Util::Game {
 
     private:
         void update(double dt);
+        void translateEvent(TranslateEvent *event);
+        void collisionEvent(CollisionEvent *event);
 
     protected:
+        bool fixed = true;
         Vector2 velocity = Vector2();
         Memory::String tag;
         Vector2 position;

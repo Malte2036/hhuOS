@@ -7,7 +7,7 @@
 #include "MarioGame.h"
 
 MarioItemBlockEntity::MarioItemBlockEntity(const Util::Memory::String &tag, const Vector2 &position)
-        : Util::Game::Entity(tag, position),sprite{new Util::Game::Sprite("/initrd/mario_block.bmp")} {
+        : Util::Game::Entity(tag, position, true),sprite{new Util::Game::Sprite("/initrd/mario_block.bmp")} {
 
 }
 

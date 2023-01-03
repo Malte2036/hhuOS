@@ -13,7 +13,7 @@ namespace Util::Game {
         auto newPosition = position.add(velocity);
 
         auto event = new TranslateEvent(newPosition);
-        getEntity()->onTranslateEvent(event);
+        getEntity()->translateEvent(event);
 
         if (!event->isCanceled()) {
             getEntity()->setPosition(newPosition);
