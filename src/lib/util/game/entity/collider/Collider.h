@@ -9,19 +9,23 @@
 #include "lib/util/math/Vector2.h"
 
 namespace Util::Game {
+    enum ColliderType {
+        DYNAMIC_COLLIDER, STATIC_COLLIDER
+    };
+
     class Collider {
     public:
-        Collider(Memory::String type, Vector2 position);
+        Collider(const Memory::String& type, const Vector2& position, ColliderType colliderType);
 
         Memory::String getType();
 
         Vector2 getPosition();
 
-        // RectangleCollider needs to be replaced
-        //virtual bool isColliding(Collider other) = 0;
+        ColliderType getColliderType();
     private:
         Memory::String type;
         Vector2 position;
+        const ColliderType colliderType;
     };
 }
 

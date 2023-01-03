@@ -47,8 +47,8 @@ _[hint: Set the Camera Position to the Position of your Player Entity ([Entity/E
 - `void translateX(double x)`: move the entity by `x` in x-direction
 - `void translateY(double y)`
 - `void onTranslateEvent(TranslateEvent *event)`: every time `translate(...)`, `translateX(...)` or `translateY(...)` is called, this function is automatically triggered. If the event is canceled (`event→setCanceled(true)`), the entity will not be translated. *[also see 🔗 [Entity/Event/TranslateEvent](#translateeventvector2-translateto)]*
-- `void onCollisionEvent(CollisionEvent *event)`: is called when the collider of this entity overlaps with another collider. *[also see 🔗 [Entity/Event/CollisionEvent](#collisionevententity-other)]*
-- `void addComponent(Component *component)`: call this function, to add Components to this Entity. For example the GravityComponent. *[also see 🔗 [Entity/Component/GravityComponent](#gravitycomponent)]*
+- `void onCollisionEvent(CollisionEvent *event)`: is called when the collider of this entity overlaps with another collider. *[also see 🔗 [Entity/Event/CollisionEvent](#collisionevententity-other-rectanglecollidedside-rectanglecollidedside)]*
+- `void addComponent(Component *component)`: call this function, to add Components to this Entity. For example the GravityComponent. *[also see 🔗 [Entity/Component/GravityComponent](#gravitycomponentdouble-groundy)]*
 
 ### Component:
 
@@ -62,10 +62,11 @@ _[hint: Set the Camera Position to the Position of your Player Entity ([Entity/E
 - *extends `Component`*
   - with `type = "LinearMovementComponent"`
 
-#### `GravityComponent()`:
+#### `GravityComponent(double groundY)`:
 
 - *extends `Component`*
   - with `type = "GravityComponent"`
+- `double groundY`: the y coordinate of the ground
 
 ### Event:
 
@@ -86,24 +87,35 @@ _[hint: Set the Camera Position to the Position of your Player Entity ([Entity/E
 - `Vector2 translateTo`: Vector to move to.
 - `Vector2 getTranslateTo()`
 
-#### `CollisionEvent(Entity *other)`:
+#### `CollisionEvent(Entity *other, RectangleCollidedSide rectangleCollidedSide)`:
 
 - *extends `Event`*
   - with `type = "CollisionEvent"`
 - `Entity *entity`: entity that was collided with.
+- `RectangleCollidedSide rectangleCollidedSide`: the side that collided
+(`LEFT_SIDE`, `RIGHT_SIDE`, `TOP_SIDE`, `BOTTOM_SIDE`, `NO_SIDE`)
 - `Entity *getCollidedWith()`
+-  `RectangleCollidedSide getRectangleCollidedSide()`
 
 ### Collider:
 
-#### `Collider(String type, Vector2 position)`:
+#### `Collider(String type, Vector2 position, ColliderType colliderType)`:
 
-- …
+- `String type`: type of the Collider
+- `Vector2 position`
+- `ColliderType colliderType`: whether this is an `STATIC_COLLIDER` or `DYNAMIC_COLLIDER`
+- `String getType()`: returns the collider type
+- `Vector2 getPosition()`
+- `ColliderType getColliderType()`
 
-#### `RectangleCollider(Vector2 position, double height, double width)`:
+#### `RectangleCollider(Vector2 position, double height, double width, ColliderType colliderType)`:
 
 - *extends* `Collider`
   - with `type = “RectangleCollider”`
-- …
+- `Vector2 position`
+- `double height`
+- `double width`
+- `ColliderType colliderType`
 
 ## UI:
 

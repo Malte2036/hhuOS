@@ -23,7 +23,7 @@ void FoodEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
 }
 
 Util::Game::RectangleCollider FoodEntity::getCollider() const {
-    return Util::Game::RectangleCollider(getPosition(), size, size);
+    return Util::Game::RectangleCollider(getPosition(), size, size, Util::Game::STATIC_COLLIDER);
 }
 
 void FoodEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {

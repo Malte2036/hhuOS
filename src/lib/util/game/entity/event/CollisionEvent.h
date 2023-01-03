@@ -7,6 +7,7 @@
 
 #include "Event.h"
 #include "lib/util/memory/String.h"
+#include "lib/util/game/entity/collider/RectangleCollider.h"
 
 
 namespace Util::Game {
@@ -14,14 +15,16 @@ namespace Util::Game {
 
     class CollisionEvent : public Event {
     public:
-        explicit CollisionEvent(Entity *other);
+        explicit CollisionEvent(Entity *other, RectangleCollidedSide rectangleCollidedSide);
 
         const Entity *getCollidedWith();
+        const RectangleCollidedSide getRectangleCollidedSide();
 
     private:
         Memory::String type = "CollisionEvent";
 
         const Entity *other;
+        const RectangleCollidedSide rectangleCollidedSide;
     };
 }
 

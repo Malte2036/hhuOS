@@ -49,12 +49,16 @@ namespace Util::Game {
     }
 
     void Graphics2D::drawSquare(const Vector2 &position, double size) const {
+        drawRectangle(position, size, size);
+    }
+
+    void Graphics2D::drawRectangle(const Vector2 &position, double height, double width) const {
         double x = position.getX();
         double y = position.getY();
-        drawLine(x, y, x + size, y);
-        drawLine(x, y + size, x + size, y + size);
-        drawLine(x, y, x, y + size);
-        drawLine(x + size, y, x + size, y + size);
+        drawLine(x, y, x + width, y);
+        drawLine(x, y + height, x + width, y + height);
+        drawLine(x, y, x, y + height);
+        drawLine(x + width, y, x + width, y + height);
     }
 
     void Graphics2D::drawImage(const Vector2 &position, const Util::File::Image::Image &image, bool flipX) const {

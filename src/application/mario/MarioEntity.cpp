@@ -15,6 +15,9 @@ Util::Game::SpriteAnimation *runAnimation = nullptr;
 
 bool directionLeft = false;
 
+auto groundY = -0.75;
+bool canJump = false;
+
 MarioEntity::MarioEntity(const Util::Memory::String &tag, const Vector2 &position) : Util::Game::Entity(tag, position) {
     runAnimation = new Util::Game::SpriteAnimation(
             {
@@ -30,6 +33,7 @@ MarioEntity::MarioEntity(const Util::Memory::String &tag, const Vector2 &positio
 
 void MarioEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.drawImage(position, *currentImage, directionLeft);
+    graphics.drawRectangle(position, getCollider().getHeight(), getCollider().getWidth());
 }
 
 void MarioEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
@@ -43,8 +47,9 @@ void MarioEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
     if (translateTo.getX() <= (camera->getPosition().getX() - windowBorderOffset)) {
         event->setCanceled(true);
     }
-    if (translateTo.getY() <= -1) {
+    if (translateTo.getY() <= groundY) {
         event->setCanceled(true);
+        canJump = true;
     }
 
     if (event->getTranslateTo().getX() >= camera->getPosition().getX()) {
@@ -61,10 +66,13 @@ void MarioEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
     if (event->getCollidedWith()->getTag() == "ItemBlock") {
         Logger::logMessage("Mario collected ItemBlock");
     }
+    if (event->getRectangleCollidedSide() == Util::Game::BOTTOM_SIDE) {
+        canJump = true;
+    }
 }
 
 Util::Game::RectangleCollider MarioEntity::getCollider() const {
-    return Util::Game::RectangleCollider(position, size, size);
+    return Util::Game::RectangleCollider(position, height, width, Util::Game::DYNAMIC_COLLIDER);
 }
 
 void MarioEntity::moveRight() {
@@ -80,8 +88,9 @@ void MarioEntity::moveLeft() {
 }
 
 void MarioEntity::jump() {
-    if (getPosition().getY() <= (-1 + 0.025)) {
+    if (canJump) {
         translateY(jumpSpeed);
+        canJump = false;
     }
 }
 

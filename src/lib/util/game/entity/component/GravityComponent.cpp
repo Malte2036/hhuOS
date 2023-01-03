@@ -5,12 +5,14 @@
 #include "GravityComponent.h"
 
 namespace Util::Game {
-
-    const double groundY = -1;
     const double gravityValue = -1;
     const double stopFactorX = 0.9;
 
     const double mass = 1;
+
+    GravityComponent::GravityComponent(double groundY): groundY{groundY} {
+
+    }
 
     void GravityComponent::update(double dt) {
         auto position = getEntity()->getPosition();

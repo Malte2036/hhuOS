@@ -31,7 +31,7 @@ void SnakeEntity::setColor(Util::Graphic::Color value) {
 }
 
 Util::Game::RectangleCollider SnakeEntity::getCollider() const {
-    return Util::Game::RectangleCollider(getPosition(), size, size);
+    return Util::Game::RectangleCollider(getPosition(), size, size, Util::Game::STATIC_COLLIDER);
 }
 
 void SnakeEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {

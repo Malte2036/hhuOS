@@ -15,7 +15,7 @@ TestDemo::TestDemo() {
     Util::System::out << "Starting testDemo\n";
 
     player = new DemoEntity(Vector2(0, 0), 0.1);
-    player->addComponent(new Util::Game::GravityComponent());
+    player->addComponent(new Util::Game::GravityComponent(-1));
     addEntity(player);
 
     setKeyListener(*this);

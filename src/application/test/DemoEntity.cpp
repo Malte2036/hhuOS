@@ -26,7 +26,7 @@ void DemoEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
 }
 
 Util::Game::RectangleCollider DemoEntity::getCollider() const {
-    return Util::Game::RectangleCollider(getPosition(), size, size);
+    return Util::Game::RectangleCollider(getPosition(), size, size, Util::Game::STATIC_COLLIDER);
 }
 
 void DemoEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {

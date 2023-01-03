@@ -3,10 +3,12 @@
 //
 
 #include "RectangleCollider.h"
+#include "lib/util/math/Math.h"
 
 
-Util::Game::RectangleCollider::RectangleCollider(Vector2 position, double height, double width) : Collider(
-        "RectangleCollider", position), height{height}, width{width} {}
+Util::Game::RectangleCollider::RectangleCollider(Vector2 position, double height, double width,
+                                                 ColliderType colliderType) : Collider(
+        "RectangleCollider", position, colliderType), height{height}, width{width} {}
 
 double Util::Game::RectangleCollider::getHeight() {
     return height;
@@ -16,12 +18,29 @@ double Util::Game::RectangleCollider::getWidth() {
     return width;
 }
 
-bool Util::Game::RectangleCollider::isColliding(RectangleCollider other) {
+Util::Game::RectangleCollidedSide Util::Game::RectangleCollider::isColliding(RectangleCollider other) {
     if (getPosition().getX() < other.getPosition().getX() + other.getWidth() &&
         getPosition().getX() + getWidth() > other.getPosition().getX() &&
         getPosition().getY() < other.getPosition().getY() + other.getHeight() &&
         getHeight() + getPosition().getY() > other.getPosition().getY()) {
-        return true;
+
+        auto center = getPosition() + Vector2(getWidth() / 2, getHeight() / 2);
+        auto otherCenter = other.getPosition() + Vector2(other.getWidth() / 2, other.getHeight() / 2);
+
+        auto centerXDistance = center.getX() - otherCenter.getX();
+        auto centerYDistance = center.getY() - otherCenter.getY();
+
+        if (Math::Math::absolute(centerXDistance) < Math::Math::absolute(centerYDistance)) {
+            if (centerYDistance < 0) {
+                return TOP_SIDE;
+            }
+            return BOTTOM_SIDE;
+        }
+
+        if (centerXDistance < 0) {
+            return LEFT_SIDE;
+        }
+        return RIGHT_SIDE;
     }
-    return false;
+    return NO_SIDE;
 }

@@ -57,6 +57,8 @@ public:
 
     void drawSquare(const Vector2& position, double size) const;
 
+    void drawRectangle(const Vector2 &position, double height, double width) const;
+
     void drawString(double x, double y, const char *string) const;
 
     void drawString(double x, double y, const Util::Memory::String &string) const;

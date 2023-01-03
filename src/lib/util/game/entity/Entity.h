@@ -21,7 +21,7 @@ namespace Util::Game {
         friend class LinearMovementComponent;
 
     public:
-        explicit Entity(Memory::String tag, const Vector2 &position, bool fixed = false);
+        explicit Entity(Memory::String tag, const Vector2 &position);
 
         virtual void onUpdate(double dt) = 0;
 
@@ -56,7 +56,6 @@ namespace Util::Game {
         void collisionEvent(CollisionEvent *event);
 
     protected:
-        bool fixed = true;
         Vector2 velocity = Vector2();
         Memory::String tag;
         Vector2 position;

@@ -5,12 +5,17 @@
 #include "CollisionEvent.h"
 
 namespace Util::Game {
-    CollisionEvent::CollisionEvent(Entity *other) : Event(), other{other} {
+    CollisionEvent::CollisionEvent(Entity *other, RectangleCollidedSide rectangleCollidedSide)
+            : Event(), other{other}, rectangleCollidedSide{rectangleCollidedSide} {
 
     }
 
     const Entity *CollisionEvent::getCollidedWith() {
         return other;
+    }
+
+    const RectangleCollidedSide CollisionEvent::getRectangleCollidedSide() {
+        return rectangleCollidedSide;
     }
 
 }

@@ -7,12 +7,12 @@
 #include "MarioGame.h"
 
 MarioItemBlockEntity::MarioItemBlockEntity(const Util::Memory::String &tag, const Vector2 &position)
-        : Util::Game::Entity(tag, position, true),sprite{new Util::Game::Sprite("/initrd/mario_block.bmp")} {
+        : Util::Game::Entity(tag, position), sprite{new Util::Game::Sprite("/initrd/mario_block.bmp")} {
 
 }
 
 Util::Game::RectangleCollider MarioItemBlockEntity::getCollider() const {
-    return Util::Game::RectangleCollider(position, size, size);
+    return Util::Game::RectangleCollider(position, size, size, Util::Game::STATIC_COLLIDER);
 }
 
 void MarioItemBlockEntity::draw(Util::Game::Graphics2D &graphics) const {
@@ -25,7 +25,7 @@ void MarioItemBlockEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
 }
 
 void MarioItemBlockEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
-    if(event->getCollidedWith()->getTag() == "Player"){
+    if (event->getCollidedWith()->getTag() == "Player") {
         //Util::Game::GameManager::getGame<MarioGame>()->removeEntity(this);
     }
 }

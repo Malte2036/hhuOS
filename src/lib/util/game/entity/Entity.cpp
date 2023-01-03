@@ -7,12 +7,9 @@
 
 namespace Util::Game {
 
-    bool collsionBottom = false;
-    bool collsionTop = false;
-
-    Entity::Entity(const Memory::String tag, const Vector2 &position, bool fixed) : fixed{fixed}, tag{tag},
-                                                                                    position{position},
-                                                                                    components() {}
+    Entity::Entity(const Memory::String tag, const Vector2 &position) : tag{tag},
+                                                                        position{position},
+                                                                        components() {}
 
     void Entity::translate(const Vector2 &vector2) {
         velocity = velocity + vector2;
@@ -56,49 +53,44 @@ namespace Util::Game {
             component->update(dt);
         }
         onUpdate(dt);
-
-        collsionTop = false;
-        collsionBottom = false;
     }
 
     void Entity::translateEvent(TranslateEvent *event) {
-        const Vector2 translateTo = event->getTranslateTo();
-        auto yJump = translateTo.getY() - position.getY();
-
-        if (collsionBottom) {
-            collsionBottom = false;
-
-            if (yJump > 0.01) {
-                event->setCanceled(true);
-                return;
-            }
-        }
-        if (collsionTop) {
-            collsionTop = false;
-
-            if (yJump < -0.01) {
-                event->setCanceled(true);
-                return;
-            }
-        }
-
         onTranslateEvent(event);
     }
 
     void Entity::collisionEvent(CollisionEvent *event) {
-        if (position.getY() > event->getCollidedWith()->getPosition().getY()) {
-            if (!fixed) {
-                setPosition(Vector2(position.getX(), event->getCollidedWith()->getPosition().getY() +
-                                                     event->getCollidedWith()->getCollider().getHeight()));
-
+        if (getCollider().getColliderType() == DYNAMIC_COLLIDER) {
+            switch (event->getRectangleCollidedSide()) {
+                case BOTTOM_SIDE:
+                    setPosition(Vector2(position.getX(), event->getCollidedWith()->getPosition().getY() +
+                                                         event->getCollidedWith()->getCollider().getHeight()));
+                    if (velocity.getY() < 0) {
+                        setVelocity(Vector2(velocity.getX(), 0));
+                    }
+                    break;
+                case TOP_SIDE:
+                    setPosition(Vector2(position.getX(),
+                                        event->getCollidedWith()->getPosition().getY() - getCollider().getHeight()));
+                    if (velocity.getY() > 0) {
+                        setVelocity(Vector2(velocity.getX(), 0));
+                    }
+                    break;
+                case LEFT_SIDE:
+                    setPosition(Vector2(event->getCollidedWith()->getPosition().getX() - getCollider().getWidth(),
+                                        position.getY()));
+                    if (velocity.getX() < 0) {
+                        setVelocity(Vector2(0, velocity.getY()));
+                    }
+                    break;
+                case RIGHT_SIDE:
+                    setPosition(Vector2(event->getCollidedWith()->getPosition().getX() +
+                                        event->getCollidedWith()->getCollider().getWidth(), position.getY()));
+                    if (velocity.getX() > 0) {
+                        setVelocity(Vector2(0, velocity.getY()));
+                    }
+                    break;
             }
-            collsionTop = true;
-            collsionBottom = false;
-
-        } else {
-            collsionTop = false;
-            collsionBottom = true;
-
         }
 
         onCollisionEvent(event);
