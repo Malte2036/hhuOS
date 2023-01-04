@@ -78,6 +78,6 @@ void MarioGame::spawnGoomba(Vector2 position) {
     addEntity(newGoomba);
 }
 
-double MarioGame::getGroundY() {
+double MarioGame::getGroundY() const {
     return groundY;
 }

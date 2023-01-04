@@ -6,12 +6,9 @@
 #include "lib/util/game/GameManager.h"
 
 MarioSolidBlockEntity::MarioSolidBlockEntity(const Vector2 &position)
-        : Util::Game::Entity("SolidBlock", position), sprite{new Util::Game::Sprite("/initrd/mario_solidblock.bmp")} {
-
-}
-
-Util::Game::RectangleCollider MarioSolidBlockEntity::getCollider() const {
-    return Util::Game::RectangleCollider(position, size, size, Util::Game::STATIC_COLLIDER);
+        : Util::Game::Entity("SolidBlock", position),
+          sprite{new Util::Game::Sprite("/initrd/mario_solidblock.bmp")} {
+    collider = new Util::Game::RectangleCollider(position, size, size, Util::Game::STATIC_COLLIDER);
 }
 
 void MarioSolidBlockEntity::draw(Util::Game::Graphics2D &graphics) const {

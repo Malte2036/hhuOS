@@ -15,12 +15,14 @@ MarioGoombaEntity::MarioGoombaEntity(const Vector2 &position) : Util::Game::Enti
                             "/initrd/goomba_run_1.bmp"),
                     new Util::Game::Sprite(
                             "/initrd/goomba_run_2.bmp")});
+    collider = new Util::Game::RectangleCollider(position, height, width, Util::Game::DYNAMIC_COLLIDER);
+
     currentImage = runAnimation->getNextSprite().getImage();
 }
 
 void MarioGoombaEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.drawImage(position, *currentImage, directionLeft);
-    graphics.drawRectangle(position, getCollider().getHeight(), getCollider().getWidth());
+    graphics.drawRectangle(position, getCollider()->getHeight(), getCollider()->getWidth());
 }
 
 void MarioGoombaEntity::onUpdate(double dt) {
@@ -43,8 +45,3 @@ void MarioGoombaEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
         event->setCanceled(true);
     }
 }
-
-Util::Game::RectangleCollider MarioGoombaEntity::getCollider() const {
-    return Util::Game::RectangleCollider(position, height, width, Util::Game::DYNAMIC_COLLIDER);
-}
-

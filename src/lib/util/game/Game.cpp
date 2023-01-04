@@ -106,7 +106,7 @@ namespace Util::Game {
         for (Entity *entity: entities) {
             for (Entity *otherEntity: entities) {
                 if (entity != otherEntity && !detectedCollisions.contains(createEntityPair(entity, otherEntity))) {
-                    auto side = entity->getCollider().isColliding(otherEntity->getCollider());
+                    auto side = entity->getCollider()->isColliding(*otherEntity->getCollider());
                     if (side != NO_SIDE) {
                         entity->collisionEvent(new CollisionEvent(otherEntity, side));
 

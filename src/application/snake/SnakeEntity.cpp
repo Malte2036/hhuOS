@@ -9,7 +9,9 @@
 
 SnakeEntity::SnakeEntity(const Vector2 &position, double size, Util::Graphic::Color color, DirectionType direction,
                          double speed)
-        : Util::Game::Entity("SnakeEntity", position), color{color}, direction{direction}, size{size}, speed{speed} {}
+        : Util::Game::Entity("SnakeEntity", position), color{color}, direction{direction}, size{size}, speed{speed} {
+    collider = new Util::Game::RectangleCollider(getPosition(), size, size, Util::Game::STATIC_COLLIDER);
+}
 
 
 void SnakeEntity::draw(Util::Game::Graphics2D &graphics) const {
@@ -28,10 +30,6 @@ void SnakeEntity::setDirection(DirectionType directionType) {
 
 void SnakeEntity::setColor(Util::Graphic::Color value) {
     color = value;
-}
-
-Util::Game::RectangleCollider SnakeEntity::getCollider() const {
-    return Util::Game::RectangleCollider(getPosition(), size, size, Util::Game::STATIC_COLLIDER);
 }
 
 void SnakeEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {

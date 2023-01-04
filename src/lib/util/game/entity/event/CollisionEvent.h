@@ -18,7 +18,7 @@ namespace Util::Game {
         explicit CollisionEvent(Entity *other, RectangleCollidedSide rectangleCollidedSide);
 
         Entity *getCollidedWith();
-        const RectangleCollidedSide getRectangleCollidedSide();
+        RectangleCollidedSide getRectangleCollidedSide();
 
     private:
         Memory::String type = "CollisionEvent";

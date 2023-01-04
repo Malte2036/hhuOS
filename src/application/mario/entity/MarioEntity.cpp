@@ -24,12 +24,16 @@ MarioEntity::MarioEntity(const Util::Memory::String &tag, const Vector2 &positio
                     new Util::Game::Sprite(
                             "/initrd/mario_run_3.bmp")});
     currentImage = idleSprite.getImage();
+
+    collider = new Util::Game::RectangleCollider(position, height * (big ? 2 : 1), width, Util::Game::DYNAMIC_COLLIDER);
 }
 
 
 void MarioEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.drawImage(position, *currentImage, directionLeft);
-    graphics.drawRectangle(position, getCollider().getHeight(), getCollider().getWidth());
+    if (collider != nullptr) {
+        graphics.drawRectangle(position, collider->getHeight(), collider->getWidth());
+    }
 }
 
 void MarioEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
@@ -73,16 +77,15 @@ void MarioEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
     } else if (collidedWithTag == "Mushroom") {
         Logger::logMessage("Mushroom collected");
 
-        big = true;
+        setBig(true);
         Util::Game::GameManager::getGame<MarioGame>()->removeEntity(event->getCollidedWith());
     } else if (event->getCollidedWith()->getTag() == "Goomba") {
         auto game = Util::Game::GameManager::getGame<MarioGame>();
-        if (side == Util::Game::TOP_SIDE) {
+        if (side == Util::Game::BOTTOM_SIDE) {
             Logger::logMessage("Player killed Goomba");
-            return;
         } else {
             if (big) {
-                big = false;
+                setBig(false);
             } else {
                 Logger::logMessage("Player was killed by Goomba");
                 game->stop();
@@ -92,10 +95,6 @@ void MarioEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
         game->removeEntity(event->getCollidedWith());
         game->spawnGoomba(position + Vector2(1, 0.25));
     }
-}
-
-Util::Game::RectangleCollider MarioEntity::getCollider() const {
-    return Util::Game::RectangleCollider(position, height * (big ? 2 : 1), width, Util::Game::DYNAMIC_COLLIDER);
 }
 
 void MarioEntity::moveRight() {
@@ -118,4 +117,9 @@ void MarioEntity::jump() {
 }
 
 void MarioEntity::onUpdate(double dt) {
+}
+
+void MarioEntity::setBig(bool val) {
+    big = val;
+    collider->setHeight(height * (big ? 2 : 1));
 }

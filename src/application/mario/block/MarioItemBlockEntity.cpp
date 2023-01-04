@@ -10,12 +10,10 @@
 #include "lib/util/game/entity/component/GravityComponent.h"
 
 MarioItemBlockEntity::MarioItemBlockEntity(const Vector2 &position)
-        : Util::Game::Entity("ItemBlock", position), sprite{new Util::Game::Sprite("/initrd/mario_itemblock.bmp")} {
+        : Util::Game::Entity("ItemBlock", position),
+          sprite{new Util::Game::Sprite("/initrd/mario_itemblock.bmp")} {
 
-}
-
-Util::Game::RectangleCollider MarioItemBlockEntity::getCollider() const {
-    return Util::Game::RectangleCollider(position, size, size, Util::Game::STATIC_COLLIDER);
+    collider = new Util::Game::RectangleCollider(position, size, size, Util::Game::STATIC_COLLIDER);
 }
 
 void MarioItemBlockEntity::draw(Util::Game::Graphics2D &graphics) const {

@@ -21,9 +21,6 @@ public:
 
     void onCollisionEvent(Util::Game::CollisionEvent *event);
 
-    [[nodiscard]] Util::Game::RectangleCollider getCollider() const;
-
-
 private:
     double size;
     SnakeGameData *gameData;

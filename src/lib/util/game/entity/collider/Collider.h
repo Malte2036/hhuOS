@@ -22,6 +22,13 @@ namespace Util::Game {
         Vector2 getPosition();
 
         ColliderType getColliderType();
+
+    protected:
+        Vector2 lastPosition;
+
+        friend class Entity;
+        Vector2 setPosition(Vector2 vector2);
+
     private:
         Memory::String type;
         Vector2 position;

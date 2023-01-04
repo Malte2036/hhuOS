@@ -19,8 +19,6 @@ public:
 
     void draw(Util::Game::Graphics2D &graphics) const override;
 
-    [[nodiscard]] Util::Game::RectangleCollider getCollider() const;
-
     void moveRight();
 
     void moveLeft();

@@ -14,7 +14,7 @@ namespace Util::Game {
         return other;
     }
 
-    const RectangleCollidedSide CollisionEvent::getRectangleCollidedSide() {
+    RectangleCollidedSide CollisionEvent::getRectangleCollidedSide() {
         return rectangleCollidedSide;
     }
 

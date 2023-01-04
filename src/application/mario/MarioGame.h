@@ -20,7 +20,7 @@ public:
 
     void spawnGoomba(Vector2 position);
 
-    double getGroundY();
+    double getGroundY() const;
 
 private:
     MarioEntity *player = nullptr;

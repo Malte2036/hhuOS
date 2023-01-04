@@ -24,11 +24,11 @@ Util::Game::RectangleCollidedSide Util::Game::RectangleCollider::isColliding(Rec
         getPosition().getY() < other.getPosition().getY() + other.getHeight() &&
         getHeight() + getPosition().getY() > other.getPosition().getY()) {
 
-        auto center = getPosition() + Vector2(getWidth() / 2, getHeight() / 2);
+        auto lastCenter = lastPosition + Vector2(getWidth() / 2, getHeight() / 2);
         auto otherCenter = other.getPosition() + Vector2(other.getWidth() / 2, other.getHeight() / 2);
 
-        auto centerXDistance = center.getX() - otherCenter.getX();
-        auto centerYDistance = center.getY() - otherCenter.getY();
+        auto centerXDistance = lastCenter.getX() - otherCenter.getX();
+        auto centerYDistance = lastCenter.getY() - otherCenter.getY();
 
         if (Math::Math::absolute(centerXDistance) < Math::Math::absolute(centerYDistance)) {
             if (centerYDistance < 0) {
@@ -43,4 +43,12 @@ Util::Game::RectangleCollidedSide Util::Game::RectangleCollider::isColliding(Rec
         return RIGHT_SIDE;
     }
     return NO_SIDE;
+}
+
+void Util::Game::RectangleCollider::setHeight(double val) {
+    height = val;
+}
+
+void Util::Game::RectangleCollider::setWidth(double val) {
+    width = val;
 }

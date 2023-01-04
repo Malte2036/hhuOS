@@ -10,13 +10,14 @@
 MarioMushroomEntity::MarioMushroomEntity(const Vector2 &position) : Util::Game::Entity("Mushroom", position),
                                                                     sprite{new Util::Game::Sprite(
                                                                             "/initrd/mario_mushroom.bmp")} {
+    collider = new Util::Game::RectangleCollider(position, height, width, Util::Game::DYNAMIC_COLLIDER);
 }
 
 void MarioMushroomEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.drawImage(position, *sprite->getImage(), directionLeft);
     graphics.drawRectangle(position,
-                           getCollider().getHeight(),
-                           getCollider().getWidth());
+                           getCollider()->getHeight(),
+                           getCollider()->getWidth());
 }
 
 void MarioMushroomEntity::onUpdate(double dt) {
@@ -36,12 +37,5 @@ void MarioMushroomEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
     if (event->getTranslateTo().getY() <= groundY) {
         event->setCanceled(true);
     }
-}
-
-Util::Game::RectangleCollider MarioMushroomEntity::getCollider() const {
-    return Util::Game::RectangleCollider(position,
-                                         height,
-                                         width,
-                                         Util::Game::DYNAMIC_COLLIDER);
 }
 

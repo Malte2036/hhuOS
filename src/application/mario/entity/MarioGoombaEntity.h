@@ -11,7 +11,7 @@
 
 class MarioGoombaEntity : public Util::Game::Entity {
 public:
-    MarioGoombaEntity(const Vector2 &position);
+    explicit MarioGoombaEntity(const Vector2 &position);
 
 
     void draw(Util::Game::Graphics2D &graphics) const;
@@ -21,8 +21,6 @@ public:
     void onCollisionEvent(Util::Game::CollisionEvent *event) override;
 
     void onTranslateEvent(Util::Game::TranslateEvent *event) override;
-
-    [[nodiscard]] Util::Game::RectangleCollider getCollider() const override;
 
 private:
     double groundY = -0.75;

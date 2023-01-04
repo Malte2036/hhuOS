@@ -11,18 +11,16 @@
 
 class MarioMushroomEntity : public Util::Game::Entity {
 public:
-    MarioMushroomEntity(const Vector2 &position);
+    explicit MarioMushroomEntity(const Vector2 &position);
 
 
-    void draw(Util::Game::Graphics2D &graphics) const;
+    void draw(Util::Game::Graphics2D &graphics) const override;
 
     void onUpdate(double dt) override;
 
     void onCollisionEvent(Util::Game::CollisionEvent *event) override;
 
     void onTranslateEvent(Util::Game::TranslateEvent *event) override;
-
-    [[nodiscard]] Util::Game::RectangleCollider getCollider() const override;
 
 private:
     Util::Game::Sprite *sprite;

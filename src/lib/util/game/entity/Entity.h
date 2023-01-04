@@ -17,11 +17,13 @@ namespace Util::Game {
 
     class Entity : public Drawable {
         friend class Game;
+
         friend class GravityComponent;
+
         friend class LinearMovementComponent;
 
     public:
-        explicit Entity(Memory::String tag, const Vector2 &position);
+        explicit Entity(Memory::String tag, const Vector2 &position, RectangleCollider *collider = nullptr);
 
         virtual void onUpdate(double dt) = 0;
 
@@ -45,14 +47,16 @@ namespace Util::Game {
 
         void setVelocity(const Vector2 &vector2);
 
-        virtual Util::Game::RectangleCollider getCollider() const = 0;
+        [[nodiscard]] RectangleCollider *getCollider() const;
 
         void addComponent(Component *component);
 
 
     private:
         void update(double dt);
+
         void translateEvent(TranslateEvent *event);
+
         void collisionEvent(CollisionEvent *event);
 
     protected:
@@ -60,7 +64,9 @@ namespace Util::Game {
         Memory::String tag;
         Vector2 position;
 
-        Data::ArrayList<Component*> components;
+        RectangleCollider *collider;
+
+        Data::ArrayList<Component *> components;
     };
 
 }

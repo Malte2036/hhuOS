@@ -32,13 +32,13 @@ private:
     double groundY = -0.75;
     bool canJump = false;
 
-    [[nodiscard]] Util::Game::RectangleCollider getCollider() const override;
-
     void draw(Util::Game::Graphics2D &graphics) const override;
 
     void onTranslateEvent(Util::Game::TranslateEvent *event) override;
 
     void onCollisionEvent(Util::Game::CollisionEvent *event) override;
+
+    void setBig(bool val);
 };
 
 

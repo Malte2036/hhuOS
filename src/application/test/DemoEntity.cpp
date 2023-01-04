@@ -7,8 +7,8 @@
 const double speed = 0.75;
 
 DemoEntity::DemoEntity(const Vector2 &position, const double size) : Entity("DemoEntity", position), size{size},
-                                                  sprite{Util::Game::Sprite("/initrd/mario.bmp")} {
-
+                                                                     sprite{Util::Game::Sprite("/initrd/mario.bmp")} {
+    collider = new Util::Game::RectangleCollider(getPosition(), size, size, Util::Game::STATIC_COLLIDER);
 }
 
 void DemoEntity::draw(Util::Game::Graphics2D &graphics) const {
@@ -23,10 +23,6 @@ void DemoEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
     if (transformTo.getY() > (1 - size) || transformTo.getY() < -1) {
         event->setCanceled(true);
     }
-}
-
-Util::Game::RectangleCollider DemoEntity::getCollider() const {
-    return Util::Game::RectangleCollider(getPosition(), size, size, Util::Game::STATIC_COLLIDER);
 }
 
 void DemoEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {

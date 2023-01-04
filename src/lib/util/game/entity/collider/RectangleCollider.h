@@ -22,11 +22,15 @@ namespace Util::Game {
 
         double getWidth();
 
+        void setHeight(double val);
+
+        void setWidth(double val);
+
     protected:
         RectangleCollidedSide isColliding(RectangleCollider other);
 
     private:
-        const double height, width;
+        double height, width;
     };
 }
 
