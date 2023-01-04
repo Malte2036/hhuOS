@@ -25,6 +25,7 @@
 #include "MouseListener.h"
 #include "lib/util/game/entity/Entity.h"
 #include "Camera.h"
+#include "lib/util/data/Pair.h"
 
 namespace Util::Game {
 
@@ -95,6 +96,8 @@ namespace Util::Game {
         Util::Data::ArrayList<Drawable *> removeList;
         Util::Data::ArrayList<Entity *> removeEntityList;
         bool running = true;
+
+        Util::Data::Pair<Entity *, Entity *> createEntityPair(Entity *a, Entity *b);
     };
 
 }

@@ -17,6 +17,7 @@
 
 #include "Game.h"
 #include "GameManager.h"
+#include "lib/util/data/Pair.h"
 
 namespace Util::Game {
 
@@ -101,18 +102,47 @@ namespace Util::Game {
     }
 
     void Game::checkCollision() {
+        auto detectedCollisions = Data::ArrayList<Data::Pair<Entity *, Entity *>>();
         for (Entity *entity: entities) {
             for (Entity *otherEntity: entities) {
-                if (entity != otherEntity) {
+                if (entity != otherEntity && !detectedCollisions.contains(createEntityPair(entity, otherEntity))) {
                     auto side = entity->getCollider().isColliding(otherEntity->getCollider());
                     if (side != NO_SIDE) {
-                        auto otherSide = otherEntity->getCollider().isColliding(entity->getCollider());
                         entity->collisionEvent(new CollisionEvent(otherEntity, side));
+
+                        RectangleCollidedSide otherSide;
+                        switch (side) {
+                            case RIGHT_SIDE:
+                                otherSide = LEFT_SIDE;
+                                break;
+                            case LEFT_SIDE:
+                                otherSide = RIGHT_SIDE;
+                                break;
+                            case TOP_SIDE:
+                                otherSide = BOTTOM_SIDE;
+                                break;
+                            case BOTTOM_SIDE:
+                                otherSide = TOP_SIDE;
+                                break;
+                            default:
+                                otherSide = NO_SIDE;
+                                break;
+                        }
+
                         otherEntity->collisionEvent(new CollisionEvent(entity, otherSide));
+
+                        detectedCollisions.add(createEntityPair(entity, otherEntity));
                     }
                 }
             }
         }
+    }
+
+    Data::Pair<Entity *, Entity *> Game::createEntityPair(Entity *a, Entity *b) {
+        if (a < b) {
+            return {a, b};
+        }
+        return {b, a};
     }
 
     Camera *Game::getCamera() {
