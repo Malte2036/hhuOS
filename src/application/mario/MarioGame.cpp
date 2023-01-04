@@ -6,6 +6,7 @@
 #include "lib/util/game/entity/component/GravityComponent.h"
 #include "application/mario/entity/MarioGoombaEntity.h"
 #include "application/mario/block/MarioBrickBlockEntity.h"
+#include "application/mario/block/MarioSolidBlockEntity.h"
 
 MarioGame::MarioGame() {
     player = new MarioEntity("Player", Vector2(-0.2, 0));
@@ -13,6 +14,8 @@ MarioGame::MarioGame() {
     addEntity(player);
 
     auto blockWidth = 0.078 + 0.001;
+
+    addEntity(new MarioSolidBlockEntity(Vector2(blockWidth - 0.1, groundY)));
 
     addEntity(new MarioItemBlockEntity(Vector2(blockWidth * -3, groundY + 0.4)));
     addEntity(new MarioItemBlockEntity(Vector2(blockWidth * 2, groundY + 0.8)));

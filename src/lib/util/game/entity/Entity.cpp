@@ -34,7 +34,7 @@ namespace Util::Game {
 
     void Entity::setPosition(const Vector2 &vector2) {
         position = vector2;
-        if(collider != nullptr){
+        if (collider != nullptr) {
             collider->setPosition(position);
         }
     }
@@ -53,6 +53,8 @@ namespace Util::Game {
     }
 
     void Entity::update(double dt) {
+        collider->lastPosition = position;
+
         for (const auto &component: components) {
             component->update(dt);
         }
@@ -60,7 +62,6 @@ namespace Util::Game {
     }
 
     void Entity::translateEvent(TranslateEvent *event) {
-        collider->lastPosition = position;
         onTranslateEvent(event);
     }
 
@@ -82,15 +83,15 @@ namespace Util::Game {
                     }
                     break;
                 case LEFT_SIDE:
-                    setPosition(Vector2(event->getCollidedWith()->getPosition().getX() - getCollider()->getWidth(),
-                                        position.getY()));
+                    setPosition(Vector2(event->getCollidedWith()->getPosition().getX() +
+                                        event->getCollidedWith()->getCollider()->getWidth(), position.getY()));
                     if (velocity.getX() < 0) {
                         setVelocity(Vector2(0, velocity.getY()));
                     }
                     break;
                 case RIGHT_SIDE:
-                    setPosition(Vector2(event->getCollidedWith()->getPosition().getX() +
-                                        event->getCollidedWith()->getCollider()->getWidth(), position.getY()));
+                    setPosition(Vector2(event->getCollidedWith()->getPosition().getX() - getCollider()->getWidth(),
+                                        position.getY()));
                     if (velocity.getX() > 0) {
                         setVelocity(Vector2(0, velocity.getY()));
                     }
