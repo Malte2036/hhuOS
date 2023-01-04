@@ -5,7 +5,8 @@
 #include "MarioEntity.h"
 #include "lib/util/log/Logger.h"
 #include "lib/util/game/GameManager.h"
-#include "MarioGame.h"
+#include "application/mario/MarioGame.h"
+#include "application/mario/block/MarioSolidBlockEntity.h"
 
 Util::File::Image::Image *currentImage = nullptr;
 
@@ -58,14 +59,15 @@ void MarioEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
 }
 
 void MarioEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
-    if (event->getCollidedWith()->getTag() == "ItemBlock") {
+    auto collidedWithTag = event->getCollidedWith()->getTag();
+    if (collidedWithTag == "BrickBlock") {
         switch (event->getRectangleCollidedSide()) {
             case Util::Game::BOTTOM_SIDE:
                 canJump = true;
                 break;
             case Util::Game::TOP_SIDE:
                 Util::Game::GameManager::getGame<MarioGame>()->removeEntity(event->getCollidedWith());
-                Logger::logMessage("Mario destroyed ItemBlock");
+                Logger::logMessage("Mario destroyed Block");
                 break;
         }
     }

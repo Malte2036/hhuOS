@@ -4,25 +4,26 @@
 
 #include "MarioGame.h"
 #include "lib/util/game/entity/component/GravityComponent.h"
-#include "MarioGoombaEntity.h"
+#include "application/mario/entity/MarioGoombaEntity.h"
+#include "application/mario/block/MarioBrickBlockEntity.h"
 
 MarioGame::MarioGame() {
     player = new MarioEntity("Player", Vector2(-0.2, 0));
-    player->addComponent(new Util::Game::GravityComponent(-0.75));
+    player->addComponent(new Util::Game::GravityComponent(groundY));
     addEntity(player);
 
-    itemBlocks.add(new MarioItemBlockEntity("ItemBlock", Vector2(0, -0.5)));
-    itemBlocks.add(new MarioItemBlockEntity("ItemBlock", Vector2(0, -0.3)));
-    itemBlocks.add(new MarioItemBlockEntity("ItemBlock", Vector2(-0.2, 0.3)));
-    itemBlocks.add(new MarioItemBlockEntity("ItemBlock", Vector2(-0.5, -0.6)));
-    itemBlocks.add(new MarioItemBlockEntity("ItemBlock", Vector2(1, -0.3)));
-    itemBlocks.add(new MarioItemBlockEntity("ItemBlock", Vector2(1.2, 0.1)));
-    itemBlocks.add(new MarioItemBlockEntity("ItemBlock", Vector2(2.0, 0.2)));
-    itemBlocks.add(new MarioItemBlockEntity("ItemBlock", Vector2(2.7, -0.3)));
+    auto blockWidth = 0.078;
 
-    for(auto block:itemBlocks){
-        addEntity(block);
-    }
+    addEntity(new MarioItemBlockEntity(Vector2(blockWidth * -3, groundY + 0.4)));
+    addEntity(new MarioItemBlockEntity(Vector2(blockWidth * 2, groundY + 0.8)));
+
+    addEntity(new MarioBrickBlockEntity(Vector2(0, groundY + 0.4)));
+
+    addEntity(new MarioBrickBlockEntity(Vector2(blockWidth, groundY + 0.4)));
+    addEntity(new MarioBrickBlockEntity(Vector2(blockWidth * 2, groundY + 0.4)));
+    addEntity(new MarioBrickBlockEntity(Vector2(blockWidth * 3, groundY + 0.4)));
+    addEntity(new MarioItemBlockEntity(Vector2(blockWidth * 4, groundY + 0.4)));
+    addEntity(new MarioBrickBlockEntity(Vector2(blockWidth * 5, groundY + 0.4)));
 
     spawnGoomba(Vector2(1, -0.5));
 
@@ -53,6 +54,10 @@ void MarioGame::keyPressed(char c) {
 
 void MarioGame::spawnGoomba(Vector2 position) {
     auto newGoomba = new MarioGoombaEntity(position + Vector2(1.5, 0));
-    newGoomba->addComponent(new Util::Game::GravityComponent(-0.75));
+    newGoomba->addComponent(new Util::Game::GravityComponent(groundY));
     addEntity(newGoomba);
+}
+
+const double MarioGame::getGroundY() {
+    return groundY;
 }

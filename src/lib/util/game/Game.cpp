@@ -46,8 +46,15 @@ namespace Util::Game {
             delete object;
         }
 
+        for (auto *entity: removeEntityList) {
+            drawables.remove(entity);
+            entities.remove(entity);
+            delete entity;
+        }
+
         addList.clear();
         removeList.clear();
+        removeEntityList.clear();
     }
 
     void Game::draw(Graphics2D &graphics) {
@@ -82,8 +89,9 @@ namespace Util::Game {
     }
 
     void Game::removeEntity(Entity *entity) {
-        entities.remove(entity);
-        removeList.add(entity);
+        if (!removeEntityList.contains(entity)) {
+            removeEntityList.add(entity);
+        }
     }
 
     void Game::updateEntities(double frameTime) {

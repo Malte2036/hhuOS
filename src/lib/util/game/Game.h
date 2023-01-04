@@ -93,6 +93,7 @@ namespace Util::Game {
         Util::Data::ArrayList<Drawable *> drawables;
         Util::Data::ArrayList<Drawable *> addList;
         Util::Data::ArrayList<Drawable *> removeList;
+        Util::Data::ArrayList<Entity *> removeEntityList;
         bool running = true;
     };
 

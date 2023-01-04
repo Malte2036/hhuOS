@@ -6,8 +6,8 @@
 #define HHUOS_MARIOGAME_H
 
 #include "lib/util/game/Game.h"
-#include "MarioEntity.h"
-#include "MarioItemBlockEntity.h"
+#include "application/mario/entity/MarioEntity.h"
+#include "application/mario/block/MarioItemBlockEntity.h"
 
 class MarioGame : public Util::Game::Game, public Util::Game::KeyListener {
 
@@ -20,10 +20,11 @@ public:
 
     void spawnGoomba(Vector2 position);
 
+    const double getGroundY();
+
 private:
     MarioEntity *player = nullptr;
-
-    Util::Data::ArrayList<MarioItemBlockEntity*> itemBlocks = {};
+    const double groundY = -0.75;
 };
 
 #endif //HHUOS_MARIOGAME_H

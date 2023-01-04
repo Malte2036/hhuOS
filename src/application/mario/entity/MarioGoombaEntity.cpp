@@ -4,7 +4,7 @@
 
 #include "MarioGoombaEntity.h"
 #include "lib/util/game/GameManager.h"
-#include "MarioGame.h"
+#include "application/mario/MarioGame.h"
 #include "lib/util/log/Logger.h"
 #include "lib/util/game/entity/component/GravityComponent.h"
 
@@ -19,12 +19,12 @@ MarioGoombaEntity::MarioGoombaEntity(const Vector2 &position) : Util::Game::Enti
 }
 
 void MarioGoombaEntity::draw(Util::Game::Graphics2D &graphics) const {
-    graphics.drawImage(position, *currentImage);
+    graphics.drawImage(position, *currentImage, directionLeft);
     graphics.drawRectangle(position, getCollider().getHeight(), getCollider().getWidth());
 }
 
 void MarioGoombaEntity::onUpdate(double dt) {
-    translateX(-speed);
+    translateX(speed * (directionLeft ? -1 : 1));
     currentImage = runAnimation->getNextSprite().getImage();
 }
 
@@ -43,6 +43,13 @@ void MarioGoombaEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
         Logger::logMessage("Player was killed by Goomba");
         Util::Game::GameManager::getGame<MarioGame>()->stop();
         return;
+    }
+
+    auto collidedWithSide = event->getRectangleCollidedSide();
+    if (collidedWithSide == Util::Game::LEFT_SIDE) {
+        directionLeft = false;
+    } else if (collidedWithSide == Util::Game::RIGHT_SIDE) {
+        directionLeft = true;
     }
 }
 

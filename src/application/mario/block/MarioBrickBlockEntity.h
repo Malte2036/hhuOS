@@ -2,16 +2,16 @@
 // Created by malte on 07.12.22.
 //
 
-#ifndef HHUOS_MARIOITEMBLOCKENTITY_H
-#define HHUOS_MARIOITEMBLOCKENTITY_H
+#ifndef HHUOS_MARIOBRICKBLOCKENTITY_H
+#define HHUOS_MARIOBRICKBLOCKENTITY_H
 
 
 #include "lib/util/game/entity/Entity.h"
 #include "lib/util/game/Sprite.h"
 
-class MarioItemBlockEntity : public Util::Game::Entity {
+class MarioBrickBlockEntity : public Util::Game::Entity {
 public:
-    MarioItemBlockEntity(const Util::Memory::String &tag, const Vector2 &position);
+    explicit MarioBrickBlockEntity(const Vector2 &position);
 
     void onUpdate(double dt) override;
 
@@ -30,4 +30,4 @@ private:
 };
 
 
-#endif //HHUOS_MARIOITEMBLOCKENTITY_H
+#endif //HHUOS_MARIOBRICKBLOCKENTITY_H

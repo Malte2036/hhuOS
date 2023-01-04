@@ -32,6 +32,8 @@ private:
     const double height = 0.09;
     const double width = 0.08;
 
+    bool directionLeft = true;
+
     Util::File::Image::Image *currentImage = nullptr;
     Util::Game::SpriteAnimation *runAnimation = nullptr;
 };

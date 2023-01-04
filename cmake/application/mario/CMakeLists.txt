@@ -9,9 +9,12 @@ include_directories(${HHUOS_SRC_DIR})
 set(SOURCE_FILES
         ${HHUOS_SRC_DIR}/application/mario/mario.cpp
         ${HHUOS_SRC_DIR}/application/mario/MarioGame.cpp
-        ${HHUOS_SRC_DIR}/application/mario/MarioEntity.cpp
-        ${HHUOS_SRC_DIR}/application/mario/MarioGoombaEntity.cpp
-        ${HHUOS_SRC_DIR}/application/mario/MarioItemBlockEntity.cpp)
+        ${HHUOS_SRC_DIR}/application/mario/entity/MarioEntity.cpp
+        ${HHUOS_SRC_DIR}/application/mario/entity/MarioGoombaEntity.cpp
+        ${HHUOS_SRC_DIR}/application/mario/entity/MarioMushroomEntity.cpp
+        ${HHUOS_SRC_DIR}/application/mario/block/MarioBrickBlockEntity.cpp
+        ${HHUOS_SRC_DIR}/application/mario/block/MarioSolidBlockEntity.cpp
+        ${HHUOS_SRC_DIR}/application/mario/block/MarioItemBlockEntity.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
