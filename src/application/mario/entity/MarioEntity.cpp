@@ -59,22 +59,43 @@ void MarioEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
 }
 
 void MarioEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
+    auto side = event->getRectangleCollidedSide();
+    if (side == Util::Game::BOTTOM_SIDE) {
+        canJump = true;
+    }
+
     auto collidedWithTag = event->getCollidedWith()->getTag();
     if (collidedWithTag == "BrickBlock") {
-        switch (event->getRectangleCollidedSide()) {
-            case Util::Game::BOTTOM_SIDE:
-                canJump = true;
-                break;
-            case Util::Game::TOP_SIDE:
-                Util::Game::GameManager::getGame<MarioGame>()->removeEntity(event->getCollidedWith());
-                Logger::logMessage("Mario destroyed Block");
-                break;
+        if (side == Util::Game::TOP_SIDE) {
+            Util::Game::GameManager::getGame<MarioGame>()->removeEntity(event->getCollidedWith());
+            Logger::logMessage("Mario destroyed Block");
         }
+    } else if (collidedWithTag == "Mushroom") {
+        Logger::logMessage("Mushroom collected");
+
+        big = true;
+        Util::Game::GameManager::getGame<MarioGame>()->removeEntity(event->getCollidedWith());
+    } else if (event->getCollidedWith()->getTag() == "Goomba") {
+        auto game = Util::Game::GameManager::getGame<MarioGame>();
+        if (side == Util::Game::TOP_SIDE) {
+            Logger::logMessage("Player killed Goomba");
+            return;
+        } else {
+            if (big) {
+                big = false;
+            } else {
+                Logger::logMessage("Player was killed by Goomba");
+                game->stop();
+                return;
+            }
+        }
+        game->removeEntity(event->getCollidedWith());
+        game->spawnGoomba(position + Vector2(1, 0.25));
     }
 }
 
 Util::Game::RectangleCollider MarioEntity::getCollider() const {
-    return Util::Game::RectangleCollider(position, height, width, Util::Game::DYNAMIC_COLLIDER);
+    return Util::Game::RectangleCollider(position, height * (big ? 2 : 1), width, Util::Game::DYNAMIC_COLLIDER);
 }
 
 void MarioEntity::moveRight() {

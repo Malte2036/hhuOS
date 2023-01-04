@@ -25,6 +25,8 @@ private:
     const double height = 0.1;
     const double width = 0.075;
 
+    bool big = false;
+
     bool directionLeft = false;
 
     double groundY = -0.75;

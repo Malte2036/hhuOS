@@ -24,17 +24,6 @@ void MarioMushroomEntity::onUpdate(double dt) {
 }
 
 void MarioMushroomEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
-    if (event->getCollidedWith()->getTag() == "Player") {
-        Logger::logMessage("Mushroom collected");
-
-        Util::Game::GameManager::getGame<MarioGame>()->removeEntity(this);
-        return;
-    }
-
-    if (event->getCollidedWith()->getTag() == "Mushroom") {
-        return;
-    }
-
     auto collidedWithSide = event->getRectangleCollidedSide();
     if (collidedWithSide == Util::Game::LEFT_SIDE) {
         directionLeft = false;

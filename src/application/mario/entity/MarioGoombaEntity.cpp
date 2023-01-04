@@ -29,21 +29,6 @@ void MarioGoombaEntity::onUpdate(double dt) {
 }
 
 void MarioGoombaEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
-    if (event->getCollidedWith()->getTag() == "Player") {
-        Logger::logMessage("collided");
-        auto side = event->getRectangleCollidedSide();
-        if (side == Util::Game::TOP_SIDE) {
-            Logger::logMessage("Goomba was killed by Player");
-            auto game = Util::Game::GameManager::getGame<MarioGame>();
-            game->spawnGoomba(position + Vector2(1, 0.25));
-
-            game->removeEntity(this);
-            return;
-        }
-        Logger::logMessage("Player was killed by Goomba");
-        Util::Game::GameManager::getGame<MarioGame>()->stop();
-        return;
-    }
 
     auto collidedWithSide = event->getRectangleCollidedSide();
     if (collidedWithSide == Util::Game::LEFT_SIDE) {
