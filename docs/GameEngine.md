@@ -36,12 +36,14 @@ _[hint: Set the Camera Position to the Position of your Player Entity ([Entity/E
 
 ## Entity:
 
-### `Entity(String tag, Vector2 position)`:
+### `Entity(String tag, Vector2 position, RectangleCollider *collider = nullptr)`:
 
 - `String tag`: Freely selectable name or type of an entity. For later identification of the entity.
-- `Vector2 position`: current position of the entity
+- `Vector2 position`: position of the entity
+- `RectangleCollider *collider`: collider of the entity (can be omitted)
 - `String getTag()`
 - `Vector2 getPosition()`
+- `RectangleCollider *getCollider()`
 - `void setPosition(Vector2 vector2)`: set the position of the entity
 - `void translate(Vector2 vector2)`: move the entity relatively in the direction of the vector
 - `void translateX(double x)`: move the entity by `x` in x-direction
@@ -115,6 +117,8 @@ _[hint: Set the Camera Position to the Position of your Player Entity ([Entity/E
 - `Vector2 position`
 - `double height`
 - `double width`
+- `void setHeight(double val)`
+- `void setWidth(double val)`
 - `ColliderType colliderType`
 
 ## UI:
