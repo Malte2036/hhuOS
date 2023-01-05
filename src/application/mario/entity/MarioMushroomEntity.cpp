@@ -34,7 +34,8 @@ void MarioMushroomEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
 }
 
 void MarioMushroomEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
-    if (event->getTranslateTo().getY() <= groundY) {
+    if (event->getTranslateTo().getY() < groundY) {
+        setPosition(Vector2(event->getTranslateTo().getX(), groundY));
         event->setCanceled(true);
     }
 }

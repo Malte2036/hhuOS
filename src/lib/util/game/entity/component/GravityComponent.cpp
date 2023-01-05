@@ -3,6 +3,7 @@
 //
 
 #include "GravityComponent.h"
+#include "lib/util/math/Math.h"
 
 namespace Util::Game {
     const double gravityValue = -1;
@@ -17,11 +18,15 @@ namespace Util::Game {
     void GravityComponent::update(double dt) {
         auto position = getEntity()->getPosition();
         auto velocity = getEntity()->getVelocity();
-        if (position.getY() > (groundY + 0.025)) {
+        if (Math::Math::absolute(position.getY() - groundY) > 0.01) {
             auto force = Vector2(0, mass * gravityValue);
             auto acceleration = Vector2(force.getX() / mass, force.getY() / mass);
 
             velocity = velocity + Vector2(acceleration.getX() * dt, acceleration.getY() * dt);
+        }
+
+        if(velocity.length() == 0){
+            return;
         }
 
         auto computedPosition = position + Vector2(velocity.getX() * dt, velocity.getY() * dt);

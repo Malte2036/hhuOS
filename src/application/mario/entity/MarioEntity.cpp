@@ -47,8 +47,9 @@ void MarioEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
     if (translateTo.getX() <= (camera->getPosition().getX() - windowBorderOffset)) {
         event->setCanceled(true);
     }
-    if (translateTo.getY() <= groundY) {
+    if (translateTo.getY() < groundY) {
         event->setCanceled(true);
+        setPosition(Vector2(event->getTranslateTo().getX(), groundY));
         canJump = true;
     }
 
