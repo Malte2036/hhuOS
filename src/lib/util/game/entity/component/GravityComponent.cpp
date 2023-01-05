@@ -6,12 +6,12 @@
 #include "lib/util/math/Math.h"
 
 namespace Util::Game {
-    const double gravityValue = -1;
-    const double stopFactorX = 0.9;
 
-    const double mass = 1;
 
-    GravityComponent::GravityComponent(double groundY): groundY{groundY} {
+    GravityComponent::GravityComponent(const double groundY, const double mass, const double stopFactorX,
+                                       const double gravityValue) : groundY{groundY}, mass{mass},
+                                                                    stopFactorX{stopFactorX},
+                                                                    gravityValue{gravityValue} {
 
     }
 
@@ -25,7 +25,7 @@ namespace Util::Game {
             velocity = velocity + Vector2(acceleration.getX() * dt, acceleration.getY() * dt);
         }
 
-        if(velocity.length() == 0){
+        if (velocity.length() < 0.001) {
             return;
         }
 
