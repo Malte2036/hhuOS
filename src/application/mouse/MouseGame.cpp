@@ -28,3 +28,7 @@ MouseGame::MouseGame() {
 void MouseGame::keyPressed(char c) {
     stop();
 }
+
+void MouseGame::drawInitialBackground(Util::Game::Graphics2D &graphics) {
+
+}

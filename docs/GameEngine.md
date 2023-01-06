@@ -10,11 +10,11 @@ and not the internal interfaces of the game engine.
 - `Game *game`
 - `Util::Graphic::LinearFrameBuffer *lfb`
 - `uint8_t targetFrameRate`
-- `void setBackgroundColor(Color backgroundColor)`
 
 ## Game:
 
-- `void update(double delta)`
+- `virtual drawInitialBackground(Util::Game::Graphics2D &graphics)`: draw the statically drawn background
+- `virtual void update(double delta)`
 - `Camera *getCamera()`: the current camera of the game *[also see 🔗 [Camera](#camera)]*
 
 ## Camera:

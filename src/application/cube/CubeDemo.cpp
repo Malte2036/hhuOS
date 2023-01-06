@@ -45,3 +45,7 @@ void CubeDemo::keyPressed(char c) {switch (c) {
             stop();
     }
 }
+
+void CubeDemo::drawInitialBackground(Util::Game::Graphics2D &graphics) {
+
+}

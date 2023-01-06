@@ -46,6 +46,8 @@ public:
 
     void update(double delta) override;
 
+    void drawInitialBackground(Util::Game::Graphics2D &graphics) override;
+
     void keyPressed(char c) override;
 
     static const constexpr uint32_t NUM_CUBES = 4;

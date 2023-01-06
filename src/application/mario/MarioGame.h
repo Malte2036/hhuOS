@@ -14,13 +14,15 @@ class MarioGame : public Util::Game::Game, public Util::Game::KeyListener {
 public:
     MarioGame();
 
-    void update(double delta);
+    void update(double delta) override;
+
+    void drawInitialBackground(Util::Game::Graphics2D &graphics) override;
 
     void keyPressed(char c) override;
 
     void spawnGoomba(Vector2 position);
 
-    double getGroundY() const;
+    [[nodiscard]] double getGroundY() const;
 
 private:
     MarioEntity *player = nullptr;

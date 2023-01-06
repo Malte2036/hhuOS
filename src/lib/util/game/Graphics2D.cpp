@@ -120,8 +120,6 @@ namespace Util::Game {
     void Graphics2D::setBackgroundColor(const Graphic::Color &backgroundColor) {
         Graphics2D::backgroundColor = backgroundColor;
         lfb.clear(backgroundColor);
-        drawRectangle({0, 0}, 1, 1);
-        saveAsBackground();
     }
 
     void Graphics2D::saveAsBackground() {
