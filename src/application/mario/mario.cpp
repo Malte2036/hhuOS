@@ -22,7 +22,7 @@ int32_t main(int32_t argc, char *argv[]) {
 
     auto game = new MarioGame();
     auto engine = Util::Game::Engine(*game, lfb);
-    engine.setBackgoundColor(Util::Graphic::Colors::HHU_BLUE);
+    engine.setBackgroundColor(Util::Graphic::Colors::HHU_BLUE);
 
     Util::Game::GameManager::setGame<MarioGame>(game);
 

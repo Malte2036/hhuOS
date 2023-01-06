@@ -23,7 +23,7 @@ private:
     const double speed = 0.75;
     const double jumpSpeed = speed * 1.25;
     const double height = 0.1;
-    const double width = 0.075;
+    const double width = 0.07;
 
     bool big = false;
 
