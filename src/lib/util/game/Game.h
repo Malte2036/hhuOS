@@ -82,6 +82,8 @@ namespace Util::Game {
 
         void updateEntities(double frameTime);
 
+        virtual void drawInitialBackground(Graphics2D &graphics) = 0;
+
     private:
 
         KeyListener *keyListener = nullptr;

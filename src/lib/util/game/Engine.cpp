@@ -41,6 +41,9 @@ namespace Util::Game {
         Async::Thread::createThread("Key-Listener", new KeyListenerRunnable(*this));
         Async::Thread::createThread("Mouse-Listener", new MouseListenerRunnable(*this));
 
+        game.drawInitialBackground(graphics);
+        graphics.saveAsBackground();
+
         while (game.isRunning()) {
             statistics.startFrameTime();
             statistics.startUpdateTime();
@@ -146,10 +149,6 @@ namespace Util::Game {
         } else if ((lastButtonState & key) && !(currentButtonState & key)) {
             engine.game.mouseListener->keyReleased(key);
         }
-    }
-
-    void Engine::setBackgroundColor(Graphic::Color backgroundColor) {
-        graphics.setBackgroundColor(backgroundColor);
     }
 
 }

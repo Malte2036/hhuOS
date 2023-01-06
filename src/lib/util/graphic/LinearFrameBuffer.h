@@ -120,6 +120,8 @@ public:
 
     void clear(Color color) const;
 
+    void clear(const Memory::Address <uint32_t>& backgroundBuffer) const;
+
 private:
 
     bool useMmx = false;

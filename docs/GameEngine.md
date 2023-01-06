@@ -10,12 +10,12 @@ and not the internal interfaces of the game engine.
 - `Game *game`
 - `Util::Graphic::LinearFrameBuffer *lfb`
 - `uint8_t targetFrameRate`
-- `void setBackgroundColor(Color backgroundColor)`
 
 ## Game:
 
 ### `Game()`
 
+- `drawInitialBackground(Util::Game::Graphics2D &graphics) override`: draw the statically drawn background
 - `void update(double delta) override`: this function is called every frame
 - `void keyPressed(char c) override`: this function is called, when the user presses an key
 - `void addEntity(Entity *entity)`: add entity

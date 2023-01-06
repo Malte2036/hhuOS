@@ -52,3 +52,7 @@ void PolygonDemo::keyPressed(char c) {
             stop();
     }
 }
+
+void PolygonDemo::drawInitialBackground(Util::Game::Graphics2D &graphics) {
+
+}

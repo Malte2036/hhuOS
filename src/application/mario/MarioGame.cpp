@@ -4,6 +4,7 @@
 
 #include "MarioGame.h"
 #include "lib/util/game/entity/component/GravityComponent.h"
+#include "lib/util/game/GameManager.h"
 #include "application/mario/entity/MarioGoombaEntity.h"
 #include "application/mario/block/MarioBrickBlockEntity.h"
 #include "application/mario/block/MarioSolidBlockEntity.h"
@@ -55,6 +56,30 @@ MarioGame::MarioGame() {
     spawnGoomba(Vector2(1, -0.5));
 
     setKeyListener(*this);
+}
+
+void MarioGame::drawInitialBackground(Util::Game::Graphics2D &graphics) {
+    graphics.setBackgroundColor(Util::Graphic::Colors::HHU_BLUE);
+
+    auto blockSize = 0.078 + 0.001;
+    auto brickSprite = new Util::Game::Sprite("/initrd/mario_block.bmp");
+
+    auto res = Util::Game::GameManager::getResolution();
+    double currentX = -res.getX() / 2;
+    while (currentX < res.getX() / 2) {
+
+        double currentY = groundY - blockSize;
+        while (currentY >= -res.getY() / 2) {
+            graphics.drawImage(Vector2(currentX, currentY), *brickSprite->getImage());
+            currentY -= blockSize;
+        }
+        currentX += blockSize;
+    }
+
+    auto cloudSprite = new Util::Game::Sprite("/initrd/mario_cloud.bmp");
+    graphics.drawImage(Vector2(-(res.getX() / 2) + 0.25, (res.getY() / 2) - 0.65), *cloudSprite->getImage());
+    graphics.drawImage(Vector2(-0.25, (res.getY() / 2) - 0.5), *cloudSprite->getImage());
+    graphics.drawImage(Vector2(0.6, (res.getY() / 2) - 0.7), *cloudSprite->getImage());
 }
 
 void MarioGame::update(double delta) {

@@ -77,11 +77,15 @@ public:
 
     void setBackgroundColor(const Graphic::Color &backgroundColor);
 
+    void saveAsBackground();
+
+
 private:
 
     void drawString(const Graphic::Font &font, double x, double y, const char *string) const;
 
     const Graphic::BufferedLinearFrameBuffer lfb;
+    Memory::Address<uint32_t> *backgroundBuffer = nullptr;
     Camera *camera;
 
     const Graphic::PixelDrawer pixelDrawer;

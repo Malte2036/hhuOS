@@ -42,3 +42,7 @@ void TestDemo::keyPressed(char c) {
             return;
     }
 }
+
+void TestDemo::drawInitialBackground(Util::Game::Graphics2D &graphics) {
+
+}

@@ -13,7 +13,9 @@ class TestDemo : public Util::Game::Game, public Util::Game::KeyListener{
 public:
     TestDemo();
 
-    void update(double delta);
+    void update(double delta) override;
+
+    void drawInitialBackground(Util::Game::Graphics2D &graphics) override;
 
     void keyPressed(char c) override;
 };
