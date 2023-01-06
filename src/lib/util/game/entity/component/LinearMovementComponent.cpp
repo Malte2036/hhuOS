@@ -10,7 +10,7 @@ namespace Util::Game {
         auto position = getEntity()->getPosition();
         auto velocity = getEntity()->getVelocity();
 
-        auto newPosition = position.add(velocity);
+        auto newPosition = position + velocity;
 
         auto event = new TranslateEvent(newPosition);
         getEntity()->translateEvent(event);

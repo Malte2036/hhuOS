@@ -16,8 +16,6 @@ namespace Util::Game {
 
     private:
         Memory::String type;
-
-        bool canceled = false;
     };
 }
 

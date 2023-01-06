@@ -32,7 +32,7 @@ SnakeGame::SnakeGame() {
 
 int lastScore = 0;
 
-void SnakeGame::update(double delta) {
+void SnakeGame::update(double dt) {
     snake->move();
     if (lastScore != gameData.score) {
         scoreText->setScore(gameData.score);

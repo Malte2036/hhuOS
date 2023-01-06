@@ -9,8 +9,8 @@
 
 namespace Util::Game {
     class LinearMovementComponent : public Component{
-    public:
-        void update(double dt);
+    protected:
+        void update(double dt) override;
     private:
         Memory::String type = "LinearMovementComponent";
     };

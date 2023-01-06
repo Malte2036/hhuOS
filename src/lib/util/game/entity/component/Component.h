@@ -11,11 +11,11 @@ namespace Util::Game {
     class Component {
         friend Entity;
     public:
-        virtual void update(double dt) = 0;
-
         Memory::String getType();
 
     protected:
+        virtual void update(double dt) = 0;
+
         void setEntity(Entity* pointer);
         Entity* getEntity();
 

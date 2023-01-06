@@ -16,12 +16,12 @@ namespace Util::Game {
         GameText(Vector2 position, Memory::String text);
         GameText(Vector2 position, Memory::String text, Graphic::Color color);
 
-        void draw(Util::Game::Graphics2D &graphics) const override;
-
     protected:
         void setText(Memory::String value);
 
     private:
+        void draw(Util::Game::Graphics2D &graphics) const override;
+
         Vector2 position;
         Memory::String text;
         Graphic::Color color;

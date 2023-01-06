@@ -19,14 +19,12 @@ public:
 
     SnakeGame();
 
-    void update(double delta);
+    void update(double dt) override;
 
     void keyPressed(char c) override;
 
 private:
     SnakeGameData gameData;
-
-    void setScore(int value);
 };
 
 

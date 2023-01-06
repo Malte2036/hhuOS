@@ -11,9 +11,11 @@
 namespace Util::Game {
     class GravityComponent : public Component {
     public:
-        explicit GravityComponent(const double groundY, const double mass = 1, const double stopFactorX = 0.9, const double gravityValue = -1);
+        explicit GravityComponent(double groundY, double mass = 1, double stopFactorX = 0.9, double gravityValue = -1);
 
+    protected:
         void update(double dt) override;
+
     private:
         Memory::String type = "GravityComponent";
 

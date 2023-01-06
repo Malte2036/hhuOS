@@ -15,22 +15,18 @@ public:
     Vector2 &operator=(const Vector2 &other) = default;
     virtual ~Vector2() = default;
 
-    Vector2 &operator*(const double value);
+    Vector2 &operator*(double value);
 
     Vector2 &operator+(const Vector2 &other);
 
     Vector2 &operator-(const Vector2 &other);
 
-    Vector2 add(Vector2 other);
-
-    double mult(Vector2 other);
-
     Vector2 normalize();
 
-    double length() const;
+    [[nodiscard]] double length() const;
 
-    double getX() const;
-    double getY() const;
+    [[nodiscard]] double getX() const;
+    [[nodiscard]] double getY() const;
 private:
     double x;
     double y;

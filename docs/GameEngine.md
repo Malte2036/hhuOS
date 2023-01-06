@@ -5,7 +5,7 @@ and not the internal interfaces of the game engine.
 
 ## Engine:
 
-### `Engine(Game &game, const Util::Graphic::LinearFrameBuffer &lfb, const uint8_t targetFrameRate)`
+### `Engine(Game *game, LinearFrameBuffer *lfb, uint8_t targetFrameRate = 60)`
 
 - `Game *game`
 - `Util::Graphic::LinearFrameBuffer *lfb`
@@ -14,10 +14,17 @@ and not the internal interfaces of the game engine.
 
 ## Game:
 
-- `void update(double delta)`
+### `Game()`
+
+- `void update(double delta) override`: this function is called every frame
+- `void keyPressed(char c) override`: this function is called, when the user presses an key
+- `void addEntity(Entity *entity)`: add entity
+- `void removeEntity(Entity *entity)`: remove entity
+- `void stop()`: stop the game
 - `Camera *getCamera()`: the current camera of the game *[also see 🔗 [Camera](#camera)]*
 
 ## Camera:
+
 `Camera(Vector2 position)`
 - `Vector2 getPosition()`
 - `void setPosition(Vector2 position)`: changes the camera position
@@ -28,11 +35,11 @@ _[hint: Set the Camera Position to the Position of your Player Entity ([Entity/E
 
 ### `static GameManager`
 
-- `static setGame(GameType *value)`: sets the current game, to access it later
+- `static setGame<GameType>(GameType *value)`: sets the current game, to access it later
   - with `GameType` type of your Game *[also see 🔗 [Game](#game)]*
-- `static GameType *getGame()`
+- `static GameType *getGame<GameType>()`
   - with `GameType` type of your Game *[also see 🔗 [Game](#game)]*
-- `static Vector2 getResolution()`
+- `static Vector2 getResolution()`: screen resolution
 
 ## Entity:
 
@@ -48,8 +55,9 @@ _[hint: Set the Camera Position to the Position of your Player Entity ([Entity/E
 - `void translate(Vector2 vector2)`: move the entity relatively in the direction of the vector
 - `void translateX(double x)`: move the entity by `x` in x-direction
 - `void translateY(double y)`
-- `void onTranslateEvent(TranslateEvent *event)`: every time `translate(...)`, `translateX(...)` or `translateY(...)` is called, this function is automatically triggered. If the event is canceled (`event→setCanceled(true)`), the entity will not be translated. *[also see 🔗 [Entity/Event/TranslateEvent](#translateeventvector2-translateto)]*
-- `void onCollisionEvent(CollisionEvent *event)`: is called when the collider of this entity overlaps with another collider. *[also see 🔗 [Entity/Event/CollisionEvent](#collisionevententity-other-rectanglecollidedside-rectanglecollidedside)]*
+- `virtual void onUpdate(double dt)`: this function is called every frame
+- `virtual void onTranslateEvent(TranslateEvent *event)`: every time `translate(...)`, `translateX(...)` or `translateY(...)` is called, this function is automatically triggered. If the event is canceled (`event→setCanceled(true)`), the entity will not be translated. *[also see 🔗 [Entity/Event/TranslateEvent](#translateeventvector2-translateto)]*
+- `virtual void onCollisionEvent(CollisionEvent *event)`: is called when the collider of this entity overlaps with another collider. *[also see 🔗 [Entity/Event/CollisionEvent](#collisionevententity-other-rectanglecollidedside-rectanglecollidedside)]*
 - `void addComponent(Component *component)`: call this function, to add Components to this Entity. For example the GravityComponent. *[also see 🔗 [Entity/Component/GravityComponent](#gravitycomponentdouble-groundy)]*
 
 ### Component:
@@ -69,6 +77,9 @@ _[hint: Set the Camera Position to the Position of your Player Entity ([Entity/E
 - *extends `Component`*
   - with `type = "GravityComponent"`
 - `double groundY`: the y coordinate of the ground
+- `double mass = 1`
+- `double stopFactorX = 0.9`: movement stop factor
+- `double gravityValue = -1`
 
 ### Event:
 
@@ -86,7 +97,7 @@ _[hint: Set the Camera Position to the Position of your Player Entity ([Entity/E
 
 - *extends `CancelableEvent`*
   - with `type = "TranslateEvent"`
-- `Vector2 translateTo`: Vector to move to.
+- `Vector2 translateTo`: Vector to move to
 - `Vector2 getTranslateTo()`
 
 #### `CollisionEvent(Entity *other, RectangleCollidedSide rectangleCollidedSide)`:
@@ -117,9 +128,9 @@ _[hint: Set the Camera Position to the Position of your Player Entity ([Entity/E
 - `Vector2 position`
 - `double height`
 - `double width`
+- `ColliderType colliderType`
 - `void setHeight(double val)`
 - `void setWidth(double val)`
-- `ColliderType colliderType`
 
 ## UI:
 
@@ -136,3 +147,10 @@ _[hint: Set the Camera Position to the Position of your Player Entity ([Entity/E
 
 - `double x`: x-position
 - `double y`: y-position
+- `Vector2 &operator*(double value)`
+- `Vector2 &operator+(const Vector2 &other)`
+- `Vector2 &operator-(const Vector2 &other);`
+- `Vector2 normalize()`
+- `double length()`
+- `double getX()`
+- `double getY()`
