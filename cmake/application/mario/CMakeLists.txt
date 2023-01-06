@@ -14,7 +14,8 @@ set(SOURCE_FILES
         ${HHUOS_SRC_DIR}/application/mario/entity/MarioMushroomEntity.cpp
         ${HHUOS_SRC_DIR}/application/mario/block/MarioBrickBlockEntity.cpp
         ${HHUOS_SRC_DIR}/application/mario/block/MarioSolidBlockEntity.cpp
-        ${HHUOS_SRC_DIR}/application/mario/block/MarioItemBlockEntity.cpp)
+        ${HHUOS_SRC_DIR}/application/mario/block/MarioItemBlockEntity.cpp
+        ${HHUOS_SRC_DIR}/application/mario/text/MarioScoreText.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 

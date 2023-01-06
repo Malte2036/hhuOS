@@ -13,6 +13,9 @@ MarioGame::MarioGame() {
     player->addComponent(new Util::Game::GravityComponent(groundY));
     addEntity(player);
 
+    scoreText = new MarioScoreText(Vector2(-1, 0.95), 0);
+    addObject(scoreText);
+
     auto blockWidth = 0.078 + 0.001;
 
     addEntity(new MarioSolidBlockEntity(Vector2(blockWidth - 0.1, groundY)));
@@ -55,7 +58,7 @@ MarioGame::MarioGame() {
 }
 
 void MarioGame::update(double delta) {
-
+    scoreText->increaseScore();
 }
 
 void MarioGame::keyPressed(char c) {
