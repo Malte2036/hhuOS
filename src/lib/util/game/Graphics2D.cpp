@@ -37,7 +37,8 @@ namespace Util::Game {
         lineDrawer.drawLine(static_cast<int32_t>((x1 - camera->getPosition().getX()) * transformation + offsetX),
                             static_cast<int32_t>((-y1 + camera->getPosition().getY()) * transformation + offsetY),
                             static_cast<int32_t>((x2 - camera->getPosition().getX()) * transformation + offsetX),
-                            static_cast<int32_t>((-y2 + camera->getPosition().getY()) * transformation + offsetY), color);
+                            static_cast<int32_t>((-y2 + camera->getPosition().getY()) * transformation + offsetY),
+                            color);
     }
 
     void Graphics2D::drawPolygon(const Data::Array<double> &x, const Data::Array<double> &y) const {
@@ -71,7 +72,8 @@ namespace Util::Game {
         int32_t yPixelOffset = (-position.getY() + camera->getPosition().getY()) * transformation + offsetY;
         for (int32_t i = 0; i < image.getHeight(); i++) {
             for (int32_t j = 0; j < width; j++) {
-                pixelDrawer.drawPixel( xPixelOffset + xFlipOffset + (flipX ? -1 : 1) * j, yPixelOffset - i, pixelBuf[i * width + j]);
+                pixelDrawer.drawPixel(xPixelOffset + xFlipOffset + (flipX ? -1 : 1) * j, yPixelOffset - i,
+                                      pixelBuf[i * width + j]);
             }
         }
     }
@@ -100,7 +102,11 @@ namespace Util::Game {
 
     void Graphics2D::show() const {
         lfb.flush();
-        lfb.clear(backgroundColor);
+        if (backgroundBuffer == nullptr) {
+            lfb.clear();
+        } else {
+            lfb.clear(*backgroundBuffer);
+        }
     }
 
     void Graphics2D::setColor(const Graphic::Color &color) {
@@ -113,6 +119,19 @@ namespace Util::Game {
 
     void Graphics2D::setBackgroundColor(const Graphic::Color &backgroundColor) {
         Graphics2D::backgroundColor = backgroundColor;
+        lfb.clear(backgroundColor);
+        drawRectangle({0, 0}, 1, 1);
+        saveAsBackground();
+    }
+
+    void Graphics2D::saveAsBackground() {
+        auto size = lfb.getPitch() * lfb.getResolutionY();
+        if (backgroundBuffer == nullptr) {
+            uint32_t newBackgroundBuffer[size];
+            backgroundBuffer = new Memory::Address<uint32_t>(newBackgroundBuffer);
+        }
+
+        backgroundBuffer->copyRange(lfb.getBuffer(), size);
     }
 
 }

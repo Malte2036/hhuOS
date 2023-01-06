@@ -148,7 +148,7 @@ namespace Util::Game {
         }
     }
 
-    void Engine::setBackgoundColor(Graphic::Color backgroundColor) {
+    void Engine::setBackgroundColor(Graphic::Color backgroundColor) {
         graphics.setBackgroundColor(backgroundColor);
     }
 

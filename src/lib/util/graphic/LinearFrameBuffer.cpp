@@ -169,4 +169,11 @@ namespace Util::Graphic {
         }
     }
 
+    void LinearFrameBuffer::clear(const Memory::Address<uint32_t>& backgroundBuffer) const {
+        buffer->copyRange(backgroundBuffer, getPitch() * getResolutionY());
+        if (useMmx) {
+            Math::Math::endMmx();
+        }
+    }
+
 }

@@ -52,7 +52,7 @@ public:
 
     void run() override;
 
-    void setBackgoundColor(Graphic::Color backgroundColor);
+    void setBackgroundColor(Graphic::Color backgroundColor);
 
 private:
 
