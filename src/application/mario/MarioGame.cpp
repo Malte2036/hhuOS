@@ -78,7 +78,7 @@ void MarioGame::drawInitialBackground(Util::Game::Graphics2D &graphics) {
 
     auto cloudSprite = new Util::Game::Sprite("/initrd/mario_cloud.bmp");
     graphics.drawImage(Vector2(-(res.getX() / 2) + 0.25, (res.getY() / 2) - 0.65), *cloudSprite->getImage());
-    graphics.drawImage(Vector2(-0.25, (res.getY() / 2) - 0.5), *cloudSprite->getImage());
+    graphics.drawImage(Vector2(-0.25, -((res.getY() / 2) - 0.5)), *cloudSprite->getImage());
     graphics.drawImage(Vector2(0.6, (res.getY() / 2) - 0.7), *cloudSprite->getImage());
 }
 

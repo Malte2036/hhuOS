@@ -105,7 +105,8 @@ namespace Util::Game {
         if (backgroundBuffer == nullptr) {
             lfb.clear();
         } else {
-            lfb.clear(*backgroundBuffer);
+            int xOffset = camera->getPosition().getX() * lfb.getPitch() / 2;
+            lfb.clear(*backgroundBuffer, xOffset);
         }
     }
 

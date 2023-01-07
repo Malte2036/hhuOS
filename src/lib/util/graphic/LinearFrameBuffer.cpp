@@ -169,8 +169,29 @@ namespace Util::Graphic {
         }
     }
 
-    void LinearFrameBuffer::clear(const Memory::Address<uint32_t>& backgroundBuffer) const {
+    void LinearFrameBuffer::clear(const Memory::Address<uint32_t> &backgroundBuffer) const {
         buffer->copyRange(backgroundBuffer, getPitch() * getResolutionY());
+        if (useMmx) {
+            Math::Math::endMmx();
+        }
+    }
+
+    void LinearFrameBuffer::clear(const Memory::Address<uint32_t> &backgroundBuffer, int xOffset) const {
+        xOffset = xOffset % (getPitch());
+        xOffset -= xOffset % 4;
+
+        for (auto y = 0; y < getResolutionY(); y++) {
+            auto bufferOffsetY = getPitch() * y;
+
+            auto copyToAddr = Memory::Address<uint32_t>(buffer->get() + bufferOffsetY);
+            auto toCopyAddr = Memory::Address<uint32_t>(backgroundBuffer.get() + bufferOffsetY + xOffset);
+            copyToAddr.copyRange(toCopyAddr, getPitch() - xOffset);
+
+
+            copyToAddr = Memory::Address<uint32_t>(buffer->get() + bufferOffsetY + (getPitch() - xOffset));
+            toCopyAddr = Memory::Address<uint32_t>(backgroundBuffer.get() + bufferOffsetY);
+            copyToAddr.copyRange(toCopyAddr, getPitch() - (getPitch() - xOffset));
+        }
         if (useMmx) {
             Math::Math::endMmx();
         }

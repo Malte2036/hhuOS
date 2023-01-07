@@ -122,6 +122,8 @@ public:
 
     void clear(const Memory::Address <uint32_t>& backgroundBuffer) const;
 
+    void clear(const Memory::Address <uint32_t> &backgroundBuffer, int xOffset) const;
+
 private:
 
     bool useMmx = false;
@@ -131,6 +133,7 @@ private:
     uint16_t resolutionY = 0;
     uint8_t colorDepth = 0;
     uint16_t pitch = 0;
+
 };
 
 }
