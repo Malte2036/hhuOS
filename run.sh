@@ -22,7 +22,7 @@ readonly CONST_QEMU_MACHINE_PC="pc"
 readonly CONST_QEMU_MACHINE_PC_KVM="pc,accel=kvm,kernel-irqchip=split"
 readonly CONST_QEMU_CPU_I386="base,+fpu,+tsc,+cmov,+fxsr,+mmx,+sse"
 readonly CONST_QEMU_CPU_X86_64="qemu64"
-readonly CONST_QEMU_DEFAULT_RAM="128M"
+readonly CONST_QEMU_DEFAULT_RAM="256M"
 readonly CONST_QEMU_BIOS_PC=""
 readonly CONST_QEMU_BIOS_IA32_EFI="bios/ovmf/ia32/OVMF.fd"
 readonly CONST_QEMU_BIOS_X64_EFI="bios/ovmf/x64/OVMF.fd"
@@ -182,7 +182,7 @@ print_usage() {
     -b, --bios
         Set to true, to use the classic BIOS instead of UEFI
     -r, --ram
-        Set the amount of ram, which qemu should use (e.g. 256, 1G, ...) (Default: 64M)
+        Set the amount of ram, which qemu should use (e.g. 256, 1G, ...) (Default: 256M)
     -c, --cpu
         Set the CPU model, which qemu should emulate (e.g. 486, pentium, pentium2, ...) (Default: qemu32)
     -d, --debug
