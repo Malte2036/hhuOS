@@ -12,9 +12,27 @@ MarioGoombaEntity::MarioGoombaEntity(const Vector2 &position) : Util::Game::Enti
     runAnimation = new Util::Game::SpriteAnimation(
             {
                     new Util::Game::Sprite(
-                            "/initrd/goomba_run_1.bmp"),
+                            "/initrd/game/platformer/ninja/run/ninja_run_1.bmp"),
                     new Util::Game::Sprite(
-                            "/initrd/goomba_run_2.bmp")});
+                            "/initrd/game/platformer/ninja/run/ninja_run_2.bmp"),
+                    new Util::Game::Sprite(
+                            "/initrd/game/platformer/ninja/run/ninja_run_3.bmp"),
+                    new Util::Game::Sprite(
+                            "/initrd/game/platformer/ninja/run/ninja_run_4.bmp"),
+                    new Util::Game::Sprite(
+                            "/initrd/game/platformer/ninja/run/ninja_run_5.bmp"),
+                    new Util::Game::Sprite(
+                            "/initrd/game/platformer/ninja/run/ninja_run_6.bmp"),
+                    new Util::Game::Sprite(
+                            "/initrd/game/platformer/ninja/run/ninja_run_7.bmp"),
+                    new Util::Game::Sprite(
+                            "/initrd/game/platformer/ninja/run/ninja_run_8.bmp"),
+                    new Util::Game::Sprite(
+                            "/initrd/game/platformer/ninja/run/ninja_run_9.bmp"),
+                    new Util::Game::Sprite(
+                            "/initrd/game/platformer/ninja/run/ninja_run_10.bmp"),
+                    new Util::Game::Sprite(
+                            "/initrd/game/platformer/ninja/run/ninja_run_11.bmp")});
     collider = new Util::Game::RectangleCollider(position, height, width, Util::Game::DYNAMIC_COLLIDER);
 
     currentImage = runAnimation->getNextSprite().getImage();
@@ -22,12 +40,17 @@ MarioGoombaEntity::MarioGoombaEntity(const Vector2 &position) : Util::Game::Enti
 
 void MarioGoombaEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.drawImage(position, *currentImage, directionLeft);
-    graphics.drawRectangle(position, getCollider()->getHeight(), getCollider()->getWidth());
+    //graphics.drawRectangle(position, getCollider()->getHeight(), getCollider()->getWidth());
 }
+
+auto i = 1;
 
 void MarioGoombaEntity::onUpdate(double dt) {
     translateX(speed * (directionLeft ? -1 : 1));
-    currentImage = runAnimation->getNextSprite().getImage();
+    if (i == 0) {
+        currentImage = runAnimation->getNextSprite().getImage();
+    }
+    i = (i + 1) % 3;
 }
 
 void MarioGoombaEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {

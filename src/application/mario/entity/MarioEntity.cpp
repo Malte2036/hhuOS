@@ -11,18 +11,30 @@
 Util::File::Image::Image *currentImage = nullptr;
 
 Util::Game::Sprite idleSprite = Util::Game::Sprite(
-        "/initrd/mario.bmp");
+        "/initrd/game/platformer/player/run/player_run_1.bmp");
 Util::Game::SpriteAnimation *runAnimation = nullptr;
 
 MarioEntity::MarioEntity(const Util::Memory::String &tag, const Vector2 &position) : Util::Game::Entity(tag, position) {
     runAnimation = new Util::Game::SpriteAnimation(
             {
                     new Util::Game::Sprite(
-                            "/initrd/mario_run_1.bmp"),
+                            "/initrd/game/platformer/player/run/player_run_1.bmp"),
                     new Util::Game::Sprite(
-                            "/initrd/mario_run_2.bmp"),
+                            "/initrd/game/platformer/player/run/player_run_2.bmp"),
                     new Util::Game::Sprite(
-                            "/initrd/mario_run_3.bmp")});
+                            "/initrd/game/platformer/player/run/player_run_3.bmp"),
+                    new Util::Game::Sprite(
+                            "/initrd/game/platformer/player/run/player_run_4.bmp"),
+                    new Util::Game::Sprite(
+                            "/initrd/game/platformer/player/run/player_run_5.bmp"),
+                    new Util::Game::Sprite(
+                            "/initrd/game/platformer/player/run/player_run_6.bmp"),
+                    new Util::Game::Sprite(
+                            "/initrd/game/platformer/player/run/player_run_7.bmp"),
+                    new Util::Game::Sprite(
+                            "/initrd/game/platformer/player/run/player_run_8.bmp"),
+                    new Util::Game::Sprite(
+                            "/initrd/game/platformer/player/run/player_run_9.bmp"),});
     currentImage = idleSprite.getImage();
 
     collider = new Util::Game::RectangleCollider(position, height * (big ? 2 : 1), width, Util::Game::DYNAMIC_COLLIDER);
@@ -32,7 +44,7 @@ MarioEntity::MarioEntity(const Util::Memory::String &tag, const Vector2 &positio
 void MarioEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.drawImage(position, *currentImage, directionLeft);
     if (collider != nullptr) {
-        graphics.drawRectangle(position, collider->getHeight(), collider->getWidth());
+        //graphics.drawRectangle(position, collider->getHeight(), collider->getWidth());
     }
 }
 

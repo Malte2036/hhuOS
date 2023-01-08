@@ -11,14 +11,14 @@
 
 MarioItemBlockEntity::MarioItemBlockEntity(const Vector2 &position)
         : Util::Game::Entity("ItemBlock", position),
-          sprite{new Util::Game::Sprite("/initrd/mario_itemblock.bmp")} {
+          sprite{new Util::Game::Sprite("/initrd/game/platformer/block/block_item.bmp")} {
 
     collider = new Util::Game::RectangleCollider(position, size, size, Util::Game::STATIC_COLLIDER);
 }
 
 void MarioItemBlockEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.drawImage(position, *sprite->getImage());
-    graphics.drawSquare(position, size);
+    //graphics.drawSquare(position, size);
 }
 
 void MarioItemBlockEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {

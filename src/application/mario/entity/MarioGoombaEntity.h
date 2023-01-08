@@ -14,7 +14,7 @@ public:
     explicit MarioGoombaEntity(const Vector2 &position);
 
 
-    void draw(Util::Game::Graphics2D &graphics) const;
+    void draw(Util::Game::Graphics2D &graphics) const override;
 
     void onUpdate(double dt) override;
 
@@ -25,10 +25,10 @@ public:
 private:
     double groundY = -0.75;
 
-    const double speed = 0.1;
+    const double speed = 0.3;
 
-    const double height = 0.09;
-    const double width = 0.08;
+    const double height = 0.1;
+    const double width = 0.07;
 
     bool directionLeft = true;
 

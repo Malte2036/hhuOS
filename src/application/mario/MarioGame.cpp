@@ -62,21 +62,29 @@ void MarioGame::drawInitialBackground(Util::Game::Graphics2D &graphics) {
     graphics.setBackgroundColor(Util::Graphic::Colors::HHU_BLUE);
 
     auto blockSize = 0.078 + 0.001;
-    auto brickSprite = new Util::Game::Sprite("/initrd/mario_block.bmp");
+    auto grassSprite = new Util::Game::Sprite("/initrd/game/platformer/ground/grass/ground_grass_middle.bmp");
+    auto dirtSprite = new Util::Game::Sprite("/initrd/game/platformer/ground/dirt/ground_dirt_middle.bmp");
 
     auto res = Util::Game::GameManager::getResolution();
     double currentX = -res.getX() / 2;
     while (currentX < res.getX() / 2) {
+        auto image = grassSprite->getImage();
 
         double currentY = groundY - blockSize;
+        auto firstRow = true;
         while (currentY >= -res.getY() / 2) {
-            graphics.drawImage(Vector2(currentX, currentY), *brickSprite->getImage());
+            graphics.drawImage(Vector2(currentX, currentY), *image);
+
+            if(firstRow){
+                image = dirtSprite->getImage();
+                firstRow = false;
+            }
             currentY -= blockSize;
         }
         currentX += blockSize;
     }
 
-    auto cloudSprite = new Util::Game::Sprite("/initrd/mario_cloud.bmp");
+    auto cloudSprite = new Util::Game::Sprite("/initrd/game/platformer/background/cloud.bmp");
     graphics.drawImage(Vector2(-(res.getX() / 2) + 0.25, (res.getY() / 2) - 0.65), *cloudSprite->getImage());
     graphics.drawImage(Vector2(-0.25, -((res.getY() / 2) - 0.5)), *cloudSprite->getImage());
     graphics.drawImage(Vector2(0.6, (res.getY() / 2) - 0.7), *cloudSprite->getImage());
