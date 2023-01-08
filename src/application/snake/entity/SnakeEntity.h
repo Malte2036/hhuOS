@@ -28,8 +28,6 @@ public:
 
     void setDirection(DirectionType directionType);
 
-    [[nodiscard]] Util::Game::RectangleCollider getCollider() const;
-
     void move();
 
 private:

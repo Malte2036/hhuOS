@@ -7,23 +7,22 @@
 
 
 #include "lib/util/game/entity/Entity.h"
-#include "SnakeGame.h"
+#include "application/snake/SnakeGame.h"
 
 class FoodEntity : public Util::Game::Entity {
 public:
-    FoodEntity(const Vector2 &position, double size, SnakeGameData *gameData);
+    FoodEntity(const Vector2 &position, double size);
 
     void onUpdate(double dt) override;
 
     void draw(Util::Game::Graphics2D &graphics) const override;
 
-    void onTranslateEvent(Util::Game::TranslateEvent *event);
+    void onTranslateEvent(Util::Game::TranslateEvent *event) override;
 
-    void onCollisionEvent(Util::Game::CollisionEvent *event);
+    void onCollisionEvent(Util::Game::CollisionEvent *event) override;
 
 private:
     double size;
-    SnakeGameData *gameData;
 };
 
 

@@ -17,3 +17,7 @@ void PlatformerGame::spawnNinja(Vector2 position) {
         scene->addEntity(newNinja);
     }
 }
+
+void PlatformerGame::update(double delta) {
+
+}

@@ -12,16 +12,16 @@ struct SnakeGameData {
     int score;
 };
 
-class SnakeGame : public Util::Game::Game, public Util::Game::KeyListener {
-
+class SnakeGame : public Util::Game::Game {
 
 public:
-
     SnakeGame();
 
     void update(double dt) override;
 
-        void keyPressed(char c) override;
+    SnakeGameData getSnakeGameData();
+
+    void setSnakeGameData(SnakeGameData value);
 
 private:
     SnakeGameData gameData;

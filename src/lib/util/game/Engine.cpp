@@ -35,7 +35,7 @@ namespace Util::Game {
 
 
     void Engine::runWithScene(Scene *initialScene) {
-        game.pushScene(initialScene);
+        game.scene = initialScene;
         run();
     }
 
@@ -49,6 +49,7 @@ namespace Util::Game {
         Async::Thread::createThread("Mouse-Listener", new MouseListenerRunnable(*this));
 
         auto scene = game.getScene();
+        scene->init();
         scene->drawInitialBackground(graphics);
         graphics.saveAsBackground();
 

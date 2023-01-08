@@ -9,9 +9,8 @@
 
 auto random = Util::Math::Random(12221);
 
-FoodEntity::FoodEntity(const Vector2 &position, double size, SnakeGameData *gameData) : Entity("FoodEntity", position),
-                                                                                        size{size},
-                                                                                        gameData{gameData} {
+FoodEntity::FoodEntity(const Vector2 &position, double size) : Entity("FoodEntity", position),
+                                                               size{size} {
     collider = new Util::Game::RectangleCollider(getPosition(), size, size, Util::Game::STATIC_COLLIDER);
 }
 
@@ -28,12 +27,15 @@ void FoodEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
     if (event->getCollidedWith()->getTag() == "SnakeEntity") {
         Logger::logMessage("FoodEntity collided with SnakeEntity!");
 
-        gameData->score = gameData->score + 1;
+        auto game = Util::Game::GameManager::getGame<SnakeGame>();
+        auto scene = game->getScene();
 
-        Util::Game::GameManager::getGame<SnakeGame>()->addEntity(
-                new FoodEntity(Vector2((random.nextRandomNumber() * 2) - 1, (random.nextRandomNumber() * 2) - 1), size,
-                               gameData));
-        Util::Game::GameManager::getGame<SnakeGame>()->removeEntity(this);
+        game->setSnakeGameData({game->getSnakeGameData().score + 1});
+
+        scene->addEntity(
+                new FoodEntity(Vector2((random.nextRandomNumber() * 2) - 1, (random.nextRandomNumber() * 2) - 1),
+                               size));
+        scene->removeEntity(this);
     }
 }
 

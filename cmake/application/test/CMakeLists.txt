@@ -24,8 +24,10 @@ include_directories(${HHUOS_SRC_DIR})
 # Set source files
 set(SOURCE_FILES
         ${HHUOS_SRC_DIR}/application/test/test.cpp
-        ${HHUOS_SRC_DIR}/application/test/TestDemo.cpp)
+        ${HHUOS_SRC_DIR}/application/test/TestDemo.cpp
+        ${HHUOS_SRC_DIR}/application/test/TestDemoScene.cpp
+        ${HHUOS_SRC_DIR}/application/test/DemoEntity.cpp)
 
-add_executable(${PROJECT_NAME} ${SOURCE_FILES} ../../../src/application/test/DemoEntity.h ../../../src/application/test/DemoEntity.cpp)
+add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 target_link_libraries(${PROJECT_NAME} lib.crt0 lib.user)

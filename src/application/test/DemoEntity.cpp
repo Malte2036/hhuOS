@@ -7,7 +7,7 @@
 const double speed = 0.75;
 
 DemoEntity::DemoEntity(const Vector2 &position, const double size) : Entity("DemoEntity", position), size{size},
-                                                                     sprite{Util::Game::Sprite("/initrd/mario.bmp")} {
+                                                                     sprite{Util::Game::Sprite("/initrd/game/platformer/player/run/player_run_1.bmp")} {
     collider = new Util::Game::RectangleCollider(getPosition(), size, size, Util::Game::STATIC_COLLIDER);
 }
 
