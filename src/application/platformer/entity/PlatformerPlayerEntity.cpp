@@ -13,7 +13,8 @@ Util::Game::Sprite idleSprite = Util::Game::Sprite(
         "/initrd/game/platformer/player/run/player_run_1.bmp");
 Util::Game::SpriteAnimation *runAnimation = nullptr;
 
-PlatformerPlayerEntity::PlatformerPlayerEntity(const Util::Memory::String &tag, const Vector2 &position) : Util::Game::Entity(tag, position) {
+PlatformerPlayerEntity::PlatformerPlayerEntity(const Util::Memory::String &tag, const Vector2 &position)
+        : Util::Game::Entity(tag, position) {
     runAnimation = new Util::Game::SpriteAnimation(
             {
                     new Util::Game::Sprite(
@@ -102,12 +103,12 @@ void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent *event)
                 setBig(false);
             } else {
                 Logger::logMessage("Player was killed by Ninja");
-                game->stop();
+                game->nextLevel();
                 return;
             }
         }
         scene->removeEntity(event->getCollidedWith());
-        game->spawnNinja(position + Vector2(1, 0.25));
+        game->spawnNinja(position + Vector2(1.5, 0.1));
     }
 }
 

@@ -6,18 +6,32 @@
 #include "lib/util/game/entity/component/GravityComponent.h"
 #include "lib/util/game/GameManager.h"
 #include "entity/PlatformerNinjaEntity.h"
-#include "block/PlatformerBrickBlockEntity.h"
-#include "block/PlatformerSolidBlockEntity.h"
+#include "scene/PlatformerScene2.h"
 
-void PlatformerGame::spawnNinja(Vector2 position) {
+void PlatformerGame::update(double delta) {
+
+}
+
+void PlatformerGame::spawnNinja(const Vector2& position) {
     auto scene = getScene();
     if (scene != nullptr) {
-        auto newNinja = new PlatformerNinjaEntity(position + Vector2(1.5, 0));
+        auto newNinja = new PlatformerNinjaEntity(position);
         newNinja->addComponent(new Util::Game::GravityComponent(groundY));
         scene->addEntity(newNinja);
     }
 }
 
-void PlatformerGame::update(double delta) {
+void PlatformerGame::nextLevel() {
+    currentLevel++;
 
+    Util::Game::Scene *newScene = nullptr;
+    if (currentLevel == 2) {
+        newScene = new PlatformerScene2();
+    }
+
+    if (newScene != nullptr) {
+        pushScene(newScene);
+        return;
+    }
+    stop();
 }

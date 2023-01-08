@@ -61,6 +61,8 @@ namespace Util::Game {
                 frameTime = 0.001;
             }
 
+            scene = game.getScene();
+
             updateLock.acquire();
             scene->update(frameTime);
             scene->updateEntities(frameTime);

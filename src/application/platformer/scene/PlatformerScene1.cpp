@@ -2,15 +2,15 @@
 // Created by malte on 08.01.23.
 //
 
-#include "PlatformerScene.h"
+#include "PlatformerScene1.h"
 #include "lib/util/game/GameManager.h"
 #include "lib/util/game/entity/component/GravityComponent.h"
-#include "application/platformer/block/PlatformerSolidBlockEntity.h"
 #include "application/platformer/block/PlatformerBrickBlockEntity.h"
+#include "application/platformer/block/PlatformerSolidBlockEntity.h"
 #include "application/platformer/block/PlatformerItemBlockEntity.h"
 #include "application/platformer/PlatformerGame.h"
 
-void PlatformerScene::init() {
+void PlatformerScene1::init() {
     setKeyListener(*this);
 
     player = new PlatformerPlayerEntity("Player", Vector2(-0.2, 0));
@@ -56,11 +56,11 @@ void PlatformerScene::init() {
     addEntity(new PlatformerItemBlockEntity(Vector2(offsetX + blockWidth * 4, groundY + 0.8)));
 
 
-    Util::Game::GameManager::getGame<PlatformerGame>()->spawnNinja(Vector2(1, -0.5));
+    Util::Game::GameManager::getGame<PlatformerGame>()->spawnNinja(Vector2(2, groundY + 0.1));
 }
 
 
-void PlatformerScene::drawInitialBackground(Util::Game::Graphics2D &graphics) {
+void PlatformerScene1::drawInitialBackground(Util::Game::Graphics2D &graphics) {
     graphics.setBackgroundColor(Util::Graphic::Colors::HHU_BLUE);
 
     auto blockSize = 0.078 + 0.001;
@@ -92,15 +92,15 @@ void PlatformerScene::drawInitialBackground(Util::Game::Graphics2D &graphics) {
     graphics.drawImage(Vector2(0.6, (res.getY() / 2) - 0.7), *cloudSprite->getImage());
 }
 
-double PlatformerScene::getGroundY() const {
+double PlatformerScene1::getGroundY() const {
     return groundY;
 }
 
-void PlatformerScene::update(double delta) {
+void PlatformerScene1::update(double delta) {
     scoreText->increaseScore();
 }
 
-void PlatformerScene::keyPressed(char c) {
+void PlatformerScene1::keyPressed(char c) {
     switch (c) {
         case 'a':
             player->moveLeft();
