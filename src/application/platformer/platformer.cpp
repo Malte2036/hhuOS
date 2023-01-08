@@ -4,13 +4,13 @@
 
 
 
-#include <cstdint>
 #include "lib/util/system/System.h"
 #include "lib/util/graphic/LinearFrameBuffer.h"
 #include "lib/util/game/Engine.h"
 #include "lib/util/game/GameManager.h"
 #include "lib/util/log/Logger.h"
 #include "PlatformerGame.h"
+#include "application/platformer/scene/PlatformerScene.h"
 
 bool isRunning = true;
 
@@ -25,6 +25,8 @@ int32_t main(int32_t argc, char *argv[]) {
 
     Util::Game::GameManager::setGame<PlatformerGame>(game);
 
-    engine.run();
+    auto scene = new PlatformerScene();
+
+    engine.runWithScene(scene);
     return 0;
 }

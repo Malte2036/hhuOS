@@ -17,12 +17,12 @@
 
 #include "lib/util/graphic/Fonts.h"
 #include "Graphics2D.h"
-#include "lib/util/file/image/Image.h"
+#include "Game.h"
 
 namespace Util::Game {
 
-    Graphics2D::Graphics2D(const Graphic::LinearFrameBuffer &lfb, Camera *camera) :
-            lfb(lfb), camera{camera}, pixelDrawer(Graphics2D::lfb), lineDrawer(pixelDrawer),
+    Graphics2D::Graphics2D(const Graphic::LinearFrameBuffer &lfb, Game &game) :
+            lfb(lfb), game{game}, pixelDrawer(Graphics2D::lfb), lineDrawer(pixelDrawer),
             stringDrawer(pixelDrawer),
             transformation(
                     (lfb.getResolutionX() > lfb.getResolutionY() ? lfb.getResolutionY() : lfb.getResolutionX()) / 2),
@@ -34,6 +34,7 @@ namespace Util::Game {
                                                                  : 0)) {}
 
     void Graphics2D::drawLine(double x1, double y1, double x2, double y2) const {
+        auto camera = game.getScene()->getCamera();
         lineDrawer.drawLine(static_cast<int32_t>((x1 - camera->getPosition().getX()) * transformation + offsetX),
                             static_cast<int32_t>((-y1 + camera->getPosition().getY()) * transformation + offsetY),
                             static_cast<int32_t>((x2 - camera->getPosition().getX()) * transformation + offsetX),
@@ -68,6 +69,7 @@ namespace Util::Game {
 
         auto xFlipOffset = flipX ? width : 0;
 
+        auto camera = game.getScene()->getCamera();
         int32_t xPixelOffset = (position.getX() - camera->getPosition().getX()) * transformation + offsetX;
         int32_t yPixelOffset = (-position.getY() + camera->getPosition().getY()) * transformation + offsetY;
         for (int32_t i = 0; i < image.getHeight(); i++) {
@@ -105,6 +107,7 @@ namespace Util::Game {
         if (backgroundBuffer == nullptr) {
             lfb.clear();
         } else {
+            auto camera = game.getScene()->getCamera();
             int xOffset = camera->getPosition().getX() * lfb.getPitch() / 2;
             lfb.clear(*backgroundBuffer, xOffset);
         }

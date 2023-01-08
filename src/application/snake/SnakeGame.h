@@ -21,9 +21,7 @@ public:
 
     void update(double dt) override;
 
-    void drawInitialBackground(Util::Game::Graphics2D &graphics) override;
-
-    void keyPressed(char c) override;
+        void keyPressed(char c) override;
 
 private:
     SnakeGameData gameData;

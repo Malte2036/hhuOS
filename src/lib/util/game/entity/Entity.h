@@ -17,6 +17,7 @@ namespace Util::Game {
 
     class Entity : public Drawable {
         friend class Game;
+        friend class Scene;
 
         friend class GravityComponent;
 

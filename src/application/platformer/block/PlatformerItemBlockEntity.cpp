@@ -28,14 +28,14 @@ void PlatformerItemBlockEntity::onTranslateEvent(Util::Game::TranslateEvent *eve
 void PlatformerItemBlockEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
     if (event->getCollidedWith()->getTag() == "Player") {
         if (event->getRectangleCollidedSide() == Util::Game::BOTTOM_SIDE) {
-            auto game = Util::Game::GameManager::getGame<PlatformerGame>();
-            game->addEntity(new PlatformerSolidBlockEntity(position));
+            auto scene = Util::Game::GameManager::getGame<PlatformerGame>()->getScene();
+            scene->addEntity(new PlatformerSolidBlockEntity(position));
 
             auto mushroom = new PlatformerMushroomEntity(position + Vector2(0, size));
             mushroom->addComponent(new Util::Game::GravityComponent(-0.5));
-            game->addEntity(mushroom);
+            scene->addEntity(mushroom);
 
-            game->removeEntity(this);
+            scene->removeEntity(this);
         }
     }
 }

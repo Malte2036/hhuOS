@@ -25,11 +25,18 @@
 namespace Util::Game {
 
     Engine::Engine(Game &game, const Util::Graphic::LinearFrameBuffer &lfb, const uint8_t targetFrameRate) :
-            game(game), graphics(lfb, game.getCamera()), targetFrameRate(targetFrameRate) {
+            game(game), graphics(lfb, game), targetFrameRate(targetFrameRate) {
         double resX = lfb.getResolutionX();
         double resY = lfb.getResolutionY();
         GameManager::setResolution(
                 new Vector2((resX > resY ? resX / resY : 1) * 2, (resY > resX ? resY / resX : 1) * 2));
+    }
+
+
+
+    void Engine::runWithScene(Scene *initialScene) {
+        game.pushScene(initialScene);
+        run();
     }
 
     void Engine::run() {
@@ -41,7 +48,8 @@ namespace Util::Game {
         Async::Thread::createThread("Key-Listener", new KeyListenerRunnable(*this));
         Async::Thread::createThread("Mouse-Listener", new MouseListenerRunnable(*this));
 
-        game.drawInitialBackground(graphics);
+        auto scene = game.getScene();
+        scene->drawInitialBackground(graphics);
         graphics.saveAsBackground();
 
         while (game.isRunning()) {
@@ -53,15 +61,15 @@ namespace Util::Game {
             }
 
             updateLock.acquire();
-            game.update(frameTime);
-            game.updateEntities(frameTime);
-            game.checkCollision();
-            game.applyChanges();
+            scene->update(frameTime);
+            scene->updateEntities(frameTime);
+            scene->checkCollision();
+            scene->applyChanges();
             statistics.stopUpdateTimeTime();
             updateLock.release();
 
             statistics.startDrawTime();
-            game.draw(graphics);
+            scene->draw(graphics);
 
             drawStatus();
             graphics.show();
@@ -91,7 +99,8 @@ namespace Util::Game {
 
         auto color = graphics.getColor();
         graphics.setColor(Util::Graphic::Colors::WHITE);
-        graphics.drawStringSmall(-1, 1, status + Memory::String::format(", Objects: %u", game.getObjectCount()));
+        graphics.drawStringSmall(-1, 1,
+                                 status + Memory::String::format(", Objects: %u", game.getScene()->getObjectCount()));
         graphics.setColor(color);
     }
 
@@ -100,9 +109,9 @@ namespace Util::Game {
     void Engine::KeyListenerRunnable::run() {
         while (engine.game.isRunning()) {
             char c = System::in.read();
-            if (engine.game.keyListener != nullptr) {
+            if (engine.game.getScene() != nullptr && engine.game.getScene()->keyListener != nullptr) {
                 engine.updateLock.acquire();
-                engine.game.keyListener->keyPressed(c);
+                engine.game.getScene()->keyListener->keyPressed(c);
                 engine.updateLock.release();
             }
         }

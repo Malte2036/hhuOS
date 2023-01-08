@@ -26,79 +26,82 @@
 #include "lib/util/file/image/Image.h"
 #include "Camera.h"
 
+
 namespace Util::Game {
 
-class Graphics2D {
+    class Game;
 
-public:
-    /**
-     * Constructor.
-     */
-    explicit Graphics2D(const Util::Graphic::LinearFrameBuffer &lfb, Camera *camera);
+    class Graphics2D {
 
-    /**
-     * Copy Constructor.
-     */
-    Graphics2D(const Graphics2D &other) = delete;
+    public:
+        /**
+         * Constructor.
+         */
+        explicit Graphics2D(const Util::Graphic::LinearFrameBuffer &lfb, Game &game);
 
-    /**
-     * Assignment operator.
-     */
-    Graphics2D &operator=(const Graphics2D &other) = delete;
+        /**
+         * Copy Constructor.
+         */
+        Graphics2D(const Graphics2D &other) = delete;
 
-    /**
-     * Destructor.
-     */
-    ~Graphics2D() = default;
+        /**
+         * Assignment operator.
+         */
+        Graphics2D &operator=(const Graphics2D &other) = delete;
 
-    void drawLine(double x1, double y1, double x2, double y2) const;
+        /**
+         * Destructor.
+         */
+        ~Graphics2D() = default;
 
-    void drawPolygon(const Data::Array<double> &x, const Data::Array<double> &y) const;
+        void drawLine(double x1, double y1, double x2, double y2) const;
 
-    void drawSquare(const Vector2& position, double size) const;
+        void drawPolygon(const Data::Array<double> &x, const Data::Array<double> &y) const;
 
-    void drawRectangle(const Vector2 &position, double height, double width) const;
+        void drawSquare(const Vector2 &position, double size) const;
 
-    void drawString(double x, double y, const char *string) const;
+        void drawRectangle(const Vector2 &position, double height, double width) const;
 
-    void drawString(double x, double y, const Util::Memory::String &string) const;
+        void drawString(double x, double y, const char *string) const;
 
-    void drawStringSmall(double x, double y, const char *string) const;
+        void drawString(double x, double y, const Util::Memory::String &string) const;
 
-    void drawStringSmall(double x, double y, const Util::Memory::String &string) const;
+        void drawStringSmall(double x, double y, const char *string) const;
 
-    void drawImage(const Vector2& position, const Util::File::Image::Image &image, bool flipX = false) const;
+        void drawStringSmall(double x, double y, const Util::Memory::String &string) const;
 
-    void show() const;
+        void drawImage(const Vector2 &position, const Util::File::Image::Image &image, bool flipX = false) const;
 
-    void setColor(const Graphic::Color &color);
+        void show() const;
 
-    [[nodiscard]] Graphic::Color getColor() const;
+        void setColor(const Graphic::Color &color);
 
-    void setBackgroundColor(const Graphic::Color &backgroundColor);
+        [[nodiscard]] Graphic::Color getColor() const;
 
-    void saveAsBackground();
+        void setBackgroundColor(const Graphic::Color &backgroundColor);
+
+        void saveAsBackground();
 
 
-private:
+    private:
 
-    void drawString(const Graphic::Font &font, double x, double y, const char *string) const;
+        void drawString(const Graphic::Font &font, double x, double y, const char *string) const;
 
-    const Graphic::BufferedLinearFrameBuffer lfb;
-    Memory::Address<uint32_t> *backgroundBuffer = nullptr;
-    Camera *camera;
+        const Graphic::BufferedLinearFrameBuffer lfb;
+        Memory::Address<uint32_t> *backgroundBuffer = nullptr;
+        Game &game;
 
-    const Graphic::PixelDrawer pixelDrawer;
-    const Graphic::LineDrawer lineDrawer;
-    const Graphic::StringDrawer stringDrawer;
+        const Graphic::PixelDrawer pixelDrawer;
+        const Graphic::LineDrawer lineDrawer;
+        const Graphic::StringDrawer stringDrawer;
 
-    const uint16_t transformation;
-    const uint16_t offsetX;
-    const uint16_t offsetY;
+        const uint16_t transformation;
+        const uint16_t offsetX;
+        const uint16_t offsetY;
 
-    Graphic::Color color = Graphic::Colors::WHITE;
-    Graphic::Color backgroundColor = Graphic::Colors::BLACK;
-};
+        Graphic::Color color = Graphic::Colors::WHITE;
+        Graphic::Color backgroundColor = Graphic::Colors::BLACK;
+    };
 
 }
 

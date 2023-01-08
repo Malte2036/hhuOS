@@ -26,6 +26,7 @@
 #include "lib/util/game/entity/Entity.h"
 #include "Camera.h"
 #include "lib/util/data/Pair.h"
+#include "lib/util/game/scene/Scene.h"
 
 namespace Util::Game {
 
@@ -53,53 +54,42 @@ namespace Util::Game {
 
         void stop();
 
-        Camera* getCamera();
+        [[deprecated]]
+        Camera *getCamera();
 
+        [[deprecated]]
         void addEntity(Entity *entity);
 
+        [[deprecated]]
         void removeEntity(Entity *entity);
+
+        Scene *getScene();
+
+        void pushScene(Scene *newScene);
 
     protected:
         [[nodiscard]] bool isRunning() const;
 
-        [[nodiscard]] uint32_t getObjectCount() const;
-
-        void applyChanges();
-
-        void draw(Graphics2D &graphics);
-
         virtual void update(double delta) = 0;
 
+        [[deprecated]]
         void addObject(Drawable *drawable);
 
+        [[deprecated]]
         void removeObject(Drawable *drawable);
 
+        [[deprecated]]
         void setKeyListener(KeyListener &listener);
 
+        [[deprecated("this method will be moved to Scene in the future")]]
         void setMouseListener(MouseListener &listener);
 
-        void checkCollision();
-
-        void updateEntities(double frameTime);
-
-        virtual void drawInitialBackground(Graphics2D &graphics) = 0;
-
     private:
-
-        KeyListener *keyListener = nullptr;
         MouseListener *mouseListener = nullptr;
 
-        Camera *camera = new Camera(Vector2());
+        Scene *scene = nullptr;
 
-        Util::Data::ArrayList<Entity *> entities;
-
-        Util::Data::ArrayList<Drawable *> drawables;
-        Util::Data::ArrayList<Drawable *> addList;
-        Util::Data::ArrayList<Drawable *> removeList;
-        Util::Data::ArrayList<Entity *> removeEntityList;
         bool running = true;
-
-        Util::Data::Pair<Entity *, Entity *> createEntityPair(Entity *a, Entity *b);
     };
 
 }

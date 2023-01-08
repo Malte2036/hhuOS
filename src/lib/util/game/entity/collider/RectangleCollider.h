@@ -13,7 +13,7 @@ namespace Util::Game {
     };
 
     class RectangleCollider : public Collider {
-        friend class Game;
+        friend class Scene;
         
     public:
         explicit RectangleCollider(Vector2 position, double height, double width, ColliderType colliderType);

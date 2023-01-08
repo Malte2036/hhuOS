@@ -50,6 +50,9 @@ public:
      */
     ~Engine() override = default;
 
+    void runWithScene(Scene *initialScene);
+
+    [[deprecated("use runWithScene instead")]]
     void run() override;
 
 private:

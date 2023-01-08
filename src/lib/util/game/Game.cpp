@@ -17,51 +17,20 @@
 
 #include "Game.h"
 #include "GameManager.h"
-#include "lib/util/data/Pair.h"
+#include "lib/util/log/Logger.h"
 
 namespace Util::Game {
 
     Game::~Game() {
-        for (const auto *drawable: drawables) {
-            delete drawable;
-        }
-
-        drawables.clear();
+        delete getScene();
     }
 
     void Game::addObject(Drawable *drawable) {
-        addList.add(drawable);
+        Logger::logMessage("Old method addObject in Game used");
     }
 
     void Game::removeObject(Drawable *drawable) {
-        removeList.add(drawable);
-    }
-
-    void Game::applyChanges() {
-        for (auto *object: addList) {
-            drawables.add(object);
-        }
-
-        for (auto *object: removeList) {
-            drawables.remove(object);
-            delete object;
-        }
-
-        for (auto *entity: removeEntityList) {
-            drawables.remove(entity);
-            entities.remove(entity);
-            delete entity;
-        }
-
-        addList.clear();
-        removeList.clear();
-        removeEntityList.clear();
-    }
-
-    void Game::draw(Graphics2D &graphics) {
-        for (const auto *object: drawables) {
-            object->draw(graphics);
-        }
+        Logger::logMessage("Old method removeObject in Game used");
     }
 
     bool Game::isRunning() const {
@@ -72,12 +41,7 @@ namespace Util::Game {
         Game::running = false;
     }
 
-    uint32_t Game::getObjectCount() const {
-        return drawables.size();
-    }
-
     void Game::setKeyListener(KeyListener &listener) {
-        keyListener = &listener;
     }
 
     void Game::setMouseListener(MouseListener &listener) {
@@ -85,67 +49,24 @@ namespace Util::Game {
     }
 
     void Game::addEntity(Entity *entity) {
-        addList.add(entity);
-        entities.add(entity);
+        Logger::logMessage("Old method addEntity in Game used");
     }
 
     void Game::removeEntity(Entity *entity) {
-        if (!removeEntityList.contains(entity)) {
-            removeEntityList.add(entity);
-        }
-    }
-
-    void Game::updateEntities(double frameTime) {
-        for (Entity *entity: entities) {
-            entity->update(frameTime);
-        }
-    }
-
-    void Game::checkCollision() {
-        auto detectedCollisions = Data::ArrayList<Data::Pair<Entity *, Entity *>>();
-        for (Entity *entity: entities) {
-            for (Entity *otherEntity: entities) {
-                if (entity != otherEntity && !detectedCollisions.contains(createEntityPair(entity, otherEntity))) {
-                    auto side = entity->getCollider()->isColliding(*otherEntity->getCollider());
-                    if (side != NO_SIDE) {
-                        entity->collisionEvent(new CollisionEvent(otherEntity, side));
-
-                        RectangleCollidedSide otherSide;
-                        switch (side) {
-                            case RIGHT_SIDE:
-                                otherSide = LEFT_SIDE;
-                                break;
-                            case LEFT_SIDE:
-                                otherSide = RIGHT_SIDE;
-                                break;
-                            case TOP_SIDE:
-                                otherSide = BOTTOM_SIDE;
-                                break;
-                            case BOTTOM_SIDE:
-                                otherSide = TOP_SIDE;
-                                break;
-                            default:
-                                otherSide = NO_SIDE;
-                                break;
-                        }
-
-                        otherEntity->collisionEvent(new CollisionEvent(entity, otherSide));
-
-                        detectedCollisions.add(createEntityPair(entity, otherEntity));
-                    }
-                }
-            }
-        }
-    }
-
-    Data::Pair<Entity *, Entity *> Game::createEntityPair(Entity *a, Entity *b) {
-        if (a < b) {
-            return {a, b};
-        }
-        return {b, a};
+        Logger::logMessage("Old method removeEntity in Game used");
     }
 
     Camera *Game::getCamera() {
-        return camera;
+        Logger::logMessage("Old method getCamera in Game used");
+        return getScene()->getCamera();
+    }
+
+    Scene *Game::getScene() {
+        return scene;
+    }
+
+    void Game::pushScene(Scene *newScene) {
+        scene = newScene;
+        scene->init();
     }
 }

@@ -61,7 +61,3 @@ void SnakeGame::keyPressed(char c) {
             snake->setColor(Util::Graphic::Colors::RED);
     }
 }
-
-void SnakeGame::drawInitialBackground(Util::Game::Graphics2D &graphics) {
-
-}

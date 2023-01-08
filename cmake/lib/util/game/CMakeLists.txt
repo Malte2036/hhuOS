@@ -28,3 +28,4 @@ target_sources(lib.util PUBLIC
 
 
 add_subdirectory(entity)
+add_subdirectory(scene)

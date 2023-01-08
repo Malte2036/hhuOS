@@ -50,7 +50,7 @@ void PlatformerPlayerEntity::draw(Util::Game::Graphics2D &graphics) const {
 void PlatformerPlayerEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
     const Vector2 translateTo = event->getTranslateTo();
 
-    auto camera = Util::Game::GameManager::getGame<PlatformerGame>()->getCamera();
+    auto camera = Util::Game::GameManager::getGame<PlatformerGame>()->getScene()->getCamera();
 
     //calculate the left window border position offset
     auto windowBorderOffset = Util::Game::GameManager::getResolution().getX() / 2;
@@ -80,17 +80,19 @@ void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent *event)
         canJump = true;
     }
 
+    auto scene = Util::Game::GameManager::getGame<PlatformerGame>()->getScene();
+
     auto collidedWithTag = event->getCollidedWith()->getTag();
     if (collidedWithTag == "BrickBlock") {
         if (side == Util::Game::TOP_SIDE) {
-            Util::Game::GameManager::getGame<PlatformerGame>()->removeEntity(event->getCollidedWith());
+            scene->removeEntity(event->getCollidedWith());
             Logger::logMessage("Mario destroyed Block");
         }
     } else if (collidedWithTag == "Mushroom") {
         Logger::logMessage("Mushroom collected");
 
         setBig(true);
-        Util::Game::GameManager::getGame<PlatformerGame>()->removeEntity(event->getCollidedWith());
+        scene->removeEntity(event->getCollidedWith());
     } else if (event->getCollidedWith()->getTag() == "Ninja") {
         auto game = Util::Game::GameManager::getGame<PlatformerGame>();
         if (side == Util::Game::BOTTOM_SIDE) {
@@ -104,7 +106,7 @@ void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent *event)
                 return;
             }
         }
-        game->removeEntity(event->getCollidedWith());
+        scene->removeEntity(event->getCollidedWith());
         game->spawnNinja(position + Vector2(1, 0.25));
     }
 }
