@@ -2,16 +2,16 @@
 // Created by malte on 07.12.22.
 //
 
-#ifndef HHUOS_MARIOENTITY_H
-#define HHUOS_MARIOENTITY_H
+#ifndef HHUOS_PLATFORMERPLAYERENTITY_H
+#define HHUOS_PLATFORMERPLAYERENTITY_H
 
 
 #include "lib/util/game/entity/Entity.h"
 #include "lib/util/game/SpriteAnimation.h"
 
-class MarioEntity : public Util::Game::Entity {
+class PlatformerPlayerEntity : public Util::Game::Entity {
 public:
-    MarioEntity(const Util::Memory::String &tag, const Vector2 &position);
+    PlatformerPlayerEntity(const Util::Memory::String &tag, const Vector2 &position);
 
     void onUpdate(double dt) override;
 
@@ -42,4 +42,4 @@ private:
 };
 
 
-#endif //HHUOS_MARIOENTITY_H
+#endif //HHUOS_PLATFORMERPLAYERENTITY_H

@@ -2,16 +2,16 @@
 // Created by malte on 07.12.22.
 //
 
-#ifndef HHUOS_MARIOBRICKBLOCKENTITY_H
-#define HHUOS_MARIOBRICKBLOCKENTITY_H
+#ifndef HHUOS_PLATFORMERITEMBLOCKENTITY_H
+#define HHUOS_PLATFORMERITEMBLOCKENTITY_H
 
 
 #include "lib/util/game/entity/Entity.h"
 #include "lib/util/game/Sprite.h"
 
-class MarioBrickBlockEntity : public Util::Game::Entity {
+class PlatformerItemBlockEntity : public Util::Game::Entity {
 public:
-    explicit MarioBrickBlockEntity(const Vector2 &position);
+    explicit PlatformerItemBlockEntity(const Vector2 &position);
 
     void onUpdate(double dt) override;
 
@@ -28,4 +28,4 @@ private:
 };
 
 
-#endif //HHUOS_MARIOBRICKBLOCKENTITY_H
+#endif //HHUOS_PLATFORMERITEMBLOCKENTITY_H

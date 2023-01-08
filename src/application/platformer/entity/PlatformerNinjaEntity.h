@@ -2,16 +2,16 @@
 // Created by malte on 03.01.23.
 //
 
-#ifndef HHUOS_MARIOGOOMBAENTITY_H
-#define HHUOS_MARIOGOOMBAENTITY_H
+#ifndef HHUOS_PLATFORMERNINJAENTITY_H
+#define HHUOS_PLATFORMERNINJAENTITY_H
 
 #include "lib/util/game/entity/Entity.h"
 #include "lib/util/game/SpriteAnimation.h"
 
 
-class MarioGoombaEntity : public Util::Game::Entity {
+class PlatformerNinjaEntity : public Util::Game::Entity {
 public:
-    explicit MarioGoombaEntity(const Vector2 &position);
+    explicit PlatformerNinjaEntity(const Vector2 &position);
 
 
     void draw(Util::Game::Graphics2D &graphics) const override;
@@ -37,4 +37,4 @@ private:
 };
 
 
-#endif //HHUOS_MARIOGOOMBAENTITY_H
+#endif //HHUOS_PLATFORMERNINJAENTITY_H

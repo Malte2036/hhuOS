@@ -2,11 +2,10 @@
 // Created by malte on 07.12.22.
 //
 
-#include "MarioEntity.h"
+#include "PlatformerPlayerEntity.h"
 #include "lib/util/log/Logger.h"
 #include "lib/util/game/GameManager.h"
-#include "application/mario/MarioGame.h"
-#include "application/mario/block/MarioSolidBlockEntity.h"
+#include "../PlatformerGame.h"
 
 Util::File::Image::Image *currentImage = nullptr;
 
@@ -14,7 +13,7 @@ Util::Game::Sprite idleSprite = Util::Game::Sprite(
         "/initrd/game/platformer/player/run/player_run_1.bmp");
 Util::Game::SpriteAnimation *runAnimation = nullptr;
 
-MarioEntity::MarioEntity(const Util::Memory::String &tag, const Vector2 &position) : Util::Game::Entity(tag, position) {
+PlatformerPlayerEntity::PlatformerPlayerEntity(const Util::Memory::String &tag, const Vector2 &position) : Util::Game::Entity(tag, position) {
     runAnimation = new Util::Game::SpriteAnimation(
             {
                     new Util::Game::Sprite(
@@ -41,17 +40,17 @@ MarioEntity::MarioEntity(const Util::Memory::String &tag, const Vector2 &positio
 }
 
 
-void MarioEntity::draw(Util::Game::Graphics2D &graphics) const {
+void PlatformerPlayerEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.drawImage(position, *currentImage, directionLeft);
     if (collider != nullptr) {
         //graphics.drawRectangle(position, collider->getHeight(), collider->getWidth());
     }
 }
 
-void MarioEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
+void PlatformerPlayerEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
     const Vector2 translateTo = event->getTranslateTo();
 
-    auto camera = Util::Game::GameManager::getGame<MarioGame>()->getCamera();
+    auto camera = Util::Game::GameManager::getGame<PlatformerGame>()->getCamera();
 
     //calculate the left window border position offset
     auto windowBorderOffset = Util::Game::GameManager::getResolution().getX() / 2;
@@ -75,7 +74,7 @@ void MarioEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
     }
 }
 
-void MarioEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
+void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
     auto side = event->getRectangleCollidedSide();
     if (side == Util::Game::BOTTOM_SIDE) {
         canJump = true;
@@ -84,55 +83,55 @@ void MarioEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
     auto collidedWithTag = event->getCollidedWith()->getTag();
     if (collidedWithTag == "BrickBlock") {
         if (side == Util::Game::TOP_SIDE) {
-            Util::Game::GameManager::getGame<MarioGame>()->removeEntity(event->getCollidedWith());
+            Util::Game::GameManager::getGame<PlatformerGame>()->removeEntity(event->getCollidedWith());
             Logger::logMessage("Mario destroyed Block");
         }
     } else if (collidedWithTag == "Mushroom") {
         Logger::logMessage("Mushroom collected");
 
         setBig(true);
-        Util::Game::GameManager::getGame<MarioGame>()->removeEntity(event->getCollidedWith());
-    } else if (event->getCollidedWith()->getTag() == "Goomba") {
-        auto game = Util::Game::GameManager::getGame<MarioGame>();
+        Util::Game::GameManager::getGame<PlatformerGame>()->removeEntity(event->getCollidedWith());
+    } else if (event->getCollidedWith()->getTag() == "Ninja") {
+        auto game = Util::Game::GameManager::getGame<PlatformerGame>();
         if (side == Util::Game::BOTTOM_SIDE) {
-            Logger::logMessage("Player killed Goomba");
+            Logger::logMessage("Player killed Ninja");
         } else {
             if (big) {
                 setBig(false);
             } else {
-                Logger::logMessage("Player was killed by Goomba");
+                Logger::logMessage("Player was killed by Ninja");
                 game->stop();
                 return;
             }
         }
         game->removeEntity(event->getCollidedWith());
-        game->spawnGoomba(position + Vector2(1, 0.25));
+        game->spawnNinja(position + Vector2(1, 0.25));
     }
 }
 
-void MarioEntity::moveRight() {
+void PlatformerPlayerEntity::moveRight() {
     translateX(speed);
     directionLeft = false;
     currentImage = runAnimation->getNextSprite().getImage();
 }
 
-void MarioEntity::moveLeft() {
+void PlatformerPlayerEntity::moveLeft() {
     translateX(-speed);
     directionLeft = true;
     currentImage = runAnimation->getNextSprite().getImage();
 }
 
-void MarioEntity::jump() {
+void PlatformerPlayerEntity::jump() {
     if (canJump) {
         translateY(jumpSpeed);
         canJump = false;
     }
 }
 
-void MarioEntity::onUpdate(double dt) {
+void PlatformerPlayerEntity::onUpdate(double dt) {
 }
 
-void MarioEntity::setBig(bool val) {
+void PlatformerPlayerEntity::setBig(bool val) {
     big = val;
     collider->setHeight(height * (big ? 2 : 1));
 }

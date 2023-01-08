@@ -2,16 +2,16 @@
 // Created by malte on 03.01.23.
 //
 
-#ifndef HHUOS_MARIOMUSHROOMENTITY_H
-#define HHUOS_MARIOMUSHROOMENTITY_H
+#ifndef HHUOS_PLATFORMERMUSHROOMENTITY_H
+#define HHUOS_PLATFORMERMUSHROOMENTITY_H
 
 #include "lib/util/game/entity/Entity.h"
 #include "lib/util/game/SpriteAnimation.h"
 
 
-class MarioMushroomEntity : public Util::Game::Entity {
+class PlatformerMushroomEntity : public Util::Game::Entity {
 public:
-    explicit MarioMushroomEntity(const Vector2 &position);
+    explicit PlatformerMushroomEntity(const Vector2 &position);
 
 
     void draw(Util::Game::Graphics2D &graphics) const override;
@@ -39,4 +39,4 @@ private:
 };
 
 
-#endif //HHUOS_MARIOMUSHROOMENTITY_H
+#endif //HHUOS_PLATFORMERMUSHROOMENTITY_H

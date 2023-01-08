@@ -2,16 +2,16 @@
 // Created by malte on 07.12.22.
 //
 
-#ifndef HHUOS_MARIOITEMBLOCKENTITY_H
-#define HHUOS_MARIOITEMBLOCKENTITY_H
+#ifndef HHUOS_PLATFORMERSOLIDBLOCKENTITY_H
+#define HHUOS_PLATFORMERSOLIDBLOCKENTITY_H
 
 
 #include "lib/util/game/entity/Entity.h"
 #include "lib/util/game/Sprite.h"
 
-class MarioItemBlockEntity : public Util::Game::Entity {
+class PlatformerSolidBlockEntity : public Util::Game::Entity {
 public:
-    explicit MarioItemBlockEntity(const Vector2 &position);
+    explicit PlatformerSolidBlockEntity(const Vector2 &position);
 
     void onUpdate(double dt) override;
 
@@ -28,4 +28,4 @@ private:
 };
 
 
-#endif //HHUOS_MARIOITEMBLOCKENTITY_H
+#endif //HHUOS_PLATFORMERSOLIDBLOCKENTITY_H

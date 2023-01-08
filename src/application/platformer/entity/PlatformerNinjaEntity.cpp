@@ -2,13 +2,11 @@
 // Created by malte on 03.01.23.
 //
 
-#include "MarioGoombaEntity.h"
+#include "PlatformerNinjaEntity.h"
 #include "lib/util/game/GameManager.h"
-#include "application/mario/MarioGame.h"
-#include "lib/util/log/Logger.h"
 #include "lib/util/game/entity/component/GravityComponent.h"
 
-MarioGoombaEntity::MarioGoombaEntity(const Vector2 &position) : Util::Game::Entity("Goomba", position) {
+PlatformerNinjaEntity::PlatformerNinjaEntity(const Vector2 &position) : Util::Game::Entity("Ninja", position) {
     runAnimation = new Util::Game::SpriteAnimation(
             {
                     new Util::Game::Sprite(
@@ -38,14 +36,14 @@ MarioGoombaEntity::MarioGoombaEntity(const Vector2 &position) : Util::Game::Enti
     currentImage = runAnimation->getNextSprite().getImage();
 }
 
-void MarioGoombaEntity::draw(Util::Game::Graphics2D &graphics) const {
+void PlatformerNinjaEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.drawImage(position, *currentImage, directionLeft);
     //graphics.drawRectangle(position, getCollider()->getHeight(), getCollider()->getWidth());
 }
 
 auto i = 1;
 
-void MarioGoombaEntity::onUpdate(double dt) {
+void PlatformerNinjaEntity::onUpdate(double dt) {
     translateX(speed * (directionLeft ? -1 : 1));
     if (i == 0) {
         currentImage = runAnimation->getNextSprite().getImage();
@@ -53,7 +51,7 @@ void MarioGoombaEntity::onUpdate(double dt) {
     i = (i + 1) % 3;
 }
 
-void MarioGoombaEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
+void PlatformerNinjaEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
 
     auto collidedWithSide = event->getRectangleCollidedSide();
     if (collidedWithSide == Util::Game::LEFT_SIDE) {
@@ -63,7 +61,7 @@ void MarioGoombaEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
     }
 }
 
-void MarioGoombaEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
+void PlatformerNinjaEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
     if (event->getTranslateTo().getY() <= groundY) {
         event->setCanceled(true);
     }
