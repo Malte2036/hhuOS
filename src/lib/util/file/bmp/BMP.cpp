@@ -12,25 +12,25 @@ namespace Util::File::Image {
 
     }
 
-    BMP* BMP::fromFile( const Memory::String& filename){
+    BMP *BMP::fromFile(const Memory::String &filename) {
         auto buffer = getFileBuffer(filename);
 
         auto *header = reinterpret_cast<Header *>(buffer);
 
-        auto dataOffset = headerDataToInt(header->data_offset, 4);
-        auto bitmapWidth = headerDataToInt(header->bitmap_width, 4);
-        auto bitmapHeight = headerDataToInt(header->bitmap_height, 4);
-        auto bitmapBitsPerPixel = headerDataToInt(header->bitmap_bits_per_pixel, 2);
+        auto dataOffset = (*(header->data_offset + 3) << 24) | (*(header->data_offset + 2) << 16) | (*(header->data_offset + 1) << 8) | *header->data_offset;
+        auto bitmapWidth = (*(header->bitmap_width + 3) << 24) | (*(header->bitmap_width + 2) << 16) | (*(header->bitmap_width + 1) << 8) | *header->bitmap_width;
+        auto bitmapHeight = (*(header->bitmap_height + 3) << 24) | (*(header->bitmap_height + 2) << 16) | (*(header->bitmap_height + 1) << 8) | *header->bitmap_height;
+        auto bitmapBitsPerPixel = (*(header->bitmap_bits_per_pixel + 1) << 8) | *header->bitmap_bits_per_pixel;
 
         auto bitmap = buffer + dataOffset;
 
         auto pixelLength = bitmapBitsPerPixel / 8;
 
-        if(pixelLength != 3 && pixelLength != 4){
+        if (pixelLength != 3 && pixelLength != 4) {
             Exception::throwException(Exception::UNSUPPORTED_OPERATION, "BMP: Unsupported pixel length");
         }
 
-        auto* pixelBuf = new Graphic::Color[bitmapWidth * bitmapHeight];
+        auto *pixelBuf = new Graphic::Color[bitmapWidth * bitmapHeight];
 
         for (auto y = bitmapHeight - 1; y >= 0; y--) {
             for (auto x = 0; x < bitmapWidth; x++) {
@@ -40,10 +40,10 @@ namespace Util::File::Image {
                 auto green = *(bitmap + pos + 1);
                 auto red = *(bitmap + pos + 2);
                 auto alpha = 0;
-                if(pixelLength == 4){
+                if (pixelLength == 4) {
                     alpha = *(bitmap + pos + 3);
                 }
-                auto color =  Graphic::Color(red, green, blue, alpha);
+                auto color = Graphic::Color(red, green, blue, alpha);
                 pixelBuf[(y * bitmapWidth) + x] = color;
             }
 
@@ -52,20 +52,12 @@ namespace Util::File::Image {
         return new BMP(bitmapWidth, bitmapHeight, pixelBuf);
     }
 
-    uint8_t *BMP::getFileBuffer(const Memory::String& filename){
-        auto file =  Util::File::File(filename);
+    uint8_t *BMP::getFileBuffer(const Memory::String &filename) {
+        auto file = Util::File::File(filename);
         auto *buffer = new uint8_t[file.getLength()];
         auto binaryStream = Util::Stream::FileInputStream(file);
         binaryStream.read(buffer, 0, file.getLength());
 
         return buffer;
-    }
-
-    int32_t BMP::headerDataToInt(const uint8_t *buffer, int size) {
-        int32_t res = 0;
-        for (auto i = 0; i < size; i++) {
-            res += *(buffer + i) * (int) Math::Math::pow(256, i);
-        }
-        return res;
     }
 }

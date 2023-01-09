@@ -29,8 +29,6 @@ namespace Util::File::Image {
     private:
         BMP(int width, int height, Graphic::Color *pixelBuff);
 
-        static int32_t headerDataToInt(const uint8_t *buffer, int size);
-
         static uint8_t *getFileBuffer(const Memory::String& filename);
     };
 }
