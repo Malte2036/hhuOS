@@ -24,7 +24,7 @@ private:
     void keyPressed(char c) override;
 
     PlatformerPlayerEntity *player = nullptr;
-    const double groundY = -0.75;
+    const double groundY = -0.5;
 
     PlatformerScoreText *scoreText = nullptr;
 

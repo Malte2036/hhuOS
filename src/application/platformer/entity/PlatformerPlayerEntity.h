@@ -11,7 +11,7 @@
 
 class PlatformerPlayerEntity : public Util::Game::Entity {
 public:
-    PlatformerPlayerEntity(const Util::Memory::String &tag, const Vector2 &position);
+    PlatformerPlayerEntity(const Util::Memory::String &tag, const Vector2 &position, double groundY);
 
     void onUpdate(double dt) override;
 
@@ -29,7 +29,7 @@ private:
 
     bool directionLeft = false;
 
-    double groundY = -0.75;
+    const double groundY;
     bool canJump = false;
 
     void draw(Util::Game::Graphics2D &graphics) const override;

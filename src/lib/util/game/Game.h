@@ -62,8 +62,13 @@ namespace Util::Game {
 
         virtual void update(double dt) = 0;
 
+        void initScene(Graphics2D &graphics);
+
+        bool isNewScenePushed() const;
+
     private:
         Scene *scene = nullptr;
+        bool newScenePushed = true;
 
         bool running = true;
     };

@@ -11,7 +11,7 @@
 void PlatformerScene2::init() {
     setKeyListener(*this);
 
-    player = new PlatformerPlayerEntity("Player", Vector2(-0.2, 0));
+    player = new PlatformerPlayerEntity("Player", Vector2(-0.2, 0), groundY);
     player->addComponent(new Util::Game::GravityComponent(groundY));
     addEntity(player);
 
@@ -45,7 +45,7 @@ void PlatformerScene2::init() {
     }
 
 
-    Util::Game::GameManager::getGame<PlatformerGame>()->spawnNinja(Vector2(1.15, groundY + 0.1));
+    Util::Game::GameManager::getGame<PlatformerGame>()->spawnNinja(Vector2(1.15, groundY + 0.1), groundY);
 }
 
 
@@ -76,9 +76,10 @@ void PlatformerScene2::drawInitialBackground(Util::Game::Graphics2D &graphics) {
     }
 
     auto cloudSprite = new Util::Game::Sprite("/initrd/game/platformer/background/cloud.bmp");
-    graphics.drawImage(Vector2(-(res.getX() / 2) + 0.25, (res.getY() / 2) - 0.65), *cloudSprite->getImage());
-    graphics.drawImage(Vector2(-0.25, -((res.getY() / 2) - 0.5)), *cloudSprite->getImage());
-    graphics.drawImage(Vector2(0.6, (res.getY() / 2) - 0.7), *cloudSprite->getImage());
+    graphics.drawImage(Vector2(-(res.getX() / 2) + 0.25, (res.getY() / 2) - 0.2), *cloudSprite->getImage());
+    graphics.drawImage(Vector2(-0.4, (res.getY() / 2) - 0.7), *cloudSprite->getImage());
+    graphics.drawImage(Vector2(0.6, (res.getY() / 2) - 0.5), *cloudSprite->getImage());
+    graphics.drawImage(Vector2(0.1, (res.getY() / 2) - 0.35), *cloudSprite->getImage());
 }
 
 double PlatformerScene2::getGroundY() const {

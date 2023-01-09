@@ -12,10 +12,10 @@ void PlatformerGame::update(double delta) {
 
 }
 
-void PlatformerGame::spawnNinja(const Vector2& position) {
+void PlatformerGame::spawnNinja(const Vector2& position, double groundY) {
     auto scene = getScene();
     if (scene != nullptr) {
-        auto newNinja = new PlatformerNinjaEntity(position);
+        auto newNinja = new PlatformerNinjaEntity(position, groundY);
         newNinja->addComponent(new Util::Game::GravityComponent(groundY));
         scene->addEntity(newNinja);
     }

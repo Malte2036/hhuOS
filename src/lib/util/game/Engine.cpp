@@ -48,11 +48,6 @@ namespace Util::Game {
         Async::Thread::createThread("Key-Listener", new KeyListenerRunnable(*this));
         Async::Thread::createThread("Mouse-Listener", new MouseListenerRunnable(*this));
 
-        auto scene = game.getScene();
-        scene->init();
-        scene->drawInitialBackground(graphics);
-        graphics.saveAsBackground();
-
         while (game.isRunning()) {
             statistics.startFrameTime();
             statistics.startUpdateTime();
@@ -61,7 +56,11 @@ namespace Util::Game {
                 frameTime = 0.001;
             }
 
-            scene = game.getScene();
+            if(game.isNewScenePushed()){
+                game.initScene(graphics);
+            }
+
+            auto scene = game.getScene();
 
             updateLock.acquire();
             scene->update(frameTime);

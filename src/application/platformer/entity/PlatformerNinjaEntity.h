@@ -11,7 +11,7 @@
 
 class PlatformerNinjaEntity : public Util::Game::Entity {
 public:
-    explicit PlatformerNinjaEntity(const Vector2 &position);
+    explicit PlatformerNinjaEntity(const Vector2 &position, double groundY);
 
 
     void draw(Util::Game::Graphics2D &graphics) const override;
@@ -23,7 +23,7 @@ public:
     void onTranslateEvent(Util::Game::TranslateEvent *event) override;
 
 private:
-    double groundY = -0.75;
+    const double groundY;
 
     const double speed = 0.3;
 

@@ -6,7 +6,9 @@
 #include "lib/util/game/GameManager.h"
 #include "lib/util/game/entity/component/GravityComponent.h"
 
-PlatformerNinjaEntity::PlatformerNinjaEntity(const Vector2 &position) : Util::Game::Entity("Ninja", position) {
+PlatformerNinjaEntity::PlatformerNinjaEntity(const Vector2 &position, double groundY) : Util::Game::Entity("Ninja",
+                                                                                                           position),
+                                                                                        groundY{groundY} {
     runAnimation = new Util::Game::SpriteAnimation(
             {
                     new Util::Game::Sprite(

@@ -13,7 +13,7 @@
 void PlatformerScene1::init() {
     setKeyListener(*this);
 
-    player = new PlatformerPlayerEntity("Player", Vector2(-0.2, 0));
+    player = new PlatformerPlayerEntity("Player", Vector2(-0.2, 0), groundY);
     player->addComponent(new Util::Game::GravityComponent(groundY));
     addEntity(player);
 
@@ -56,7 +56,7 @@ void PlatformerScene1::init() {
     addEntity(new PlatformerItemBlockEntity(Vector2(offsetX + blockWidth * 4, groundY + 0.8)));
 
 
-    Util::Game::GameManager::getGame<PlatformerGame>()->spawnNinja(Vector2(2, groundY + 0.1));
+    Util::Game::GameManager::getGame<PlatformerGame>()->spawnNinja(Vector2(2, groundY + 0.1), groundY);
 }
 
 

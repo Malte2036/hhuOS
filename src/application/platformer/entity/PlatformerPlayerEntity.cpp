@@ -13,8 +13,9 @@ Util::Game::Sprite idleSprite = Util::Game::Sprite(
         "/initrd/game/platformer/player/run/player_run_1.bmp");
 Util::Game::SpriteAnimation *runAnimation = nullptr;
 
-PlatformerPlayerEntity::PlatformerPlayerEntity(const Util::Memory::String &tag, const Vector2 &position)
-        : Util::Game::Entity(tag, position) {
+PlatformerPlayerEntity::PlatformerPlayerEntity(const Util::Memory::String &tag, const Vector2 &position,
+                                               const double groundY)
+        : Util::Game::Entity(tag, position), groundY{groundY} {
     runAnimation = new Util::Game::SpriteAnimation(
             {
                     new Util::Game::Sprite(
@@ -108,7 +109,7 @@ void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent *event)
             }
         }
         scene->removeEntity(&event->getCollidedWith());
-        game->spawnNinja(position + Vector2(1.5, 0.1));
+        game->spawnNinja(position + Vector2(1.5, 0.1), groundY);
     }
 }
 

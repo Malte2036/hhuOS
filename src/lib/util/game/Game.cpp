@@ -38,6 +38,18 @@ namespace Util::Game {
 
     void Game::pushScene(Scene *newScene) {
         scene = newScene;
+        newScenePushed = true;
+    }
+
+    void Game::initScene(Graphics2D &graphics) {
+        newScenePushed = false;
+
         scene->init();
+        scene->drawInitialBackground(graphics);
+        graphics.saveAsBackground();
+    }
+
+    bool Game::isNewScenePushed() const {
+        return newScenePushed;
     }
 }
