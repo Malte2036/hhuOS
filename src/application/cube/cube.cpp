@@ -19,6 +19,7 @@
 #include "lib/util/system/System.h"
 #include "CubeDemo.h"
 #include "lib/util/async/Thread.h"
+#include "CubeDemoScene.h"
 
 static const constexpr int32_t DEFAULT_SPEED = 10;
 
@@ -29,12 +30,15 @@ int32_t main(int32_t argc, char *argv[]) {
         return -1;
     }
 
-    auto game = CubeDemo(speed);
+    auto game = CubeDemo();
     auto lfbFile = Util::File::File("/device/lfb");
     auto lfb = Util::Graphic::LinearFrameBuffer(lfbFile);
+
     auto engine = Util::Game::Engine(game, lfb);
 
-    engine.run();
+    auto scene = new CubeDemoScene();
+
+    engine.runWithScene(scene);
 
     return 0;
 }

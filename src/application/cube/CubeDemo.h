@@ -19,15 +19,14 @@
 #define HHUOS_CUBEDEMO_H
 
 #include "lib/util/game/Game.h"
-#include "Cube.h"
 
-class CubeDemo : public Util::Game::Game, public Util::Game::KeyListener {
+class CubeDemo : public Util::Game::Game {
 
 public:
     /**
      * Constructor.
      */
-    explicit CubeDemo(uint32_t speed = 10);
+    explicit CubeDemo() = default;
 
     /**
      * Copy Constructor.
@@ -44,21 +43,7 @@ public:
      */
     ~CubeDemo() override = default;
 
-    void update(double delta) override;
-
-
-
-    void keyPressed(char c) override;
-
-    static const constexpr uint32_t NUM_CUBES = 4;
-    Cube *cubes[NUM_CUBES] = {new Cube(-0.5, 0.5, 0.25), new Cube(0.5, 0.5, 0.25), new Cube(0.5, -0.5, 0.25), new Cube(-0.5, -0.5, 0.25)};
-
-    int32_t speed;
-
-    // Rotation angles
-    static const constexpr double ANGLE_X = 0.01;
-    static const constexpr double ANGLE_Y = 0.0075;
-    static const constexpr double ANGLE_Z = 0.005;
+    void update(double dt) override;
 };
 
 #endif

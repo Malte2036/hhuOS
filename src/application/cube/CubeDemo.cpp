@@ -16,32 +16,7 @@
  */
 
 #include "CubeDemo.h"
-#include "lib/util/stream/PrintWriter.h"
 
-CubeDemo::CubeDemo(uint32_t speed) : speed(speed) {
-    for (auto *cube : cubes) {
-        addObject(cube);
-    }
+void CubeDemo::update(double dt) {
 
-    setKeyListener(*this);
-}
-
-void CubeDemo::update(double delta) {
-    for (auto &cube : cubes) {
-        cube->rotate(ANGLE_X * speed * delta, ANGLE_Y * speed * delta, ANGLE_Z * speed * delta);
-    }
-}
-
-void CubeDemo::keyPressed(char c) {switch (c) {
-        case '+': {
-            speed++;
-            break;
-        }
-        case '-': {
-            speed--;
-            break;
-        }
-        default:
-            stop();
-    }
 }

@@ -25,7 +25,8 @@ include_directories(${HHUOS_SRC_DIR})
 set(SOURCE_FILES
         ${HHUOS_SRC_DIR}/application/cube/cube.cpp
         ${HHUOS_SRC_DIR}/application/cube/Cube.cpp
-        ${HHUOS_SRC_DIR}/application/cube/CubeDemo.cpp)
+        ${HHUOS_SRC_DIR}/application/cube/CubeDemo.cpp
+        ${HHUOS_SRC_DIR}/application/cube/CubeDemoScene.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
