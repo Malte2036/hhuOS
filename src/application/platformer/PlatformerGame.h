@@ -19,6 +19,8 @@ public:
     double getBlockSize();
 
 private:
+    void init() override;
+
     void onUpdate(double delta) override;
 
     double blockSize = 0.08;

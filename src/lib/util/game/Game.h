@@ -78,6 +78,8 @@ namespace Util::Game {
         [[nodiscard]] bool isNewScenePushed() const;
 
     private:
+        virtual void init() {};
+
         Scene *scene = nullptr;
         bool newScenePushed = true;
 

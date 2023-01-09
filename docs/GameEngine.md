@@ -54,6 +54,7 @@ _[hint: Set the Camera Position to the Position of your Player Entity ([Entity/E
 - `static GameType *getGame<GameType>()`
   - with `GameType` type of your Game *[also see 🔗 [Game](#game)]*
 - `static Vector2 getResolution()`: screen resolution
+- `static void playSound(String soundFileName)`
 
 ## Entity:
 

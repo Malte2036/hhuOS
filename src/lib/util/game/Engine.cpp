@@ -48,6 +48,8 @@ namespace Util::Game {
         Async::Thread::createThread("Key-Listener", new KeyListenerRunnable(*this));
         Async::Thread::createThread("Mouse-Listener", new MouseListenerRunnable(*this));
 
+        game.init();
+
         while (game.isRunning()) {
             statistics.startFrameTime();
             statistics.startUpdateTime();

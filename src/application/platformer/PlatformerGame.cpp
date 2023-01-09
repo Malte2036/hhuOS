@@ -39,3 +39,7 @@ void PlatformerGame::nextLevel() {
 double PlatformerGame::getBlockSize() {
     return blockSize;
 }
+
+void PlatformerGame::init() {
+    Util::Game::GameManager::playSound("/initrd/beep/mario.beep");
+}
