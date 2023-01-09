@@ -45,7 +45,7 @@ namespace Util::Game {
     }
 
     void Game::setMouseListener(MouseListener &listener) {
-        mouseListener = &listener;
+
     }
 
     void Game::addEntity(Entity *entity) {

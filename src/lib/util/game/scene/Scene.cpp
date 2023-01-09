@@ -19,6 +19,10 @@ namespace Util::Game {
         keyListener = &listener;
     }
 
+    void Scene::setMouseListener(MouseListener &listener) {
+        mouseListener = &listener;
+    }
+
     Camera *Scene::getCamera() {
         return camera;
     }

@@ -85,8 +85,6 @@ namespace Util::Game {
         void setMouseListener(MouseListener &listener);
 
     private:
-        MouseListener *mouseListener = nullptr;
-
         Scene *scene = nullptr;
 
         bool running = true;

@@ -136,7 +136,7 @@ namespace Util::Game {
             auto xMovement = static_cast<int8_t>(stream.read());
             auto yMovement = static_cast<int8_t>(stream.read());
 
-            if (engine.game.mouseListener == nullptr) {
+            if (engine.game.getScene()->mouseListener == nullptr) {
                 continue;
             }
 
@@ -147,7 +147,7 @@ namespace Util::Game {
             lastButtons = buttons;
 
             if (xMovement != 0 || yMovement != 0) {
-                engine.game.mouseListener->mouseMoved(xMovement / static_cast<double>(INT8_MAX),
+                engine.game.getScene()->mouseListener->mouseMoved(xMovement / static_cast<double>(INT8_MAX),
                                                       -yMovement / static_cast<double>(INT8_MAX));
             }
             engine.updateLock.release();
@@ -157,9 +157,9 @@ namespace Util::Game {
     void Engine::MouseListenerRunnable::checkKey(MouseListener::Key key, uint8_t lastButtonState,
                                                  uint8_t currentButtonState) {
         if (!(lastButtonState & key) && (currentButtonState & key)) {
-            engine.game.mouseListener->keyPressed(key);
+            engine.game.getScene()->mouseListener->keyPressed(key);
         } else if ((lastButtonState & key) && !(currentButtonState & key)) {
-            engine.game.mouseListener->keyReleased(key);
+            engine.game.getScene()->mouseListener->keyReleased(key);
         }
     }
 

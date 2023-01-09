@@ -20,14 +20,17 @@
 #include "lib/util/graphic/LinearFrameBuffer.h"
 #include "MouseGame.h"
 #include "lib/util/game/Engine.h"
+#include "MouseGameScene.h"
 
 int32_t main(int32_t argc, char *argv[]) {
     auto game = MouseGame();
+
     auto lfbFile = Util::File::File("/device/lfb");
     auto lfb = Util::Graphic::LinearFrameBuffer(lfbFile);
     auto engine = Util::Game::Engine(game, lfb);
 
-    engine.run();
+    auto scene = new MouseGameScene();
 
+    engine.runWithScene(scene);
     return 0;
 }

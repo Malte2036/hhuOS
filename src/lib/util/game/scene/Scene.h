@@ -9,6 +9,7 @@
 #include "lib/util/game/entity/Entity.h"
 #include "lib/util/data/Pair.h"
 #include "lib/util/game/KeyListener.h"
+#include "lib/util/game/MouseListener.h"
 
 namespace Util::Game {
     class Scene {
@@ -45,6 +46,8 @@ namespace Util::Game {
 
         void setKeyListener(KeyListener &listener);
 
+        void setMouseListener(MouseListener &listener);
+
         [[nodiscard]] uint32_t getObjectCount() const;
 
         void applyChanges();
@@ -65,6 +68,7 @@ namespace Util::Game {
 
     private:
         KeyListener *keyListener = nullptr;
+        MouseListener *mouseListener = nullptr;
 
         Scene *scene = nullptr;
         Camera *camera = new Camera(Vector2());
