@@ -15,7 +15,17 @@ namespace Util::Game {
 
     class Collider {
     public:
-        Collider(const Memory::String& type, const Vector2& position, ColliderType colliderType);
+        Collider(const Memory::String &type, const Vector2 &position, ColliderType colliderType);
+
+        /**
+         * Copy Constructor.
+        */
+        Collider(const Collider &other) = default;
+
+        /**
+         * Assignment operator.
+         */
+        Collider &operator=(const Collider &other) = delete;
 
         Memory::String getType();
 
@@ -27,6 +37,7 @@ namespace Util::Game {
         Vector2 lastPosition;
 
         friend class Entity;
+
         Vector2 setPosition(Vector2 vector2);
 
     private:

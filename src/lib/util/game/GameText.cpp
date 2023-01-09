@@ -5,10 +5,10 @@
 #include "GameText.h"
 
 namespace Util::Game {
-    GameText::GameText(Vector2 position, Memory::String text) : position{position}, text{text},
+    GameText::GameText(const Vector2& position, const Memory::String& text) : position{position}, text{text},
                                                                 color{Graphic::Colors::WHITE} {}
 
-    GameText::GameText(Vector2 position, Memory::String text, Graphic::Color color = Graphic::Colors::WHITE) : position{
+    GameText::GameText(Vector2 position, const Memory::String& text, Graphic::Color color = Graphic::Colors::WHITE) : position{
             position}, text{text}, color{color} {}
 
     void GameText::draw(Graphics2D &graphics) const {
@@ -16,7 +16,7 @@ namespace Util::Game {
         graphics.drawString(position.getX(), position.getY(), text);
     }
 
-    void GameText::setText(Memory::String value) {
+    void GameText::setText(const Memory::String& value) {
         text = value;
     }
 }

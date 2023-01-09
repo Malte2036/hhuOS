@@ -11,10 +11,21 @@
 namespace Util::Game {
     class Camera {
     public:
-        Camera(const Vector2& position);
+        explicit Camera(const Vector2 &position);
+
+        /**
+        * Copy Constructor.
+        */
+        Camera(const Camera &other) = delete;
+
+        /**
+         * Assignment operator.
+         */
+        Camera &operator=(const Camera &other) = delete;
 
         Vector2 getPosition();
-        void setPosition(Vector2 position);
+
+        void setPosition(const Vector2 &vector2);
 
     private:
         Vector2 position;

@@ -10,10 +10,20 @@
 namespace Util::Game {
     class Event {
     public:
+        Event() = default;
+
+        /**
+        * Copy Constructor.
+        */
+        Event(const Event &other) = delete;
+
+        /**
+         * Assignment operator.
+         */
+        Event &operator=(const Event &other) = delete;
+
         Memory::String getType();
-
-
-
+        
     private:
         Memory::String type;
     };

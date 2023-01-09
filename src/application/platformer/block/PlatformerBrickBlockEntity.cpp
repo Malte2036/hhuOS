@@ -21,7 +21,7 @@ void PlatformerBrickBlockEntity::onTranslateEvent(Util::Game::TranslateEvent *ev
 }
 
 void PlatformerBrickBlockEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
-    if (event->getCollidedWith()->getTag() == "Player") {
+    if (event->getCollidedWith().getTag() == "Player") {
         //Util::Game::GameManager::getGame<PlatformerGame>()->removeEntity(this);
     }
 }

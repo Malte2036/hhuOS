@@ -6,7 +6,7 @@
 
 namespace Util::Game {
 
-    Camera::Camera(const Vector2& position): position{position} {
+    Camera::Camera(const Vector2 &position) : position{position} {
 
     }
 
@@ -14,7 +14,7 @@ namespace Util::Game {
         return position;
     }
 
-    void Camera::setPosition(Vector2 position) {
-        Camera::position = position;
+    void Camera::setPosition(const Vector2 &vector2) {
+        Camera::position = vector2;
     }
 }

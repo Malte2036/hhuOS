@@ -13,11 +13,22 @@
 namespace Util::Game {
     class GameText : public Drawable {
     public:
-        GameText(Vector2 position, Memory::String text);
-        GameText(Vector2 position, Memory::String text, Graphic::Color color);
+        GameText(const Vector2 &position, const Memory::String &text);
+
+        GameText(Vector2 position, const Memory::String &text, Graphic::Color color);
+
+        /**
+       * Copy Constructor.
+       */
+        GameText(const GameText &other) = delete;
+
+        /**
+         * Assignment operator.
+         */
+        GameText &operator=(const GameText &other) = delete;
 
     protected:
-        void setText(Memory::String value);
+        void setText(const Memory::String &value);
 
     private:
         void draw(Util::Game::Graphics2D &graphics) const override;

@@ -24,7 +24,7 @@ void FoodEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
 }
 
 void FoodEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
-    if (event->getCollidedWith()->getTag() == "SnakeEntity") {
+    if (event->getCollidedWith().getTag() == "SnakeEntity") {
         Logger::logMessage("FoodEntity collided with SnakeEntity!");
 
         auto game = Util::Game::GameManager::getGame<SnakeGame>();

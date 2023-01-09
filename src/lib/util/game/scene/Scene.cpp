@@ -91,7 +91,7 @@ namespace Util::Game {
                 if (entity != otherEntity && !detectedCollisions.contains(createEntityPair(entity, otherEntity))) {
                     auto side = entity->getCollider()->isColliding(*otherEntity->getCollider());
                     if (side != NO_SIDE) {
-                        entity->collisionEvent(new CollisionEvent(otherEntity, side));
+                        entity->collisionEvent(new CollisionEvent(*otherEntity, side));
 
                         RectangleCollidedSide otherSide;
                         switch (side) {
@@ -112,7 +112,7 @@ namespace Util::Game {
                                 break;
                         }
 
-                        otherEntity->collisionEvent(new CollisionEvent(entity, otherSide));
+                        otherEntity->collisionEvent(new CollisionEvent(*entity, otherSide));
 
                         detectedCollisions.add(createEntityPair(entity, otherEntity));
                     }

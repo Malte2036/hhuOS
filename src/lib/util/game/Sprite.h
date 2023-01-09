@@ -13,6 +13,16 @@ namespace Util::Game {
     public:
         explicit Sprite(const Memory::String& filename);
 
+        /**
+         * Copy Constructor.
+        */
+        Sprite(const Sprite &other) = default;
+
+        /**
+         * Assignment operator.
+         */
+        Sprite &operator=(const Sprite &other) = delete;
+
         [[nodiscard]] File::Image::Image* getImage() const;
 
 

@@ -5,7 +5,7 @@
 #include "TranslateEvent.h"
 
 namespace Util::Game {
-    TranslateEvent::TranslateEvent(Vector2 translateTo) : translateTo{translateTo} {}
+    TranslateEvent::TranslateEvent(const Vector2& translateTo) : translateTo{translateTo} {}
 
     Vector2 TranslateEvent::getTranslateTo() {
         return translateTo;

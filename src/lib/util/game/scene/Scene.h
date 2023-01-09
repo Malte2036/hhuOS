@@ -14,7 +14,6 @@
 namespace Util::Game {
     class Scene {
         friend class Engine;
-
         friend class Game;
 
     public:

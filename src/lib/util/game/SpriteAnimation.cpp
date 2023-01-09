@@ -17,4 +17,10 @@ namespace Util::Game {
         }
         return *sprites[frame];
     }
+
+    SpriteAnimation::~SpriteAnimation() {
+        for (auto sprite: sprites) {
+            delete sprite;
+        }
+    }
 }

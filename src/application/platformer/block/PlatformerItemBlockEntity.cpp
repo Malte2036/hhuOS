@@ -26,7 +26,7 @@ void PlatformerItemBlockEntity::onTranslateEvent(Util::Game::TranslateEvent *eve
 }
 
 void PlatformerItemBlockEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
-    if (event->getCollidedWith()->getTag() == "Player") {
+    if (event->getCollidedWith().getTag() == "Player") {
         if (event->getRectangleCollidedSide() == Util::Game::BOTTOM_SIDE) {
             auto scene = Util::Game::GameManager::getGame<PlatformerGame>()->getScene();
             scene->addEntity(new PlatformerSolidBlockEntity(position));

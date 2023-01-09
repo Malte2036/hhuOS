@@ -11,18 +11,31 @@ namespace Util::Game {
     class Component {
         friend Entity;
     public:
+        Component() = default;
+
+        /**
+         * Copy Constructor.
+        */
+        Component(const Component &other) = delete;
+
+        /**
+         * Assignment operator.
+         */
+        Component &operator=(const Component &other) = delete;
+
         Memory::String getType();
 
     protected:
         virtual void update(double dt) = 0;
 
-        void setEntity(Entity* pointer);
-        Entity* getEntity();
+        void setEntity(Entity *pointer);
+
+        Entity *getEntity();
 
     private:
         Memory::String type;
 
-        Entity* entity = nullptr;
+        Entity *entity = nullptr;
     };
 }
 

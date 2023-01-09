@@ -14,9 +14,19 @@ namespace Util::Game {
 
     class RectangleCollider : public Collider {
         friend class Scene;
-        
+
     public:
         explicit RectangleCollider(Vector2 position, double height, double width, ColliderType colliderType);
+
+        /**
+         * Copy Constructor.
+        */
+        RectangleCollider(const RectangleCollider &other) = default;
+
+        /**
+         * Assignment operator.
+         */
+        RectangleCollider &operator=(const RectangleCollider &other) = delete;
 
         double getHeight();
 

@@ -28,7 +28,7 @@ private:
 
     PlatformerScoreText *scoreText = nullptr;
 
-    double getGroundY() const;
+    [[nodiscard]] double getGroundY() const;
 };
 
 

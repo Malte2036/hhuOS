@@ -13,7 +13,17 @@
 namespace Util::Game {
     class TranslateEvent : public CancelableEvent {
     public:
-        explicit TranslateEvent(Vector2 translateTo);
+        explicit TranslateEvent(const Vector2 &translateTo);
+
+        /**
+         * Copy Constructor.
+        */
+        TranslateEvent(const TranslateEvent &other) = delete;
+
+        /**
+         * Assignment operator.
+         */
+        TranslateEvent &operator=(const TranslateEvent &other) = delete;
 
         Vector2 getTranslateTo();
 

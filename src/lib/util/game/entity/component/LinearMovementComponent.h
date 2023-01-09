@@ -8,9 +8,23 @@
 #include "Component.h"
 
 namespace Util::Game {
-    class LinearMovementComponent : public Component{
+    class LinearMovementComponent : public Component {
+    public:
+        LinearMovementComponent() = default;
+
+        /**
+         * Copy Constructor.
+        */
+        LinearMovementComponent(const LinearMovementComponent &other) = delete;
+
+        /**
+         * Assignment operator.
+         */
+        LinearMovementComponent &operator=(const LinearMovementComponent &other) = delete;
+
     protected:
         void update(double dt) override;
+
     private:
         Memory::String type = "LinearMovementComponent";
     };

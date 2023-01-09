@@ -13,6 +13,16 @@ namespace Util::Game {
     public:
         explicit GravityComponent(double groundY, double mass = 1, double stopFactorX = 0.9, double gravityValue = -1);
 
+        /**
+         * Copy Constructor.
+        */
+        GravityComponent(const GravityComponent &other) = delete;
+
+        /**
+         * Assignment operator.
+         */
+        GravityComponent &operator=(const GravityComponent &other) = delete;
+
     protected:
         void update(double dt) override;
 

@@ -83,18 +83,18 @@ void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent *event)
 
     auto scene = Util::Game::GameManager::getGame<PlatformerGame>()->getScene();
 
-    auto collidedWithTag = event->getCollidedWith()->getTag();
+    auto collidedWithTag = event->getCollidedWith().getTag();
     if (collidedWithTag == "BrickBlock") {
         if (side == Util::Game::TOP_SIDE) {
-            scene->removeEntity(event->getCollidedWith());
+            scene->removeEntity(&event->getCollidedWith());
             Logger::logMessage("Mario destroyed Block");
         }
     } else if (collidedWithTag == "Mushroom") {
         Logger::logMessage("Mushroom collected");
 
         setBig(true);
-        scene->removeEntity(event->getCollidedWith());
-    } else if (event->getCollidedWith()->getTag() == "Ninja") {
+        scene->removeEntity(&event->getCollidedWith());
+    } else if (event->getCollidedWith().getTag() == "Ninja") {
         auto game = Util::Game::GameManager::getGame<PlatformerGame>();
         if (side == Util::Game::BOTTOM_SIDE) {
             Logger::logMessage("Player killed Ninja");
@@ -107,7 +107,7 @@ void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent *event)
                 return;
             }
         }
-        scene->removeEntity(event->getCollidedWith());
+        scene->removeEntity(&event->getCollidedWith());
         game->spawnNinja(position + Vector2(1.5, 0.1));
     }
 }

@@ -31,7 +31,6 @@
 namespace Util::Game {
 
     class Game {
-
         friend class Engine;
 
     public:

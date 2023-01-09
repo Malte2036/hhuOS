@@ -15,15 +15,25 @@ namespace Util::Game {
 
     class CollisionEvent : public Event {
     public:
-        explicit CollisionEvent(Entity *other, RectangleCollidedSide rectangleCollidedSide);
+        explicit CollisionEvent(Entity &other, RectangleCollidedSide rectangleCollidedSide);
 
-        Entity *getCollidedWith();
+        /**
+         * Copy Constructor.
+        */
+        CollisionEvent(const CollisionEvent &other) = delete;
+
+        /**
+         * Assignment operator.
+         */
+        CollisionEvent &operator=(const CollisionEvent &other) = delete;
+
+        Entity &getCollidedWith();
         RectangleCollidedSide getRectangleCollidedSide();
 
     private:
         Memory::String type = "CollisionEvent";
 
-        Entity *other;
+        Entity &other;
         const RectangleCollidedSide rectangleCollidedSide;
     };
 }

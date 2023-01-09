@@ -12,12 +12,28 @@ namespace Util::Game {
     class SpriteAnimation {
 
     public:
-        SpriteAnimation(const Data::Array<Sprite*>& allSprites);
+        explicit SpriteAnimation(const Data::Array<Sprite *> &allSprites);
+
+        /**
+         * Copy Constructor.
+        */
+        SpriteAnimation(const SpriteAnimation &other) = delete;
+
+        /**
+         * Assignment operator.
+         */
+        SpriteAnimation &operator=(const SpriteAnimation &other) = delete;
+
+        /**
+         * Destructor.
+         */
+        virtual ~SpriteAnimation();
 
         Sprite getNextSprite();
+
     private:
         int frame = 0;
-        Data::Array<Sprite*> sprites;
+        Data::Array<Sprite *> sprites;
     };
 }
 

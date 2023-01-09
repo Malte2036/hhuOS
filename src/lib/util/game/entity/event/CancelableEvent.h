@@ -12,7 +12,18 @@ namespace Util::Game {
     public:
         CancelableEvent() = default;
 
+        /**
+        * Copy Constructor.
+        */
+        CancelableEvent(const CancelableEvent &other) = delete;
+
+        /**
+         * Assignment operator.
+         */
+        CancelableEvent &operator=(const CancelableEvent &other) = delete;
+
         bool isCanceled();
+
         void setCanceled(bool value);
 
     private:

@@ -24,7 +24,7 @@ namespace Util::Game {
         friend class LinearMovementComponent;
 
     public:
-        explicit Entity(Memory::String tag, const Vector2 &position, RectangleCollider *collider = nullptr);
+        explicit Entity(const Memory::String& tag, const Vector2 &position, RectangleCollider *collider = nullptr);
 
         virtual void onUpdate(double dt) = 0;
 
