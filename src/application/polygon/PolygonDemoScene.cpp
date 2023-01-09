@@ -20,7 +20,7 @@ void PolygonDemoScene::init() {
     setKeyListener(*this);
 }
 
-void PolygonDemoScene::update(double dt) {
+void PolygonDemoScene::onUpdate(double dt) {
     for (auto &polygon: polygons) {
         polygon->update(dt);
     }

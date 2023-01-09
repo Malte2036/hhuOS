@@ -14,7 +14,7 @@ public:
     TestDemo();
 
 private:
-    void update(double delta) override;
+    void onUpdate(double delta) override;
 };
 
 

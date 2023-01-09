@@ -90,7 +90,7 @@ double PlatformerScene2::getGroundY() const {
     return groundY;
 }
 
-void PlatformerScene2::update(double delta) {
+void PlatformerScene2::onUpdate(double delta) {
     scoreText->increaseScore();
 }
 

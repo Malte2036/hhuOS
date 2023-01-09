@@ -44,7 +44,7 @@ public:
     ~PolygonDemo() override = default;
 
 protected:
-    void update(double dt) override;
+    void onUpdate(double dt) override;
 };
 
 #endif

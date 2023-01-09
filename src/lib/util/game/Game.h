@@ -51,20 +51,31 @@ namespace Util::Game {
          */
         virtual ~Game();
 
+        /**
+         * stop the game
+         */
         void stop();
 
+
+        /**
+         * @return the current scene
+         */
         Scene *getScene();
 
+        /**
+         * start a new scene
+         * @param newScene
+         */
         void pushScene(Scene *newScene);
 
     protected:
         [[nodiscard]] bool isRunning() const;
 
-        virtual void update(double dt) = 0;
+        virtual void onUpdate(double dt) = 0;
 
         void initScene(Graphics2D &graphics);
 
-        bool isNewScenePushed() const;
+        [[nodiscard]] bool isNewScenePushed() const;
 
     private:
         Scene *scene = nullptr;

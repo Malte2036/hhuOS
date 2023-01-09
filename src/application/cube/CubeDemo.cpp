@@ -17,6 +17,6 @@
 
 #include "CubeDemo.h"
 
-void CubeDemo::update(double dt) {
+void CubeDemo::onUpdate(double dt) {
 
 }

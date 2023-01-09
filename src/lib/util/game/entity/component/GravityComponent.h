@@ -11,6 +11,13 @@
 namespace Util::Game {
     class GravityComponent : public Component {
     public:
+        /**
+         *
+         * @param groundY the y coordinate of the ground
+         * @param mass
+         * @param stopFactorX movement stop factor
+         * @param gravityValue
+         */
         explicit GravityComponent(double groundY, double mass = 1, double stopFactorX = 0.9, double gravityValue = -1);
 
         /**

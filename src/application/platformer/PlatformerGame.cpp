@@ -8,7 +8,7 @@
 #include "entity/PlatformerNinjaEntity.h"
 #include "scene/PlatformerScene2.h"
 
-void PlatformerGame::update(double delta) {
+void PlatformerGame::onUpdate(double delta) {
 
 }
 

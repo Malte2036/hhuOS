@@ -16,7 +16,7 @@ and not the internal interfaces of the game engine.
 
 ### `Game()`
 
-- `void update(double delta) override`: this function is called every frame
+- `void onUpdate(double dt) override`: this function is called every frame
 - `void stop()`: stop the game
 - `Scene *getScene()`: get the current scene
 - `void pushScene(Scene *newScene)`: start an new scene
@@ -26,11 +26,16 @@ and not the internal interfaces of the game engine.
 ### `Scene()`
 
 - `drawInitialBackground(Util::Game::Graphics2D &graphics) override`: draw the statically drawn background
-- `void update(double dt) override`: this function is called every frame
-- `void keyPressed(char c) override`: this function is called, when the user presses an key
+- `void onUpdate(double dt) override`: this function is called every frame
 - `Camera *getCamera()`: the current camera of the game *[also see 🔗 [Camera](#camera)]*
 - `void addEntity(Entity *entity)`: add entity
 - `void removeEntity(Entity *entity)`: remove entity
+-
+## KeyListener:
+
+### `KeyListener(*todo*)`
+
+- `void keyPressed(char c) override`: this function is called, when the user presses an key
 
 ## Camera:
 
@@ -44,7 +49,7 @@ _[hint: Set the Camera Position to the Position of your Player Entity ([Entity/E
 
 ### `static GameManager`
 
-- `static setGame<GameType>(GameType *value)`: sets the current game, to access it later
+- `static setGame<GameType>(GameType *value)`: set the current game, to access it later
   - with `GameType` type of your Game *[also see 🔗 [Game](#game)]*
 - `static GameType *getGame<GameType>()`
   - with `GameType` type of your Game *[also see 🔗 [Game](#game)]*

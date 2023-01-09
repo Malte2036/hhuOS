@@ -16,7 +16,7 @@ private:
 
     void drawInitialBackground(Util::Game::Graphics2D &graphics) override;
 
-    void update(double dt) override;
+    void onUpdate(double dt) override;
 
     void keyPressed(char c) override;
 

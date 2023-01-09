@@ -17,4 +17,4 @@
 
 #include "MouseGame.h"
 
-void MouseGame::update(double dt) {}
+void MouseGame::onUpdate(double dt) {}

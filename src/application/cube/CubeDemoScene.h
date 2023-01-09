@@ -16,7 +16,7 @@ public:
 private:
     void init() override;
 
-    void update(double dt) override;
+    void onUpdate(double dt) override;
 
     void drawInitialBackground(Util::Game::Graphics2D &graphics) override;
 

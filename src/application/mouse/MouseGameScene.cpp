@@ -12,7 +12,7 @@ void MouseGameScene::init() {
     setMouseListener(*cursor);
 }
 
-void MouseGameScene::update(double dt) {
+void MouseGameScene::onUpdate(double dt) {
 
 }
 

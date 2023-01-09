@@ -18,7 +18,7 @@ void CubeDemoScene::init() {
     setKeyListener(*this);
 }
 
-void CubeDemoScene::update(double dt) {
+void CubeDemoScene::onUpdate(double dt) {
     for (auto &cube: cubes) {
         cube->rotate(ANGLE_X * speed * dt, ANGLE_Y * speed * dt, ANGLE_Z * speed * dt);
     }

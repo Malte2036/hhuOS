@@ -29,7 +29,7 @@ void SnakeScene::drawInitialBackground(Util::Game::Graphics2D &graphics) {
 
 }
 
-void SnakeScene::update(double dt) {
+void SnakeScene::onUpdate(double dt) {
     auto game = Util::Game::GameManager::getGame<SnakeGame>();
 
     snake->move();

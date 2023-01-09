@@ -17,7 +17,7 @@ class SnakeGame : public Util::Game::Game {
 public:
     SnakeGame();
 
-    void update(double dt) override;
+    void onUpdate(double dt) override;
 
     SnakeGameData getSnakeGameData();
 

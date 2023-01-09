@@ -13,7 +13,7 @@
 SnakeGame::SnakeGame() {
 
 }
-void SnakeGame::update(double dt) {
+void SnakeGame::onUpdate(double dt) {
 
 }
 

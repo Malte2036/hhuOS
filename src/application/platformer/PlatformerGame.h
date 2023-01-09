@@ -17,7 +17,7 @@ public:
     void nextLevel();
 
 private:
-    void update(double delta) override;
+    void onUpdate(double delta) override;
 
     int currentLevel = 1;
 };

@@ -14,6 +14,6 @@ TestDemo::TestDemo() {
 
 }
 
-void TestDemo::update(double delta) {
+void TestDemo::onUpdate(double delta) {
 
 }

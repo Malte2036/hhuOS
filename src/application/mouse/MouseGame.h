@@ -44,7 +44,7 @@ public:
      */
     ~MouseGame() override = default;
 
-    void update(double dt) override;
+    void onUpdate(double dt) override;
 };
 
 #endif

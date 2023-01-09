@@ -17,6 +17,6 @@
 
 #include "PolygonDemo.h"
 
-void PolygonDemo::update(double dt) {
+void PolygonDemo::onUpdate(double dt) {
 
 }

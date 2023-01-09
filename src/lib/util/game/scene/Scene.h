@@ -36,8 +36,16 @@ namespace Util::Game {
 
         Camera *getCamera();
 
+        /**
+         * add an Entity to the scene
+         * @param entity
+         */
         void addEntity(Entity *entity);
 
+        /**
+         * remove an Entity from the scene
+         * @param entity
+         */
         void removeEntity(Entity *entity);
 
     protected:
@@ -53,7 +61,11 @@ namespace Util::Game {
 
         void draw(Graphics2D &graphics);
 
-        virtual void update(double dt) = 0;
+        /**
+         * this function is called every frame
+         * @param dt
+         */
+        virtual void onUpdate(double dt) = 0;
 
         void addObject(Drawable *drawable);
 
@@ -63,6 +75,10 @@ namespace Util::Game {
 
         void checkCollision();
 
+        /**
+         * draw the statically drawn background
+         * @param graphics
+         */
         virtual void drawInitialBackground(Graphics2D &graphics) = 0;
 
     private:

@@ -19,7 +19,7 @@ void TestDemoScene::drawInitialBackground(Util::Game::Graphics2D &graphics) {
 
 }
 
-void TestDemoScene::update(double dt) {
+void TestDemoScene::onUpdate(double dt) {
 
 }
 

@@ -63,7 +63,7 @@ namespace Util::Game {
             auto scene = game.getScene();
 
             updateLock.acquire();
-            scene->update(frameTime);
+            scene->onUpdate(frameTime);
             scene->updateEntities(frameTime);
             scene->checkCollision();
             scene->applyChanges();
