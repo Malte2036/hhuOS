@@ -11,7 +11,7 @@
 namespace Util::Game {
     class Sprite {
     public:
-        explicit Sprite(const Memory::String& filename);
+        explicit Sprite(const Memory::String& filename, double width, double height);
 
         /**
          * Copy Constructor.

@@ -10,15 +10,14 @@
 #include "lib/util/game/entity/component/GravityComponent.h"
 
 PlatformerItemBlockEntity::PlatformerItemBlockEntity(const Vector2 &position)
-        : Util::Game::Entity("ItemBlock", position),
-          sprite{new Util::Game::Sprite("/initrd/game/platformer/block/block_item.bmp")} {
-
+        : Util::Game::Entity("ItemBlock", position) {
+    sprite = new Util::Game::Sprite("/initrd/game/platformer/block/block_item.bmp", size, size);
     collider = new Util::Game::RectangleCollider(position, size, size, Util::Game::STATIC_COLLIDER);
 }
 
 void PlatformerItemBlockEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.drawImage(position, *sprite->getImage());
-    //graphics.drawSquare(position, size);
+    graphics.drawSquare(position, size);
 }
 
 void PlatformerItemBlockEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {

@@ -6,8 +6,8 @@
 #include "lib/util/game/GameManager.h"
 
 PlatformerBrickBlockEntity::PlatformerBrickBlockEntity(const Vector2 &position)
-        : Util::Game::Entity("BrickBlock", position),
-          sprite{new Util::Game::Sprite("/initrd/game/platformer/block/block_brick.bmp")} {
+        : Util::Game::Entity("BrickBlock", position) {
+    sprite = new Util::Game::Sprite("/initrd/game/platformer/block/block_brick.bmp", size, size);
     collider = new Util::Game::RectangleCollider(position, size, size, Util::Game::STATIC_COLLIDER);
 }
 

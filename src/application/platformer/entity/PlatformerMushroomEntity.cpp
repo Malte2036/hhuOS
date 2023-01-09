@@ -7,9 +7,8 @@
 #include "../PlatformerGame.h"
 #include "lib/util/log/Logger.h"
 
-PlatformerMushroomEntity::PlatformerMushroomEntity(const Vector2 &position) : Util::Game::Entity("Mushroom", position),
-                                                                              sprite{new Util::Game::Sprite(
-                                                                            "/initrd/mario_mushroom.bmp")} {
+PlatformerMushroomEntity::PlatformerMushroomEntity(const Vector2 &position) : Util::Game::Entity("Mushroom", position) {
+    sprite = new Util::Game::Sprite("/initrd/mario_mushroom.bmp", width, height);
     collider = new Util::Game::RectangleCollider(position, height, width, Util::Game::DYNAMIC_COLLIDER);
 }
 

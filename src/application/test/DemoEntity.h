@@ -29,7 +29,7 @@ private:
     Util::Graphic::Color color;
     double size;
 
-    Util::Game::Sprite sprite;
+    Util::Game::Sprite *sprite;
 
     void onTranslateEvent(Util::Game::TranslateEvent *event) override;
 

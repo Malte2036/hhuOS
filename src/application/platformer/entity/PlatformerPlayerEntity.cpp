@@ -9,34 +9,34 @@
 
 Util::File::Image::Image *currentImage = nullptr;
 
-Util::Game::Sprite idleSprite = Util::Game::Sprite(
-        "/initrd/game/platformer/player/run/player_run_1.bmp");
+Util::Game::Sprite *idleSprite = nullptr;
 Util::Game::SpriteAnimation *runAnimation = nullptr;
 
 PlatformerPlayerEntity::PlatformerPlayerEntity(const Util::Memory::String &tag, const Vector2 &position,
                                                const double groundY)
         : Util::Game::Entity(tag, position), groundY{groundY} {
+    idleSprite = new Util::Game::Sprite("/initrd/game/platformer/player/run/player_run_1.bmp", width, height);
     runAnimation = new Util::Game::SpriteAnimation(
             {
                     new Util::Game::Sprite(
-                            "/initrd/game/platformer/player/run/player_run_1.bmp"),
+                            "/initrd/game/platformer/player/run/player_run_1.bmp", width, height),
                     new Util::Game::Sprite(
-                            "/initrd/game/platformer/player/run/player_run_2.bmp"),
+                            "/initrd/game/platformer/player/run/player_run_2.bmp", width, height),
                     new Util::Game::Sprite(
-                            "/initrd/game/platformer/player/run/player_run_3.bmp"),
+                            "/initrd/game/platformer/player/run/player_run_3.bmp", width, height),
                     new Util::Game::Sprite(
-                            "/initrd/game/platformer/player/run/player_run_4.bmp"),
+                            "/initrd/game/platformer/player/run/player_run_4.bmp", width, height),
                     new Util::Game::Sprite(
-                            "/initrd/game/platformer/player/run/player_run_5.bmp"),
+                            "/initrd/game/platformer/player/run/player_run_5.bmp", width, height),
                     new Util::Game::Sprite(
-                            "/initrd/game/platformer/player/run/player_run_6.bmp"),
+                            "/initrd/game/platformer/player/run/player_run_6.bmp", width, height),
                     new Util::Game::Sprite(
-                            "/initrd/game/platformer/player/run/player_run_7.bmp"),
+                            "/initrd/game/platformer/player/run/player_run_7.bmp", width, height),
                     new Util::Game::Sprite(
-                            "/initrd/game/platformer/player/run/player_run_8.bmp"),
+                            "/initrd/game/platformer/player/run/player_run_8.bmp", width, height),
                     new Util::Game::Sprite(
-                            "/initrd/game/platformer/player/run/player_run_9.bmp"),});
-    currentImage = idleSprite.getImage();
+                            "/initrd/game/platformer/player/run/player_run_9.bmp", width, height)});
+    currentImage = idleSprite->getImage();
 
     collider = new Util::Game::RectangleCollider(position, height * (big ? 2 : 1), width, Util::Game::DYNAMIC_COLLIDER);
 }
@@ -71,7 +71,7 @@ void PlatformerPlayerEntity::onTranslateEvent(Util::Game::TranslateEvent *event)
                 Vector2(event->getTranslateTo().getX(), 0));
     }
     if (event->isCanceled()) {
-        currentImage = idleSprite.getImage();
+        currentImage = idleSprite->getImage();
         Logger::logMessage("setIdle");
     }
 }
@@ -137,5 +137,5 @@ void PlatformerPlayerEntity::onUpdate(double dt) {
 
 void PlatformerPlayerEntity::setBig(bool val) {
     big = val;
-    collider->setHeight(height * (big ? 2 : 1));
+    //collider->setHeight(height * (big ? 2 : 1));
 }

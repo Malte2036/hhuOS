@@ -23,20 +23,30 @@ namespace Util::Game {
             return game<GameType>;
         }
 
-        static Vector2 getResolution(){
+        static Vector2 getResolution() {
             return *resolution;
+        }
+
+        static double getTransformation() {
+            return transformation;
         }
 
     protected:
         friend Engine;
-        static void setResolution(Vector2 *vector2){
+
+        static void setResolution(Vector2 *vector2) {
             resolution = vector2;
+        }
+
+        static void setTransformation(int value) {
+            transformation = value;
         }
 
     private:
         template<typename GameType>
         inline static GameType *game = nullptr;
         inline static Vector2 *resolution = nullptr;
+        inline static int transformation = 0;
     };
 }
 

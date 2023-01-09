@@ -3,6 +3,7 @@
 //
 
 #include "Image.h"
+#include "lib/util/math/Math.h"
 
 namespace Util::File::Image {
 
@@ -24,5 +25,22 @@ namespace Util::File::Image {
 
     int Image::getHeight() const {
         return height;
+    }
+
+    Image *Image::scale(int newWidth, int newHeight, const Image& other) {
+        auto *newPixelBuf = new Graphic::Color[newWidth * newHeight];
+
+        double factorX = (double) newWidth / other.width;
+        double factorY = (double) newHeight / other.height;
+
+        for (int y = 0; y < newHeight; y++) {
+            for (int x = 0; x < newWidth; x++) {
+                int oldX = (int) (x / factorX);
+                int oldY = (int) (y / factorY);
+                newPixelBuf[newWidth * y + x] = other.pixelBuf[other.width * oldY + oldX];
+            }
+
+        }
+        return new Image(newWidth, newHeight, newPixelBuf);
     }
 }

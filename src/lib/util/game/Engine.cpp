@@ -30,8 +30,8 @@ namespace Util::Game {
         double resY = lfb.getResolutionY();
         GameManager::setResolution(
                 new Vector2((resX > resY ? resX / resY : 1) * 2, (resY > resX ? resY / resX : 1) * 2));
+        GameManager::setTransformation((int) ((resX > resY ? resY : resX) / 2));
     }
-
 
 
     void Engine::runWithScene(Scene *initialScene) {
@@ -56,7 +56,7 @@ namespace Util::Game {
                 frameTime = 0.001;
             }
 
-            if(game.isNewScenePushed()){
+            if (game.isNewScenePushed()) {
                 game.initScene(graphics);
             }
 
@@ -147,7 +147,7 @@ namespace Util::Game {
 
             if (xMovement != 0 || yMovement != 0) {
                 engine.game.getScene()->mouseListener->mouseMoved(xMovement / static_cast<double>(INT8_MAX),
-                                                      -yMovement / static_cast<double>(INT8_MAX));
+                                                                  -yMovement / static_cast<double>(INT8_MAX));
             }
             engine.updateLock.release();
         }

@@ -6,13 +6,13 @@
 
 const double speed = 0.75;
 
-DemoEntity::DemoEntity(const Vector2 &position, const double size) : Entity("DemoEntity", position), size{size},
-                                                                     sprite{Util::Game::Sprite("/initrd/game/platformer/player/run/player_run_1.bmp")} {
+DemoEntity::DemoEntity(const Vector2 &position, const double size) : Entity("DemoEntity", position), size{size} {
+    sprite = new Util::Game::Sprite("/initrd/game/platformer/player/run/player_run_1.bmp", size, size);
     collider = new Util::Game::RectangleCollider(getPosition(), size, size, Util::Game::STATIC_COLLIDER);
 }
 
 void DemoEntity::draw(Util::Game::Graphics2D &graphics) const {
-    graphics.drawImage(getPosition(), *sprite.getImage());
+    graphics.drawImage(getPosition(), *sprite->getImage());
 }
 
 void DemoEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {

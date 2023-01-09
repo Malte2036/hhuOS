@@ -18,7 +18,7 @@ public:
 private:
     Util::Game::Sprite *sprite;
 
-    const double size = 0.026 * 3;
+    const double size = 0.075;
 
     void draw(Util::Game::Graphics2D &graphics) const override;
 

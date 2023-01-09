@@ -18,11 +18,13 @@ namespace Util::File::Image {
 
         ~Image();
 
-        Graphic::Color *getPixelBuffer() const;
+        [[nodiscard]] Graphic::Color *getPixelBuffer() const;
 
-        int getWidth() const;
+        [[nodiscard]] int getWidth() const;
 
-        int getHeight() const;
+        [[nodiscard]] int getHeight() const;
+
+        static Image * scale(int newWidth, int newHeight, const Image& other);
 
     private:
         Graphic::Color *pixelBuf = nullptr;

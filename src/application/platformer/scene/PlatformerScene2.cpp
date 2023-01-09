@@ -52,9 +52,13 @@ void PlatformerScene2::init() {
 void PlatformerScene2::drawInitialBackground(Util::Game::Graphics2D &graphics) {
     graphics.setBackgroundColor(Util::Graphic::Colors::HHU_BLUE);
 
-    auto blockSize = 0.078 + 0.001;
-    auto grassSprite = new Util::Game::Sprite("/initrd/game/platformer/ground/grass/ground_grass_middle.bmp");
-    auto dirtSprite = new Util::Game::Sprite("/initrd/game/platformer/ground/dirt/ground_dirt_middle.bmp");
+    auto blockSize = 0.078;
+    auto grassSprite = new Util::Game::Sprite("/initrd/game/platformer/ground/grass/ground_grass_middle.bmp", blockSize,
+                                              blockSize);
+    auto dirtSprite = new Util::Game::Sprite("/initrd/game/platformer/ground/dirt/ground_dirt_middle.bmp", blockSize,
+                                             blockSize);
+
+    blockSize -= 0.01;
 
     auto res = Util::Game::GameManager::getResolution();
     double currentX = -res.getX() / 2;
@@ -75,7 +79,7 @@ void PlatformerScene2::drawInitialBackground(Util::Game::Graphics2D &graphics) {
         currentX += blockSize;
     }
 
-    auto cloudSprite = new Util::Game::Sprite("/initrd/game/platformer/background/cloud.bmp");
+    auto cloudSprite = new Util::Game::Sprite("/initrd/game/platformer/background/cloud.bmp", 0.3, 0.15);
     graphics.drawImage(Vector2(-(res.getX() / 2) + 0.25, (res.getY() / 2) - 0.2), *cloudSprite->getImage());
     graphics.drawImage(Vector2(-0.4, (res.getY() / 2) - 0.7), *cloudSprite->getImage());
     graphics.drawImage(Vector2(0.6, (res.getY() / 2) - 0.5), *cloudSprite->getImage());

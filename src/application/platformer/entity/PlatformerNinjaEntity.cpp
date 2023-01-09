@@ -12,27 +12,27 @@ PlatformerNinjaEntity::PlatformerNinjaEntity(const Vector2 &position, double gro
     runAnimation = new Util::Game::SpriteAnimation(
             {
                     new Util::Game::Sprite(
-                            "/initrd/game/platformer/ninja/run/ninja_run_1.bmp"),
+                            "/initrd/game/platformer/ninja/run/ninja_run_1.bmp", width, height),
                     new Util::Game::Sprite(
-                            "/initrd/game/platformer/ninja/run/ninja_run_2.bmp"),
+                            "/initrd/game/platformer/ninja/run/ninja_run_2.bmp", width, height),
                     new Util::Game::Sprite(
-                            "/initrd/game/platformer/ninja/run/ninja_run_3.bmp"),
+                            "/initrd/game/platformer/ninja/run/ninja_run_3.bmp", width, height),
                     new Util::Game::Sprite(
-                            "/initrd/game/platformer/ninja/run/ninja_run_4.bmp"),
+                            "/initrd/game/platformer/ninja/run/ninja_run_4.bmp", width, height),
                     new Util::Game::Sprite(
-                            "/initrd/game/platformer/ninja/run/ninja_run_5.bmp"),
+                            "/initrd/game/platformer/ninja/run/ninja_run_5.bmp", width, height),
                     new Util::Game::Sprite(
-                            "/initrd/game/platformer/ninja/run/ninja_run_6.bmp"),
+                            "/initrd/game/platformer/ninja/run/ninja_run_6.bmp", width, height),
                     new Util::Game::Sprite(
-                            "/initrd/game/platformer/ninja/run/ninja_run_7.bmp"),
+                            "/initrd/game/platformer/ninja/run/ninja_run_7.bmp", width, height),
                     new Util::Game::Sprite(
-                            "/initrd/game/platformer/ninja/run/ninja_run_8.bmp"),
+                            "/initrd/game/platformer/ninja/run/ninja_run_8.bmp", width, height),
                     new Util::Game::Sprite(
-                            "/initrd/game/platformer/ninja/run/ninja_run_9.bmp"),
+                            "/initrd/game/platformer/ninja/run/ninja_run_9.bmp", width, height),
                     new Util::Game::Sprite(
-                            "/initrd/game/platformer/ninja/run/ninja_run_10.bmp"),
+                            "/initrd/game/platformer/ninja/run/ninja_run_10.bmp", width, height),
                     new Util::Game::Sprite(
-                            "/initrd/game/platformer/ninja/run/ninja_run_11.bmp")});
+                            "/initrd/game/platformer/ninja/run/ninja_run_11.bmp", width, height)});
     collider = new Util::Game::RectangleCollider(position, height, width, Util::Game::DYNAMIC_COLLIDER);
 
     currentImage = runAnimation->getNextSprite().getImage();
