@@ -19,17 +19,14 @@
 #define HHUOS_POLYGONDEMO_H
 
 #include "lib/util/game/Game.h"
-#include "lib/util/data/ArrayListBlockingQueue.h"
-#include "DemoPolygon.h"
-#include "DemoPolygonFactory.h"
 
-class PolygonDemo : public Util::Game::Game, public Util::Game::KeyListener {
+class PolygonDemo : public Util::Game::Game {
 
 public:
     /**
      * Default Constructor.
      */
-    explicit PolygonDemo(uint32_t count);
+    explicit PolygonDemo() = default;
 
     /**
      * Copy Constructor.
@@ -46,14 +43,8 @@ public:
      */
     ~PolygonDemo() override = default;
 
-    void update(double delta) override;
-
-    void keyPressed(char c) override;
-
-private:
-
-    DemoPolygonFactory factory;
-    Util::Data::ArrayListBlockingQueue<DemoPolygon *> polygons;
+protected:
+    void update(double dt) override;
 };
 
 #endif

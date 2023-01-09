@@ -26,7 +26,8 @@ set(SOURCE_FILES
         ${HHUOS_SRC_DIR}/application/polygon/DemoPolygon.cpp
         ${HHUOS_SRC_DIR}/application/polygon/DemoPolygonFactory.cpp
         ${HHUOS_SRC_DIR}/application/polygon/polygon.cpp
-        ${HHUOS_SRC_DIR}/application/polygon/PolygonDemo.cpp)
+        ${HHUOS_SRC_DIR}/application/polygon/PolygonDemo.cpp
+        ${HHUOS_SRC_DIR}/application/polygon/PolygonDemoScene.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 

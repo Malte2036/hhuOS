@@ -16,39 +16,7 @@
  */
 
 #include "PolygonDemo.h"
-#include "DemoPolygonFactory.h"
 
-PolygonDemo::PolygonDemo(uint32_t count) {
-    for (uint32_t i = 0; i < count; i++) {
-        auto *polygon = factory.createPolygon();
-        polygons.offer(polygon);
-        addObject(polygon);
-    }
+void PolygonDemo::update(double dt) {
 
-    setKeyListener(*this);
-}
-
-void PolygonDemo::update(double delta) {
-    for (auto &polygon : polygons) {
-        polygon->update(delta);
-    }
-}
-
-void PolygonDemo::keyPressed(char c) {
-    switch (c) {
-        case '+': {
-            auto *polygon = factory.createPolygon();
-            polygons.offer(polygon);
-            addObject(polygon);
-            break;
-        }
-        case '-': {
-            if (polygons.size() > 0) {
-                removeObject(polygons.poll());
-            }
-            break;
-        }
-        default:
-            stop();
-    }
 }
