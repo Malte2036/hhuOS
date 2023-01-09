@@ -9,6 +9,7 @@
 #include "application/platformer/block/PlatformerSolidBlockEntity.h"
 #include "application/platformer/block/PlatformerItemBlockEntity.h"
 #include "application/platformer/PlatformerGame.h"
+#include "lib/util/stream/FileReader.h"
 
 void PlatformerScene1::init() {
     setKeyListener(*this);
@@ -21,43 +22,9 @@ void PlatformerScene1::init() {
     addObject(scoreText);
 
     auto game = Util::Game::GameManager::getGame<PlatformerGame>();
-    auto blockSize = game->getBlockSize();
-
-    addEntity(new PlatformerSolidBlockEntity(Vector2(blockSize - 0.1, groundY)));
-
-    addEntity(new PlatformerItemBlockEntity(Vector2(blockSize * -3, groundY + 0.4)));
-    addEntity(new PlatformerItemBlockEntity(Vector2(blockSize * 2, groundY + 0.8)));
-
-    addEntity(new PlatformerBrickBlockEntity(Vector2(0, groundY + 0.4)));
-
-    addEntity(new PlatformerBrickBlockEntity(Vector2(blockSize, groundY + 0.4)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(blockSize * 2, groundY + 0.4)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(blockSize * 3, groundY + 0.4)));
-    addEntity(new PlatformerItemBlockEntity(Vector2(blockSize * 4, groundY + 0.4)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(blockSize * 5, groundY + 0.4)));
-
-    auto offsetX = blockSize * 15;
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize, groundY + 0.4)));
-    addEntity(new PlatformerItemBlockEntity(Vector2(offsetX + blockSize * 2, groundY + 0.4)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize * 3, groundY + 0.4)));
-
-    offsetX += blockSize * 10;
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize, groundY + 0.8)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize * 2, groundY + 0.8)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize * 3, groundY + 0.8)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize * 4, groundY + 0.8)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize * 5, groundY + 0.8)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize * 6, groundY + 0.8)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize * 7, groundY + 0.8)));
-
-    offsetX += blockSize * 14;
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize, groundY + 0.8)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize * 2, groundY + 0.8)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize * 3, groundY + 0.8)));
-    addEntity(new PlatformerItemBlockEntity(Vector2(offsetX + blockSize * 4, groundY + 0.8)));
-
-
     game->spawnNinja(Vector2(2, groundY + 0.1), groundY);
+
+    game->createSceneFromSceneFile(this, "/initrd/game/platformer/scene/scene1.txt");
 }
 
 
@@ -77,7 +44,7 @@ void PlatformerScene1::drawInitialBackground(Util::Game::Graphics2D &graphics) {
     while (currentX < res.getX() / 2) {
         auto image = grassSprite->getImage();
 
-        double currentY = groundY - blockSize;
+        double currentY = groundY - blockSize + 0.01;
         auto firstRow = true;
         while (currentY >= -res.getY() / 2) {
             graphics.drawImage(Vector2(currentX, currentY), *image);

@@ -19,33 +19,9 @@ void PlatformerScene2::init() {
     addObject(scoreText);
 
     auto game = Util::Game::GameManager::getGame<PlatformerGame>();
-    auto blockSize = game->getBlockSize();
-
-    for (auto i = 0; i < 2; i++) {
-        addEntity(new PlatformerSolidBlockEntity(Vector2(0.5, groundY + blockSize * i)));
-    }
-
-    for (auto i = 0; i < 4; i++) {
-        addEntity(new PlatformerSolidBlockEntity(Vector2(0.7, groundY + blockSize * i)));
-    }
-
-    for (auto i = 0; i < 6; i++) {
-        addEntity(new PlatformerSolidBlockEntity(Vector2(0.9, groundY + blockSize * i)));
-    }
-
-    for (auto i = 0; i < 6; i++) {
-        addEntity(new PlatformerSolidBlockEntity(Vector2(1.4, groundY + blockSize * i)));
-    }
-
-    for (auto i = 0; i < 4; i++) {
-        addEntity(new PlatformerSolidBlockEntity(Vector2(1.6, groundY + blockSize * i)));
-    }
-
-    for (auto i = 0; i < 2; i++) {
-        addEntity(new PlatformerSolidBlockEntity(Vector2(1.8, groundY + blockSize * i)));
-    }
-
     game->spawnNinja(Vector2(1.15, groundY + 0.1), groundY);
+
+    game->createSceneFromSceneFile(this, "/initrd/game/platformer/scene/scene2.txt");
 }
 
 
@@ -60,7 +36,7 @@ void PlatformerScene2::drawInitialBackground(Util::Game::Graphics2D &graphics) {
                                              blockSize);
 
     auto res = Util::Game::GameManager::getResolution();
-    double currentX = -res.getX() / 2;
+    double currentX = -res.getX() / 2 + 0.01;
     while (currentX < res.getX() / 2) {
         auto image = grassSprite->getImage();
 
