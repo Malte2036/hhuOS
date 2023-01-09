@@ -16,8 +16,12 @@ public:
 
     void nextLevel();
 
+    double getBlockSize();
+
 private:
     void onUpdate(double delta) override;
+
+    double blockSize = 0.08;
 
     int currentLevel = 1;
 };

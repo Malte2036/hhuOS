@@ -10,35 +10,21 @@
 #include "lib/util/game/entity/component/GravityComponent.h"
 
 PlatformerItemBlockEntity::PlatformerItemBlockEntity(const Vector2 &position)
-        : Util::Game::Entity("ItemBlock", position) {
-    sprite = new Util::Game::Sprite("/initrd/game/platformer/block/block_item.bmp", size, size);
-    collider = new Util::Game::RectangleCollider(position, size, size, Util::Game::STATIC_COLLIDER);
-}
-
-void PlatformerItemBlockEntity::draw(Util::Game::Graphics2D &graphics) const {
-    graphics.drawImage(position, *sprite->getImage());
-    graphics.drawSquare(position, size);
-}
-
-void PlatformerItemBlockEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
-
+        : PlatformerBlockEntity("ItemBlock", position, "/initrd/game/platformer/block/block_item.bmp") {
 }
 
 void PlatformerItemBlockEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
     if (event->getCollidedWith().getTag() == "Player") {
         if (event->getRectangleCollidedSide() == Util::Game::BOTTOM_SIDE) {
-            auto scene = Util::Game::GameManager::getGame<PlatformerGame>()->getScene();
+            auto game = Util::Game::GameManager::getGame<PlatformerGame>();
+            auto scene = game->getScene();
             scene->addEntity(new PlatformerSolidBlockEntity(position));
 
-            auto mushroom = new PlatformerMushroomEntity(position + Vector2(0, size));
+            auto mushroom = new PlatformerMushroomEntity(position + Vector2(0, game->getBlockSize()));
             mushroom->addComponent(new Util::Game::GravityComponent(-0.5));
             scene->addEntity(mushroom);
 
             scene->removeEntity(this);
         }
     }
-}
-
-void PlatformerItemBlockEntity::onUpdate(double dt) {
-
 }

@@ -6,25 +6,11 @@
 #define HHUOS_PLATFORMERSOLIDBLOCKENTITY_H
 
 
-#include "lib/util/game/entity/Entity.h"
-#include "lib/util/game/Sprite.h"
+#include "PlatformerBlockEntity.h"
 
-class PlatformerSolidBlockEntity : public Util::Game::Entity {
+class PlatformerSolidBlockEntity : public PlatformerBlockEntity {
 public:
     explicit PlatformerSolidBlockEntity(const Vector2 &position);
-
-    void onUpdate(double dt) override;
-
-private:
-    Util::Game::Sprite *sprite;
-
-    const double size = 0.075;
-
-    void draw(Util::Game::Graphics2D &graphics) const override;
-
-    void onTranslateEvent(Util::Game::TranslateEvent *event) override;
-
-    void onCollisionEvent(Util::Game::CollisionEvent *event) override;
 };
 
 

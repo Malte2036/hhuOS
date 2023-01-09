@@ -35,3 +35,7 @@ void PlatformerGame::nextLevel() {
     }
     stop();
 }
+
+double PlatformerGame::getBlockSize() {
+    return blockSize;
+}

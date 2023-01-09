@@ -20,56 +20,57 @@ void PlatformerScene1::init() {
     scoreText = new PlatformerScoreText(Vector2(-1, 0.95), 0);
     addObject(scoreText);
 
-    auto blockWidth = 0.078 + 0.001;
+    auto game = Util::Game::GameManager::getGame<PlatformerGame>();
+    auto blockSize = game->getBlockSize();
 
-    addEntity(new PlatformerSolidBlockEntity(Vector2(blockWidth - 0.1, groundY)));
+    addEntity(new PlatformerSolidBlockEntity(Vector2(blockSize - 0.1, groundY)));
 
-    addEntity(new PlatformerItemBlockEntity(Vector2(blockWidth * -3, groundY + 0.4)));
-    addEntity(new PlatformerItemBlockEntity(Vector2(blockWidth * 2, groundY + 0.8)));
+    addEntity(new PlatformerItemBlockEntity(Vector2(blockSize * -3, groundY + 0.4)));
+    addEntity(new PlatformerItemBlockEntity(Vector2(blockSize * 2, groundY + 0.8)));
 
     addEntity(new PlatformerBrickBlockEntity(Vector2(0, groundY + 0.4)));
 
-    addEntity(new PlatformerBrickBlockEntity(Vector2(blockWidth, groundY + 0.4)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(blockWidth * 2, groundY + 0.4)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(blockWidth * 3, groundY + 0.4)));
-    addEntity(new PlatformerItemBlockEntity(Vector2(blockWidth * 4, groundY + 0.4)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(blockWidth * 5, groundY + 0.4)));
+    addEntity(new PlatformerBrickBlockEntity(Vector2(blockSize, groundY + 0.4)));
+    addEntity(new PlatformerBrickBlockEntity(Vector2(blockSize * 2, groundY + 0.4)));
+    addEntity(new PlatformerBrickBlockEntity(Vector2(blockSize * 3, groundY + 0.4)));
+    addEntity(new PlatformerItemBlockEntity(Vector2(blockSize * 4, groundY + 0.4)));
+    addEntity(new PlatformerBrickBlockEntity(Vector2(blockSize * 5, groundY + 0.4)));
 
-    auto offsetX = blockWidth * 15;
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockWidth, groundY + 0.4)));
-    addEntity(new PlatformerItemBlockEntity(Vector2(offsetX + blockWidth * 2, groundY + 0.4)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockWidth * 3, groundY + 0.4)));
+    auto offsetX = blockSize * 15;
+    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize, groundY + 0.4)));
+    addEntity(new PlatformerItemBlockEntity(Vector2(offsetX + blockSize * 2, groundY + 0.4)));
+    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize * 3, groundY + 0.4)));
 
-    offsetX += blockWidth * 10;
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockWidth, groundY + 0.8)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockWidth * 2, groundY + 0.8)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockWidth * 3, groundY + 0.8)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockWidth * 4, groundY + 0.8)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockWidth * 5, groundY + 0.8)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockWidth * 6, groundY + 0.8)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockWidth * 7, groundY + 0.8)));
+    offsetX += blockSize * 10;
+    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize, groundY + 0.8)));
+    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize * 2, groundY + 0.8)));
+    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize * 3, groundY + 0.8)));
+    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize * 4, groundY + 0.8)));
+    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize * 5, groundY + 0.8)));
+    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize * 6, groundY + 0.8)));
+    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize * 7, groundY + 0.8)));
 
-    offsetX += blockWidth * 14;
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockWidth, groundY + 0.8)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockWidth * 2, groundY + 0.8)));
-    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockWidth * 3, groundY + 0.8)));
-    addEntity(new PlatformerItemBlockEntity(Vector2(offsetX + blockWidth * 4, groundY + 0.8)));
+    offsetX += blockSize * 14;
+    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize, groundY + 0.8)));
+    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize * 2, groundY + 0.8)));
+    addEntity(new PlatformerBrickBlockEntity(Vector2(offsetX + blockSize * 3, groundY + 0.8)));
+    addEntity(new PlatformerItemBlockEntity(Vector2(offsetX + blockSize * 4, groundY + 0.8)));
 
 
-    Util::Game::GameManager::getGame<PlatformerGame>()->spawnNinja(Vector2(2, groundY + 0.1), groundY);
+    game->spawnNinja(Vector2(2, groundY + 0.1), groundY);
 }
 
 
 void PlatformerScene1::drawInitialBackground(Util::Game::Graphics2D &graphics) {
     graphics.setBackgroundColor(Util::Graphic::Colors::HHU_BLUE);
 
-    auto blockSize = 0.078;
+    auto game = Util::Game::GameManager::getGame<PlatformerGame>();
+    auto blockSize = game->getBlockSize();
     auto grassSprite = new Util::Game::Sprite("/initrd/game/platformer/ground/grass/ground_grass_middle.bmp", blockSize,
                                               blockSize);
     auto dirtSprite = new Util::Game::Sprite("/initrd/game/platformer/ground/dirt/ground_dirt_middle.bmp", blockSize,
                                              blockSize);
 
-    blockSize -= 0.01;
 
     auto res = Util::Game::GameManager::getResolution();
     double currentX = -res.getX() / 2;

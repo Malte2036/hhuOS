@@ -12,6 +12,7 @@ set(SOURCE_FILES
         ${HHUOS_SRC_DIR}/application/platformer/entity/PlatformerPlayerEntity.cpp
         ${HHUOS_SRC_DIR}/application/platformer/entity/PlatformerNinjaEntity.cpp
         ${HHUOS_SRC_DIR}/application/platformer/entity/PlatformerMushroomEntity.cpp
+        ${HHUOS_SRC_DIR}/application/platformer/block/PlatformerBlockEntity.cpp
         ${HHUOS_SRC_DIR}/application/platformer/block/PlatformerBrickBlockEntity.cpp
         ${HHUOS_SRC_DIR}/application/platformer/block/PlatformerSolidBlockEntity.cpp
         ${HHUOS_SRC_DIR}/application/platformer/block/PlatformerItemBlockEntity.cpp

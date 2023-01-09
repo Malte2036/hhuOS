@@ -18,47 +18,46 @@ void PlatformerScene2::init() {
     scoreText = new PlatformerScoreText(Vector2(-1, 0.95), 0);
     addObject(scoreText);
 
-    auto blockWidth = 0.078 + 0.001;
+    auto game = Util::Game::GameManager::getGame<PlatformerGame>();
+    auto blockSize = game->getBlockSize();
 
     for (auto i = 0; i < 2; i++) {
-        addEntity(new PlatformerSolidBlockEntity(Vector2(0.5, groundY + blockWidth * i)));
+        addEntity(new PlatformerSolidBlockEntity(Vector2(0.5, groundY + blockSize * i)));
     }
 
     for (auto i = 0; i < 4; i++) {
-        addEntity(new PlatformerSolidBlockEntity(Vector2(0.7, groundY + blockWidth * i)));
+        addEntity(new PlatformerSolidBlockEntity(Vector2(0.7, groundY + blockSize * i)));
     }
 
     for (auto i = 0; i < 6; i++) {
-        addEntity(new PlatformerSolidBlockEntity(Vector2(0.9, groundY + blockWidth * i)));
+        addEntity(new PlatformerSolidBlockEntity(Vector2(0.9, groundY + blockSize * i)));
     }
 
     for (auto i = 0; i < 6; i++) {
-        addEntity(new PlatformerSolidBlockEntity(Vector2(1.4, groundY + blockWidth * i)));
+        addEntity(new PlatformerSolidBlockEntity(Vector2(1.4, groundY + blockSize * i)));
     }
 
     for (auto i = 0; i < 4; i++) {
-        addEntity(new PlatformerSolidBlockEntity(Vector2(1.6, groundY + blockWidth * i)));
+        addEntity(new PlatformerSolidBlockEntity(Vector2(1.6, groundY + blockSize * i)));
     }
 
     for (auto i = 0; i < 2; i++) {
-        addEntity(new PlatformerSolidBlockEntity(Vector2(1.8, groundY + blockWidth * i)));
+        addEntity(new PlatformerSolidBlockEntity(Vector2(1.8, groundY + blockSize * i)));
     }
 
-
-    Util::Game::GameManager::getGame<PlatformerGame>()->spawnNinja(Vector2(1.15, groundY + 0.1), groundY);
+    game->spawnNinja(Vector2(1.15, groundY + 0.1), groundY);
 }
 
 
 void PlatformerScene2::drawInitialBackground(Util::Game::Graphics2D &graphics) {
     graphics.setBackgroundColor(Util::Graphic::Colors::HHU_BLUE);
 
-    auto blockSize = 0.078;
+    auto game = Util::Game::GameManager::getGame<PlatformerGame>();
+    auto blockSize = game->getBlockSize();
     auto grassSprite = new Util::Game::Sprite("/initrd/game/platformer/ground/grass/ground_grass_middle.bmp", blockSize,
                                               blockSize);
     auto dirtSprite = new Util::Game::Sprite("/initrd/game/platformer/ground/dirt/ground_dirt_middle.bmp", blockSize,
                                              blockSize);
-
-    blockSize -= 0.01;
 
     auto res = Util::Game::GameManager::getResolution();
     double currentX = -res.getX() / 2;
