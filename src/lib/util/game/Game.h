@@ -54,15 +54,6 @@ namespace Util::Game {
 
         void stop();
 
-        [[deprecated]]
-        Camera *getCamera();
-
-        [[deprecated]]
-        void addEntity(Entity *entity);
-
-        [[deprecated]]
-        void removeEntity(Entity *entity);
-
         Scene *getScene();
 
         void pushScene(Scene *newScene);
@@ -71,18 +62,6 @@ namespace Util::Game {
         [[nodiscard]] bool isRunning() const;
 
         virtual void update(double delta) = 0;
-
-        [[deprecated]]
-        void addObject(Drawable *drawable);
-
-        [[deprecated]]
-        void removeObject(Drawable *drawable);
-
-        [[deprecated]]
-        void setKeyListener(KeyListener &listener);
-
-        [[deprecated("this method will be moved to Scene in the future")]]
-        void setMouseListener(MouseListener &listener);
 
     private:
         Scene *scene = nullptr;

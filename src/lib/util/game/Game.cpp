@@ -17,20 +17,11 @@
 
 #include "Game.h"
 #include "GameManager.h"
-#include "lib/util/log/Logger.h"
 
 namespace Util::Game {
 
     Game::~Game() {
         delete getScene();
-    }
-
-    void Game::addObject(Drawable *drawable) {
-        Logger::logMessage("Old method addObject in Game used");
-    }
-
-    void Game::removeObject(Drawable *drawable) {
-        Logger::logMessage("Old method removeObject in Game used");
     }
 
     bool Game::isRunning() const {
@@ -39,26 +30,6 @@ namespace Util::Game {
 
     void Game::stop() {
         Game::running = false;
-    }
-
-    void Game::setKeyListener(KeyListener &listener) {
-    }
-
-    void Game::setMouseListener(MouseListener &listener) {
-
-    }
-
-    void Game::addEntity(Entity *entity) {
-        Logger::logMessage("Old method addEntity in Game used");
-    }
-
-    void Game::removeEntity(Entity *entity) {
-        Logger::logMessage("Old method removeEntity in Game used");
-    }
-
-    Camera *Game::getCamera() {
-        Logger::logMessage("Old method getCamera in Game used");
-        return getScene()->getCamera();
     }
 
     Scene *Game::getScene() {

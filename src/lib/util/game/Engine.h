@@ -52,10 +52,8 @@ public:
 
     void runWithScene(Scene *initialScene);
 
-    [[deprecated("use runWithScene instead")]]
-    void run() override;
-
 private:
+    void run() override;
 
     struct Statistics {
         void incFrames() {
