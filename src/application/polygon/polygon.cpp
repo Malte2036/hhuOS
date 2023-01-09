@@ -23,6 +23,7 @@
 #include "lib/util/async/FunctionPointerRunnable.h"
 #include "lib/util/async/Thread.h"
 #include "PolygonDemoScene.h"
+#include "lib/util/game/GameManager.h"
 
 static const constexpr int32_t DEFAULT_COUNT = 10;
 
@@ -33,11 +34,13 @@ int32_t main(int32_t argc, char *argv[]) {
         return -1;
     }
 
-    auto game = PolygonDemo();
+    auto game = new PolygonDemo();
     auto lfbFile = Util::File::File("/device/lfb");
     auto lfb = Util::Graphic::LinearFrameBuffer(lfbFile);
 
-    auto engine = Util::Game::Engine(game, lfb);
+    auto engine = Util::Game::Engine(*game, lfb);
+
+    Util::Game::GameManager::setGame<PolygonDemo>(game);
 
     auto scene = new PolygonDemoScene(count);
 

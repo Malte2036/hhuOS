@@ -21,7 +21,7 @@
 namespace Util::Game {
 
     Game::~Game() {
-        delete getScene();
+        delete scene;
     }
 
     bool Game::isRunning() const {
@@ -29,7 +29,7 @@ namespace Util::Game {
     }
 
     void Game::stop() {
-        Game::running = false;
+        running = false;
     }
 
     Scene *Game::getScene() {

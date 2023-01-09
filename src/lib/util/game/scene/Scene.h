@@ -70,7 +70,6 @@ namespace Util::Game {
         KeyListener *keyListener = nullptr;
         MouseListener *mouseListener = nullptr;
 
-        Scene *scene = nullptr;
         Camera *camera = new Camera(Vector2());
 
         Util::Data::ArrayList<Entity *> entities;

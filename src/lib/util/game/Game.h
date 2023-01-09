@@ -61,7 +61,7 @@ namespace Util::Game {
     protected:
         [[nodiscard]] bool isRunning() const;
 
-        virtual void update(double delta) = 0;
+        virtual void update(double dt) = 0;
 
     private:
         Scene *scene = nullptr;

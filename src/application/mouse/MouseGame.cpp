@@ -17,11 +17,4 @@
 
 #include "MouseGame.h"
 
-void MouseGame::update(double delta) {}
-
-MouseGame::MouseGame() {
-}
-
-void MouseGame::keyPressed(char c) {
-}
-
+void MouseGame::update(double dt) {}

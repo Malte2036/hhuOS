@@ -21,13 +21,13 @@
 #include "lib/util/game/Game.h"
 #include "MouseCursor.h"
 
-class MouseGame : public Util::Game::Game, public Util::Game::KeyListener {
+class MouseGame : public Util::Game::Game {
 
 public:
     /**
      * Default Constructor.
      */
-    MouseGame();
+    MouseGame() = default;
 
     /**
      * Copy Constructor.
@@ -44,13 +44,7 @@ public:
      */
     ~MouseGame() override = default;
 
-    void update(double delta) override;
-
-        void keyPressed(char c) override;
-
-private:
-
-    MouseCursor *cursor = new MouseCursor();
+    void update(double dt) override;
 };
 
 #endif
