@@ -51,12 +51,12 @@ void PlatformerGame::createSceneFromSceneFile(Util::Game::Scene *scene, const ch
     auto sceneFile = Util::File::File(fileName);
     auto fileReader = Util::Stream::FileReader(sceneFile);
 
-    auto x = -(Util::Game::GameManager::getResolution().getX() / 2);
+    auto x = -1;
     auto y = (Util::Game::GameManager::getResolution().getY() / 2);
 
     auto c = fileReader.read();
     while (c != -1) {
-        auto pos = Vector2(x * blockSize, y);
+        auto pos = Vector2(x * blockSize - (Util::Game::GameManager::getResolution().getX() / 2), y);
         switch (c) {
             case '\n':
                 x = -1;
