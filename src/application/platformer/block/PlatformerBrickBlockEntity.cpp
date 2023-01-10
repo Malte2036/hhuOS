@@ -5,6 +5,6 @@
 #include "PlatformerBrickBlockEntity.h"
 #include "lib/util/game/GameManager.h"
 
-PlatformerBrickBlockEntity::PlatformerBrickBlockEntity(const Vector2 &position)
-        : PlatformerBlockEntity("BrickBlock", position, "/initrd/game/platformer/block/block_brick.bmp") {
+PlatformerBrickBlockEntity::PlatformerBrickBlockEntity(const Vector2 &position, int countX)
+        : PlatformerBlockEntity("BrickBlock", position, "/initrd/game/platformer/block/block_brick.bmp", countX) {
 }

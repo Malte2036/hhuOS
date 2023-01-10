@@ -9,7 +9,7 @@
 
 class PlatformerBrickBlockEntity : public PlatformerBlockEntity {
 public:
-    explicit PlatformerBrickBlockEntity(const Vector2 &position);
+    explicit PlatformerBrickBlockEntity(const Vector2 &position, int countX = 1);
 };
 
 

@@ -54,6 +54,8 @@ void PlatformerGame::createSceneFromSceneFile(Util::Game::Scene *scene, const ch
     auto x = -1;
     auto y = (Util::Game::GameManager::getResolution().getY() / 2);
 
+    auto dirtPositions = Util::Data::ArrayList<Util::Data::Pair<int, double>>();
+
     auto c = fileReader.read();
     while (c != -1) {
         auto pos = Vector2(x * blockSize - (Util::Game::GameManager::getResolution().getX() / 2), y);
@@ -68,8 +70,37 @@ void PlatformerGame::createSceneFromSceneFile(Util::Game::Scene *scene, const ch
             case '2':
                 scene->addEntity(new PlatformerItemBlockEntity(pos));
                 break;
+            case '3':
+                dirtPositions.add({x, y});
+                break;
         }
         c = fileReader.read();
         x += 1;
     }
+    spawnLargeColliderFromArray(*scene, dirtPositions);
 }
+
+void PlatformerGame::spawnLargeColliderFromArray(Util::Game::Scene &scene,
+                                                 Util::Data::ArrayList<Util::Data::Pair<int, double>> &positions) {
+    if (positions.isEmpty()) return;
+
+    auto lastPoint = positions.get(0);
+    auto rectangleStartPoint = lastPoint;
+    for (auto point: positions) {
+        if (point.first - 1 == lastPoint.first) {
+
+        } else {
+            //auto rectangleEndVec = Vector2(rectangleStartPoint.first * blockSize - (Util::Game::GameManager::getResolution().getX() / 2), rectangleStartPoint.second);
+            auto rectangleStartVec = Vector2(
+                    rectangleStartPoint.first * blockSize - (Util::Game::GameManager::getResolution().getX() / 2),
+                    rectangleStartPoint.second);
+            scene.addEntity(
+                    new PlatformerBrickBlockEntity(rectangleStartVec, lastPoint.first - rectangleStartPoint.first));
+
+            rectangleStartPoint = point;
+        }
+        lastPoint = point;
+    }
+}
+
+

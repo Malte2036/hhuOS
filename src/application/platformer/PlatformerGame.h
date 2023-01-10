@@ -18,12 +18,15 @@ public:
 
     double getBlockSize();
 
-    void createSceneFromSceneFile(Util::Game::Scene* scene, const char* fileName);
+    void createSceneFromSceneFile(Util::Game::Scene *scene, const char *fileName);
 
 private:
     void init() override;
 
     void onUpdate(double delta) override;
+
+    void spawnLargeColliderFromArray(Util::Game::Scene &scene,
+                                     Util::Data::ArrayList<Util::Data::Pair<int, double>> &positions);
 
     double blockSize = 0.08;
 

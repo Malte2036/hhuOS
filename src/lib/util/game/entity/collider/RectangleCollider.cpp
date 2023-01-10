@@ -6,7 +6,7 @@
 #include "lib/util/math/Math.h"
 
 
-Util::Game::RectangleCollider::RectangleCollider(Vector2 position, double height, double width,
+Util::Game::RectangleCollider::RectangleCollider(const Vector2 &position, double height, double width,
                                                  ColliderType colliderType) : Collider(
         "RectangleCollider", position, colliderType), height{height}, width{width} {}
 

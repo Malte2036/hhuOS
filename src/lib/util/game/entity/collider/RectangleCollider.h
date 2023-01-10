@@ -16,7 +16,7 @@ namespace Util::Game {
         friend class Scene;
 
     public:
-        explicit RectangleCollider(Vector2 position, double height, double width, ColliderType colliderType);
+        explicit RectangleCollider(const Vector2& position, double height, double width, ColliderType colliderType);
 
         /**
          * Copy Constructor.
