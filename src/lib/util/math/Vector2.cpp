@@ -21,6 +21,10 @@ Vector2 &Vector2::operator*(const double value) {
     return *new Vector2(x * value, y * value);
 }
 
+Vector2 &Vector2::operator/(double value) {
+    return *new Vector2(x / value, y / value);
+}
+
 Vector2 &Vector2::operator+(const Vector2 &other) {
     return *new Vector2(x + other.x, y + other.y);
 }
@@ -36,3 +40,4 @@ double Vector2::length() const {
 Vector2 Vector2::normalize() {
     return *this * (1 / length());
 }
+

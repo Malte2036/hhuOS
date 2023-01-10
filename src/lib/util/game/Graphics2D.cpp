@@ -33,21 +33,21 @@ namespace Util::Game {
                     (lfb.getResolutionY() > lfb.getResolutionX() ? (lfb.getResolutionY() - lfb.getResolutionX()) / 2
                                                                  : 0)) {}
 
-    void Graphics2D::drawLine(double x1, double y1, double x2, double y2) const {
+    void Graphics2D::drawLine(const Vector2 &from, const Vector2 &to) const {
         auto camera = game.getScene()->getCamera();
-        lineDrawer.drawLine(static_cast<int32_t>((x1 - camera->getPosition().getX()) * transformation + offsetX),
-                            static_cast<int32_t>((-y1 + camera->getPosition().getY()) * transformation + offsetY),
-                            static_cast<int32_t>((x2 - camera->getPosition().getX()) * transformation + offsetX),
-                            static_cast<int32_t>((-y2 + camera->getPosition().getY()) * transformation + offsetY),
-                            color);
+        lineDrawer.drawLine(
+                static_cast<int32_t>((from.getX() - camera->getPosition().getX()) * transformation + offsetX),
+                static_cast<int32_t>((-from.getY() + camera->getPosition().getY()) * transformation + offsetY),
+                static_cast<int32_t>((to.getX() - camera->getPosition().getX()) * transformation + offsetX),
+                static_cast<int32_t>((-to.getY() + camera->getPosition().getY()) * transformation + offsetY),
+                color);
     }
 
-    void Graphics2D::drawPolygon(const Data::Array<double> &x, const Data::Array<double> &y) const {
-        for (uint32_t i = 0; i < x.length() - 1; i++) {
-            drawLine(x[i], y[i], x[i + 1], y[i + 1]);
+    void Graphics2D::drawPolygon(const Data::Array<Vector2> &vertices) const {
+        for (uint32_t i = 0; i < vertices.length() - 1; i++) {
+            drawLine(vertices[i], vertices[i + 1]);
         }
-
-        drawLine(x[x.length() - 1], y[y.length() - 1], x[0], y[0]);
+        drawLine(vertices[vertices.length() - 1], vertices[0]);
     }
 
     void Graphics2D::drawSquare(const Vector2 &position, double size) const {
@@ -57,10 +57,10 @@ namespace Util::Game {
     void Graphics2D::drawRectangle(const Vector2 &position, double height, double width) const {
         double x = position.getX();
         double y = position.getY();
-        drawLine(x, y, x + width, y);
-        drawLine(x, y + height, x + width, y + height);
-        drawLine(x, y, x, y + height);
-        drawLine(x + width, y, x + width, y + height);
+        drawLine(position, Vector2(x + width, y));
+        drawLine(Vector2(x, y + height), Vector2(x + width, y + height));
+        drawLine(position, Vector2(x, y + height));
+        drawLine(Vector2(x + width, y), Vector2(x + width, y + height));
     }
 
     void Graphics2D::drawImage(const Vector2 &position, const Util::File::Image::Image &image, bool flipX) const {

@@ -41,18 +41,18 @@ Cube::Cube(double x, double y, double size) : x(x), y(y), size(size) {
 
 void Cube::draw(Util::Game::Graphics2D &graphics) const {
     graphics.setColor(color);
-    graphics.drawLine(coordinates[0][indX], coordinates[0][indY], coordinates[1][indX], coordinates[1][indY]);
-    graphics.drawLine(coordinates[1][indX], coordinates[1][indY], coordinates[2][indX], coordinates[2][indY]);
-    graphics.drawLine(coordinates[2][indX], coordinates[2][indY], coordinates[3][indX], coordinates[3][indY]);
-    graphics.drawLine(coordinates[3][indX], coordinates[3][indY], coordinates[0][indX], coordinates[0][indY]);
-    graphics.drawLine(coordinates[4][indX], coordinates[4][indY], coordinates[5][indX], coordinates[5][indY]);
-    graphics.drawLine(coordinates[5][indX], coordinates[5][indY], coordinates[6][indX], coordinates[6][indY]);
-    graphics.drawLine(coordinates[6][indX], coordinates[6][indY], coordinates[7][indX], coordinates[7][indY]);
-    graphics.drawLine(coordinates[7][indX], coordinates[7][indY], coordinates[4][indX], coordinates[4][indY]);
-    graphics.drawLine(coordinates[0][indX], coordinates[0][indY], coordinates[4][indX], coordinates[4][indY]);
-    graphics.drawLine(coordinates[1][indX], coordinates[1][indY], coordinates[5][indX], coordinates[5][indY]);
-    graphics.drawLine(coordinates[2][indX], coordinates[2][indY], coordinates[6][indX], coordinates[6][indY]);
-    graphics.drawLine(coordinates[3][indX], coordinates[3][indY], coordinates[7][indX], coordinates[7][indY]);
+    graphics.drawLine(Vector2(coordinates[0][indX], coordinates[0][indY]), Vector2(coordinates[1][indX], coordinates[1][indY]));
+    graphics.drawLine(Vector2(coordinates[1][indX], coordinates[1][indY]), Vector2(coordinates[2][indX], coordinates[2][indY]));
+    graphics.drawLine(Vector2(coordinates[2][indX], coordinates[2][indY]), Vector2(coordinates[3][indX], coordinates[3][indY]));
+    graphics.drawLine(Vector2(coordinates[3][indX], coordinates[3][indY]), Vector2(coordinates[0][indX], coordinates[0][indY]));
+    graphics.drawLine(Vector2(coordinates[4][indX], coordinates[4][indY]), Vector2(coordinates[5][indX], coordinates[5][indY]));
+    graphics.drawLine(Vector2(coordinates[5][indX], coordinates[5][indY]), Vector2(coordinates[6][indX], coordinates[6][indY]));
+    graphics.drawLine(Vector2(coordinates[6][indX], coordinates[6][indY]), Vector2(coordinates[7][indX], coordinates[7][indY]));
+    graphics.drawLine(Vector2(coordinates[7][indX], coordinates[7][indY]), Vector2(coordinates[4][indX], coordinates[4][indY]));
+    graphics.drawLine(Vector2(coordinates[0][indX], coordinates[0][indY]), Vector2(coordinates[4][indX], coordinates[4][indY]));
+    graphics.drawLine(Vector2(coordinates[1][indX], coordinates[1][indY]), Vector2(coordinates[5][indX], coordinates[5][indY]));
+    graphics.drawLine(Vector2(coordinates[2][indX], coordinates[2][indY]), Vector2(coordinates[6][indX], coordinates[6][indY]));
+    graphics.drawLine(Vector2(coordinates[3][indX], coordinates[3][indY]), Vector2(coordinates[7][indX], coordinates[7][indY]));
 }
 
 void Cube::rotate(double angleX, double angleY, double angleZ) {

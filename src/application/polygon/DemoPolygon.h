@@ -32,7 +32,7 @@ public:
     /**
      * Constructor.
      */
-    DemoPolygon(const Util::Data::Array<double> &x, const Util::Data::Array<double> &y, const Util::Graphic::Color &color, double rotationSpeed, double scaleSpeed);
+    DemoPolygon(const Util::Data::Array<Vector2> &vertices, const Util::Graphic::Color &color, double rotationSpeed, double scaleSpeed);
 
     /**
      * Copy Constructor.

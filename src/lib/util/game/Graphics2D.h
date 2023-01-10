@@ -54,9 +54,9 @@ namespace Util::Game {
          */
         ~Graphics2D() = default;
 
-        void drawLine(double x1, double y1, double x2, double y2) const;
+        void drawLine(const Vector2 &from, const Vector2 &to) const;
 
-        void drawPolygon(const Data::Array<double> &x, const Data::Array<double> &y) const;
+        void drawPolygon(const Data::Array<Vector2> &vertices) const;
 
         void drawSquare(const Vector2 &position, double size) const;
 

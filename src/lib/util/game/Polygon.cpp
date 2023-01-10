@@ -20,58 +20,47 @@
 
 namespace Util::Game {
 
-Polygon::Polygon(const Data::Array<double> &x, const Data::Array<double> &y) : x(x), y(y) {
-    if (x.length() != y.length()) {
-        Exception::throwException(Exception::INVALID_ARGUMENT, "Polygon: x and y arrays must have the same size!");
+    Polygon::Polygon(const Data::Array<Vector2> &vertices) : vertices{vertices} {
+        calculateCenter();
     }
 
-    calculateCenter();
-}
-
-void Polygon::draw(Graphics2D &graphics) const {
-    graphics.drawPolygon(x, y);
-}
-
-void Polygon::scale(double factor) {
-    for (uint32_t i = 0; i < x.length(); i++) {
-        x[i] = xCenter + factor * (x[i] - xCenter);
-        y[i] = yCenter + factor * (y[i] - yCenter);
-    }
-}
-
-void Polygon::rotate(double angle) {
-    double sine = Math::Math::sine(angle);
-    double cosine = Math::Math::cosine(angle);
-
-    for (uint32_t i = 0; i < x.length(); i++) {
-        double dx = x[i] - xCenter;
-        double dy = y[i] - yCenter;
-        x[i] = dx * cosine - dy * sine + xCenter;
-        y[i] = dx * sine + dy * cosine + yCenter;
-    }
-}
-
-void Polygon::translate(double xTranslation, double yTranslation) {
-    for (uint32_t i = 0; i < x.length(); i++) {
-        x[i] += xTranslation;
-        y[i] += yTranslation;
+    void Polygon::draw(Graphics2D &graphics) const {
+        graphics.drawPolygon(vertices);
     }
 
-    xCenter += xTranslation;
-    yCenter += yTranslation;
-}
-
-void Polygon::calculateCenter() {
-    double xSum = 0;
-    double ySum = 0;
-
-    for (uint32_t i = 0; i < x.length(); i++) {
-        xSum += x[i];
-        ySum += y[i];
+    void Polygon::scale(double factor) {
+        for (auto &vertex: vertices) {
+            vertex = Vector2(center.getX() + factor * (vertex.getX() - center.getX()),
+                             center.getY() + factor * (vertex.getY() - center.getY()));
+        }
     }
 
-    xCenter = xSum / x.length();
-    yCenter = ySum / y.length();
-}
+    void Polygon::rotate(double angle) {
+        double sine = Math::Math::sine(angle);
+        double cosine = Math::Math::cosine(angle);
+
+        for (auto &vertex: vertices) {
+            auto d = vertex - center;
+            vertex = Vector2(d.getX() * cosine - d.getY() * sine + center.getX(),
+                             d.getX() * sine + d.getY() * cosine + center.getY());
+        }
+
+    }
+
+    void Polygon::translate(const Vector2 &translation) {
+        for (auto &vertex: vertices) {
+            vertex = vertex + translation;
+        }
+        center = center + translation;
+    }
+
+    void Polygon::calculateCenter() {
+        Vector2 temp = Vector2();
+        for (auto &vertex: vertices) {
+            temp = temp + vertex;
+        }
+
+        center = temp / (int) vertices.length();
+    }
 
 }

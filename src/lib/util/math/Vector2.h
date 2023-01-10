@@ -9,13 +9,18 @@
 class Vector2 {
 public:
     Vector2();
+
     Vector2(double x, double y);
 
     Vector2(const Vector2 &other) = default;
+
     Vector2 &operator=(const Vector2 &other) = default;
+
     virtual ~Vector2() = default;
 
     Vector2 &operator*(double value);
+
+    Vector2 &operator/(double value);
 
     Vector2 &operator+(const Vector2 &other);
 
@@ -26,7 +31,9 @@ public:
     [[nodiscard]] double length() const;
 
     [[nodiscard]] double getX() const;
+
     [[nodiscard]] double getY() const;
+
 private:
     double x;
     double y;
