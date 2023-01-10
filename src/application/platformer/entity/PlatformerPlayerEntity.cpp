@@ -82,7 +82,8 @@ void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent *event)
         canJump = true;
     }
 
-    auto scene = Util::Game::GameManager::getGame<PlatformerGame>()->getScene();
+    auto game = Util::Game::GameManager::getGame<PlatformerGame>();
+    auto scene = game->getScene();
 
     auto collidedWithTag = event->getCollidedWith().getTag();
     if (collidedWithTag == "BrickBlock") {
@@ -95,8 +96,7 @@ void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent *event)
 
         setBig(true);
         scene->removeEntity(&event->getCollidedWith());
-    } else if (event->getCollidedWith().getTag() == "Ninja") {
-        auto game = Util::Game::GameManager::getGame<PlatformerGame>();
+    } else if (collidedWithTag == "Ninja") {
         if (side == Util::Game::BOTTOM_SIDE) {
             Logger::logMessage("Player killed Ninja");
         } else {
@@ -104,12 +104,16 @@ void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent *event)
                 setBig(false);
             } else {
                 Logger::logMessage("Player was killed by Ninja");
-                game->nextLevel();
+                game->stop();
                 return;
             }
         }
         scene->removeEntity(&event->getCollidedWith());
         game->spawnNinja(position + Vector2(1.5, 0.1), groundY);
+    } else if (collidedWithTag == "Chest"){
+        Logger::logMessage("Player finished Level by collecting chest!");
+        game->nextLevel();
+        return;
     }
 }
 
