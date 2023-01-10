@@ -87,38 +87,44 @@ namespace Util::Game {
     void Scene::checkCollision() {
         auto detectedCollisions = Data::ArrayList<Data::Pair<Entity *, Entity *>>();
         for (Entity *entity: entities) {
-            for (Entity *otherEntity: entities) {
-                if (entity != otherEntity && !detectedCollisions.contains(createEntityPair(entity, otherEntity))) {
-                    auto side = entity->getCollider()->isColliding(*otherEntity->getCollider());
-                    if (side != NO_SIDE) {
-                        entity->collisionEvent(new CollisionEvent(*otherEntity, side));
+            if (entity->positionChanged) {
+                for (Entity *otherEntity: entities) {
+                    if (entity != otherEntity && !detectedCollisions.contains(createEntityPair(entity, otherEntity))) {
+                        auto side = entity->getCollider()->isColliding(*otherEntity->getCollider());
+                        if (side != NO_SIDE) {
+                            entity->collisionEvent(new CollisionEvent(*otherEntity, side));
 
-                        RectangleCollidedSide otherSide;
-                        switch (side) {
-                            case RIGHT_SIDE:
-                                otherSide = LEFT_SIDE;
-                                break;
-                            case LEFT_SIDE:
-                                otherSide = RIGHT_SIDE;
-                                break;
-                            case TOP_SIDE:
-                                otherSide = BOTTOM_SIDE;
-                                break;
-                            case BOTTOM_SIDE:
-                                otherSide = TOP_SIDE;
-                                break;
-                            default:
-                                otherSide = NO_SIDE;
-                                break;
+                            RectangleCollidedSide otherSide;
+                            switch (side) {
+                                case RIGHT_SIDE:
+                                    otherSide = LEFT_SIDE;
+                                    break;
+                                case LEFT_SIDE:
+                                    otherSide = RIGHT_SIDE;
+                                    break;
+                                case TOP_SIDE:
+                                    otherSide = BOTTOM_SIDE;
+                                    break;
+                                case BOTTOM_SIDE:
+                                    otherSide = TOP_SIDE;
+                                    break;
+                                default:
+                                    otherSide = NO_SIDE;
+                                    break;
+                            }
+
+                            otherEntity->collisionEvent(new CollisionEvent(*entity, otherSide));
+
+                            detectedCollisions.add(createEntityPair(entity, otherEntity));
                         }
-
-                        otherEntity->collisionEvent(new CollisionEvent(*entity, otherSide));
-
-                        detectedCollisions.add(createEntityPair(entity, otherEntity));
                     }
                 }
             }
         }
+    }
+
+    void Scene::update(float dt) {
+        onUpdate(dt);
     }
 
     Data::Pair<Entity *, Entity *> Scene::createEntityPair(Entity *a, Entity *b) {

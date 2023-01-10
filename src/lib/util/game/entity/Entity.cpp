@@ -39,6 +39,7 @@ namespace Util::Game {
         if (collider != nullptr) {
             collider->setPosition(position);
         }
+        positionChanged = true;
     }
 
     Vector2 Entity::getVelocity() const {
@@ -56,6 +57,7 @@ namespace Util::Game {
 
     void Entity::update(double dt) {
         collider->lastPosition = position;
+        positionChanged = false;
 
         for (const auto &component: components) {
             component->update(dt);

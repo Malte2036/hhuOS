@@ -98,6 +98,8 @@ namespace Util::Game {
 
         void collisionEvent(CollisionEvent *event);
 
+        bool positionChanged = false;
+
     protected:
         Vector2 velocity = Vector2();
         Memory::String tag;

@@ -94,6 +94,8 @@ namespace Util::Game {
         Util::Data::ArrayList<Drawable *> removeList;
         Util::Data::ArrayList<Entity *> removeEntityList;
 
+        void update(float dt);
+
         static Data::Pair<Entity *, Entity *> createEntityPair(Entity *a, Entity *b);
     };
 };
