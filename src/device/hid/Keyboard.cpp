@@ -20,7 +20,7 @@
 #include "kernel/system/System.h"
 #include "filesystem/memory/StreamNode.h"
 #include "Keyboard.h"
-#include "device/hid/Key.h"
+#include "lib/util/io/Key.h"
 #include "device/hid/Ps2Controller.h"
 #include "device/hid/Ps2Device.h"
 #include "device/interrupt/Pic.h"
@@ -284,7 +284,7 @@ bool Keyboard::decodeKey(uint8_t code) {
 void Keyboard::getAsciiCode(uint8_t code) {
     if(code == 53 && prefix == PREFIX1) {
         gather.setAscii('/');
-        gather.setScancode(Key::DIV);
+        gather.setScancode(Util::Io::Key::DIV);
     } else if(gather.getNumLock() && !prefix && code >= 71 && code <= 83) {
         gather.setAscii(asciiNumTab[code-71]);
         gather.setScancode(scanNumTab[code-71]);

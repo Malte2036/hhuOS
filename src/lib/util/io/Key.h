@@ -20,7 +20,7 @@
 
 #include <cstdint>
 
-namespace Device {
+namespace Util::Io {
 
 /**
  * Represents a key, consisting of a key- and an setAscii-code.
@@ -92,6 +92,67 @@ public:
     [[nodiscard]] bool isPressed() const;
 
     /**
+     * Get the shift-modifier.
+     */
+    [[nodiscard]] bool getShift() const;
+
+    /**
+     * Get the alt-modifier for the left getAlt-key.
+     */
+    [[nodiscard]] bool getAltLeft() const;
+
+    /**
+     * Get the alt-modifier for the right getAlt-key.
+     */
+    [[nodiscard]] bool getAltRight() const;
+
+    /**
+     * Get the getCtrl-modifier for the left getAlt-key.
+     */
+    [[nodiscard]] bool getCtrlLeft() const;
+
+    /**
+     * Get the getCtrl-modifier for the right getAlt-key.
+     */
+    [[nodiscard]] bool getCtrlRight() const;
+
+    /**
+     * Get the caps-lock modifier.
+     */
+    [[nodiscard]] bool getCapsLock() const;
+
+    /**
+     * Get the num-lock modifier.
+     */
+    [[nodiscard]] bool getNumLock() const;
+
+    /**
+     * Get the scroll-lock modifier.
+     */
+    [[nodiscard]] bool getScrollLock() const;
+
+    /**
+     * Check, if one of the getAlt-keys is pressed.
+     */
+    [[nodiscard]] bool getAlt() const;
+
+    /**
+     * Check, if one of the getCtrl-keys is pressed.
+     */
+    [[nodiscard]] bool getCtrl() const;
+
+    /**
+     * (char)-operator. Return the ascii-code.
+     */
+    explicit operator char() const;
+
+    /**
+     * (unsigned char)-operator. Return the ascii-  code.
+     */
+    explicit operator unsigned char() const;
+
+private:
+    /**
      * Set the pressed-value.
      */
     void setPressed(bool value);
@@ -160,68 +221,6 @@ public:
      * Set the scroll-lock modifier.
      */
     void setScrollLock(bool pressed);
-
-    /**
-     * Get the setShift-modifier.
-     */
-    [[nodiscard]] bool getShift() const;
-
-    /**
-     * Get the alt-modifier for the left getAlt-key.
-     */
-    [[nodiscard]] bool getAltLeft() const;
-
-    /**
-     * Get the alt-modifier for the right getAlt-key.
-     */
-    [[nodiscard]] bool getAltRight() const;
-
-    /**
-     * Get the getCtrl-modifier for the left getAlt-key.
-     */
-    [[nodiscard]] bool getCtrlLeft() const;
-
-    /**
-     * Get the getCtrl-modifier for the right getAlt-key.
-     */
-    [[nodiscard]] bool getCtrlRight() const;
-
-    /**
-     * Get the caps-lock modifier.
-     */
-    [[nodiscard]] bool getCapsLock() const;
-
-    /**
-     * Get the num-lock modifier.
-     */
-    [[nodiscard]] bool getNumLock() const;
-
-    /**
-     * Get the scroll-lock modifier.
-     */
-    [[nodiscard]] bool getScrollLock() const;
-
-    /**
-     * Check, if one of the getAlt-keys is pressed.
-     */
-    [[nodiscard]] bool getAlt() const;
-
-    /**
-     * Check, if one of the getCtrl-keys is pressed.
-     */
-    [[nodiscard]] bool getCtrl() const;
-
-    /**
-     * (char)-operator. Return the ascii-code.
-     */
-    explicit operator char() const;
-
-    /**
-     * (unsigned char)-operator. Return the ascii-  code.
-     */
-    explicit operator unsigned char() const;
-
-private:
 
     uint8_t ascii;
     uint8_t scancode;

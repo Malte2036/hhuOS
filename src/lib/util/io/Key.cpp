@@ -17,7 +17,7 @@
 
 #include "Key.h"
 
-namespace Device {
+namespace Util::Io {
 
 bool Key::isValid() const {
     return scancode != 0;

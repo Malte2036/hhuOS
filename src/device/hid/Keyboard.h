@@ -22,7 +22,7 @@
 
 #include "kernel/interrupt/InterruptHandler.h"
 #include "lib/util/stream/PipedOutputStream.h"
-#include "Key.h"
+#include "lib/util/io/Key.h"
 #include "Ps2Device.h"
 #include "lib/util/stream/FilterInputStream.h"
 #include "lib/util/stream/PipedInputStream.h"
@@ -143,9 +143,9 @@ private:
      */
     void getAsciiCode(uint8_t code);
 
-    Key gather = Key();
-    uint8_t prefix = 0;
-    uint8_t leds = 0;
+    Util::Io::Key gather{};
+    uint8_t prefix{};
+    uint8_t leds{};
 
     Util::Stream::PipedOutputStream outputStream;
     Util::Stream::PipedInputStream inputStream;
