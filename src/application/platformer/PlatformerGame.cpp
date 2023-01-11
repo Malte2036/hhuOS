@@ -10,6 +10,8 @@
 #include "lib/util/stream/FileReader.h"
 #include "application/platformer/block/PlatformerBrickBlockEntity.h"
 #include "application/platformer/block/PlatformerItemBlockEntity.h"
+#include "lib/util/game/entity/collider/PolygonCollider.h"
+#include "lib/util/game/entity/collider/Collider.h"
 
 void PlatformerGame::onUpdate(double delta) {
 
@@ -45,6 +47,15 @@ double PlatformerGame::getBlockSize() {
 
 void PlatformerGame::init() {
     //Util::Game::GameManager::playSound("/initrd/beep/mario.beep");
+
+    auto vertices = Util::Data::Array<Vector2>({Vector2(0, 0), Vector2(0, 1), Vector2(12, 1), Vector2(1, 0)});
+    auto coll = Util::Game::PolygonCollider(vertices);
+
+    auto offset = Vector2(2, 5);
+    auto verticesOther = Util::Data::Array<Vector2>(
+            {Vector2(0, 0) + offset, Vector2(0, 1) + offset, Vector2(1, 1) + offset, Vector2(1, 0) + offset});
+    auto collOther = Util::Game::PolygonCollider(verticesOther);
+    coll.isColliding(collOther);
 }
 
 void PlatformerGame::createSceneFromSceneFile(Util::Game::Scene *scene, const char *fileName) {

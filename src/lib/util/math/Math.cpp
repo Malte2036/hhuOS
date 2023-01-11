@@ -103,10 +103,17 @@ namespace Util::Math {
 
     double Math::pow(double value, int exponent) {
         double ret = 1;
-        for(int i = 1; i <= exponent; i++){
+        for (int i = 1; i <= exponent; i++) {
             ret *= value;
         }
         return ret;
     }
 
+    double Math::min(double value1, double value2) {
+        return value1 > value2 ? value2 : value1;
+    }
+
+    double Math::max(double value1, double value2) {
+        return value1 > value2 ? value1 : value2;
+    }
 }
