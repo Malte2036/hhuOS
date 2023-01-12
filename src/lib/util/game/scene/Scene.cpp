@@ -89,6 +89,10 @@ namespace Util::Game {
         for (Entity *entity: entities) {
             if (entity->positionChanged) {
                 for (Entity *otherEntity: entities) {
+                    if(entity->getPolygonCollider() != nullptr && otherEntity->getPolygonCollider() != nullptr){
+                        entity->getPolygonCollider()->isColliding(*otherEntity->getPolygonCollider());
+                        break;
+                    }
                     if (entity != otherEntity && !detectedCollisions.contains(createEntityPair(entity, otherEntity))) {
                         auto side = entity->getCollider()->isColliding(*otherEntity->getCollider());
                         if (side != NO_SIDE) {

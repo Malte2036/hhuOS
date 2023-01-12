@@ -109,4 +109,8 @@ namespace Util::Game {
     RectangleCollider *Entity::getCollider() const {
         return collider;
     }
+
+    PolygonCollider *Entity::getPolygonCollider() const {
+        return  polygonCollider;
+    }
 }

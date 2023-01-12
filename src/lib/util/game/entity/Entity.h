@@ -11,6 +11,7 @@
 #include "lib/util/game/entity/collider/Collider.h"
 #include "lib/util/game/entity/collider/RectangleCollider.h"
 #include "lib/util/data/ArrayList.h"
+#include "lib/util/game/entity/collider/PolygonCollider.h"
 
 namespace Util::Game {
     class Component;
@@ -84,6 +85,8 @@ namespace Util::Game {
 
         [[nodiscard]] RectangleCollider *getCollider() const;
 
+        [[nodiscard]] PolygonCollider *getPolygonCollider() const;
+
         /**
          * call this function, to add Components to this Entity. For example the GravityComponent.
          * @param component
@@ -106,6 +109,7 @@ namespace Util::Game {
         Vector2 position;
 
         RectangleCollider *collider;
+        PolygonCollider *polygonCollider;
 
         Data::ArrayList<Component *> components;
     };

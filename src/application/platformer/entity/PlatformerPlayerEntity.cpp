@@ -6,6 +6,7 @@
 #include "lib/util/log/Logger.h"
 #include "lib/util/game/GameManager.h"
 #include "../PlatformerGame.h"
+#include "lib/util/game/Polygon.h"
 
 Util::File::Image::Image *currentImage = nullptr;
 
@@ -39,6 +40,11 @@ PlatformerPlayerEntity::PlatformerPlayerEntity(const Util::Memory::String &tag, 
     currentImage = idleSprite->getImage();
 
     collider = new Util::Game::RectangleCollider(position, height * (big ? 2 : 1), width, Util::Game::DYNAMIC_COLLIDER);
+
+    auto vertices = Util::Data::Array<Vector2>(
+            {position, position + Vector2(0, height), position + Vector2(width, height), position + Vector2(width, 0)});
+    auto polygon = Util::Game::Polygon(vertices);
+    polygonCollider = new Util::Game::PolygonCollider(vertices, Util::Game::DYNAMIC_COLLIDER);
 }
 
 
@@ -110,9 +116,9 @@ void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent *event)
         }
         scene->removeEntity(&event->getCollidedWith());
         game->spawnNinja(position + Vector2(1.5, 0.1), groundY);
-    } else if (collidedWithTag == "Chest"){
+    } else if (collidedWithTag == "Chest") {
         Logger::logMessage("Player finished Level by collecting chest!");
-        game->nextLevel();
+        //game->nextLevel();
         return;
     }
 }

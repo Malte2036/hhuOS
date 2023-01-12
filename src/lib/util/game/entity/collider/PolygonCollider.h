@@ -33,7 +33,7 @@ namespace Util::Game {
 
         Util::Data::Array<Vector2> &vertices;
 
-        Vector2 getAxes(Data::Array <Vector2> &vertices, int index);
+        static Vector2 getAxes(Data::Array <Vector2> &vertices, int index);
     };
 }
 
