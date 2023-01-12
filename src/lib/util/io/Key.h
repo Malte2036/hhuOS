@@ -23,31 +23,16 @@
 namespace Util::Io {
 
 /**
- * Represents a key, consisting of a key- and an setAscii-code.
+ * Represents a key, consisting of a key- and an Ascii-code.
  *
  * @author  original by Olaf Spinczyk, TU Dortmund
  * 			modified by Michael Schoettner, Filip Krakowski, Fabian Ruhland, Burak Akguel, Christian Gesse
  */
 class Key {
 
-private:
-
-    /**
-     * Bit-masks for key-modifiers.
-     */
-    enum Modifier {
-        SHIFT = 1,
-        ALT_LEFT = 2,
-        ALT_RIGHT = 4,
-        CTRL_LEFT = 8,
-        CTRL_RIGHT = 16,
-        CAPS_LOCK = 32,
-        NUM_LOCK = 64,
-        SCROLL_LOCK = 128
-    };
+friend class KeyDecoder;
 
 public:
-
     /**
      * Some pre-defined scancodes.
      */
@@ -69,12 +54,12 @@ public:
     /**
      * Copy Constructor.
      */
-    Key(const Key &copy) = delete;
+    Key(const Key &copy) = default;
 
     /**
      * Assignment operator.
      */
-    Key &operator=(const Key &other) = delete;
+    Key &operator=(const Key &other) = default;
 
     /**
      * Destructor.
@@ -85,6 +70,16 @@ public:
      * Check, if a key is valid(setScancode == 0 -> invalid).
      */
     [[nodiscard]] bool isValid() const;
+
+    /**
+     * Get the setScancode.
+     */
+    [[nodiscard]] uint8_t getScancode() const;
+
+    /**
+     * Get the setAscii-code.
+     */
+    [[nodiscard]] uint8_t getAscii() const;
 
     /**
      * Check, if a key is being pressed.
@@ -142,16 +137,32 @@ public:
     [[nodiscard]] bool getCtrl() const;
 
     /**
-     * (char)-operator. Return the ascii-code.
+     * (char)-operator.
+     * Return the ascii-code.
      */
     explicit operator char() const;
 
     /**
-     * (unsigned char)-operator. Return the ascii-  code.
+     * (uint8_t)-operator.
+     * Return the ascii- code.
      */
-    explicit operator unsigned char() const;
+    explicit operator uint8_t() const;
 
 private:
+    /**
+     * Bit-masks for key-modifiers.
+     */
+    enum Modifier {
+        SHIFT = 1,
+        ALT_LEFT = 2,
+        ALT_RIGHT = 4,
+        CTRL_LEFT = 8,
+        CTRL_RIGHT = 16,
+        CAPS_LOCK = 32,
+        NUM_LOCK = 64,
+        SCROLL_LOCK = 128
+    };
+
     /**
      * Set the pressed-value.
      */
@@ -170,17 +181,7 @@ private:
     /**
      * Set the setScancode.
      */
-    void setScancode(uint8_t scan) ;
-
-    /**
-     * Get the setAscii-code.
-     */
-    [[nodiscard]] unsigned char getAscii() const;
-
-    /**
-     * Get the setScancode.
-     */
-    [[nodiscard]] unsigned char getScancode() const;
+    void setScancode(uint8_t scan);
 
     /**
      * Set the setShift-modifier.
