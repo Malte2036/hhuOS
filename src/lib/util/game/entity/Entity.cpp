@@ -74,7 +74,7 @@ namespace Util::Game {
 
     void Entity::collisionEvent(CollisionEvent *event) {
         if (getCollider()->getColliderType() == DYNAMIC_COLLIDER) {
-            switch (event->getRectangleCollidedSide()) {
+            /*switch (event->getRectangleCollidedSide()) {
                 case BOTTOM_SIDE:
                     setPosition(Vector2(position.getX(), event->getCollidedWith().getPosition().getY() +
                                                          event->getCollidedWith().getCollider()->getHeight()));
@@ -103,6 +103,10 @@ namespace Util::Game {
                         setVelocity(Vector2(0, velocity.getY()));
                     }
                     break;
+            }*/
+            auto collision = event->getCollision();
+            if (collision.overlap > 0) {
+                setPosition(position + (collision.axis * collision.overlap));
             }
         }
 

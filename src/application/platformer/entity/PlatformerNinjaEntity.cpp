@@ -40,7 +40,6 @@ PlatformerNinjaEntity::PlatformerNinjaEntity(const Vector2 &position, double gro
 
 void PlatformerNinjaEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.drawImage(position, *currentImage, directionLeft);
-    //graphics.drawRectangle(position, getCollider()->getHeight(), getCollider()->getWidth());
 }
 
 auto i = 1;

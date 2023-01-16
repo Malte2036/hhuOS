@@ -10,6 +10,12 @@
 #include "lib/util/game/Polygon.h"
 
 namespace Util::Game {
+
+    struct Collision {
+        double overlap;
+        Vector2 axis;
+    };
+
     class PolygonCollider : Collider {
         friend class Scene;
 
@@ -26,7 +32,7 @@ namespace Util::Game {
          */
         PolygonCollider &operator=(const PolygonCollider &other) = delete;
 
-        bool isColliding(PolygonCollider &other);
+        Collision isColliding(PolygonCollider &other);
 
         Polygon &getPolygon();
 
@@ -37,6 +43,8 @@ namespace Util::Game {
         Polygon &polygon;
 
         static Vector2 getAxes(Data::Array<Vector2> vertices, int index);
+
+        static double getOverlap(Data::Pair<double, double> range, Data::Pair<double, double> rangeOther);
     };
 }
 

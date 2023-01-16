@@ -85,7 +85,7 @@ void PlatformerPlayerEntity::onTranslateEvent(Util::Game::TranslateEvent *event)
 }
 
 void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
-    auto side = event->getRectangleCollidedSide();
+    /*auto side = event->getRectangleCollidedSide();
     if (side == Util::Game::BOTTOM_SIDE) {
         canJump = true;
     }
@@ -122,7 +122,7 @@ void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent *event)
         Logger::logMessage("Player finished Level by collecting chest!");
         //game->nextLevel();
         return;
-    }
+    }*/
 }
 
 void PlatformerPlayerEntity::moveRight() {

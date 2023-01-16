@@ -4,9 +4,10 @@
 
 #include "CollisionEvent.h"
 
+#include <utility>
+
 namespace Util::Game {
-    CollisionEvent::CollisionEvent(Entity &other, RectangleCollidedSide rectangleCollidedSide)
-            : Event(), other{other}, rectangleCollidedSide{rectangleCollidedSide} {
+    CollisionEvent::CollisionEvent(Entity &other, Collision collision) : Event(), other{other}, collision{collision} {
 
     }
 
@@ -15,7 +16,10 @@ namespace Util::Game {
     }
 
     RectangleCollidedSide CollisionEvent::getRectangleCollidedSide() {
-        return rectangleCollidedSide;
+        return {};
     }
 
+    Collision CollisionEvent::getCollision() {
+        return collision;
+    }
 }
