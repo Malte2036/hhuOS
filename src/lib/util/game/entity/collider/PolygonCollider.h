@@ -7,13 +7,14 @@
 
 #include "lib/util/game/entity/collider/Collider.h"
 #include "lib/util/data/Pair.h"
+#include "lib/util/game/Polygon.h"
 
 namespace Util::Game {
     class PolygonCollider : Collider {
         friend class Scene;
 
     public:
-        explicit PolygonCollider(Util::Data::Array<Vector2> &vertices, ColliderType colliderType = DYNAMIC_COLLIDER);
+        explicit PolygonCollider(Polygon &polygon, ColliderType colliderType = DYNAMIC_COLLIDER);
 
         /**
          * Copy Constructor.
@@ -25,15 +26,17 @@ namespace Util::Game {
          */
         PolygonCollider &operator=(const PolygonCollider &other) = delete;
 
-        bool isColliding(PolygonCollider other);
+        bool isColliding(PolygonCollider &other);
+
+        Polygon &getPolygon();
 
     private:
         static Data::Pair<double, double>
-        projectPolygonOnAxis(Util::Data::Array<Vector2> &vertices, const Vector2 &axis);
+        projectPolygonOnAxis(Util::Data::Array<Vector2> vertices, const Vector2 &axis);
 
-        Util::Data::Array<Vector2> &vertices;
+        Polygon &polygon;
 
-        static Vector2 getAxes(Data::Array <Vector2> &vertices, int index);
+        static Vector2 getAxes(Data::Array<Vector2> vertices, int index);
     };
 }
 

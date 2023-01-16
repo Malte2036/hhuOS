@@ -87,13 +87,25 @@ namespace Util::Game {
     void Scene::checkCollision() {
         auto detectedCollisions = Data::ArrayList<Data::Pair<Entity *, Entity *>>();
         for (Entity *entity: entities) {
+            if (entity->getTag() != "Player") {
+                break;
+            }
             if (entity->positionChanged) {
                 for (Entity *otherEntity: entities) {
-                    if(entity->getPolygonCollider() != nullptr && otherEntity->getPolygonCollider() != nullptr){
-                        entity->getPolygonCollider()->isColliding(*otherEntity->getPolygonCollider());
-                        break;
-                    }
                     if (entity != otherEntity && !detectedCollisions.contains(createEntityPair(entity, otherEntity))) {
+                        auto polyCol = entity->getPolygonCollider();
+                        auto otherPolyCol = otherEntity->getPolygonCollider();
+                        if (polyCol != nullptr && otherPolyCol != nullptr) {
+                            auto isColliding = polyCol->isColliding(*otherPolyCol);
+                            if (isColliding) {
+                                auto side = BOTTOM_SIDE;
+                                //entity->collisionEvent(new CollisionEvent(*otherEntity, side));
+                                detectedCollisions.add(createEntityPair(entity, otherEntity));
+                            }
+                            break;
+                        }
+                    }
+                    /*if (entity != otherEntity && !detectedCollisions.contains(createEntityPair(entity, otherEntity))) {
                         auto side = entity->getCollider()->isColliding(*otherEntity->getCollider());
                         if (side != NO_SIDE) {
                             entity->collisionEvent(new CollisionEvent(*otherEntity, side));
@@ -121,7 +133,7 @@ namespace Util::Game {
 
                             detectedCollisions.add(createEntityPair(entity, otherEntity));
                         }
-                    }
+                    }*/
                 }
             }
         }

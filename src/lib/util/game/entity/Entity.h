@@ -85,7 +85,7 @@ namespace Util::Game {
 
         [[nodiscard]] RectangleCollider *getCollider() const;
 
-        [[nodiscard]] PolygonCollider *getPolygonCollider() const;
+        [[nodiscard]] PolygonCollider *getPolygonCollider();
 
         /**
          * call this function, to add Components to this Entity. For example the GravityComponent.
@@ -108,8 +108,8 @@ namespace Util::Game {
         Memory::String tag;
         Vector2 position;
 
-        RectangleCollider *collider;
-        PolygonCollider *polygonCollider;
+        RectangleCollider *collider = nullptr;
+        PolygonCollider *polygonCollider = nullptr;
 
         Data::ArrayList<Component *> components;
     };

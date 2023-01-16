@@ -29,7 +29,7 @@ public:
     /**
      * Constructor.
      */
-    explicit Polygon(const Data::Array<Vector2> &vertices);
+    explicit Polygon(const Data::Array<Vector2>& vertices);
 
     /**
      * Copy Constructor.
@@ -54,12 +54,19 @@ public:
 
     void draw(Graphics2D &graphics) const override;
 
+    Vector2 getCenter();
+
+    Data::Array<Vector2> getVertices();
+
+    void setPosition(const Vector2 &newPosition);
+
 private:
 
     void calculateCenter();
 
     Data::Array<Vector2> vertices;
     Vector2 center;
+
 };
 
 }

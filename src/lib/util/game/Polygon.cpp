@@ -63,4 +63,17 @@ namespace Util::Game {
         center = temp / (int) vertices.length();
     }
 
+    void Polygon::setPosition(const Vector2 &newPosition) {
+        auto translation = newPosition - center;
+        translate(translation);
+    }
+
+    Vector2 Polygon::getCenter() {
+        return center;
+    }
+
+    Data::Array<Vector2> Polygon::getVertices() {
+        return vertices;
+    }
+
 }

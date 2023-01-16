@@ -41,10 +41,10 @@ PlatformerPlayerEntity::PlatformerPlayerEntity(const Util::Memory::String &tag, 
 
     collider = new Util::Game::RectangleCollider(position, height * (big ? 2 : 1), width, Util::Game::DYNAMIC_COLLIDER);
 
-    auto vertices = Util::Data::Array<Vector2>(
+    auto vertices = new Util::Data::Array<Vector2>(
             {position, position + Vector2(0, height), position + Vector2(width, height), position + Vector2(width, 0)});
-    auto polygon = Util::Game::Polygon(vertices);
-    polygonCollider = new Util::Game::PolygonCollider(vertices, Util::Game::DYNAMIC_COLLIDER);
+    auto polygon = new Util::Game::Polygon(*vertices);
+    polygonCollider = new Util::Game::PolygonCollider(*polygon, Util::Game::DYNAMIC_COLLIDER);
 }
 
 
@@ -53,6 +53,8 @@ void PlatformerPlayerEntity::draw(Util::Game::Graphics2D &graphics) const {
     if (collider != nullptr) {
         //graphics.drawRectangle(position, collider->getHeight(), collider->getWidth());
     }
+    graphics.setColor(Util::Graphic::Colors::RED);
+    graphics.drawPolygon(polygonCollider->getPolygon().getVertices());
 }
 
 void PlatformerPlayerEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {

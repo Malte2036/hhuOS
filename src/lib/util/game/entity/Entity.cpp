@@ -39,6 +39,9 @@ namespace Util::Game {
         if (collider != nullptr) {
             collider->setPosition(position);
         }
+        if (polygonCollider != nullptr && tag == "Player") {
+            polygonCollider->getPolygon().setPosition(position);
+        }
         positionChanged = true;
     }
 
@@ -110,7 +113,7 @@ namespace Util::Game {
         return collider;
     }
 
-    PolygonCollider *Entity::getPolygonCollider() const {
-        return  polygonCollider;
+    PolygonCollider *Entity::getPolygonCollider() {
+        return polygonCollider;
     }
 }

@@ -5,6 +5,7 @@
 #include "PlatformerScene1.h"
 #include "lib/util/game/GameManager.h"
 #include "lib/util/game/entity/component/GravityComponent.h"
+#include "lib/util/game/entity/component/LinearMovementComponent.h"
 #include "application/platformer/PlatformerGame.h"
 #include "application/platformer/special/PlatformerChestEntity.h"
 
