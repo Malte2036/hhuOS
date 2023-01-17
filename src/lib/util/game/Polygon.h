@@ -64,6 +64,8 @@ private:
 
     void calculateCenter();
 
+    Vector2 getTopLeft();
+
     Data::Array<Vector2> vertices;
     Vector2 center;
 

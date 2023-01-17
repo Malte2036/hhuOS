@@ -23,7 +23,7 @@ namespace Util::Game {
 
 
             if ((range.first - rangeOther.second > 0) || (rangeOther.first - range.second > 0)) {
-                //return {0, Vector2()};;
+                return {0, Vector2()};;
             }
 
             double overlap = getOverlap(range, rangeOther);
@@ -31,7 +31,6 @@ namespace Util::Game {
                 smallestOverlap = {overlap, axis};
             }
         }
-
         return smallestOverlap;
     }
 

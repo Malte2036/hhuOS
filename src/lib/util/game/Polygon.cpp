@@ -64,12 +64,25 @@ namespace Util::Game {
     }
 
     void Polygon::setPosition(const Vector2 &newPosition) {
-        auto translation = newPosition - center;
+        auto translation = newPosition - getTopLeft();
         translate(translation);
     }
 
     Vector2 Polygon::getCenter() {
         return center;
+    }
+
+    Vector2 Polygon::getTopLeft() {
+        Vector2 topLeft = vertices[0];
+        for (auto &vertex: vertices) {
+            if (vertex.getX() < topLeft.getX()) {
+                topLeft = Vector2(vertex.getX(), topLeft.getY());
+            }
+            if (vertex.getY() < topLeft.getY()) {
+                topLeft = Vector2(topLeft.getX(), vertex.getY());
+            }
+        }
+        return topLeft;
     }
 
     Data::Array<Vector2> Polygon::getVertices() {
