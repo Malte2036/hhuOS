@@ -18,7 +18,14 @@
 #ifndef HHUOS_PIXELDRAWER_H
 #define HHUOS_PIXELDRAWER_H
 
-#include "LinearFrameBuffer.h"
+#include <cstdint>
+
+namespace Util {
+namespace Graphic {
+class Color;
+class LinearFrameBuffer;
+}  // namespace Graphic
+}  // namespace Util
 
 namespace Util::Graphic {
 
@@ -57,7 +64,7 @@ public:
      * @param y The y-coordinate
      * @param color The color
      */
-    void drawPixel(int32_t x, int32_t y, const Color &color) const ;
+    void drawPixel(uint16_t x, uint16_t y, const Color &color) const ;
 
 private:
 

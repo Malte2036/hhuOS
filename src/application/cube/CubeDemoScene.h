@@ -20,7 +20,12 @@ private:
 
     void drawInitialBackground(Util::Game::Graphics2D &graphics) override;
 
-    void keyPressed(char c) override;
+public:
+    void keyPressed(Util::Io::Key key) override;
+
+    void keyReleased(Util::Io::Key key) override;
+
+private:
 
     static const constexpr uint32_t NUM_CUBES = 4;
     Cube *cubes[NUM_CUBES] = {new Cube(-0.5, 0.5, 0.25), new Cube(0.5, 0.5, 0.25), new Cube(0.5, -0.5, 0.25), new Cube(-0.5, -0.5, 0.25)};

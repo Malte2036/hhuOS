@@ -18,8 +18,8 @@
 #ifndef HHUOS_DEMOPOLYGONFACTORY_H
 #define HHUOS_DEMOPOLYGONFACTORY_H
 
-#include "DemoPolygon.h"
 #include "lib/util/math/Random.h"
+#include "DemoPolygon.h"
 
 class DemoPolygonFactory {
 
@@ -48,7 +48,7 @@ public:
 
 private:
 
-    Util::Math::Random random = Util::Math::Random(256);
+    Util::Math::Random random = Util::Math::Random();
 
     static const Util::Data::Array<Vector2> shape1;
     static const Util::Data::Array<Vector2> shape2;

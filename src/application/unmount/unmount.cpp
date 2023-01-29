@@ -16,17 +16,34 @@
  */
 
 #include <cstdint>
+
 #include "lib/util/system/System.h"
+#include "lib/util/ArgumentParser.h"
+#include "lib/util/data/Array.h"
+#include "lib/util/file/File.h"
+#include "lib/util/stream/PrintWriter.h"
 
 int32_t main(int32_t argc, char *argv[]) {
-    if (argc < 2) {
+    auto argumentParser = Util::ArgumentParser();
+    argumentParser.setHelpText("Unmount a device from a path.\n"
+                               "Usage: unmount [PATH]\n"
+                               "Options:\n"
+                               "  -h, --help: Show this help message");
+
+    if (!argumentParser.parse(argc, argv)) {
+        Util::System::error << argumentParser.getErrorString() << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
+        return -1;
+    }
+
+    auto arguments = argumentParser.getUnnamedArguments();
+    if (arguments.length() == 0) {
         Util::System::error << "unmount: No arguments provided!" << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
         return -1;
     }
 
-    auto success = Util::File::unmount(argv[1]);
+    auto success = Util::File::unmount(arguments[0]);
     if (!success) {
-        Util::System::error << "unmount: Failed to unmount '" << argv[1] << "'!" << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
+        Util::System::error << "unmount: Failed to unmount '" << arguments[0] << "'!" << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
     }
 
     return success ? 0 : -1;

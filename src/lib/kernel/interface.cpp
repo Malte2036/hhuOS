@@ -16,6 +16,7 @@
  */
 
 #include "lib/interface.h"
+
 #include "device/cpu/Cpu.h"
 #include "kernel/process/Process.h"
 #include "kernel/system/System.h"
@@ -24,6 +25,19 @@
 #include "kernel/service/TimeService.h"
 #include "kernel/service/PowerManagementService.h"
 #include "kernel/service/ProcessService.h"
+#include "filesystem/core/Node.h"
+#include "kernel/process/Thread.h"
+#include "kernel/service/SchedulerService.h"
+#include "kernel/service/NetworkService.h"
+#include "kernel/network/Socket.h"
+#include "lib/util/memory/Address.h"
+#include "lib/util/network/Datagram.h"
+
+namespace Util {
+namespace Async {
+class Runnable;
+}  // namespace Async
+}  // namespace Util
 
 extern uint32_t scheduler_initialized;
 
@@ -124,6 +138,32 @@ bool changeDirectory(const Util::Memory::String &path) {
 
 Util::File::File getCurrentWorkingDirectory() {
     return Kernel::System::getService<Kernel::ProcessService>().getCurrentProcess().getWorkingDirectory();
+}
+
+int32_t createSocket(Util::Network::Socket::Type socketType) {
+    return Kernel::System::getService<Kernel::NetworkService>().createSocket(socketType);
+}
+
+bool sendDatagram(int32_t fileDescriptor, const Util::Network::Datagram &datagram) {
+    auto &socket = reinterpret_cast<Kernel::Network::Socket&>(Kernel::System::getService<Kernel::FilesystemService>().getNode(fileDescriptor));
+    return socket.send(datagram);
+}
+
+bool receiveDatagram(int32_t fileDescriptor, Util::Network::Datagram &datagram) {
+    auto &socket = reinterpret_cast<Kernel::Network::Socket&>(Kernel::System::getService<Kernel::FilesystemService>().getNode(fileDescriptor));
+    auto *kernelDatagram = socket.receive();
+    auto *datagramBuffer = new uint8_t[kernelDatagram->getLength()];
+
+    auto source = Util::Memory::Address<uint32_t>(kernelDatagram->getData());
+    auto target = Util::Memory::Address<uint32_t>(datagramBuffer);
+    target.copyRange(source, kernelDatagram->getLength());
+
+    datagram.setData(datagramBuffer, kernelDatagram->getLength());
+    datagram.setRemoteAddress(kernelDatagram->getRemoteAddress());
+    datagram.setAttributes(*kernelDatagram);
+
+    delete kernelDatagram;
+    return true;
 }
 
 Util::Async::Process executeBinary(const Util::File::File &binaryFile, const Util::File::File &inputFile, const Util::File::File &outputFile, const Util::File::File &errorFile, const Util::Memory::String &command, const Util::Data::Array<Util::Memory::String> &arguments) {

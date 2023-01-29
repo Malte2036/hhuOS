@@ -15,36 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include "lib/util/memory/Address.h"
 #include "PcSpeaker.h"
 #include "PcSpeakerNode.h"
 
 namespace Device::Sound {
 
-PcSpeakerNode::PcSpeakerNode(const Util::Memory::String &name) : MemoryNode(name) {}
+PcSpeakerNode::PcSpeakerNode(const Util::Memory::String &name) : StringNode(name) {}
 
-uint64_t PcSpeakerNode::getLength() {
-    return buffer.length();
+Util::Memory::String PcSpeakerNode::getString() {
+    return buffer;
 }
 
 Util::File::Type PcSpeakerNode::getFileType() {
     return Util::File::CHARACTER;
-}
-
-uint64_t PcSpeakerNode::readData(uint8_t *targetBuffer, uint64_t pos, uint64_t numBytes) {
-    if (pos >= buffer.length()) {
-        return 0;
-    }
-
-    if (pos + numBytes > buffer.length()) {
-        numBytes = (buffer.length() - pos);
-    }
-
-    auto sourceAddress = Util::Memory::Address<uint32_t>(static_cast<const char*>(buffer)).add(pos);
-    auto targetAddress = Util::Memory::Address<uint32_t>(targetBuffer);
-    targetAddress.copyRange(sourceAddress, numBytes);
-
-    return numBytes;
 }
 
 uint64_t PcSpeakerNode::writeData(const uint8_t *sourceBuffer, uint64_t pos, uint64_t numBytes) {

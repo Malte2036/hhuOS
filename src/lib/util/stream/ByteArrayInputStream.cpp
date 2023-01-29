@@ -20,7 +20,15 @@
 
 namespace Util::Stream {
 
-ByteArrayInputStream::ByteArrayInputStream(uint8_t *buffer, uint32_t size) : buffer(buffer), size(size) {}
+ByteArrayInputStream::ByteArrayInputStream(uint8_t *buffer, uint32_t size, bool deleteBuffer) : buffer(buffer), size(size), deleteBuffer(deleteBuffer) {}
+
+ByteArrayInputStream::ByteArrayInputStream(Network::Datagram &datagram) : ByteArrayInputStream(datagram.getData(), datagram.getLength(), false) {}
+
+ByteArrayInputStream::~ByteArrayInputStream() {
+    if (deleteBuffer) {
+        delete[] buffer;
+    }
+}
 
 int16_t ByteArrayInputStream::read() {
     if (position >= size) {
@@ -44,8 +52,24 @@ int32_t ByteArrayInputStream::read(uint8_t *targetBuffer, uint32_t offset, uint3
     return count;
 }
 
-uint8_t *ByteArrayInputStream::getBuffer() {
+const uint8_t* ByteArrayInputStream::getBuffer() const {
     return buffer;
+}
+
+uint32_t ByteArrayInputStream::getLength() const {
+    return size;
+}
+
+uint32_t ByteArrayInputStream::getPosition() const {
+    return position;
+}
+
+uint32_t ByteArrayInputStream::getRemaining() const {
+    return size - position;
+}
+
+bool ByteArrayInputStream::isEmpty() const {
+    return size == 0;
 }
 
 }

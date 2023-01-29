@@ -18,7 +18,8 @@
 #ifndef HHUOS_BYTEARRAYOUTPUTSTREAM_H
 #define HHUOS_BYTEARRAYOUTPUTSTREAM_H
 
-#include "lib/util/data/Array.h"
+#include <cstdint>
+
 #include "lib/util/memory/String.h"
 #include "OutputStream.h"
 
@@ -38,9 +39,13 @@ public:
 
     ~ByteArrayOutputStream() override;
 
-    [[nodiscard]] uint32_t getSize() const;
+    [[nodiscard]] uint32_t getLength() const;
 
     [[nodiscard]] bool isEmpty() const;
+
+    [[nodiscard]] uint32_t getPosition() const;
+
+    [[nodiscard]] uint8_t* getBuffer() const;
 
     void getContent(uint8_t *target, uint32_t length) const;
 

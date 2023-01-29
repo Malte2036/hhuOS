@@ -16,8 +16,16 @@
  */
 
 #include "PrintWriter.h"
+
 #include "OutputStreamWriter.h"
 #include "ByteArrayOutputStream.h"
+#include "lib/util/stream/Writer.h"
+
+namespace Util {
+namespace Stream {
+class OutputStream;
+}  // namespace Stream
+}  // namespace Util
 
 namespace Util::Stream {
 
@@ -91,13 +99,6 @@ void PrintWriter::print(uint32_t number) {
     char digit;
     uint8_t currentBase = base;
 
-    if (currentBase == 8)
-        write('0');
-    else if (currentBase == 16) {
-        write('0');
-        write('x');
-    }
-
     auto numberStream = Stream::ByteArrayOutputStream();
     auto numberWriter = Stream::PrintWriter(numberStream);
 
@@ -116,7 +117,7 @@ void PrintWriter::print(uint32_t number) {
         number %= div;
     }
 
-    for (uint32_t i = numberStream.getSize(); i < numberPadding; i++) {
+    for (uint32_t i = numberStream.getLength(); i < numberPadding; i++) {
         write('0');
     }
 

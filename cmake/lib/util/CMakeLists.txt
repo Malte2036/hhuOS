@@ -23,7 +23,8 @@ include_directories(${HHUOS_SRC_DIR})
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE_FILES})
 
-target_sources(lib.util PUBLIC
+target_sources(${PROJECT_NAME} PUBLIC
+        ${HHUOS_SRC_DIR}/lib/util/ArgumentParser.cpp
         ${HHUOS_SRC_DIR}/lib/util/Exception.cpp)
 
 # Add subdirectories
@@ -33,8 +34,10 @@ add_subdirectory(file)
 add_subdirectory(game)
 add_subdirectory(graphic)
 add_subdirectory(log)
+add_subdirectory(io)
 add_subdirectory(math)
 add_subdirectory(memory)
+add_subdirectory(network)
 add_subdirectory(reflection)
 add_subdirectory(stream)
 add_subdirectory(system)

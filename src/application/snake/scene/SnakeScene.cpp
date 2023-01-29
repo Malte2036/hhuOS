@@ -39,8 +39,8 @@ void SnakeScene::onUpdate(double dt) {
     }
 }
 
-void SnakeScene::keyPressed(char c) {
-    switch (c) {
+void SnakeScene::keyPressed(Util::Io::Key key) {
+    switch (key.getAscii()) {
         case 'w':
             snake->setDirection(up);
             break;
@@ -60,3 +60,8 @@ void SnakeScene::keyPressed(char c) {
             snake->setColor(Util::Graphic::Colors::RED);
     }
 }
+
+void SnakeScene::keyReleased(Util::Io::Key key) {
+
+}
+

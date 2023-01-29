@@ -20,18 +20,18 @@ void PolygonDemoScene::init() {
     setKeyListener(*this);
 }
 
-void PolygonDemoScene::onUpdate(double dt) {
-    for (auto &polygon: polygons) {
-        polygon->update(dt);
-    }
-}
-
 void PolygonDemoScene::drawInitialBackground(Util::Game::Graphics2D &graphics) {
 
 }
 
-void PolygonDemoScene::keyPressed(char c) {
-    switch (c) {
+void PolygonDemoScene::onUpdate(double dt) {
+    for (auto &polygon : polygons) {
+        polygon->update(dt);
+    }
+}
+
+void PolygonDemoScene::keyPressed(Util::Io::Key key) {
+    switch (key.getAscii()) {
         case '+': {
             auto *polygon = factory.createPolygon();
             polygons.offer(polygon);
@@ -47,4 +47,8 @@ void PolygonDemoScene::keyPressed(char c) {
         default:
             Util::Game::GameManager::getGame<PolygonDemo>()->stop();
     }
+}
+
+void PolygonDemoScene::keyReleased(Util::Io::Key key) {
+
 }

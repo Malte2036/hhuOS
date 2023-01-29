@@ -1,4 +1,5 @@
 #include "DemoPolygonFactory.h"
+#include "lib/util/math/Vector2.h"
 
 const Util::Data::Array<Vector2> DemoPolygonFactory::shape1 = {
         {0,   0},

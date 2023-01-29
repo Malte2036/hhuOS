@@ -18,7 +18,12 @@ private:
 
     void onUpdate(double dt) override;
 
-    void keyPressed(char c) override;
+public:
+    void keyPressed(Util::Io::Key key) override;
+
+    void keyReleased(Util::Io::Key key) override;
+
+private:
 
     DemoEntity *player = nullptr;
 };

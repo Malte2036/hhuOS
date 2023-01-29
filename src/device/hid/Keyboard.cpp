@@ -20,45 +20,22 @@
 #include "kernel/system/System.h"
 #include "filesystem/memory/StreamNode.h"
 #include "Keyboard.h"
+#include "lib/util/io/Key.h"
+#include "device/hid/Ps2Controller.h"
+#include "device/hid/Ps2Device.h"
+#include "device/interrupt/Pic.h"
+#include "filesystem/core/Filesystem.h"
+#include "filesystem/memory/MemoryDriver.h"
+#include "kernel/interrupt/InterruptDispatcher.h"
+#include "kernel/log/Logger.h"
+
+namespace Kernel {
+struct InterruptFrame;
+}  // namespace Kernel
 
 namespace Device {
 
 Kernel::Logger Keyboard::log = Kernel::Logger::get("Keyboard");
-
-uint8_t Keyboard::normalTab[] = {
-        0, 0, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 225, 39, '\b',
-        '\t', 'q', 'w', 'e', 'r', 't', 'z', 'u', 'i', 'o', 'p', 129, '+', '\n',
-        0, 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 148, 132, '^', 0, '#',
-        'y', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '-', 0,
-        '*', 0, ' ', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '-',
-        0, 0, 0, '+', 0, 0, 0, 0, 0, 0, 0, '<', 0, 0
-};
-
-uint8_t Keyboard::shiftTab[] = {
-        0, 0, '!', '"', 21, '$', '%', '&', '/', '(', ')', '=', '?', 96, 0,
-        0, 'Q', 'W', 'E', 'R', 'T', 'Z', 'U', 'I', 'O', 'P', 154, '*', 0,
-        0, 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 153, 142, 248, 0, 39,
-        'Y', 'X', 'C', 'V', 'B', 'N', 'M', ';', ':', '_', 0,
-        0, 0, ' ', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '>', 0, 0
-};
-
-uint8_t Keyboard::altTab[] = {
-        0, 0, 0, 253, 0, 0, 0, 0, '{', '[', ']', '}', '\\', 0, 0,
-        0, '@', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '~', 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 230, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '|', 0, 0
-};
-
-uint8_t Keyboard::asciiNumTab[] = {
-        '7', '8', '9', '-', '4', '5', '6', '+', '1', '2', '3', '0', ','
-};
-
-uint8_t Keyboard::scanNumTab[] = {
-        8, 9, 10, 53, 5, 6, 7, 27, 2, 3, 4, 11, 51
-};
 
 Keyboard::Keyboard(Ps2Controller &controller) : Ps2Device(controller, Ps2Controller::FIRST), Util::Stream::FilterInputStream(inputStream) {
     outputStream.connect(inputStream);
@@ -83,7 +60,7 @@ Keyboard* Keyboard::initialize(Ps2Controller &controller) {
             log.info("Keyboard has been reset and self test result is OK");
             break;
         } else if (reply == SELF_TEST_FAILED_1 || reply == SELF_TEST_FAILED_2) {
-            log.error("Keyboard has been reset but self test result is error code [%02x]", reply);
+            log.error("Keyboard has been reset but self test result is error code [0x%02x]", reply);
             delete keyboard;
             return nullptr;
         }
@@ -111,11 +88,11 @@ Keyboard* Keyboard::initialize(Ps2Controller &controller) {
                 log.info("Detected MF2 keyboard with need for translation");
                 controller.enableKeyboardTranslation();
             } else {
-                log.warn("Detected MF2 keyboard with unknown subtype [%02x] -> Assuming translation is not needed",
+                log.warn("Detected MF2 keyboard with unknown subtype [0x%02x] -> Assuming translation is not needed",
                          subtype);
             }
         } else {
-            log.error("Device connected to first PS/2 port reports as [%02x:%02x], which is not a valid keyboard", type, subtype);
+            log.error("Device connected to first PS/2 port reports as [0x%02x:0x%02x], which is not a valid keyboard", type, subtype);
             delete keyboard;
             return nullptr;
         }
@@ -176,126 +153,6 @@ bool Keyboard::writeKeyboardCommand(Command command, uint8_t data) {
     return reply == ACK;
 }
 
-bool Keyboard::decodeKey(uint8_t code) {
-    bool done = false;
-    bool isBreak =(code & BREAK_BIT);
-
-    if (isBreak) {
-        gather.setPressed(false);
-    } else {
-        gather.setPressed(true);
-    }
-
-    if (code == PREFIX1 || code == PREFIX2) {
-        prefix = code;
-        return false;
-    }
-
-    if (code & BREAK_BIT) {
-        code &= ~BREAK_BIT;
-
-        switch(code) {
-            case 42:
-            case 54:
-                gather.setShift(false);
-                break;
-            case 56:
-                if(prefix == PREFIX1) {
-                    gather.setAltRight(false);
-                } else {
-                    gather.setAltLeft(false);
-                }
-                break;
-            case 29:
-                if(prefix == PREFIX1) {
-                    gather.setCtrlRight(false);
-                } else {
-                    gather.setCtrlLeft(false);
-                }
-                break;
-            default:
-                return false;
-        }
-
-        prefix = 0;
-
-        return false;
-    }
-
-    switch (code) {
-        case 42:
-        case 54:
-            gather.setShift(true);
-            break;
-        case 56:
-            if(prefix == PREFIX1) {
-                gather.setAltRight(true);
-            } else {
-                gather.setAltLeft(true);
-            }
-            break;
-        case 29:
-            if(prefix == PREFIX1) {
-                gather.setCtrlRight(true);
-            } else {
-                gather.setCtrlLeft(true);
-            }
-            break;
-        case 58:
-            gather.setCapsLock(!gather.getCapsLock());
-            setLed(CAPS_LOCK, gather.getCapsLock());
-            break;
-        case 70:
-            gather.setScrollLock(!gather.getScrollLock());
-            setLed(SCROLL_LOCK, gather.getScrollLock());
-            break;
-        case 69:
-            if(gather.getCtrlLeft()) {
-                getAsciiCode(code);
-                done = true;
-            }
-            else {
-                gather.setNumLock(!gather.getNumLock());
-                setLed(NUM_LOCK, gather.getNumLock());
-            }
-            break;
-
-        default:
-            getAsciiCode(code);
-            done = true;
-    }
-
-    prefix = 0;
-    return done;
-}
-
-void Keyboard::getAsciiCode(uint8_t code) {
-    if(code == 53 && prefix == PREFIX1) {
-        gather.setAscii('/');
-        gather.setScancode(Key::DIV);
-    } else if(gather.getNumLock() && !prefix && code >= 71 && code <= 83) {
-        gather.setAscii(asciiNumTab[code-71]);
-        gather.setScancode(scanNumTab[code-71]);
-    } else if(gather.getAltRight()) {
-        gather.setAscii(altTab[code]);
-        gather.setScancode(code);
-    } else if(gather.getShift()) {
-        gather.setAscii(shiftTab[code]);
-        gather.setScancode(code);
-    } else if(gather.getCapsLock()) {
-        if((code >= 16 && code <= 26) ||(code >= 30 && code <= 40) ||(code >= 44 && code <= 50)) {
-            gather.setAscii(shiftTab[code]);
-            gather.setScancode(code);
-        } else {
-            gather.setAscii(normalTab[code]);
-            gather.setScancode(code);
-        }
-    } else {
-        gather.setAscii(normalTab[code]);
-        gather.setScancode(code);
-    }
-}
-
 void Keyboard::setLed(Led led, bool on) {
     auto tmpLeds = on ? leds | led : leds & ~led;
     if (writeKeyboardCommand(SET_LED, tmpLeds)) {
@@ -316,31 +173,7 @@ void Keyboard::trigger(const Kernel::InterruptFrame &frame) {
     }
 
     uint8_t data = controller.readDataByte();
-    if (decodeKey(data)) {
-        auto c = gather.getAscii();
-        if (c == 0) {
-            switch (gather.getScancode()) {
-                case 0x48:
-                    outputStream.write(reinterpret_cast<const uint8_t*>("\u001b[1A"), 0, 4);
-                    break;
-                case 0x50:
-                    outputStream.write(reinterpret_cast<const uint8_t*>("\u001b[1B"), 0, 4);
-                    break;
-                case 0x4D:
-                    outputStream.write(reinterpret_cast<const uint8_t*>("\u001b[1C"), 0, 4);
-                    break;
-                case 0x4B:
-                    outputStream.write(reinterpret_cast<const uint8_t*>("\u001b[1D"), 0, 4);
-                    break;
-            }
-        } else {
-            if (gather.getCtrl()) {
-                c &= 0x1f;
-            }
-
-            outputStream.write(c);
-        }
-    }
+    outputStream.write(data);
 }
 
 }

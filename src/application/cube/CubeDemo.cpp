@@ -18,5 +18,4 @@
 #include "CubeDemo.h"
 
 void CubeDemo::onUpdate(double dt) {
-
 }

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2018-2022 Heinrich-Heine-Universitaet Duesseldorf,
  * Institute of Computer Science, Department Operating Systems
- * Burak Akguel, Christian Gesse, Fabian Ruhland, Filip Krakowski, Hannes Feil, Michael Schoettner
+ * Burak Akguel, Christian Gesse, Fabian Ruhland, Filip Krakowski, Michael Schoettner
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
  * License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
@@ -18,15 +18,24 @@
 #ifndef HHUOS_NETWORKDEVICE_H
 #define HHUOS_NETWORKDEVICE_H
 
-#include "kernel/interrupt/InterruptHandler.h"
+#include <cstdint>
+
 #include "kernel/memory/BitmapMemoryManager.h"
-#include "lib/util/stream/FilterInputStream.h"
-#include "lib/util/stream/OutputStream.h"
-#include "lib/util/stream/PipedOutputStream.h"
-#include "lib/util/stream/ByteArrayInputStream.h"
 #include "lib/util/data/ArrayBlockingQueue.h"
-#include "network/MacAddress.h"
+#include "lib/util/network/MacAddress.h"
 #include "kernel/log/Logger.h"
+#include "lib/util/async/Spinlock.h"
+#include "lib/util/data/Array.h"
+#include "lib/util/data/Collection.h"
+#include "lib/util/data/Iterator.h"
+#include "lib/util/memory/String.h"
+
+namespace Device {
+namespace Network {
+class PacketReader;
+class PacketWriter;
+}  // namespace Network
+}  // namespace Device
 
 namespace Device::Network {
 
@@ -35,11 +44,22 @@ namespace Device::Network {
  */
 class NetworkDevice {
 
+friend class PacketReader;
+friend class PacketWriter;
+
 public:
+
+    struct Packet {
+        uint8_t *buffer;
+        uint32_t length;
+
+        bool operator==(const Packet &other) const;
+    };
+
     /**
      * Default Constructor.
      */
-    NetworkDevice();
+    explicit NetworkDevice(const Util::Memory::String &identifier);
 
     /**
      * Copy-constructor.
@@ -56,28 +76,38 @@ public:
      */
     virtual ~NetworkDevice();
 
-    /**
-     * Read the MAC-address into a given buffer.
-     *
-     * @param buf The buffer to read the MAC-address into.
-     */
-    virtual ::Network::MacAddress getMacAddress() = 0;
+    [[nodiscard]] Util::Memory::String getIdentifier() const;
 
-    virtual void sendPacket(const uint8_t *packet, uint32_t length) = 0;
+    [[nodiscard]] virtual Util::Network::MacAddress getMacAddress() const = 0;
 
-    Util::Stream::InputStream* getNextPacket();
+    void sendPacket(const uint8_t *packet, uint32_t length);
+
+    Packet getNextIncomingPacket();
+
+    Packet getNextOutgoingPacket();
 
 protected:
 
-    void handlePacket(const uint8_t *packet, uint32_t length);
+    virtual void handleOutgoingPacket(const uint8_t *packet, uint32_t length) = 0;
+
+    void handleIncomingPacket(const uint8_t *packet, uint32_t length);
 
 private:
 
+    void freePacketBuffer(void *buffer);
+
+    Util::Memory::String identifier;
+
     uint8_t *packetMemory;
     Kernel::BitmapMemoryManager packetMemoryManager;
-    Util::Data::ArrayBlockingQueue<Util::Stream::ByteArrayInputStream*> packetQueue;
+    Util::Data::ArrayBlockingQueue<Packet> incomingPacketQueue;
+    Util::Data::ArrayBlockingQueue<Packet> outgoingPacketQueue;
+    Util::Async::Spinlock outgoingPacketLock;
 
-    static Kernel::Logger log;
+    PacketReader *reader;
+    PacketWriter *writer;
+
+    Kernel::Logger log;
 
     static const constexpr uint32_t PACKET_BUFFER_SIZE = 2048;
     static const constexpr uint32_t MAX_BUFFERED_PACKETS = 16;

@@ -71,8 +71,8 @@ void PlatformerScene1::onUpdate(double delta) {
     scoreText->increaseScore();
 }
 
-void PlatformerScene1::keyPressed(char c) {
-    switch (c) {
+void PlatformerScene1::keyPressed(Util::Io::Key key) {
+    switch (key.getAscii()) {
         case 'a':
             player->moveLeft();
             return;
@@ -86,4 +86,8 @@ void PlatformerScene1::keyPressed(char c) {
             Util::Game::GameManager::getGame<PlatformerGame>()->stop();
             return;
     }
+}
+
+void PlatformerScene1::keyReleased(Util::Io::Key key) {
+
 }

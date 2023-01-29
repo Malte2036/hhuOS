@@ -18,9 +18,15 @@
 #ifndef HHUOS_STRINGDRAWER_H
 #define HHUOS_STRINGDRAWER_H
 
-#include "lib/util/memory/String.h"
-#include "PixelDrawer.h"
-#include "Font.h"
+#include <cstdint>
+
+namespace Util {
+namespace Graphic {
+class Color;
+class Font;
+class PixelDrawer;
+}  // namespace Graphic
+}  // namespace Util
 
 namespace Util::Graphic {
 
@@ -63,7 +69,7 @@ public:
      * @param fgColor The foreground color
      * @param bgColor The background color
      */
-    void drawChar(const Font &font, int32_t x, int32_t y, char c, const Color &fgColor, const Color &bgColor) const;
+    void drawChar(const Font &font, uint16_t x, uint16_t y, char c, const Color &fgColor, const Color &bgColor) const;
 
     /**
      * Draw a null-terminated string at a given position.
@@ -75,7 +81,7 @@ public:
      * @param fgColor The foreground color
      * @param bgColor The background color
      */
-    void drawString(const Font &font, int32_t x, int32_t y, const char *string, const Color &fgColor, const Color &bgColor) const;
+    void drawString(const Font &font, uint16_t x, uint16_t y, const char *string, const Color &fgColor, const Color &bgColor) const;
 
 private:
 
@@ -91,7 +97,7 @@ private:
      * @param bgColor The background color
      * @param bitmap The bitmap's data.
      */
-    void drawMonoBitmap(int32_t x, int32_t y, int32_t width, int32_t height, const Color &fgColor, const Color &bgColor, uint8_t *bitmap) const;
+    void drawMonoBitmap(uint16_t x, uint16_t y, uint16_t width, uint16_t height, const Color &fgColor, const Color &bgColor, uint8_t *bitmap) const;
 
     const PixelDrawer &pixelDrawer;
 };

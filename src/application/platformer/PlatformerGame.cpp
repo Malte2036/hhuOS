@@ -10,6 +10,7 @@
 #include "lib/util/stream/FileReader.h"
 #include "application/platformer/block/PlatformerBrickBlockEntity.h"
 #include "application/platformer/block/PlatformerItemBlockEntity.h"
+#include "lib/util/file/File.h"
 
 void PlatformerGame::onUpdate(double delta) {
 

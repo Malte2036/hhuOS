@@ -19,15 +19,28 @@
 #define HHUOS_INTERFACE_H
 
 #include <cstdint>
+
 #include "lib/util/Exception.h"
-#include "filesystem/core/Node.h"
 #include "lib/util/file/File.h"
 #include "lib/util/time/Timestamp.h"
 #include "lib/util/time/Date.h"
 #include "lib/util/async/Process.h"
 #include "lib/util/system/Machine.h"
 #include "lib/util/async/Thread.h"
-#include "lib/util/async/Runnable.h"
+#include "lib/util/data/Array.h"
+#include "lib/util/file/Type.h"
+#include "lib/util/memory/String.h"
+#include "lib/util/network/Socket.h"
+
+namespace Util {
+namespace Network {
+class Datagram;
+}  // namespace Network
+
+namespace Async {
+class Runnable;
+}  // namespace Async
+}  // namespace Util
 
 void* allocateMemory(uint32_t size, uint32_t alignment = 0);
 void* reallocateMemory(void *pointer, uint32_t size, uint32_t alignment = 0);
@@ -51,6 +64,10 @@ uint64_t writeFile(int32_t fileDescriptor, const uint8_t *sourceBuffer, uint64_t
 bool controlFile(int32_t fileDescriptor, uint32_t request, const Util::Data::Array<uint32_t> &parameters);
 bool changeDirectory(const Util::Memory::String &path);
 Util::File::File getCurrentWorkingDirectory();
+
+int32_t createSocket(Util::Network::Socket::Type socketType);
+bool sendDatagram(int32_t fileDescriptor, const Util::Network::Datagram &datagram);
+bool receiveDatagram(int32_t fileDescriptor, Util::Network::Datagram &datagram);
 
 Util::Async::Process executeBinary(const Util::File::File &binaryFile, const Util::File::File &inputFile, const Util::File::File &outputFile, const Util::File::File &errorFile, const Util::Memory::String &command, const Util::Data::Array<Util::Memory::String> &arguments);
 Util::Async::Process getCurrentProcess();

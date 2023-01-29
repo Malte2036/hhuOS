@@ -15,23 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include "device/graphic/terminal/cga/ColorGraphicsAdapter.h"
-#include "kernel/service/FilesystemService.h"
-#include "kernel/system/System.h"
-#include "kernel/system/BlueScreen.h"
-#include "filesystem/memory/StreamNode.h"
-#include "Structure.h"
+#include <cstdint>
+
 #include "MultibootTerminalProvider.h"
+#include "device/graphic/terminal/cga/ColorGraphicsAdapter.h"
+#include "kernel/multiboot/Multiboot.h"
+#include "kernel/system/BlueScreen.h"
+#include "lib/util/Exception.h"
+#include "lib/util/memory/Address.h"
 
-namespace Kernel::Multiboot {
+namespace Kernel {
 
-MultibootTerminalProvider::MultibootTerminalProvider() : frameBufferInfo(Structure::getFrameBufferInfo()), supportedModes(1) {
-    supportedModes[0] = {frameBufferInfo.width, frameBufferInfo.height, frameBufferInfo.bpp, 0};
+MultibootTerminalProvider::MultibootTerminalProvider() : frameBufferInfo(Multiboot::getFrameBufferInfo()), supportedModes(1) {
+    supportedModes[0] = {static_cast<uint16_t>(frameBufferInfo.width), static_cast<uint16_t>(frameBufferInfo.height), frameBufferInfo.bpp, 0};
 }
 
 bool MultibootTerminalProvider::isAvailable() {
-    const auto &frameBufferInfo = Structure::getFrameBufferInfo();
-    return frameBufferInfo.type == FRAMEBUFFER_TYPE_EGA_TEXT && (frameBufferInfo.width == 80 || frameBufferInfo.width == 40) && frameBufferInfo.height == 25;
+    const auto &frameBufferInfo = Multiboot::getFrameBufferInfo();
+    return frameBufferInfo.type == Multiboot::EGA_TEXT && (frameBufferInfo.width == 80 || frameBufferInfo.width == 40) && frameBufferInfo.height == 25;
 }
 
 Util::Graphic::Terminal* MultibootTerminalProvider::initializeTerminal(const ModeInfo &modeInfo) {

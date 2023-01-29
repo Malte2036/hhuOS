@@ -15,13 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include "kernel/multiboot/Structure.h"
+#include <cstdint>
+
+#include "kernel/multiboot/Multiboot.h"
 #include "kernel/system/System.h"
-#include "kernel/interrupt/InterruptDispatcher.h"
 #include "kernel/paging/Paging.h"
 #include "kernel/service/InterruptService.h"
 #include "device/cpu/Cpu.h"
 #include "GatesOfHell.h"
+#include "device/power/acpi/Acpi.h"
+#include "kernel/log/Logger.h"
+#include "kernel/process/ThreadState.h"
+#include "kernel/service/SchedulerService.h"
+#include "kernel/system/TaskStateSegment.h"
 
 // Import functions
 extern "C" {
@@ -32,9 +38,10 @@ void _fini();
 extern "C" {
 void main();
 void init_gdt(uint16_t*, uint16_t*, uint16_t*, uint16_t*, uint16_t*);
-void copy_multiboot_info(Kernel::Multiboot::Info*, uint8_t*, uint32_t);
-void read_memory_map(Kernel::Multiboot::Info*);
-void initialize_system(Kernel::Multiboot::Info*);
+void copy_multiboot_info(const Kernel::Multiboot::Info*, uint8_t*, uint32_t);
+void copy_acpi_tables(uint8_t*, uint32_t);
+void read_memory_map(const Kernel::Multiboot::Info*);
+void initialize_system();
 void finish_system();
 void bootstrap_paging(uint32_t*, uint32_t*);
 void enable_interrupts();
@@ -55,16 +62,20 @@ void init_gdt(uint16_t *gdt, uint16_t *gdt_bios, uint16_t *gdt_descriptor, uint1
     Kernel::System::initializeGlobalDescriptorTables(gdt, gdt_bios, gdt_descriptor, gdt_bios_descriptor, gdt_phys_descriptor);
 }
 
-void copy_multiboot_info(Kernel::Multiboot::Info *source, uint8_t *destination, uint32_t max_bytes) {
-    Kernel::Multiboot::Structure::copyMultibootInfo(source, destination, max_bytes);
+void copy_multiboot_info(const Kernel::Multiboot::Info *source, uint8_t *destination, uint32_t maxBytes) {
+    Kernel::Multiboot::copyMultibootInfo(source, destination, maxBytes);
 }
 
-void read_memory_map(Kernel::Multiboot::Info *address) {
-    Kernel::Multiboot::Structure::readMemoryMap(address);
+void copy_acpi_tables(uint8_t *destination, uint32_t maxBytes) {
+    Device::Acpi::copyAcpiTables(destination, maxBytes);
 }
 
-void initialize_system(Kernel::Multiboot::Info *address) {
-    Kernel::System::initializeSystem(address);
+void read_memory_map(const Kernel::Multiboot::Info *multibootInfo) {
+    Kernel::Multiboot::readMemoryMap(multibootInfo);
+}
+
+void initialize_system() {
+    Kernel::System::initializeSystem();
 }
 
 void finish_system() {

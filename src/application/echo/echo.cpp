@@ -16,7 +16,9 @@
  */
 
 #include <cstdint>
+
 #include "lib/util/system/System.h"
+#include "lib/util/stream/PrintWriter.h"
 
 int32_t main(int32_t argc, char *argv[]) {
     for (int32_t i = 1; i < argc; i++) {

@@ -22,19 +22,18 @@
 #include "lib/util/game/Engine.h"
 #include "lib/util/game/GameManager.h"
 #include "TestDemoScene.h"
+#include "lib/util/file/File.h"
 
 bool isRunning = true;
-
-Util::Graphic::LinearFrameBuffer *lfb = nullptr;
 
 int32_t main(int32_t argc, char *argv[]) {
     Logger::logMessage("Starting test game!");
 
     auto lfbFile = Util::File::File("/device/lfb");
-    lfb = new Util::Graphic::LinearFrameBuffer(lfbFile);
+    auto lfb = Util::Graphic::LinearFrameBuffer(lfbFile);
 
     auto game = new TestDemo();
-    auto engine = Util::Game::Engine(*game, *lfb);
+    auto engine = Util::Game::Engine(*game, lfb);
 
     Util::Game::GameManager::setGame<TestDemo>(game);
 

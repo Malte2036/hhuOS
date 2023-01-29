@@ -20,6 +20,10 @@
 #include "lib/util/async/FunctionPointerRunnable.h"
 #include "lib/util/stream/FileWriter.h"
 #include "Terminal.h"
+#include "lib/util/graphic/Ansi.h"
+#include "lib/util/stream/FileInputStream.h"
+#include "lib/util/time/Timestamp.h"
+#include "lib/util/io/KeyDecoder.h"
 
 namespace Util::Graphic {
 
@@ -417,6 +421,10 @@ void Terminal::setAnsiParsing(bool enabled) {
     ansiParsing = enabled;
 }
 
+void Terminal::setKeyboardScancodes(bool enabled) {
+    keyboardScancodes = enabled;
+}
+
 Terminal::TerminalPipedOutputStream::TerminalPipedOutputStream(Terminal &terminal) : terminal(terminal) {}
 
 void Terminal::TerminalPipedOutputStream::write(uint8_t c) {
@@ -438,7 +446,7 @@ void Terminal::TerminalPipedOutputStream::write(uint8_t c) {
                 terminal.setPosition(column, row);
             }
 
-            auto line = lineBufferStream.getContent().substring(0, lineBufferStream.getSize() - 1);
+            auto line = lineBufferStream.getContent().substring(0, lineBufferStream.getLength() - 1);
             lineBufferStream.reset();
             lineBufferStream.write(static_cast<const uint8_t*>(line), 0, line.length());
         }
@@ -466,7 +474,7 @@ void Terminal::TerminalPipedOutputStream::write(const uint8_t *sourceBuffer, uin
 }
 
 void Terminal::TerminalPipedOutputStream::flush() {
-    PipedOutputStream::write(static_cast<uint8_t*>(lineBufferStream.getContent()), 0, lineBufferStream.getSize());
+    PipedOutputStream::write(static_cast<uint8_t*>(lineBufferStream.getContent()), 0, lineBufferStream.getLength());
     lineBufferStream.reset();
 }
 
@@ -474,9 +482,45 @@ Terminal::KeyboardRunnable::KeyboardRunnable(Terminal &terminal) : terminal(term
 
 void Terminal::KeyboardRunnable::run() {
     auto keyboardStream = Stream::FileInputStream("/device/keyboard");
+    auto keyDecoder = Io::KeyDecoder();
+    int16_t scancode = keyboardStream.read();
 
-    while (true) {
-        terminal.outputStream.write(keyboardStream.read());
+    while (scancode != -1) {
+        if (terminal.keyboardScancodes) {
+            terminal.outputStream.write(scancode);
+            continue;
+        }
+
+        if (keyDecoder.parseScancode(scancode)) {
+            auto key = keyDecoder.getCurrentKey();
+            if (key.isPressed()) {
+                auto c = key.getAscii();
+                if (c == 0) {
+                    switch (key.getScancode()) {
+                        case 0x48:
+                            terminal.outputStream.write(reinterpret_cast<const uint8_t *>("\u001b[1A"), 0, 4);
+                            break;
+                        case 0x50:
+                            terminal.outputStream.write(reinterpret_cast<const uint8_t *>("\u001b[1B"), 0, 4);
+                            break;
+                        case 0x4D:
+                            terminal.outputStream.write(reinterpret_cast<const uint8_t *>("\u001b[1C"), 0, 4);
+                            break;
+                        case 0x4B:
+                            terminal.outputStream.write(reinterpret_cast<const uint8_t *>("\u001b[1D"), 0, 4);
+                            break;
+                    }
+                } else {
+                    if (key.getCtrl()) {
+                        c &= 0x1f;
+                    }
+
+                    terminal.outputStream.write(c);
+                }
+            }
+        }
+
+        scancode = keyboardStream.read();
     }
 }
 

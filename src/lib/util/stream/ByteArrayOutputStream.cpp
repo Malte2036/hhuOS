@@ -20,13 +20,9 @@
 
 namespace Util::Stream {
 
-ByteArrayOutputStream::ByteArrayOutputStream() : ByteArrayOutputStream(DEFAULT_BUFFER_SIZE) {
+ByteArrayOutputStream::ByteArrayOutputStream() : ByteArrayOutputStream(DEFAULT_BUFFER_SIZE) {}
 
-}
-
-ByteArrayOutputStream::ByteArrayOutputStream(uint32_t size) : buffer(new uint8_t[size]), size(size) {
-
-}
+ByteArrayOutputStream::ByteArrayOutputStream(uint32_t size) : buffer(new uint8_t[size]), size(size) {}
 
 ByteArrayOutputStream::~ByteArrayOutputStream() {
     delete[] buffer;
@@ -43,7 +39,7 @@ Memory::String ByteArrayOutputStream::getContent() const {
     return {buffer, position};
 }
 
-uint32_t ByteArrayOutputStream::getSize() const {
+uint32_t ByteArrayOutputStream::getLength() const {
     return position;
 }
 
@@ -61,10 +57,6 @@ void ByteArrayOutputStream::write(uint8_t c) {
 }
 
 void ByteArrayOutputStream::write(const uint8_t *sourceBuffer, uint32_t offset, uint32_t length) {
-    if (offset < 0 || length < 0) {
-        Exception::throwException(Exception::OUT_OF_BOUNDS, "ByteArrayOutputStream: Negative offset or size!");
-    }
-
     ensureRemainingCapacity(length);
     auto sourceAddress = Memory::Address<uint32_t>(sourceBuffer).add(offset);
     auto targetAddress = Memory::Address<uint32_t>(buffer).add(position);
@@ -91,6 +83,14 @@ void ByteArrayOutputStream::ensureRemainingCapacity(uint32_t count) {
     delete[] buffer;
     buffer = newBuffer;
     size = newSize;
+}
+
+uint8_t* ByteArrayOutputStream::getBuffer() const {
+    return buffer;
+}
+
+uint32_t ByteArrayOutputStream::getPosition() const {
+    return position;
 }
 
 }

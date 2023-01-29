@@ -33,6 +33,7 @@ else()
             COMMAND /bin/mkdir -p "${HHUOS_ROOT_DIR}/initrd/bin"
             COMMAND /bin/cp "$<TARGET_FILE:shell>" "${HHUOS_ROOT_DIR}/initrd/bin/shell"
             COMMAND /bin/cp "$<TARGET_FILE:ant>" "${HHUOS_ROOT_DIR}/initrd/bin/ant"
+            COMMAND /bin/cp "$<TARGET_FILE:asciimate>" "${HHUOS_ROOT_DIR}/initrd/bin/asciimate"
             COMMAND /bin/cp "$<TARGET_FILE:beep>" "${HHUOS_ROOT_DIR}/initrd/bin/beep"
             COMMAND /bin/cp "$<TARGET_FILE:cat>" "${HHUOS_ROOT_DIR}/initrd/bin/cat"
             COMMAND /bin/cp "$<TARGET_FILE:color>" "${HHUOS_ROOT_DIR}/initrd/bin/color"
@@ -41,8 +42,10 @@ else()
             COMMAND /bin/cp "$<TARGET_FILE:date>" "${HHUOS_ROOT_DIR}/initrd/bin/date"
             COMMAND /bin/cp "$<TARGET_FILE:echo>" "${HHUOS_ROOT_DIR}/initrd/bin/echo"
             COMMAND /bin/cp "$<TARGET_FILE:fault>" "${HHUOS_ROOT_DIR}/initrd/bin/fault"
+            COMMAND /bin/cp "$<TARGET_FILE:head>" "${HHUOS_ROOT_DIR}/initrd/bin/head"
             COMMAND /bin/cp "$<TARGET_FILE:hello>" "${HHUOS_ROOT_DIR}/initrd/bin/hello"
             COMMAND /bin/cp "$<TARGET_FILE:test>" "${HHUOS_ROOT_DIR}/initrd/bin/test"
+            COMMAND /bin/cp "$<TARGET_FILE:hexdump>" "${HHUOS_ROOT_DIR}/initrd/bin/hexdump"
             COMMAND /bin/cp "$<TARGET_FILE:kill>" "${HHUOS_ROOT_DIR}/initrd/bin/kill"
             COMMAND /bin/cp "$<TARGET_FILE:ls>" "${HHUOS_ROOT_DIR}/initrd/bin/ls"
             COMMAND /bin/cp "$<TARGET_FILE:lvgl_demo>" "${HHUOS_ROOT_DIR}/initrd/bin/lvgl"
@@ -51,6 +54,7 @@ else()
             COMMAND /bin/cp "$<TARGET_FILE:mkdir>" "${HHUOS_ROOT_DIR}/initrd/bin/mkdir"
             COMMAND /bin/cp "$<TARGET_FILE:mount>" "${HHUOS_ROOT_DIR}/initrd/bin/mount"
             COMMAND /bin/cp "$<TARGET_FILE:mouse>" "${HHUOS_ROOT_DIR}/initrd/bin/mouse"
+            COMMAND /bin/cp "$<TARGET_FILE:ping>" "${HHUOS_ROOT_DIR}/initrd/bin/ping"
             COMMAND /bin/cp "$<TARGET_FILE:polygon>" "${HHUOS_ROOT_DIR}/initrd/bin/polygon"
             COMMAND /bin/cp "$<TARGET_FILE:ps>" "${HHUOS_ROOT_DIR}/initrd/bin/ps"
             COMMAND /bin/cp "$<TARGET_FILE:pwd>" "${HHUOS_ROOT_DIR}/initrd/bin/pwd"
@@ -60,12 +64,15 @@ else()
             COMMAND /bin/cp "$<TARGET_FILE:snake>" "${HHUOS_ROOT_DIR}/initrd/bin/snake"
             COMMAND /bin/cp "$<TARGET_FILE:touch>" "${HHUOS_ROOT_DIR}/initrd/bin/touch"
             COMMAND /bin/cp "$<TARGET_FILE:tree>" "${HHUOS_ROOT_DIR}/initrd/bin/tree"
+            COMMAND /bin/cp "$<TARGET_FILE:udp_echo>" "${HHUOS_ROOT_DIR}/initrd/bin/udp_echo"
             COMMAND /bin/cp "$<TARGET_FILE:unmount>" "${HHUOS_ROOT_DIR}/initrd/bin/unmount"
             COMMAND /bin/cp "$<TARGET_FILE:uptime>" "${HHUOS_ROOT_DIR}/initrd/bin/uptime"
             COMMAND /bin/cp -r "${CMAKE_BINARY_DIR}/beep" "${HHUOS_ROOT_DIR}/initrd"
+            COMMAND /bin/cp -r "${CMAKE_BINARY_DIR}/asciimation" "${HHUOS_ROOT_DIR}/initrd"
             COMMAND /bin/tar -C "${HHUOS_ROOT_DIR}/initrd/" --xform s:'./':: -cf "${CMAKE_BINARY_DIR}/hhuOS.initrd" ./
             COMMAND /bin/rm -f "${HHUOS_ROOT_DIR}/hhuOS.img" "${HHUOS_ROOT_DIR}/hhuOS.iso"
-            DEPENDS shell ant beep cat color cp cube date echo fault hello test kill ls lvgl_demo platformer membench mkdir mount mouse polygon ps pwd rm rmdir shutdown snake touch tree unmount uptime)
-
-    add_custom_target(${PROJECT_NAME} DEPENDS shell ant beep cat color cp cube date echo fault hello test kill ls lvgl_demo platformer membench mkdir mount mouse polygon ps pwd rm rmdir shutdown snake touch tree unmount uptime music "${CMAKE_BINARY_DIR}/hhuOS.initrd")
-endif()
+            DEPENDS asciimation music shell ant beep cat color cp cube date echo fault hello test kill ls lvgl_demo platformer membench mkdir mount mouse polygon ps pwd rm rmdir shutdown snake touch tree unmount uptime)
+            
+    add_custom_target(${PROJECT_NAME} DEPENDS music asciimation shell ant beep cat color cp cube date echo fault hello test kill ls lvgl_demo platformer membench mkdir mount mouse polygon ps pwd rm rmdir shutdown snake touch tree unmount uptime music "${CMAKE_BINARY_DIR}/hhuOS.initrd")
+         
+   endif()

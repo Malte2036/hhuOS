@@ -17,7 +17,6 @@
 
 #include "lib/util/Exception.h"
 #include "lib/util/stream/FileInputStream.h"
-#include "lib/util/cpu/CpuId.h"
 #include "lib/interface.h"
 #include "lib/util/math/Math.h"
 #include "LinearFrameBuffer.h"

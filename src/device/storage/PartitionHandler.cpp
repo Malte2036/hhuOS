@@ -16,8 +16,14 @@
  */
 
 #include "PartitionHandler.h"
+
 #include "lib/util/memory/Address.h"
 #include "lib/util/data/ArrayList.h"
+#include "device/storage/StorageDevice.h"
+#include "kernel/log/Logger.h"
+#include "lib/util/Exception.h"
+#include "lib/util/data/Collection.h"
+#include "lib/util/data/Iterator.h"
 
 namespace Device::Storage {
 
@@ -66,7 +72,7 @@ Util::Data::Array<PartitionHandler::PartitionInfo> PartitionHandler::readPartiti
         };
         partitionList.add(info);
 
-        log.debug("Partition found (Number: [%u], type: [%c], Active: [%B], System ID: [%02x], Sector: [%u], Count: [%u])",
+        log.debug("Partition found (Number: [%u], type: [%c], Active: [%B], System ID: [0x%02x], Sector: [%u], Count: [%u])",
                   info.number, info.type, info.active, info.systemId, info.startSector, info.sectorCount);
 
         // 0x05 or 0x0f --> Extended currentPrimaryPartition
@@ -103,7 +109,7 @@ Util::Data::Array<PartitionHandler::PartitionInfo> PartitionHandler::readPartiti
                 };
                 partitionList.add(info);
 
-                log.debug("Partition found (Number: [%u], type: [%c], Active: [%B], System ID: [%02x], Sector: [%u], Count: [%u])",
+                log.debug("Partition found (Number: [%u], type: [%c], Active: [%B], System ID: [0x%02x], Sector: [%u], Count: [%u])",
                           info.number, info.type, info.active, info.systemId, info.startSector, info.sectorCount);
 
                 // Check system ID of next partition
@@ -142,7 +148,7 @@ void PartitionHandler::writePartition(uint8_t partitionNumber, bool active, Syst
     };
 
     if (partitionNumber <= 4) {
-        log.debug("Writing primary partition (Number: [%u], Active: [%B], System ID: [%02x], Sector: [%u], Count: [%u])", partitionNumber, active, systemId, startSector, sectorCount);
+        log.debug("Writing primary partition (Number: [%u], Active: [%B], System ID: [0x%02x], Sector: [%u], Count: [%u])", partitionNumber, active, systemId, startSector, sectorCount);
         auto *targetEntry = reinterpret_cast<PartitionTableEntry*>(&mbr[PARTITION_TABLE_START + sizeof(PartitionTableEntry) * (partitionNumber - 1)]);
 
         if (systemId == EXTENDED_PARTITION || systemId == EXTENDED_PARTITION_LBA) {
@@ -207,7 +213,7 @@ void PartitionHandler::writePartition(uint8_t partitionNumber, bool active, Syst
             auto *partition = reinterpret_cast<PartitionTableEntry*>(&ebr[PARTITION_TABLE_START + sizeof(PartitionTableEntry)]);
             *partition = entry;
 
-            log.debug("Appending new logical partition (Number: [%u], Active: [%B], System ID: [%02x], Sector: [%u], Count: [%u])", partitionNumber, active, systemId, startSector, sectorCount);
+            log.debug("Appending new logical partition (Number: [%u], Active: [%B], System ID: [0x%02x], Sector: [%u], Count: [%u])", partitionNumber, active, systemId, startSector, sectorCount);
 
             uint32_t writtenSectors = device.write(ebr, ebrSector, 1);
             delete[] ebr;
@@ -246,7 +252,7 @@ void PartitionHandler::writePartition(uint8_t partitionNumber, bool active, Syst
             partition.systemId = systemId;
             partition.activeFlag = static_cast<uint8_t>(active ? 0x80 : 0x00);
 
-            log.debug("Updating existing logical partition (Number: [%u], Active: [%B], System ID: [%02x], Sector: [%u], Count: [%u])", partitionNumber, active, systemId, startSector, sectorCount);
+            log.debug("Updating existing logical partition (Number: [%u], Active: [%B], System ID: [0x%02x], Sector: [%u], Count: [%u])", partitionNumber, active, systemId, startSector, sectorCount);
 
             // Write boot record to disk
             auto writtenSectors = device.write(ebr, ebrSector, 1) == device.getSectorSize();

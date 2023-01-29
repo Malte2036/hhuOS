@@ -17,20 +17,45 @@
 
 #include <cstdint>
 #include <demos/benchmark/lv_demo_benchmark.h>
+#include <music/lv_demo_music.h>
+#include <src/core/lv_obj.h>
+#include <src/hal/lv_hal_tick.h>
+#include <src/misc/lv_timer.h>
+#include <stress/lv_demo_stress.h>
+#include <widgets/lv_demo_widgets.h>
+
+#include "lib/util/file/File.h" // IWYU pragma: keep
+#include "lib/util/stream/PrintWriter.h" // IWYU pragma: keep
+#include "lib/util/graphic/Ansi.h" // IWYU pragma: keep
 #include "lib/util/graphic/LinearFrameBuffer.h"
 #include "lib/util/time/Timestamp.h"
-#include "LvglDriver.h"
 #include "lib/util/async/Thread.h"
 #include "lib/util/system/System.h"
-#include "lib/util/graphic/Terminal.h"
+#include "lib/util/ArgumentParser.h"
+#include "lib/lvgl/LvglDriver.h"
+#include "lib/util/data/Array.h"
+#include "lib/util/memory/String.h"
 
 int32_t main(int32_t argc, char *argv[]) {
-    auto demo = Util::Memory::String(argc > 1 ? argv[1] : "benchmark");
+    auto argumentParser = Util::ArgumentParser();
+    argumentParser.setHelpText("Demo application for the 'Light and Versatile Graphics Library'.\n"
+                               "Included demos are: 'benchmark', 'stress', 'widgets' and 'music' (Default: benchmark)\n"
+                               "Usage: lvgl [DEMO]\n"
+                               "Options:\n"
+                               "  -h, --help: Show this help message");
+
+    if (!argumentParser.parse(argc, argv)) {
+        Util::System::error << argumentParser.getErrorString() << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
+        return -1;
+    }
+
+    auto arguments = argumentParser.getUnnamedArguments();
+    auto demo = Util::Memory::String(arguments.length() > 0 ? arguments[0] : "benchmark");
 
     auto lfbFile = Util::File::File("/device/lfb");
     auto lfb = Util::Graphic::LinearFrameBuffer(lfbFile);
     auto driver = LvglDriver(lfb);
-    Util::Graphic::Ansi::prepareGraphicalApplication();
+    Util::Graphic::Ansi::prepareGraphicalApplication(false);
 
     lv_init();
     driver.initialize();

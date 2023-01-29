@@ -19,8 +19,15 @@
 #include "device/cpu/Cpu.h"
 #include "lib/util/graphic/Fonts.h"
 #include "lib/util/system/System.h"
-#include "Symbols.h"
 #include "BlueScreen.h"
+#include "device/cpu/IoPort.h"
+#include "kernel/process/ThreadState.h"
+#include "lib/util/graphic/Colors.h"
+#include "lib/util/graphic/Font.h"
+#include "lib/util/graphic/LinearFrameBuffer.h"
+#include "lib/util/graphic/PixelDrawer.h"
+#include "lib/util/graphic/StringDrawer.h"
+#include "lib/util/memory/Address.h"
 
 namespace Kernel {
 
@@ -138,21 +145,17 @@ void BlueScreen::show(const InterruptFrame &frame) {
     uint32_t i;
 
     for (i = 0; i < maxStacktraceSize && eip != 0; i++) {
-        const char *symbol = Symbols::get(eip);
-
         print(stringDrawer, "#");
         printDecNumber(stringDrawer, i);
         posX = OFFSET_X + 4;
+
         printHexNumber(stringDrawer, eip);
-        posX = OFFSET_X + 14;
-        print(stringDrawer, " --- ");
-        printLine(stringDrawer, symbol);
+        posX = OFFSET_X;
+        posY++;
 
         eip = ebp[1];
         ebp = reinterpret_cast<uint32_t*>(ebp[0]);
-        if (reinterpret_cast<uint32_t>(ebp) < MemoryLayout::KERNEL_START ||
-                Util::Memory::Address<uint32_t>(symbol).compareString("___KERNEL_DATA_START__") == 0 ||
-                Util::Memory::Address<uint32_t>(symbol).compareString("___KERNEL_DATA_END__") == 0) {
+        if (reinterpret_cast<uint32_t>(ebp) < MemoryLayout::KERNEL_START) {
             break;
         }
     }

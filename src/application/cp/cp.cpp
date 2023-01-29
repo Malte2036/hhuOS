@@ -16,25 +16,45 @@
  */
 
 #include <cstdint>
+
 #include "lib/util/system/System.h"
+#include "lib/util/ArgumentParser.h"
+#include "lib/util/data/Array.h"
+#include "lib/util/file/File.h"
+#include "lib/util/file/Type.h"
+#include "lib/util/memory/String.h"
 #include "lib/util/stream/FileInputStream.h"
+#include "lib/util/stream/FileOutputStream.h"
+#include "lib/util/stream/PrintWriter.h"
 
 int32_t main(int32_t argc, char *argv[]) {
-    if (argc < 3){
+    auto argumentParser = Util::ArgumentParser();
+    argumentParser.setHelpText("Copy a file from SOURCE to DESTINATION.\n"
+                               "Usage: cp [SOURCE] [DESTINATION]\n"
+                               "Options:\n"
+                               "  -h, --help: Show this help message");
+
+    if (!argumentParser.parse(argc, argv)) {
+        Util::System::error << argumentParser.getErrorString() << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
+        return -1;
+    }
+
+    auto arguments = argumentParser.getUnnamedArguments();
+    if (arguments.length() < 2) {
         Util::System::error << "cp: Missing arguments!" << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
         return -1;
     }
 
-    auto sourceFile = Util::File::File(argv[1]);
-    auto targetFile = Util::File::File(argv[2]);
+    auto sourceFile = Util::File::File(arguments[0]);
+    auto targetFile = Util::File::File(arguments[1]);
 
     if (!sourceFile.exists()) {
-        Util::System::error << "cp: '" << argv[1] << "' not found!" << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
+        Util::System::error << "cp: '" << arguments[0] << "' not found!" << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
         return -1;
     }
 
     if (!sourceFile.isFile()) {
-        Util::System::error << "cp: '" << argv[1] << "' is a directory!" << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
+        Util::System::error << "cp: '" << arguments[0] << "' is a directory!" << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
         return -1;
     }
 
@@ -43,7 +63,7 @@ int32_t main(int32_t argc, char *argv[]) {
     }
 
     if (!targetFile.exists() && !targetFile.create(Util::File::REGULAR)) {
-        Util::System::error << "cp: Failed to create file '" << argv[2] << "'!" << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
+        Util::System::error << "cp: Failed to create file '" << arguments[1] << "'!" << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
         return -1;
     }
 

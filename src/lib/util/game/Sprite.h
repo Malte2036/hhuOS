@@ -7,6 +7,7 @@
 
 
 #include "lib/util/file/image/Image.h"
+#include "lib/util/memory/String.h"
 
 namespace Util::Game {
     class Sprite {

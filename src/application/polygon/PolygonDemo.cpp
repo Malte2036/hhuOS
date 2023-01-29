@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include "PolygonDemo.h"
+#include "PolygonDemo.h";
 
 void PolygonDemo::onUpdate(double dt) {
 

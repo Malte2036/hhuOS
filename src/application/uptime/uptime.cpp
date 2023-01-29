@@ -16,10 +16,25 @@
  */
 
 #include <cstdint>
+
 #include "lib/util/system/System.h"
 #include "lib/util/time/Timestamp.h"
+#include "lib/util/ArgumentParser.h"
+#include "lib/util/memory/String.h"
+#include "lib/util/stream/PrintWriter.h"
 
 int32_t main(int32_t argc, char *argv[]) {
+    auto argumentParser = Util::ArgumentParser();
+    argumentParser.setHelpText("Print the system uptime.\n"
+                               "Usage: uptime\n"
+                               "Options:\n"
+                               "  -h, --help: Show this help message");
+
+    if (!argumentParser.parse(argc, argv)) {
+        Util::System::error << argumentParser.getErrorString() << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
+        return -1;
+    }
+
     auto systemTime = Util::Time::getSystemTime();
     if (systemTime.toSeconds() < 60) {
         Util::System::out << Util::Memory::String::format("%d", systemTime.toSeconds());

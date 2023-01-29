@@ -18,6 +18,8 @@
 #ifndef HHUOS_GRAPHICS2D_H
 #define HHUOS_GRAPHICS2D_H
 
+#include <cstdint>
+
 #include "lib/util/graphic/BufferedLinearFrameBuffer.h"
 #include "lib/util/graphic/LineDrawer.h"
 #include "lib/util/graphic/StringDrawer.h"
@@ -25,6 +27,8 @@
 #include "lib/util/math/Vector2.h"
 #include "lib/util/file/image/Image.h"
 #include "Camera.h"
+#include "lib/util/data/Array.h"
+#include "lib/util/memory/String.h"
 
 
 namespace Util::Game {

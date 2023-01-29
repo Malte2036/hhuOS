@@ -21,7 +21,11 @@ private:
 
     void onUpdate(double dt) override;
 
-    void keyPressed(char c) override;
+    void keyPressed(Util::Io::Key key) override;
+
+    void keyReleased(Util::Io::Key key) override;
+
+private:
 
     PlatformerPlayerEntity *player = nullptr;
     const double groundY = -0.5;

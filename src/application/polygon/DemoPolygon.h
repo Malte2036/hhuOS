@@ -18,7 +18,6 @@
 #ifndef HHUOS_DEMOPOLYGON_H
 #define HHUOS_DEMOPOLYGON_H
 
-#include "lib/util/game/Game.h"
 #include "lib/util/game/Polygon.h"
 
 class DemoPolygon : public Util::Game::Polygon {

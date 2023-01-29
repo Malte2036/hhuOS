@@ -15,6 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 cmake_minimum_required(VERSION 3.14)
+include(ProcessorCount)
 
 # Set version
 execute_process(COMMAND git describe --tags --abbrev=0 WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
@@ -81,12 +82,30 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}\
     -DHHUOS_GIT_BRANCH='${HHUOS_GIT_BRANCH}'\
     -DHHUOS_BUILD_DATE='${HHUOS_BUILD_DATE}'")
 
+# Add include-what-you-use command (if available)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+find_package(PythonInterp)
+find_program(iwyu_tool_path NAMES iwyu_tool.py iwyu-tool)
+find_program(iwyu_fix_includes_path NAMES fix_includes.py iwyu-fix-includes)
+if (PYTHONINTERP_FOUND AND iwyu_tool_path AND iwyu_fix_includes_path)
+    ProcessorCount(ncpus)
+    add_custom_target(optimize_includes
+            COMMAND "${PYTHON_EXECUTABLE}" "${iwyu_tool_path}" -j "${ncpus}" -p "${CMAKE_BINARY_DIR}" |
+                    "${PYTHON_EXECUTABLE}" "${iwyu_fix_includes_path}" --nocomments --blank_lines --nosafe_headers --ignore_re "(.*/ff/source.*)|(.*/_deps/lvgl.*)" -p "${HHUOS_SRC_DIR}"
+            VERBATIM)
+endif()
+
+find_program(cloc_path NAMES cloc)
+if (cloc_path)
+    add_custom_target(cloc
+            COMMAND "${cloc_path}" "${HHUOS_SRC_DIR}" --exclude-dir=ff VERBATIM)
+endif()
+
 # Add subdirectories
 add_subdirectory(device)
 add_subdirectory(filesystem)
 add_subdirectory(kernel)
 add_subdirectory(lib)
-add_subdirectory(network)
 add_subdirectory(system)
 
 add_subdirectory(initrd)
@@ -94,6 +113,7 @@ add_subdirectory(grub)
 add_subdirectory(towboot)
 
 add_subdirectory(application)
+add_subdirectory(asciimation)
 add_subdirectory(music)
 
 add_subdirectory(hdd0)

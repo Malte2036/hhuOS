@@ -19,8 +19,7 @@
 #define HHUOS_FILE_H
 
 #include "lib/util/memory/String.h"
-#include "filesystem/core/Node.h"
-#include "lib/util/graphic/Ansi.h"
+#include "Type.h"
 
 namespace Util::File {
 

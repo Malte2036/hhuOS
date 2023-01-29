@@ -5,6 +5,7 @@
 #include "Logger.h"
 #include "lib/util/stream/PrintWriter.h"
 #include "lib/util/stream/FileOutputStream.h"
+#include "lib/util/graphic/Ansi.h"
 
 void Logger::logMessage(const Util::Memory::String &message) {
     auto stream = Util::Stream::FileOutputStream("/device/com1");

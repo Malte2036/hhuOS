@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2018-2022 Heinrich-Heine-Universitaet Duesseldorf,
  * Institute of Computer Science, Department Operating Systems
- * Burak Akguel, Christian Gesse, Fabian Ruhland, Filip Krakowski, Hannes Feil, Michael Schoettner
+ * Burak Akguel, Christian Gesse, Fabian Ruhland, Filip Krakowski, Michael Schoettner
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
  * License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
@@ -13,18 +13,23 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ *
+ * The network stack is based on a bachelor's thesis, written by Hannes Feil.
+ * The original source code can be found here: https://github.com/hhuOS/hhuOS/tree/legacy/network
  */
 
 #include "Loopback.h"
 
 namespace Device::Network {
 
-::Network::MacAddress Loopback::getMacAddress() {
-    return ::Network::MacAddress((uint8_t*) "hhuOS\0");
+Loopback::Loopback(const Util::Memory::String &identifier) : NetworkDevice(identifier) {}
+
+Util::Network::MacAddress Loopback::getMacAddress() const {
+    return {};
 }
 
-void Loopback::sendPacket(const uint8_t *packet, uint32_t length) {
-    handlePacket(packet, length);
+void Loopback::handleOutgoingPacket(const uint8_t *packet, uint32_t length) {
+    handleIncomingPacket(packet, length);
 }
 
 }

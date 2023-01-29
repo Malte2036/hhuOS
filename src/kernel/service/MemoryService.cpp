@@ -15,12 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+#include <stdarg.h>
+
 #include "kernel/paging/Paging.h"
 #include "kernel/system/System.h"
 #include "kernel/service/InterruptService.h"
 #include "kernel/paging/MemoryLayout.h"
 #include "asm_interface.h"
 #include "MemoryService.h"
+#include "kernel/service/MemoryService.h"
+#include "kernel/interrupt/InterruptDispatcher.h"
+#include "kernel/memory/PageFrameAllocator.h"
+#include "kernel/memory/PagingAreaManager.h"
+#include "kernel/paging/PageDirectory.h"
+#include "kernel/paging/VirtualAddressSpace.h"
+#include "kernel/process/ThreadState.h"
+#include "kernel/system/SystemCall.h"
+#include "lib/util/Exception.h"
+#include "lib/util/memory/HeapMemoryManager.h"
+#include "lib/util/system/System.h"
 
 namespace Kernel {
 
@@ -176,7 +189,7 @@ void MemoryService::createPageTable(PageDirectory *directory, uint32_t index) {
 
 void Kernel::MemoryService::mapPhysicalAddress(uint32_t virtualAddress, uint32_t physicalAddress, uint16_t flags) {
     // Mark the physical page frame as used
-    physicalAddress = reinterpret_cast<uint32_t>(pageFrameAllocator.allocateBlockAtAddress(reinterpret_cast<void *>(physicalAddress)));
+    physicalAddress = reinterpret_cast<uint32_t>(pageFrameAllocator.allocateBlockAtAddress(reinterpret_cast<void*>(physicalAddress)));
     // Map the page into the directory
     currentAddressSpace->getPageDirectory().map(physicalAddress, virtualAddress, flags);
 }

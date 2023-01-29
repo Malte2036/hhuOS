@@ -11,6 +11,7 @@
 #include "lib/util/log/Logger.h"
 #include "PlatformerGame.h"
 #include "application/platformer/scene/PlatformerScene1.h"
+#include "lib/util/file/File.h"
 
 bool isRunning = true;
 

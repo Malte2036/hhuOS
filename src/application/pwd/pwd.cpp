@@ -16,9 +16,25 @@
  */
 
 #include <cstdint>
+
 #include "lib/util/system/System.h"
+#include "lib/util/ArgumentParser.h"
+#include "lib/util/file/File.h"
+#include "lib/util/memory/String.h"
+#include "lib/util/stream/PrintWriter.h"
 
 int32_t main(int32_t argc, char *argv[]) {
+    auto argumentParser = Util::ArgumentParser();
+    argumentParser.setHelpText("Print the current working directory.\n"
+                               "Usage: pwd\n"
+                               "Options:\n"
+                               "  -h, --help: Show this help message");
+
+    if (!argumentParser.parse(argc, argv)) {
+        Util::System::error << argumentParser.getErrorString() << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
+        return -1;
+    }
+
     auto path = Util::File::getCurrentWorkingDirectory().getCanonicalPath();
     Util::System::out << (path.isEmpty() ? "/" : path) << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
     return 0;

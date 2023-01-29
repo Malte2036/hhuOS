@@ -9,6 +9,7 @@
 #include "SnakeGame.h"
 #include "application/snake/scene/SnakeScene.h"
 #include "lib/util/log/Logger.h"
+#include "lib/util/file/File.h"
 
 bool isRunning = true;
 

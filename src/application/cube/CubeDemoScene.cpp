@@ -28,8 +28,8 @@ void CubeDemoScene::drawInitialBackground(Util::Game::Graphics2D &graphics) {
 
 }
 
-void CubeDemoScene::keyPressed(char c) {
-    switch (c) {
+void CubeDemoScene::keyPressed(Util::Io::Key key) {
+    switch (key.getAscii()) {
         case '+': {
             speed++;
             break;
@@ -42,3 +42,8 @@ void CubeDemoScene::keyPressed(char c) {
             Util::Game::GameManager::getGame<CubeDemo>()->stop();
     }
 }
+
+void CubeDemoScene::keyReleased(Util::Io::Key key) {
+
+}
+

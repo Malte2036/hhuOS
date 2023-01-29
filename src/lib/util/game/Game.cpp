@@ -18,6 +18,16 @@
 #include "Game.h"
 #include "GameManager.h"
 
+#include "lib/util/game/Drawable.h"
+
+namespace Util {
+namespace Game {
+class Graphics2D;
+class KeyListener;
+class MouseListener;
+}  // namespace Game
+}  // namespace Util
+
 namespace Util::Game {
 
     Game::~Game() {
