@@ -33,9 +33,6 @@ void PlatformerMushroomEntity::onCollisionEvent(Util::Game::CollisionEvent *even
 }
 
 void PlatformerMushroomEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
-    if (event->getTranslateTo().getY() < groundY) {
-        setPosition(Vector2(event->getTranslateTo().getX(), groundY));
-        event->setCanceled(true);
-    }
+
 }
 

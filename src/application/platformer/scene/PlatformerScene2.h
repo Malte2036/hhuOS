@@ -28,7 +28,7 @@ private:
 private:
 
     PlatformerPlayerEntity *player = nullptr;
-    const double groundY = -0.5;
+    const double groundY = -2;
 
     PlatformerScoreText *scoreText = nullptr;
 

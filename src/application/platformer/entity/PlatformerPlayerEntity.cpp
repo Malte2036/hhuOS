@@ -61,9 +61,8 @@ void PlatformerPlayerEntity::onTranslateEvent(Util::Game::TranslateEvent *event)
         event->setCanceled(true);
     }
     if (translateTo.getY() < groundY - 0.2) {
-        event->setCanceled(true);
-        setPosition(Vector2(event->getTranslateTo().getX(), groundY));
-        canJump = true;
+        Util::Game::GameManager::getGame<PlatformerGame>()->stop();
+        return;
     }
 
     if (event->getTranslateTo().getX() >= camera->getPosition().getX()) {

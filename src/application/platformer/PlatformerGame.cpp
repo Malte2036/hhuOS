@@ -19,7 +19,7 @@ void PlatformerGame::onUpdate(double delta) {
 void PlatformerGame::spawnNinja(const Vector2 &position, double groundY) {
     auto scene = getScene();
     if (scene != nullptr) {
-        auto newNinja = new PlatformerNinjaEntity(position, groundY);
+        auto newNinja = new PlatformerNinjaEntity(position);
         newNinja->addComponent(new Util::Game::GravityComponent(groundY));
         scene->addEntity(newNinja);
     }
@@ -91,7 +91,6 @@ void PlatformerGame::spawnLargeColliderFromArray(Util::Game::Scene &scene,
         if (point.first - 1 == lastPoint.first) {
 
         } else {
-            //auto rectangleEndVec = Vector2(rectangleStartPoint.first * blockSize - (Util::Game::GameManager::getResolution().getX() / 2), rectangleStartPoint.second);
             auto rectangleStartVec = Vector2(
                     rectangleStartPoint.first * blockSize - (Util::Game::GameManager::getResolution().getX() / 2),
                     rectangleStartPoint.second);

@@ -25,8 +25,6 @@ public:
 private:
     Util::Game::Sprite *sprite;
 
-    double groundY = -0.75;
-
     const double speed = 0.1;
 
     bool directionLeft = false;

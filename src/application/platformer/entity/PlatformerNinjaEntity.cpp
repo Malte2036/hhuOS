@@ -6,9 +6,8 @@
 #include "lib/util/game/GameManager.h"
 #include "lib/util/game/entity/component/GravityComponent.h"
 
-PlatformerNinjaEntity::PlatformerNinjaEntity(const Vector2 &position, double groundY) : Util::Game::Entity("Ninja",
-                                                                                                           position),
-                                                                                        groundY{groundY} {
+PlatformerNinjaEntity::PlatformerNinjaEntity(const Vector2 &position) : Util::Game::Entity("Ninja",
+                                                                                           position) {
     runAnimation = new Util::Game::SpriteAnimation(
             {
                     new Util::Game::Sprite(
@@ -54,7 +53,6 @@ void PlatformerNinjaEntity::onUpdate(double dt) {
 }
 
 void PlatformerNinjaEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
-
     auto collidedWithSide = event->getRectangleCollidedSide();
     if (collidedWithSide == Util::Game::LEFT_SIDE) {
         directionLeft = false;
@@ -64,7 +62,5 @@ void PlatformerNinjaEntity::onCollisionEvent(Util::Game::CollisionEvent *event) 
 }
 
 void PlatformerNinjaEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
-    if (event->getTranslateTo().getY() <= groundY) {
-        event->setCanceled(true);
-    }
+
 }

@@ -28,31 +28,7 @@ void PlatformerScene2::init() {
 void PlatformerScene2::drawInitialBackground(Util::Game::Graphics2D &graphics) {
     graphics.setBackgroundColor(Util::Graphic::Colors::HHU_BLUE);
 
-    auto game = Util::Game::GameManager::getGame<PlatformerGame>();
-    auto blockSize = game->getBlockSize();
-    auto grassSprite = new Util::Game::Sprite("/initrd/game/platformer/ground/grass/ground_grass_middle.bmp", blockSize,
-                                              blockSize);
-    auto dirtSprite = new Util::Game::Sprite("/initrd/game/platformer/ground/dirt/ground_dirt_middle.bmp", blockSize,
-                                             blockSize);
-
     auto res = Util::Game::GameManager::getResolution();
-    double currentX = -res.getX() / 2 + 0.01;
-    while (currentX < res.getX() / 2) {
-        auto image = grassSprite->getImage();
-
-        double currentY = groundY - blockSize;
-        auto firstRow = true;
-        while (currentY >= -res.getY() / 2) {
-            graphics.drawImage(Vector2(currentX, currentY), *image);
-
-            if (firstRow) {
-                image = dirtSprite->getImage();
-                firstRow = false;
-            }
-            currentY -= blockSize;
-        }
-        currentX += blockSize;
-    }
 
     auto cloudSprite = new Util::Game::Sprite("/initrd/game/platformer/background/cloud.bmp", 0.3, 0.15);
     graphics.drawImage(Vector2(-(res.getX() / 2) + 0.25, (res.getY() / 2) - 0.2), *cloudSprite->getImage());
