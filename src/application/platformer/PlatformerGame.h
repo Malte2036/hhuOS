@@ -12,7 +12,7 @@ class PlatformerGame : public Util::Game::Game {
 public:
     PlatformerGame() = default;
 
-    void spawnNinja(const Vector2 &position, double groundY);
+    void spawnNinja(const Vector2 &position, double groundY = -2);
 
     void nextLevel();
 
@@ -30,7 +30,8 @@ private:
     };
 
     void spawnLargeColliderFromArray(Util::Game::Scene &scene,
-                                     Util::Data::ArrayList<Util::Data::Pair<int, double>> &positions, LargeColliderType type) const;
+                                     Util::Data::ArrayList<Util::Data::Pair<int, double>> &positions,
+                                     LargeColliderType type) const;
 
     double blockSize = 0.08;
 

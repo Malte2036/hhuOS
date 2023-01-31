@@ -21,8 +21,8 @@ void PlatformerBlockEntity::draw(Util::Game::Graphics2D &graphics) const {
     for (int i = 0; i < countX; ++i) {
         graphics.drawImage(Vector2(position.getX() + i * size, position.getY()), *sprite->getImage());
     }
-    graphics.setColor(Util::Graphic::Colors::RED);
-    graphics.drawRectangle(position, size, size * countX);
+    //graphics.setColor(Util::Graphic::Colors::RED);
+    //graphics.drawRectangle(position, size, size * countX);
 }
 
 void PlatformerBlockEntity::onUpdate(double dt) {

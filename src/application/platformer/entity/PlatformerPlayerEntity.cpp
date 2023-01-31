@@ -108,7 +108,6 @@ void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent *event)
             }
         }
         scene->removeEntity(&event->getCollidedWith());
-        game->spawnNinja(position + Vector2(1.5, 0.1), groundY);
     } else if (collidedWithTag == "Chest"){
         Logger::logMessage("Player finished Level by collecting chest!");
         game->nextLevel();

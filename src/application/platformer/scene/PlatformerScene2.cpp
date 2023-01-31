@@ -19,7 +19,6 @@ void PlatformerScene2::init() {
     addObject(scoreText);
 
     auto game = Util::Game::GameManager::getGame<PlatformerGame>();
-    game->spawnNinja(Vector2(1.15, groundY + 0.1), groundY);
 
     game->createSceneFromSceneFile(this, "/initrd/game/platformer/scene/scene2.txt");
 }

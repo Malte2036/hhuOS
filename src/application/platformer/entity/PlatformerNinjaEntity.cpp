@@ -5,6 +5,7 @@
 #include "PlatformerNinjaEntity.h"
 #include "lib/util/game/GameManager.h"
 #include "lib/util/game/entity/component/GravityComponent.h"
+#include "application/platformer/PlatformerGame.h"
 
 PlatformerNinjaEntity::PlatformerNinjaEntity(const Vector2 &position) : Util::Game::Entity("Ninja",
                                                                                            position) {
@@ -62,5 +63,8 @@ void PlatformerNinjaEntity::onCollisionEvent(Util::Game::CollisionEvent *event) 
 }
 
 void PlatformerNinjaEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
-
+    if(event->getTranslateTo().getY() < -2){
+        Util::Game::GameManager::getGame<PlatformerGame>()->getScene()->removeEntity(this);
+        return;
+    }
 }

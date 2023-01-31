@@ -13,6 +13,7 @@
 #include "lib/util/file/File.h"
 #include "application/platformer/block/PlatformerDirtBlockEntity.h"
 #include "application/platformer/block/PlatformerGrassBlockEntity.h"
+#include "application/platformer/special/PlatformerChestEntity.h"
 
 void PlatformerGame::onUpdate(double delta) {
 
@@ -79,6 +80,12 @@ void PlatformerGame::createSceneFromSceneFile(Util::Game::Scene *scene, const ch
                 break;
             case '4':
                 grassPositions.add({x, y});
+                break;
+            case '5':
+                scene->addEntity(new PlatformerChestEntity(pos));
+                break;
+            case '6':
+                spawnNinja(pos);
                 break;
         }
         c = fileReader.read();
