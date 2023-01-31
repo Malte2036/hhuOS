@@ -1,5 +1,5 @@
 //
-// Created by malte on 03.01.23.
+// Created by Malte Sehmer on 03.01.23.
 //
 
 #include "PlatformerNinjaEntity.h"

@@ -1,5 +1,5 @@
 //
-// Created by malte on 09.01.23.
+// Created by Malte Sehmer on 09.01.23.
 //
 
 #include "PolygonDemoScene.h"

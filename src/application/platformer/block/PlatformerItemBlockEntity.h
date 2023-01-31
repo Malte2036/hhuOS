@@ -1,5 +1,5 @@
 //
-// Created by malte on 07.12.22.
+// Created by Malte Sehmer on 07.12.22.
 //
 
 #ifndef HHUOS_PLATFORMERITEMBLOCKENTITY_H

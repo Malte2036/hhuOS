@@ -1,5 +1,5 @@
 //
-// Created by malte on 06.12.22.
+// Created by Malte Sehmer on 06.12.22.
 //
 
 #ifndef HHUOS_SNAKESCORETEXT_H

@@ -1,5 +1,5 @@
 //
-// Created by malte on 05.12.22.
+// Created by Malte Sehmer on 05.12.22.
 //
 
 #ifndef HHUOS_FOODENTITY_H

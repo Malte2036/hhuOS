@@ -1,5 +1,5 @@
 //
-// Created by malte on 08.01.23.
+// Created by Malte Sehmer on 08.01.23.
 //
 
 #include "PlatformerScene1.h"

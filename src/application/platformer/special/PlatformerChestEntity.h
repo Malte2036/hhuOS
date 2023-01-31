@@ -1,5 +1,5 @@
 //
-// Created by malte on 10.01.23.
+// Created by Malte Sehmer on 10.01.23.
 //
 
 #ifndef HHUOS_PLATFORMERCHESTENTITY_H

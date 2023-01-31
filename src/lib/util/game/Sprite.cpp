@@ -1,5 +1,5 @@
 //
-// Created by malte on 16.12.22.
+// Created by Malte Sehmer on 16.12.22.
 //
 
 #include "Sprite.h"

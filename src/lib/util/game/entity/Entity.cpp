@@ -1,5 +1,5 @@
 //
-// Created by malte on 04.12.22.
+// Created by Malte Sehmer on 04.12.22.
 //
 #include "Entity.h"
 #include "lib/util/game/entity/component/Component.h"

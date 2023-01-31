@@ -1,5 +1,5 @@
 //
-// Created by malte on 12.12.22.
+// Created by Malte Sehmer on 12.12.22.
 //
 
 #include "BMP.h"
