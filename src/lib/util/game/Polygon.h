@@ -29,7 +29,7 @@ public:
     /**
      * Constructor.
      */
-    Polygon(const Data::Array<double> &x, const Data::Array<double> &y);
+    explicit Polygon(const Data::Array<Vector2> &vertices);
 
     /**
      * Copy Constructor.
@@ -50,7 +50,7 @@ public:
 
     void rotate(double angle);
 
-    void translate(double xTranslation, double yTranslation);
+    void translate(const Vector2& translation);
 
     void draw(Graphics2D &graphics) const override;
 
@@ -58,10 +58,8 @@ private:
 
     void calculateCenter();
 
-    Data::Array<double> x;
-    Data::Array<double> y;
-    double xCenter = 0;
-    double yCenter = 0;
+    Data::Array<Vector2> vertices;
+    Vector2 center;
 };
 
 }

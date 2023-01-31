@@ -18,10 +18,18 @@
 #ifndef HHUOS_RTC_H
 #define HHUOS_RTC_H
 
+#include <cstdint>
+
 #include "kernel/interrupt/InterruptHandler.h"
 #include "DateProvider.h"
 #include "TimeProvider.h"
-#include "AlarmRunnable.h"
+#include "lib/util/time/Date.h"
+#include "lib/util/time/Timestamp.h"
+
+namespace Kernel {
+class Logger;
+struct InterruptFrame;
+}  // namespace Kernel
 
 namespace Device {
 
@@ -114,7 +122,6 @@ private:
         DAY_OF_MONTH_REGISTER = 0x07,
         MONTH_REGISTER = 0x08,
         YEAR_REGISTER = 0x09,
-        CENTURY_REGISTER = 0x32,
         STATUS_REGISTER_A = 0x0A,
         STATUS_REGISTER_B = 0x0B,
         STATUS_REGISTER_C = 0x0C,
@@ -165,6 +172,9 @@ private:
     Util::Time::Timestamp time{};
     Util::Time::Date currentDate{};
     uint32_t timerInterval = 0;
+
+    uint8_t centuryRegister = 0;
+
     bool useBcd;
     bool useTwelveHours;
 

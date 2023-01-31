@@ -1,5 +1,5 @@
 //
-// Created by malte on 08.01.23.
+// Created by Malte Sehmer on 08.01.23.
 //
 
 #include "PlatformerScene2.h"
@@ -69,8 +69,8 @@ void PlatformerScene2::onUpdate(double delta) {
     scoreText->increaseScore();
 }
 
-void PlatformerScene2::keyPressed(char c) {
-    switch (c) {
+void PlatformerScene2::keyPressed(Util::Io::Key key) {
+    switch (key.getAscii()) {
         case 'a':
             player->moveLeft();
             return;
@@ -84,4 +84,8 @@ void PlatformerScene2::keyPressed(char c) {
             Util::Game::GameManager::getGame<PlatformerGame>()->stop();
             return;
     }
+}
+
+void PlatformerScene2::keyReleased(Util::Io::Key key) {
+
 }

@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+#include <cstdint>
+
 #include "device/bios/Bios.h"
 #include "device/graphic/lfb/vesa/VesaBiosExtensions.h"
 #include "kernel/multiboot/MultibootLinearFrameBufferProvider.h"
@@ -22,7 +24,7 @@
 #include "device/graphic/terminal/cga/ColorGraphicsAdapterProvider.h"
 #include "lib/util/reflection/InstanceFactory.h"
 #include "kernel/system/System.h"
-#include "kernel/multiboot/Structure.h"
+#include "kernel/multiboot/Multiboot.h"
 #include "kernel/multiboot/MultibootTerminalProvider.h"
 #include "device/hid/Keyboard.h"
 #include "lib/util/stream/InputStreamReader.h"
@@ -59,21 +61,43 @@
 #include "device/debug/FirmwareConfiguration.h"
 #include "filesystem/qemu/FirmwareConfigurationDriver.h"
 #include "device/network/loopback/Loopback.h"
+#include "kernel/service/NetworkService.h"
 #include "BuildConfig.h"
 #include "GatesOfHell.h"
-#include "filesystem/memory/StreamNode.h"
-#include "network/PacketReader.h"
-#include "kernel/service/ProcessService.h"
-#include "kernel/service/NetworkService.h"
-#include "network/ethernet/EthernetHeader.h"
-#include "network/arp/ArpModule.h"
+#include "device/power/acpi/Acpi.h"
+#include "asm_interface.h"
+#include "device/graphic/lfb/LinearFrameBufferProvider.h"
+#include "device/graphic/terminal/TerminalProvider.h"
+#include "device/port/serial/SerialPort.h"
+#include "device/power/default/DefaultMachine.h"
+#include "filesystem/core/Filesystem.h"
+#include "kernel/log/Logger.h"
+#include "lib/util/Exception.h"
+#include "lib/util/data/Array.h"
+#include "lib/util/memory/String.h"
+#include "lib/util/stream/PrintWriter.h"
+#include "lib/util/system/System.h"
+#include "lib/util/network/ip4/Ip4Address.h"
+#include "lib/util/network/ip4/Ip4NetworkMask.h"
+#include "kernel/network/ip4/Ip4Module.h"
+#include "kernel/network/NetworkStack.h"
+#include "kernel/network/ip4/Ip4Route.h"
+
+namespace Device {
+class Machine;
+}  // namespace Device
 
 Kernel::Logger GatesOfHell::log = Kernel::Logger::get("GatesOfHell");
 
 void GatesOfHell::enter() {
-    const auto logLevel = Kernel::Multiboot::Structure::hasKernelOption("log_level") ? Kernel::Multiboot::Structure::getKernelOption("log_level") : "info";
+    const auto logLevel = Kernel::Multiboot::hasKernelOption("log_level") ? Kernel::Multiboot::getKernelOption("log_level") : "info";
     Kernel::Logger::setLevel(logLevel);
 
+    auto &bootloaderCopyInformation = Kernel::Multiboot::getCopyInformation();
+    if (!bootloaderCopyInformation.success) {
+        log.error("Bootloader information has not been copied successfully -> Undefined behaviour may occur...");
+    }
+    log.info("Bootloader: [%s], Multiboot info size: [%u/%u Byte]", static_cast<const char*>(Kernel::Multiboot::getBootloaderName()), bootloaderCopyInformation.copiedBytes, bootloaderCopyInformation.targetAreaSize);
     log.info("%u MiB of physical memory detected", Kernel::System::getService<Kernel::MemoryService>().getMemoryStatus().totalPhysicalMemory / 1024 / 1024);
 
     if (Util::Cpu::CpuId::isAvailable()) {
@@ -91,6 +115,25 @@ void GatesOfHell::enter() {
             }
         }
         log.info("CPU features: %s", static_cast<const char*>(featureString));
+    }
+
+    if (Device::Acpi::isAvailable()) {
+        const auto &acpiCopyInformation = Device::Acpi::getCopyInformation();
+        log.info("ACPI support detected (Table size: [%u/%u Byte])", acpiCopyInformation.copiedBytes, acpiCopyInformation.targetAreaSize);
+
+        const auto &rsdp = Device::Acpi::getRsdp();
+        const auto vendor = Util::Memory::String(reinterpret_cast<const uint8_t*>(rsdp.oemId), sizeof(Device::Acpi::Rsdp::oemId));
+        log.info("ACPI vendor: [%s], ACPI version: [%s]", static_cast<const char*>(vendor), rsdp.revision == 0 ? "1.0" : ">=2.0");
+
+        const auto tables = Device::Acpi::getAvailableTables();
+        Util::Memory::String featureString;
+        for (uint32_t i = 0; i < tables.length(); i++) {
+            featureString += tables[i];
+            if (i < tables.length() - 1) {
+                featureString += ",";
+            }
+        }
+        log.info("ACPI tables: %s", static_cast<const char*>(featureString));
     }
 
     if (Device::Bios::isAvailable()) {
@@ -145,13 +188,13 @@ void GatesOfHell::initializeTerminal() {
     Device::Graphic::LinearFrameBufferProvider *lfbProvider = nullptr;
     Device::Graphic::TerminalProvider *terminalProvider;
 
-    if (Kernel::Multiboot::Structure::hasKernelOption("lfb_provider")) {
-        auto providerName = Kernel::Multiboot::Structure::getKernelOption("lfb_provider");
+    if (Kernel::Multiboot::hasKernelOption("lfb_provider")) {
+        auto providerName = Kernel::Multiboot::getKernelOption("lfb_provider");
         log.info("LFB provider set to [%s] -> Starting initialization", static_cast<const char*>(providerName));
         lfbProvider = reinterpret_cast<Device::Graphic::LinearFrameBufferProvider*>(Util::Reflection::InstanceFactory::createInstance(providerName));
-    } else if (Kernel::Multiboot::MultibootLinearFrameBufferProvider::isAvailable()) {
+    } else if (Kernel::MultibootLinearFrameBufferProvider::isAvailable()) {
         log.info("LFB provider is not set -> Using with multiboot values");
-        lfbProvider = new Kernel::Multiboot::MultibootLinearFrameBufferProvider();
+        lfbProvider = new Kernel::MultibootLinearFrameBufferProvider();
     }
 
     if (lfbProvider != nullptr) {
@@ -159,17 +202,17 @@ void GatesOfHell::initializeTerminal() {
         lfbProvider->initializeLinearFrameBuffer(mode, "lfb");
     }
 
-    if (Kernel::Multiboot::Structure::hasKernelOption("terminal_provider")) {
-        auto providerName = Kernel::Multiboot::Structure::getKernelOption("terminal_provider");
+    if (Kernel::Multiboot::hasKernelOption("terminal_provider")) {
+        auto providerName = Kernel::Multiboot::getKernelOption("terminal_provider");
         log.info("Terminal provider set to [%s] -> Starting initialization", static_cast<const char*>(providerName));
         terminalProvider = reinterpret_cast<Device::Graphic::TerminalProvider*>(Util::Reflection::InstanceFactory::createInstance(providerName));
     } else if (lfbProvider != nullptr) {
         log.info("Terminal provider is not set -> Using LFB terminal");
         auto lfbFile = Util::File::File("/device/lfb");
         terminalProvider = new Device::Graphic::LinearFrameBufferTerminalProvider(lfbFile);
-    }  else if (Kernel::Multiboot::MultibootTerminalProvider::isAvailable()) {
+    }  else if (Kernel::MultibootTerminalProvider::isAvailable()) {
         log.info("Terminal provider is not set and LFB is not available -> Using multiboot values");
-        terminalProvider = new Kernel::Multiboot::MultibootTerminalProvider();
+        terminalProvider = new Kernel::MultibootTerminalProvider();
     } else {
         Util::Exception::throwException(Util::Exception::ILLEGAL_STATE, "Unable to find a suitable graphics driver for this machine!");
     }
@@ -187,11 +230,11 @@ void GatesOfHell::initializeTerminal() {
 }
 
 void GatesOfHell::enablePortLogging() {
-    if (!Kernel::Multiboot::Structure::hasKernelOption("log_ports")) {
+    if (!Kernel::Multiboot::hasKernelOption("log_ports")) {
         return;
     }
 
-    const auto ports = Kernel::Multiboot::Structure::getKernelOption("log_ports").split(",");
+    const auto ports = Kernel::Multiboot::getKernelOption("log_ports").split(",");
     for (const auto &port : ports) {
         auto file = Util::File::File("/device/" + port.toLowerCase());
         if (!file.exists()) {
@@ -213,8 +256,8 @@ void GatesOfHell::initializeFilesystem() {
     Util::Reflection::InstanceFactory::registerPrototype(new Filesystem::Fat::FatDriver());
 
     bool rootMounted = false;
-    if (Kernel::Multiboot::Structure::hasKernelOption("root")) {
-        auto rootOptions = Kernel::Multiboot::Structure::getKernelOption("root").split(",");
+    if (Kernel::Multiboot::hasKernelOption("root")) {
+        auto rootOptions = Kernel::Multiboot::getKernelOption("root").split(",");
         if (rootOptions.length() >= 2) {
             const auto &deviceName = rootOptions[0];
             const auto &driverName = rootOptions[1];
@@ -255,9 +298,9 @@ void GatesOfHell::initializeFilesystem() {
     deviceDriver->addNode("/", new Kernel::MemoryStatusNode("memory"));
     deviceDriver->addNode("/", new Device::Sound::PcSpeakerNode("speaker"));
 
-    if (Kernel::Multiboot::Structure::isModuleLoaded("initrd")) {
+    if (Kernel::Multiboot::isModuleLoaded("initrd")) {
         log.info("Initial ramdisk detected -> Mounting [%s]", "/initrd");
-        auto module = Kernel::Multiboot::Structure::getModule("initrd");
+        auto module = Kernel::Multiboot::getModule("initrd");
         auto *tarArchive = new Util::File::Tar::Archive(module.start);
         auto *tarDriver = new Filesystem::Tar::ArchiveDriver(*tarArchive);
 
@@ -348,30 +391,10 @@ void GatesOfHell::initializeStorage() {
 void GatesOfHell::initializeNetwork() {
     Kernel::System::registerService(Kernel::NetworkService::SERVICE_ID, new Kernel::NetworkService());
     auto &networkService = Kernel::System::getService<Kernel::NetworkService>();
-    auto &schedulerService = Kernel::System::getService<Kernel::SchedulerService>();
-    auto &processService = Kernel::System::getService<Kernel::ProcessService>();
-
-    auto &ethernetModule = networkService.getEthernetModule();
-    ethernetModule.registerNextLayerModule(Network::Ethernet::EthernetHeader::ARP, new Network::Arp::ArpModule());
-
-    auto *loopback = new Device::Network::Loopback();
-    auto *packetReader = new Network::PacketReader(loopback);
-    auto &thread = Kernel::Thread::createKernelThread("Loopback-Reader", processService.getKernelProcess(), packetReader);
-    schedulerService.ready(thread);
-
-    auto arpRequest = "\xac\x9e\x17\x4e\x02\x55\x98\x9b\xcb\x78\x0d\xd0\x08\x06\x00\x01" \
-                      "\x08\x00\x06\x04\x00\x01\x98\x9b\xcb\x78\x0d\xd0\xc0\xa8\x2a\x01" \
-                      "\x00\x00\x00\x00\x00\x00\xc0\xa8\x2a\xdb\x00\x00\x00\x00\x00\x00" \
-                      "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
-
-
-    auto arpReply = "\x98\x9b\xcb\x78\x0d\xd0\xac\x9e\x17\x4e\x02\x55\x08\x06\x00\x01" \
-                    "\x08\x00\x06\x04\x00\x02\xac\x9e\x17\x4e\x02\x55\xc0\xa8\x2a\xdb" \
-                    "\x98\x9b\xcb\x78\x0d\xd0\xc0\xa8\x2a\x01\x00\x00\x00\x00";
-
-
-    loopback->sendPacket(reinterpret_cast<const uint8_t*>(arpRequest), 64);
-    loopback->sendPacket(reinterpret_cast<const uint8_t*>(arpReply), 64);
+    auto *loopback = new Device::Network::Loopback("loopback");
+    networkService.registerNetworkDevice(loopback);
+    networkService.getNetworkStack().getIp4Module().registerInterface(Util::Network::Ip4::Ip4Address("127.0.0.1"), Util::Network::Ip4::Ip4Address("127.0.0.0"), Util::Network::Ip4::Ip4NetworkMask(8), *loopback);
+    networkService.setDefaultRoute(Kernel::Network::Ip4::Ip4Route(Util::Network::Ip4::Ip4Address("127.0.0.1"), Util::Network::Ip4::Ip4NetworkMask(8), loopback->getIdentifier()));
 }
 
 void GatesOfHell::mountDevices() {

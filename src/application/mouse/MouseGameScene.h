@@ -1,5 +1,5 @@
 //
-// Created by malte on 09.01.23.
+// Created by Malte Sehmer on 09.01.23.
 //
 
 #ifndef HHUOS_MOUSEGAMESCENE_H
@@ -16,7 +16,9 @@ private:
 
     void drawInitialBackground(Util::Game::Graphics2D &graphics) override;
 
-    void keyPressed(char c) override;
+    void keyPressed(Util::Io::Key key) override;
+
+    void keyReleased(Util::Io::Key key) override;
 
     MouseCursor *cursor = new MouseCursor();
 };

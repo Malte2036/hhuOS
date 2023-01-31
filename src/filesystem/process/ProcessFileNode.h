@@ -18,12 +18,12 @@
 #ifndef HHUOS_PROCESSFILENODE_H
 #define HHUOS_PROCESSFILENODE_H
 
+#include "filesystem/memory/StringNode.h"
 #include "lib/util/memory/String.h"
-#include "filesystem/core/Node.h"
 
 namespace Filesystem::Process {
 
-class ProcessFileNode : public Node {
+class ProcessFileNode : public Memory::StringNode {
 
 public:
     /**
@@ -47,38 +47,12 @@ public:
     ~ProcessFileNode() override = default;
 
     /**
-     * Overriding function from Node.
+     * Overriding function from StringNode.
      */
-    Util::Memory::String getName() override;
-
-    /**
-     * Overriding function from Node.
-     */
-    Util::File::Type getFileType() override;
-
-    /**
-     * Overriding function from Node.
-     */
-    uint64_t getLength() override;
-
-    /**
-     * Overriding function from Node.
-     */
-    Util::Data::Array<Util::Memory::String> getChildren() override;
-
-    /**
-     * Overriding function from Node.
-     */
-    uint64_t readData(uint8_t *targetBuffer, uint64_t pos, uint64_t numBytes) override;
-
-    /**
-     * Overriding function from Node.
-     */
-    uint64_t writeData(const uint8_t *sourceBuffer, uint64_t pos, uint64_t numBytes) override;
+    Util::Memory::String getString();
 
 private:
 
-    Util::Memory::String name;
     Util::Memory::String buffer;
 };
 

@@ -18,9 +18,16 @@
 #ifndef HHUOS_FILESYSTEMSERVICE_H
 #define HHUOS_FILESYSTEMSERVICE_H
 
+#include <cstdint>
+
 #include "filesystem/core/Filesystem.h"
-#include "kernel/file/FileDescriptorManager.h"
 #include "Service.h"
+#include "lib/util/data/Array.h"
+#include "lib/util/memory/String.h"
+
+namespace Filesystem {
+class Node;
+}  // namespace Filesystem
 
 namespace Kernel {
 
@@ -58,6 +65,8 @@ public:
     bool createDirectory(const Util::Memory::String &path);
 
     bool deleteFile(const Util::Memory::String &path);
+
+    int32_t registerFile(Filesystem::Node *node);
 
     int32_t openFile(const Util::Memory::String &path);
 

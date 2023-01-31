@@ -16,9 +16,24 @@
  */
 
 #include <cstdint>
+
+#include "lib/util/ArgumentParser.h"
+#include "lib/util/system/System.h"
 #include "Shell.h"
+#include "lib/util/stream/PrintWriter.h"
 
 int32_t main(int32_t argc, char *argv[]) {
+    auto argumentParser = Util::ArgumentParser();
+    argumentParser.setHelpText("A simple UNIX-like shell.\n"
+                               "Usage: shell\n"
+                               "Options:\n"
+                               "  -h, --help: Show this help message");
+
+    if (!argumentParser.parse(argc, argv)) {
+        Util::System::error << argumentParser.getErrorString() << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
+        return -1;
+    }
+
     Shell shell(argc > 1 ? argv[1] : "/");
     shell.run();
 

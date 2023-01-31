@@ -17,6 +17,8 @@
 
 #include "TerminalNode.h"
 
+#include "lib/util/graphic/Terminal.h"
+
 namespace Device::Graphic {
 
 TerminalNode::TerminalNode(const Util::Memory::String &name, Util::Graphic::Terminal *terminal) : Filesystem::Memory::StreamNode(name, terminal, terminal), terminal(terminal){}
@@ -39,12 +41,19 @@ bool TerminalNode::control(uint32_t request, const Util::Data::Array<uint32_t> &
             terminal->setEcho(false);
             terminal->setAnsiParsing(false);
             terminal->setLineAggregation(false);
+            terminal->setKeyboardScancodes(false);
             return true;
         case Util::Graphic::Terminal::Command::ENABLE_CANONICAL_MODE:
             terminal->setEcho(true);
             terminal->setAnsiParsing(true);
             terminal->setLineAggregation(true);
+            terminal->setKeyboardScancodes(false);
             return true;
+        case Util::Graphic::Terminal::Command::ENABLE_KEYBOARD_SCANCODES:
+            terminal->setEcho(false);
+            terminal->setAnsiParsing(false);
+            terminal->setLineAggregation(false);
+            terminal->setKeyboardScancodes(true);
         default:
             return false;
     }

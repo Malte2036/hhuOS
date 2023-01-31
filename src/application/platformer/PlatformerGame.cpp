@@ -1,5 +1,5 @@
 //
-// Created by malte on 07.12.22.
+// Created by Malte Sehmer on 07.12.22.
 //
 
 #include "PlatformerGame.h"
@@ -10,6 +10,7 @@
 #include "lib/util/stream/FileReader.h"
 #include "application/platformer/block/PlatformerBrickBlockEntity.h"
 #include "application/platformer/block/PlatformerItemBlockEntity.h"
+#include "lib/util/file/File.h"
 
 void PlatformerGame::onUpdate(double delta) {
 

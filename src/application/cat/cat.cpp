@@ -16,19 +16,34 @@
  */
 
 #include <cstdint>
+
 #include "lib/util/system/System.h"
-#include "lib/util/stream/BufferedReader.h"
-#include "lib/util/stream/InputStreamReader.h"
+#include "lib/util/ArgumentParser.h"
+#include "lib/util/data/Array.h"
+#include "lib/util/file/File.h"
+#include "lib/util/stream/BufferedInputStream.h"
 #include "lib/util/stream/FileInputStream.h"
+#include "lib/util/stream/PrintWriter.h"
 
 int32_t main(int32_t argc, char *argv[]) {
-    if (argc < 2) {
+    auto argumentParser = Util::ArgumentParser();
+    argumentParser.setHelpText("Concatenate multiple files on stdout.\n"
+                               "Usage: cat [FILE]...\n"
+                               "Options:\n"
+                               "  -h, --help: Show this help message");
+
+    if (!argumentParser.parse(argc, argv)) {
+        Util::System::error << argumentParser.getErrorString() << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
+        return -1;
+    }
+
+    auto arguments = argumentParser.getUnnamedArguments();
+    if (arguments.length() == 0) {
         Util::System::error << "cat: No arguments provided!" << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
         return -1;
     }
 
-    for (int32_t i = 1; i < argc; i++) {
-        Util::Memory::String path(argv[i]);
+    for (const auto &path : arguments) {
         auto file = Util::File::File(path);
         if (!file.exists()) {
             Util::System::error << "cat: '" << path << "' not found!" << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
@@ -40,26 +55,13 @@ int32_t main(int32_t argc, char *argv[]) {
             continue;
         }
 
-        auto fileType = file.getType();
-        auto fileInputStream = Util::Stream::FileInputStream(file);
-        auto fileReader = Util::Stream::InputStreamReader(fileInputStream);
-        auto bufferedFileReader = Util::Stream::BufferedReader(fileReader);
-        char logChar = bufferedFileReader.read();
+        auto stream = Util::Stream::FileInputStream(file);
+        auto bufferedStream = Util::Stream::BufferedInputStream(stream);
+        int16_t logChar = bufferedStream.read();
 
-        if (fileType == Util::File::REGULAR) {
-            while (logChar != -1) {
-                Util::System::out << logChar;
-                logChar = bufferedFileReader.read();
-            }
-        } else {
-            while (logChar != -1) {
-                Util::System::out << logChar;
-                if (logChar == '\n') {
-                    Util::System::out << Util::Stream::PrintWriter::flush;
-                }
-
-                logChar = bufferedFileReader.read();
-            }
+        while (logChar != -1) {
+            Util::System::out << static_cast<char>(logChar) << Util::Stream::PrintWriter::flush;
+            logChar = bufferedStream.read();
         }
     }
 

@@ -16,8 +16,15 @@
  */
 
 #include "Ansi.h"
+
 #include "lib/util/system/System.h"
 #include "Terminal.h"
+#include "lib/util/data/Array.h"
+#include "lib/util/file/File.h"
+#include "lib/util/graphic/Color.h"
+#include "lib/util/graphic/Colors.h"
+#include "lib/util/stream/InputStreamReader.h"
+#include "lib/util/stream/PrintWriter.h"
 
 namespace Util::Graphic {
 
@@ -182,8 +189,12 @@ void Ansi::disableAnsiParsing() {
     File::controlFile(Util::File::STANDARD_INPUT, Util::Graphic::Terminal::SET_ANSI_PARSING, {false});
 }
 
-void Ansi::prepareGraphicalApplication() {
-    File::controlFile(File::STANDARD_INPUT, Graphic::Terminal::ENABLE_RAW_MODE, {});
+void Ansi::prepareGraphicalApplication(bool enableScancodes) {
+    if (enableScancodes) {
+        File::controlFile(File::STANDARD_INPUT, Graphic::Terminal::ENABLE_KEYBOARD_SCANCODES, {});
+    } else {
+        File::controlFile(File::STANDARD_INPUT, Graphic::Terminal::ENABLE_RAW_MODE, {});
+    }
     disableCursor();
 }
 
@@ -332,7 +343,7 @@ Ansi::CursorPosition Ansi::getCursorPosition() {
 
 Ansi::CursorPosition Ansi::getCursorLimits() {
     auto position = getCursorPosition();
-    setPosition({UINT16_MAX, UINT16_MAX});
+    setPosition(CursorPosition{UINT16_MAX, UINT16_MAX});
 
     auto size = getCursorPosition();
     setPosition(position);
@@ -349,8 +360,6 @@ int16_t Ansi::readChar() {
             input = System::in.read();
             escapeSequence += input;
         } while (!escapeEndCodes.contains(input));
-
-        enableCanonicalMode();
 
         switch (input) {
             case 'A':

@@ -18,17 +18,18 @@
 #ifndef HHUOS_TERMINAL_H
 #define HHUOS_TERMINAL_H
 
+#include <cstdint>
+
 #include "lib/util/stream/OutputStream.h"
 #include "lib/util/stream/InputStream.h"
 #include "lib/util/memory/String.h"
 #include "lib/util/graphic/Color.h"
 #include "lib/util/graphic/Colors.h"
-#include "lib/util/graphic/Ansi.h"
 #include "lib/util/stream/PipedOutputStream.h"
-#include "lib/util/async/Spinlock.h"
 #include "lib/util/stream/ByteArrayOutputStream.h"
 #include "lib/util/async/Runnable.h"
-#include "lib/util/stream/FileInputStream.h"
+#include "lib/util/data/Array.h"
+#include "lib/util/stream/PipedInputStream.h"
 
 namespace Util::Graphic {
 
@@ -37,12 +38,13 @@ class Terminal : public Util::Stream::OutputStream, public Util::Stream::InputSt
 public:
 
     enum Command {
-        SET_ECHO = 0,
-        SET_LINE_AGGREGATION = 1,
-        SET_ANSI_PARSING = 2,
-        SET_CURSOR = 3,
-        ENABLE_RAW_MODE = 4,
-        ENABLE_CANONICAL_MODE = 5
+        SET_ECHO,
+        SET_LINE_AGGREGATION,
+        SET_ANSI_PARSING,
+        SET_CURSOR,
+        ENABLE_RAW_MODE,
+        ENABLE_CANONICAL_MODE,
+        ENABLE_KEYBOARD_SCANCODES
     };
 
     Terminal(uint16_t columns, uint16_t rows);
@@ -80,6 +82,8 @@ public:
     void setLineAggregation(bool enabled);
 
     void setAnsiParsing(bool enabled);
+
+    void setKeyboardScancodes(bool enabled);
 
     virtual void setCursor(bool enabled) = 0;
 
@@ -190,6 +194,7 @@ private:
     bool echo = true;
     bool lineAggregation = true;
     bool ansiParsing = true;
+    bool keyboardScancodes = false;
 
     const uint16_t columns;
     const uint16_t rows;

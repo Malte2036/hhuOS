@@ -18,7 +18,6 @@
 #ifndef HHUOS_DEMOPOLYGON_H
 #define HHUOS_DEMOPOLYGON_H
 
-#include "lib/util/game/Game.h"
 #include "lib/util/game/Polygon.h"
 
 class DemoPolygon : public Util::Game::Polygon {
@@ -32,7 +31,7 @@ public:
     /**
      * Constructor.
      */
-    DemoPolygon(const Util::Data::Array<double> &x, const Util::Data::Array<double> &y, const Util::Graphic::Color &color, double rotationSpeed, double scaleSpeed);
+    DemoPolygon(const Util::Data::Array<Vector2> &vertices, const Util::Graphic::Color &color, double rotationSpeed, double scaleSpeed);
 
     /**
      * Copy Constructor.

@@ -1,5 +1,5 @@
 //
-// Created by malte on 12.12.22.
+// Created by Malte Sehmer on 12.12.22.
 //
 
 #ifndef HHUOS_BMP_H
@@ -7,6 +7,7 @@
 
 
 #include "lib/util/file/image/Image.h"
+#include "lib/util/memory/String.h"
 
 namespace Util::File::Image {
 

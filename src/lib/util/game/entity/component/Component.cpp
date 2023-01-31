@@ -1,5 +1,5 @@
 //
-// Created by malte on 20.12.22.
+// Created by Malte Sehmer on 20.12.22.
 //
 
 #include "Component.h"

@@ -18,12 +18,26 @@
 #ifndef HHUOS_ENGINE_H
 #define HHUOS_ENGINE_H
 
+#include <cstdint>
+
 #include "lib/util/async/Runnable.h"
-#include "lib/util/data/ArrayList.h"
 #include "lib/util/time/Timestamp.h"
 #include "lib/util/async/Spinlock.h"
-#include "Drawable.h"
-#include "Game.h"
+#include "lib/util/game/Graphics2D.h"
+#include "lib/util/game/MouseListener.h"
+#include "lib/util/memory/String.h"
+#include "lib/util/data/ArrayList.h"
+#include "lib/util/io/Key.h"
+#include "lib/util/game/scene/Scene.h"
+
+namespace Util {
+namespace Game {
+class Game;
+}  // namespace Game
+namespace Graphic {
+class LinearFrameBuffer;
+}  // namespace Graphic
+}  // namespace Util
 
 namespace Util::Game {
 
@@ -49,6 +63,9 @@ public:
      * Destructor.
      */
     ~Engine() override = default;
+
+    //template<typename GameType>
+    static Engine* setup(Game &game);
 
     void runWithScene(Scene *initialScene);
 
@@ -230,6 +247,8 @@ private:
 
     uint32_t statusUpdateTimer = 0;
     Memory::String status = statistics.gather();
+
+    Util::Data::ArrayList<Io::Key> pressedKeys;
 
     const uint8_t targetFrameRate;
 };

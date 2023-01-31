@@ -16,12 +16,21 @@
  */
 
 #include <cstdint>
+
 #include "lib/util/system/System.h"
 #include "lib/util/time/Timestamp.h"
 #include "lib/util/async/Thread.h"
 #include "lib/util/stream/FileReader.h"
 #include "lib/util/stream/BufferedReader.h"
 #include "lib/util/async/FunctionPointerRunnable.h"
+#include "lib/util/ArgumentParser.h"
+#include "lib/util/data/Array.h"
+#include "lib/util/file/File.h"
+#include "lib/util/graphic/Ansi.h"
+#include "lib/util/memory/String.h"
+#include "lib/util/stream/FileOutputStream.h"
+#include "lib/util/stream/InputStreamReader.h"
+#include "lib/util/stream/PrintWriter.h"
 
 static const constexpr uint8_t BAR_LENGTH = 25;
 
@@ -57,14 +66,26 @@ uint32_t calculateLength(const Util::File::File &beepFile) {
 }
 
 int32_t main(int32_t argc, char *argv[]) {
-    if (argc < 2) {
-        Util::System::error << "music: No arguments provided!" << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
+    auto argumentParser = Util::ArgumentParser();
+    argumentParser.setHelpText("Play tunes from .beep-files via the PC speaker.\n"
+                               "Usage: beep [FILE]\n"
+                               "Options:\n"
+                               "  -h, --help: Show this help message");
+
+    if (!argumentParser.parse(argc, argv)) {
+        Util::System::error << argumentParser.getErrorString() << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
         return -1;
     }
 
-    auto beepFile = Util::File::File(argv[1]);
+    auto arguments = argumentParser.getUnnamedArguments();
+    if (arguments.length() == 0) {
+        Util::System::error << "beep: No arguments provided!" << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
+        return -1;
+    }
+
+    auto beepFile = Util::File::File(arguments[0]);
     if (!beepFile.exists() || beepFile.isDirectory()) {
-        Util::System::error << "beep: '" << argv[1] << "' could not be opened!" << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
+        Util::System::error << "beep: '" << arguments[0] << "' could not be opened!" << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
         return -1;
     }
 
@@ -77,7 +98,7 @@ int32_t main(int32_t argc, char *argv[]) {
     uint32_t passedTime = 0;
     auto songLength = calculateLength(beepFile);
 
-    Util::Async::Thread::createThread("Exit-Listener", new Util::Async::FunctionPointerRunnable([]{
+    Util::Async::Thread::createThread("Key-Listener", new Util::Async::FunctionPointerRunnable([]{
         Util::System::in.read();
         isRunning = false;
     }));

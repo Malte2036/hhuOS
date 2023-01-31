@@ -20,22 +20,38 @@
 #include "device/cpu/Cpu.h"
 #include "device/time/Rtc.h"
 #include "device/time/Pit.h"
-#include "kernel/multiboot/Structure.h"
 #include "kernel/paging/MemoryLayout.h"
 #include "kernel/service/TimeService.h"
 #include "kernel/memory/PagingAreaManagerRefillRunnable.h"
 #include "kernel/paging/Paging.h"
 #include "System.h"
-#include "kernel/service/SchedulerService.h"
 #include "lib/util/reflection/InstanceFactory.h"
-#include "kernel/service/PowerManagementService.h"
-#include "device/bios/Bios.h"
 #include "kernel/service/StorageService.h"
 #include "kernel/service/InterruptService.h"
 #include "kernel/service/ProcessService.h"
 #include "BlueScreen.h"
+#include "device/power/acpi/Acpi.h"
+#include "kernel/interrupt/InterruptDispatcher.h"
+#include "kernel/interrupt/InterruptHandler.h"
+#include "kernel/log/Logger.h"
+#include "kernel/memory/PageFrameAllocator.h"
+#include "kernel/memory/PagingAreaManager.h"
+#include "kernel/multiboot/Multiboot.h"
+#include "kernel/paging/PageDirectory.h"
+#include "kernel/paging/VirtualAddressSpace.h"
+#include "kernel/process/Thread.h"
+#include "kernel/process/ThreadState.h"
+#include "kernel/service/MemoryService.h"
+#include "kernel/service/SchedulerService.h"
+#include "kernel/system/SystemCall.h"
+#include "kernel/system/TaskStateSegment.h"
+#include "lib/util/async/Spinlock.h"
+#include "lib/util/data/Array.h"
+#include "lib/util/memory/FreeListMemoryManager.h"
+#include "lib/util/memory/HeapMemoryManager.h"
 
 namespace Kernel {
+class Service;
 
 bool System::initialized = false;
 Util::Async::Spinlock System::serviceLock;
@@ -50,8 +66,9 @@ Logger System::log = Logger::get("System");
  * Is called from assembly code before calling the main function, because it sets up
  * everything to get the system run.
  */
-void System::initializeSystem(Multiboot::Info *multibootInfoAddress) {
-    Multiboot::Structure::initialize(multibootInfoAddress);
+void System::initializeSystem() {
+    Multiboot::initialize();
+    Device::Acpi::initialize();
 
     kernelHeapMemoryManager = &initializeKernelHeap();
 
@@ -129,10 +146,6 @@ void System::initializeSystem(Multiboot::Info *multibootInfoAddress) {
     // Enable system calls
     log.info("Enabling system calls");
     systemCall.plugin();
-
-    // Parse multiboot structure
-    log.info("Parsing multiboot structure");
-    Multiboot::Structure::parse();
 
     // Protect kernel code
     kernelAddressSpace->getPageDirectory().unsetPageFlags(___WRITE_PROTECTED_START__, ___WRITE_PROTECTED_END__, Paging::READ_WRITE);
@@ -263,10 +276,10 @@ bool System::isInitialized() {
 }
 
 uint32_t System::calculatePhysicalMemorySize() {
-    Util::Data::Array<Multiboot::MemoryMapEntry> memoryMap = Multiboot::Structure::getMemoryMap();
+    Util::Data::Array<Multiboot::MemoryMapEntry> memoryMap = Multiboot::getMemoryMap();
     Multiboot::MemoryMapEntry &maxEntry = memoryMap[0];
     for (const auto &entry : memoryMap) {
-        if (entry.type != Multiboot::MULTIBOOT_MEMORY_AVAILABLE) {
+        if (entry.type != Multiboot::AVAILABLE) {
             continue;
         }
 
@@ -275,7 +288,7 @@ uint32_t System::calculatePhysicalMemorySize() {
         }
     }
 
-    if (maxEntry.type != Multiboot::MULTIBOOT_MEMORY_AVAILABLE) {
+    if (maxEntry.type != Multiboot::AVAILABLE) {
         Util::Exception::throwException(Util::Exception::ILLEGAL_STATE, "No usable memory found!");
     }
 
@@ -283,12 +296,12 @@ uint32_t System::calculatePhysicalMemorySize() {
 }
 
 Util::Memory::HeapMemoryManager& System::initializeKernelHeap() {
-    auto *blockMap = Multiboot::Structure::getBlockMap();
+    auto *blockMap = Multiboot::getBlockMap();
 
     for (uint32_t i = 0; blockMap[i].blockCount != 0; i++) {
         const auto &block = blockMap[i];
 
-        if (block.type == Multiboot::Structure::HEAP_RESERVED) {
+        if (block.type == Multiboot::HEAP_RESERVED) {
             static Util::Memory::FreeListMemoryManager heapMemoryManager;
             heapMemoryManager.initialize(block.virtualStartAddress, Kernel::MemoryLayout::KERNEL_HEAP_END_ADDRESS);
             return heapMemoryManager;

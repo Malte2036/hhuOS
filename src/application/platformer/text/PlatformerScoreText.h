@@ -1,5 +1,5 @@
 //
-// Created by malte on 06.01.23.
+// Created by Malte Sehmer on 06.01.23.
 //
 
 #ifndef HHUOS_PLATFORMERSCORETEXT_H

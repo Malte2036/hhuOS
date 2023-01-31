@@ -1,5 +1,5 @@
 //
-// Created by malte on 09.01.23.
+// Created by Malte Sehmer on 09.01.23.
 //
 
 #include "MouseGameScene.h"
@@ -19,7 +19,10 @@ void MouseGameScene::onUpdate(double dt) {
 void MouseGameScene::drawInitialBackground(Util::Game::Graphics2D &graphics) {
 
 }
-
-void MouseGameScene::keyPressed(char c) {
+void MouseGameScene::keyPressed(Util::Io::Key key) {
     Util::Game::GameManager::getGame<MouseGame>()->stop();
+}
+
+void MouseGameScene::keyReleased(Util::Io::Key key) {
+
 }

@@ -18,7 +18,10 @@
 #ifndef HHUOS_BYTEARRAYINPUTSTREAM_H
 #define HHUOS_BYTEARRAYINPUTSTREAM_H
 
+#include <cstdint>
+
 #include "InputStream.h"
+#include "lib/util/network/Datagram.h"
 
 namespace Util::Stream {
 
@@ -26,26 +29,36 @@ class ByteArrayInputStream : public InputStream {
 
 public:
 
-    ByteArrayInputStream(uint8_t *buffer, uint32_t size);
+    ByteArrayInputStream(uint8_t *buffer, uint32_t size, bool deleteBuffer = true);
+
+    explicit ByteArrayInputStream(Network::Datagram &datagram);
 
     ByteArrayInputStream(const ByteArrayInputStream &copy) = delete;
 
     ByteArrayInputStream &operator=(const ByteArrayInputStream &copy) = delete;
 
-    ~ByteArrayInputStream() override = default;
+    ~ByteArrayInputStream() override;
+
+    [[nodiscard]] uint32_t getLength() const;
+
+    [[nodiscard]] uint32_t getPosition() const;
+
+    [[nodiscard]] uint32_t getRemaining() const;
+
+    [[nodiscard]] bool isEmpty() const;
+
+    [[nodiscard]] const uint8_t* getBuffer() const;
 
     int16_t read() override;
 
     int32_t read(uint8_t *targetBuffer, uint32_t offset, uint32_t length) override;
-
-    uint8_t *getBuffer();
 
 private:
 
     uint8_t *buffer;
     uint32_t size;
     uint32_t position = 0;
-
+    bool deleteBuffer;
 };
 
 }

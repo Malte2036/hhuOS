@@ -18,8 +18,8 @@
 #ifndef HHUOS_DEMOPOLYGONFACTORY_H
 #define HHUOS_DEMOPOLYGONFACTORY_H
 
-#include "DemoPolygon.h"
 #include "lib/util/math/Random.h"
+#include "DemoPolygon.h"
 
 class DemoPolygonFactory {
 
@@ -48,21 +48,15 @@ public:
 
 private:
 
-    Util::Math::Random random = Util::Math::Random(256);
+    Util::Math::Random random = Util::Math::Random();
 
-    static const Util::Data::Array<double> xShape1;
-    static const Util::Data::Array<double> yShape1;
-    static const Util::Data::Array<double> xShape2;
-    static const Util::Data::Array<double> yShape2;
-    static const Util::Data::Array<double> xShape3;
-    static const Util::Data::Array<double> yShape3;
-    static const Util::Data::Array<double> xShape4;
-    static const Util::Data::Array<double> yShape4;
-    static const Util::Data::Array<double> xShape5;
-    static const Util::Data::Array<double> yShape5;
+    static const Util::Data::Array<Vector2> shape1;
+    static const Util::Data::Array<Vector2> shape2;
+    static const Util::Data::Array<Vector2> shape3;
+    static const Util::Data::Array<Vector2> shape4;
+    static const Util::Data::Array<Vector2> shape5;
 
-    static const Util::Data::Array<const Util::Data::Array<double>*> xShapes;
-    static const Util::Data::Array<const Util::Data::Array<double>*> yShapes;
+    static const Util::Data::Array<const Util::Data::Array<Vector2>*> shapes;
 };
 
 #endif

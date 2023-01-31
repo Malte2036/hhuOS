@@ -1,5 +1,5 @@
 //
-// Created by malte on 08.01.23.
+// Created by Malte Sehmer on 08.01.23.
 //
 
 #ifndef HHUOS_SNAKESCENE_H
@@ -20,7 +20,12 @@ private:
 
     void onUpdate(double dt) override;
 
-    void keyPressed(char c) override;
+public:
+    void keyPressed(Util::Io::Key key) override;
+
+    void keyReleased(Util::Io::Key key) override;
+
+private:
 
     SnakeEntity *snake = nullptr;
     SnakeScoreText *scoreText = nullptr;

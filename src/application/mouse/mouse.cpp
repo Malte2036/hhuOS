@@ -16,24 +16,37 @@
  */
 
 #include <cstdint>
+
 #include "lib/util/system/System.h"
 #include "lib/util/graphic/LinearFrameBuffer.h"
 #include "MouseGame.h"
 #include "lib/util/game/Engine.h"
-#include "MouseGameScene.h"
+#include "lib/util/ArgumentParser.h"
+#include "lib/util/file/File.h"
+#include "lib/util/stream/PrintWriter.h"
 #include "lib/util/game/GameManager.h"
+#include "MouseGameScene.h"
 
 int32_t main(int32_t argc, char *argv[]) {
+    auto argumentParser = Util::ArgumentParser();
+    argumentParser.setHelpText("Test application for the mouse.\n"
+                               "Usage: mouse\n"
+                               "Options:\n"
+                               "  -h, --help: Show this help message");
+
+    if (!argumentParser.parse(argc, argv)) {
+        Util::System::error << argumentParser.getErrorString() << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
+        return -1;
+    }
+
     auto game = new MouseGame();
 
-    auto lfbFile = Util::File::File("/device/lfb");
-    auto lfb = Util::Graphic::LinearFrameBuffer(lfbFile);
-    auto engine = Util::Game::Engine(*game, lfb);
+    auto engine = Util::Game::Engine::setup(*game);
 
     Util::Game::GameManager::setGame<MouseGame>(game);
 
     auto scene = new MouseGameScene();
 
-    engine.runWithScene(scene);
+    engine->runWithScene(scene);
     return 0;
 }

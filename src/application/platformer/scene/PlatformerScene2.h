@@ -1,5 +1,5 @@
 //
-// Created by malte on 08.01.23.
+// Created by Malte Sehmer on 08.01.23.
 //
 
 #ifndef HHUOS_PLATFORMERSCENE2_H
@@ -21,7 +21,11 @@ private:
 
     void onUpdate(double dt) override;
 
-    void keyPressed(char c) override;
+    void keyPressed(Util::Io::Key key) override;
+
+    void keyReleased(Util::Io::Key key) override;
+
+private:
 
     PlatformerPlayerEntity *player = nullptr;
     const double groundY = -0.5;

@@ -18,6 +18,8 @@
 #ifndef HHUOS_GAME_H
 #define HHUOS_GAME_H
 
+#include <cstdint>
+
 #include "lib/util/data/ArrayList.h"
 #include "Graphics2D.h"
 #include "Drawable.h"
@@ -28,9 +30,22 @@
 #include "lib/util/data/Pair.h"
 #include "lib/util/game/scene/Scene.h"
 
-namespace Util::Game {
+namespace Util
+{
+    namespace Game
+    {
+        class Drawable;
+        class Graphics2D;
+        class KeyListener;
+        class MouseListener;
+    } // namespace Game
+} // namespace Util
 
-    class Game {
+namespace Util::Game
+{
+
+    class Game
+    {
         friend class Engine;
 
     public:
@@ -56,7 +71,6 @@ namespace Util::Game {
          */
         void stop();
 
-
         /**
          * @return the current scene
          */
@@ -78,7 +92,7 @@ namespace Util::Game {
         [[nodiscard]] bool isNewScenePushed() const;
 
     private:
-        virtual void init() {};
+        virtual void init(){};
 
         Scene *scene = nullptr;
         bool newScenePushed = true;

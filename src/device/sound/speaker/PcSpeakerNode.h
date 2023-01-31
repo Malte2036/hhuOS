@@ -18,11 +18,15 @@
 #ifndef HHUOS_PCSPEAKERNODE_H
 #define HHUOS_PCSPEAKERNODE_H
 
-#include "filesystem/memory/MemoryNode.h"
+#include <cstdint>
+
+#include "filesystem/memory/StringNode.h"
+#include "lib/util/file/Type.h"
+#include "lib/util/memory/String.h"
 
 namespace Device::Sound {
 
-class PcSpeakerNode : public Filesystem::Memory::MemoryNode {
+class PcSpeakerNode : public Filesystem::Memory::StringNode {
 
 public:
     /**
@@ -46,19 +50,14 @@ public:
     ~PcSpeakerNode() override = default;
 
     /**
-     * Overriding function from MemoryNode.
+     * Overriding function from StringNode.
      */
-    uint64_t getLength() override;
+    Util::Memory::String getString() override;
 
     /**
      * Overriding function from MemoryNode.
      */
     Util::File::Type getFileType() override;
-
-    /**
-     * Overriding function from MemoryNode.
-     */
-    uint64_t readData(uint8_t *targetBuffer, uint64_t pos, uint64_t numBytes) override;
 
     /**
      * Overriding function from MemoryNode.

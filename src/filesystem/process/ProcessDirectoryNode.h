@@ -18,7 +18,12 @@
 #ifndef HHUOS_PROCESSDIRECTORYNODE_H
 #define HHUOS_PROCESSDIRECTORYNODE_H
 
+#include <cstdint>
+
 #include "filesystem/core/Node.h"
+#include "lib/util/data/Array.h"
+#include "lib/util/file/Type.h"
+#include "lib/util/memory/String.h"
 
 namespace Filesystem::Process {
 
@@ -28,7 +33,7 @@ public:
     /**
      * Default Constructor.
      */
-    ProcessDirectoryNode(uint32_t processId);
+    explicit ProcessDirectoryNode(uint32_t processId);
 
     /**
      * Copy Constructor.

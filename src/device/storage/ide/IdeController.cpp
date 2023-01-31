@@ -16,6 +16,7 @@
  */
 
 #include "IdeController.h"
+
 #include "lib/util/async/Thread.h"
 #include "device/storage/ChsConverter.h"
 #include "IdeDevice.h"
@@ -23,13 +24,25 @@
 #include "kernel/service/StorageService.h"
 #include "kernel/interrupt/InterruptDispatcher.h"
 #include "kernel/service/InterruptService.h"
+#include "device/interrupt/Pic.h"
+#include "device/pci/Pci.h"
+#include "device/pci/PciDevice.h"
+#include "kernel/log/Logger.h"
+#include "kernel/process/ThreadState.h"
+#include "kernel/service/MemoryService.h"
+#include "lib/util/Exception.h"
+#include "lib/util/data/Array.h"
+#include "lib/util/memory/Address.h"
+#include "lib/util/memory/Constants.h"
+#include "lib/util/memory/String.h"
+#include "lib/util/time/Timestamp.h"
 
 namespace Device::Storage {
 
 Kernel::Logger IdeController::log = Kernel::Logger::get("IDE");
 
 IdeController::IdeController(const PciDevice &pciDevice) {
-    log.info("Initializing controller [%04x:%04x]", pciDevice.getVendorId(), pciDevice.getDeviceId());
+    log.info("Initializing controller [0x%04x:0x%04x]", pciDevice.getVendorId(), pciDevice.getDeviceId());
 
     uint32_t baseAddress;
     uint32_t controlBaseAddress;
@@ -306,7 +319,7 @@ bool IdeController::selectDrive(uint8_t channel, uint8_t drive, bool prepareLbaA
     }
 
     registers.command.driveHead.writeByte(selector);
-    Util::Async::Thread::sleep({0, 400});
+    Util::Async::Thread::sleep(Util::Time::Timestamp(0, 400));
 
     if (!waitBusy(registers.command.status)) {
         log.error("Failed to select drive [%u] on channel [%u]", drive, channel);
@@ -426,7 +439,7 @@ uint16_t IdeController::performIO(const IdeController::DeviceInfo &info, IdeCont
 
         // TODO: DMA is currently disable for two reasons:
         //      1. There seems to be an error with unmapping the pages used for DMA, causing the system to crash.
-        //      2. DMA transfers do not work on BIOS systems (Interrupts gets fired, but the memory is untouched)
+        //      2. DMA transfers do not work on BIOS systems (Interrupts get fired, but the memory is untouched)
         /*uint16_t sectors;
         if (supportsDma && info.supportsDma()) {
             sectors = performDmaIO(info, mode, reinterpret_cast<uint16_t*>(buffer + (processedSectors * info.sectorSize)), start, count);
@@ -632,7 +645,7 @@ bool IdeController::waitStatus(const IoPort &port, Status status, uint16_t retri
         }
 
         if ((currentStatus & ERROR) == ERROR) {
-            if (logError) log.error("Error while waiting on status [%02x]", status);
+            if (logError) log.error("Error while waiting on status [0x%02x]", status);
             return false;
         }
 
@@ -643,7 +656,7 @@ bool IdeController::waitStatus(const IoPort &port, Status status, uint16_t retri
         Util::Async::Thread::sleep(Util::Time::Timestamp::ofMilliseconds(1));
     }
 
-    if (logError) log.error("Timeout while waiting on status [%02x]", status);
+    if (logError) log.error("Timeout while waiting on status [0x%02x]", status);
     return false;
 }
 

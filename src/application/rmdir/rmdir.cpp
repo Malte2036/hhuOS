@@ -16,16 +16,32 @@
  */
 
 #include <cstdint>
+
 #include "lib/util/system/System.h"
+#include "lib/util/ArgumentParser.h"
+#include "lib/util/data/Array.h"
+#include "lib/util/file/File.h"
+#include "lib/util/stream/PrintWriter.h"
 
 int32_t main(int32_t argc, char *argv[]) {
-    if (argc < 2) {
-        Util::System::out << "rmdir: No arguments provided!" << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
+    auto argumentParser = Util::ArgumentParser();
+    argumentParser.setHelpText("Delete directories.\n"
+                               "Usage: rm [DIRECTORY]...\n"
+                               "Options:\n"
+                               "  -h, --help: Show this help message");
+
+    if (!argumentParser.parse(argc, argv)) {
+        Util::System::error << argumentParser.getErrorString() << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
         return -1;
     }
 
-    for (int32_t i = 1; i < argc; i++) {
-        Util::Memory::String path(argv[i]);
+    auto arguments = argumentParser.getUnnamedArguments();
+    if (arguments.length() == 0) {
+        Util::System::error << "rm: No arguments provided!" << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
+        return -1;
+    }
+
+    for (const auto &path : arguments) {
         auto file = Util::File::File(path);
         if (!file.exists()) {
             Util::System::out << "rmdir: '" << path << "' not found!" << Util::Stream::PrintWriter::endl;

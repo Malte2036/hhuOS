@@ -1,5 +1,5 @@
 //
-// Created by malte on 09.01.23.
+// Created by Malte Sehmer on 09.01.23.
 //
 #include "GameManager.h"
 #include "lib/util/stream/FileReader.h"
@@ -8,6 +8,8 @@
 #include "lib/util/stream/PrintWriter.h"
 #include "lib/util/system/System.h"
 #include "lib/util/async/Thread.h"
+#include "lib/util/file/File.h"
+#include "lib/util/graphic/Ansi.h"
 
 namespace Util::Game {
     void GameManager::playSound(const Memory::String &soundFileName) {

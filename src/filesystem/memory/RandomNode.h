@@ -18,7 +18,11 @@
 #ifndef HHUOS_RANDOMNODE_H
 #define HHUOS_RANDOMNODE_H
 
+#include <cstdint>
+
 #include "MemoryNode.h"
+#include "lib/util/file/Type.h"
+#include "lib/util/memory/String.h"
 
 namespace Filesystem::Memory {
 
@@ -28,7 +32,7 @@ public:
     /**
      * Constructor.
      */
-    RandomNode(const Util::Memory::String &name = "random");
+    explicit RandomNode(const Util::Memory::String &name = "random");
 
     /**
      * Copy Constructor.

@@ -17,12 +17,16 @@
 
 
 #include "kernel/paging/MemoryLayout.h"
-#include "kernel/multiboot/Structure.h"
+#include "kernel/multiboot/Multiboot.h"
 #include "lib/util/memory/Address.h"
 #include "device/cpu/Cpu.h"
 #include "asm_interface.h"
 #include "Bios.h"
 #include "kernel/system/System.h"
+#include "kernel/service/MemoryService.h"
+#include "lib/util/Exception.h"
+#include "lib/util/async/Spinlock.h"
+#include "lib/util/memory/String.h"
 
 namespace Device {
 
@@ -43,7 +47,7 @@ uint8_t Bios::get8BitRegister(uint16_t value, Bios::RegisterHalf half) {
 }
 
 bool Bios::isAvailable() {
-    return Kernel::Multiboot::Structure::hasKernelOption("bios") && Kernel::Multiboot::Structure::getKernelOption("bios") == "true";
+    return Kernel::Multiboot::hasKernelOption("bios") && Kernel::Multiboot::getKernelOption("bios") == "true";
 }
 
 void Bios::init() {

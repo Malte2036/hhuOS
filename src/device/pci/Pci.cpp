@@ -17,6 +17,11 @@
 
 #include "PciDevice.h"
 #include "Pci.h"
+#include "device/cpu/IoPort.h"
+#include "kernel/log/Logger.h"
+#include "lib/util/data/ArrayList.h"
+#include "lib/util/data/Collection.h"
+#include "lib/util/data/Iterator.h"
 
 namespace Device {
 
@@ -91,7 +96,7 @@ void Pci::checkFunction(uint8_t bus, uint8_t device, uint8_t function) {
         scanBus(secondaryBus);
     } else {
         auto pciDevice = readDevice(bus, device, function);
-        log.info("Found PCI device [%04x:%04x] on bus [%u]", pciDevice.getVendorId(), pciDevice.getDeviceId(), bus);
+        log.info("Found PCI device [0x%04x:0x%04x] on bus [%u]", pciDevice.getVendorId(), pciDevice.getDeviceId(), bus);
         devices.add(pciDevice);
     }
 }

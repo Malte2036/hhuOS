@@ -1,5 +1,5 @@
 //
-// Created by malte on 04.12.22.
+// Created by Malte Sehmer on 04.12.22.
 //
 #ifndef HHUOS_ENTITY_H
 #define HHUOS_ENTITY_H

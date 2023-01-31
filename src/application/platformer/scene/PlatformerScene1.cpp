@@ -1,15 +1,12 @@
 //
-// Created by malte on 08.01.23.
+// Created by Malte Sehmer on 08.01.23.
 //
 
 #include "PlatformerScene1.h"
 #include "lib/util/game/GameManager.h"
 #include "lib/util/game/entity/component/GravityComponent.h"
-#include "application/platformer/block/PlatformerBrickBlockEntity.h"
-#include "application/platformer/block/PlatformerSolidBlockEntity.h"
-#include "application/platformer/block/PlatformerItemBlockEntity.h"
 #include "application/platformer/PlatformerGame.h"
-#include "lib/util/stream/FileReader.h"
+#include "application/platformer/special/PlatformerChestEntity.h"
 
 void PlatformerScene1::init() {
     setKeyListener(*this);
@@ -20,6 +17,8 @@ void PlatformerScene1::init() {
 
     scoreText = new PlatformerScoreText(Vector2(-1, 0.95), 0);
     addObject(scoreText);
+
+    addEntity(new PlatformerChestEntity(Vector2(3, groundY)));
 
     auto game = Util::Game::GameManager::getGame<PlatformerGame>();
     game->spawnNinja(Vector2(2, groundY + 0.1), groundY);
@@ -72,8 +71,8 @@ void PlatformerScene1::onUpdate(double delta) {
     scoreText->increaseScore();
 }
 
-void PlatformerScene1::keyPressed(char c) {
-    switch (c) {
+void PlatformerScene1::keyPressed(Util::Io::Key key) {
+    switch (key.getAscii()) {
         case 'a':
             player->moveLeft();
             return;
@@ -87,4 +86,8 @@ void PlatformerScene1::keyPressed(char c) {
             Util::Game::GameManager::getGame<PlatformerGame>()->stop();
             return;
     }
+}
+
+void PlatformerScene1::keyReleased(Util::Io::Key key) {
+
 }

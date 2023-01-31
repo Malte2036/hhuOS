@@ -16,16 +16,33 @@
  */
 
 #include <cstdint>
+
 #include "lib/util/system/System.h"
+#include "lib/util/ArgumentParser.h"
+#include "lib/util/data/Array.h"
+#include "lib/util/file/File.h"
+#include "lib/util/file/Type.h"
+#include "lib/util/stream/PrintWriter.h"
 
 int32_t main(int32_t argc, char *argv[]) {
-    if (argc < 2) {
+    auto argumentParser = Util::ArgumentParser();
+    argumentParser.setHelpText("Create files.\n"
+                               "Usage: cat [DIRECTORY]...\n"
+                               "Options:\n"
+                               "  -h, --help: Show this help message");
+
+    if (!argumentParser.parse(argc, argv)) {
+        Util::System::error << argumentParser.getErrorString() << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
+        return -1;
+    }
+
+    auto arguments = argumentParser.getUnnamedArguments();
+    if (arguments.length() == 0) {
         Util::System::error << "touch: No arguments provided!" << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
         return -1;
     }
 
-    for (int32_t i = 1; i < argc; i++) {
-        Util::Memory::String path(argv[i]);
+    for (const auto &path : arguments) {
         auto file = Util::File::File(path);
         if (file.exists()) {
             continue;
@@ -33,7 +50,7 @@ int32_t main(int32_t argc, char *argv[]) {
 
         auto success = file.create(Util::File::REGULAR);
         if (!success) {
-            Util::System::error << "touch: Failed to execute file '" << argv[i] << "'!" << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
+            Util::System::error << "touch: Failed to create file '" << path << "'!" << Util::Stream::PrintWriter::endl << Util::Stream::PrintWriter::flush;
         }
     }
 

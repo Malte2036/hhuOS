@@ -1,5 +1,5 @@
 //
-// Created by malte on 01.01.23.
+// Created by Malte Sehmer on 01.01.23.
 //
 
 #ifndef HHUOS_SPRITEANIMATION_H

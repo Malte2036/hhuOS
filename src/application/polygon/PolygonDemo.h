@@ -18,6 +18,8 @@
 #ifndef HHUOS_POLYGONDEMO_H
 #define HHUOS_POLYGONDEMO_H
 
+#include <cstdint>
+
 #include "lib/util/game/Game.h"
 
 class PolygonDemo : public Util::Game::Game {

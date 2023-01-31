@@ -43,6 +43,8 @@ GRAPHICS_BPP    equ 32
 global initial_kernel_stack
 global gdt_descriptor
 global gdt_bios_descriptor
+extern multiboot_data
+extern acpi_data
 
 ; Export functions
 global boot
@@ -55,6 +57,7 @@ global __cxa_pure_virtual
 extern main
 extern init_gdt
 extern copy_multiboot_info
+extern copy_acpi_tables
 extern read_memory_map
 extern initialize_system
 extern finish_system
@@ -146,8 +149,13 @@ clear_bss_done:
     push dword [multiboot_physical_addr - KERNEL_START]
     call_physical_function copy_multiboot_info
 
+    ; Copy the ACPI structures into bss
+    push dword ACPI_SIZE
+    push dword (acpi_data - KERNEL_START)
+    call_physical_function copy_acpi_tables
+
     ; Read memory map from multiboot info struct
-    push dword (multiboot_data - KERNEL_START)
+    push dword [multiboot_physical_addr - KERNEL_START]
     call_physical_function read_memory_map
 
 	; Jump into paging.asm to enable 4MB paging
@@ -166,7 +174,6 @@ on_paging_enabled:
 	call reprogram_pics
 
     ; Initialize system
-    push multiboot_data
     call initialize_system
 
     ; Call the kernel's main() function
@@ -246,3 +253,7 @@ initial_kernel_stack:
 ; Reserve space for a copy of the multiboot information
 multiboot_data:
     resb MULTIBOOT_SIZE
+
+; Reserve space for a copy of the ACPI tables
+acpi_data:
+    resb ACPI_SIZE

@@ -1,5 +1,5 @@
 //
-// Created by malte on 08.01.23.
+// Created by Malte Sehmer on 08.01.23.
 //
 
 #include "TestDemoScene.h"
@@ -23,8 +23,8 @@ void TestDemoScene::onUpdate(double dt) {
 
 }
 
-void TestDemoScene::keyPressed(char c) {
-    switch (c) {
+void TestDemoScene::keyPressed(Util::Io::Key key) {
+    switch (key.getAscii()) {
         case 'a':
             player->moveLeft();
             return;
@@ -39,3 +39,8 @@ void TestDemoScene::keyPressed(char c) {
             return;
     }
 }
+
+void TestDemoScene::keyReleased(Util::Io::Key key) {
+
+}
+

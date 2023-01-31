@@ -16,9 +16,18 @@
  */
 
 #include "lib/interface.h"
+
 #include "lib/util/system/System.h"
 #include "lib/util/memory/HeapMemoryManager.h"
 #include "lib/util/memory/Constants.h"
+#include "lib/util/async/Runnable.h"
+#include "lib/util/stream/PrintWriter.h"
+
+namespace Util {
+namespace Network {
+class Datagram;
+}  // namespace Network
+}  // namespace Util
 
 void* allocateMemory(uint32_t size, uint32_t alignment) {
     auto *manager = reinterpret_cast<Util::Memory::HeapMemoryManager*>(Util::Memory::USER_SPACE_MEMORY_MANAGER_ADDRESS);
@@ -130,6 +139,22 @@ Util::File::File getCurrentWorkingDirectory() {
     char *path;
     Util::System::call(Util::System::GET_CURRENT_WORKING_DIRECTORY, 1, &path);
     return Util::File::File(path);
+}
+
+int32_t createSocket(Util::Network::Socket::Type socketType) {
+    int32_t fileDescriptor;
+    auto result = Util::System::call(Util::System::CREATE_SOCKET, 2, socketType, &fileDescriptor);
+    return result == Util::System::OK ? fileDescriptor : -1;
+}
+
+bool sendDatagram(int32_t fileDescriptor, const Util::Network::Datagram &datagram) {
+    auto result = Util::System::call(Util::System::SEND_DATAGRAM, 2, fileDescriptor, &datagram);
+    return result == Util::System::OK;
+}
+
+bool receiveDatagram(int32_t fileDescriptor, Util::Network::Datagram &datagram){
+    auto result = Util::System::call(Util::System::RECEIVE_DATAGRAM, 2, fileDescriptor, &datagram);
+    return result == Util::System::OK;
 }
 
 Util::Async::Process executeBinary(const Util::File::File &binaryFile, const Util::File::File &inputFile, const Util::File::File &outputFile, const Util::File::File &errorFile, const Util::Memory::String &command, const Util::Data::Array<Util::Memory::String> &arguments) {

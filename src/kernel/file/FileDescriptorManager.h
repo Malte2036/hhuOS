@@ -1,7 +1,13 @@
 #ifndef HHUOS_FILEDESCRIPTORMANAGER_H
 #define HHUOS_FILEDESCRIPTORMANAGER_H
 
-#include "filesystem/core/Node.h"
+#include <cstdint>
+
+#include "lib/util/memory/String.h"
+
+namespace Filesystem {
+class Node;
+}  // namespace Filesystem
 
 namespace Kernel {
 
@@ -27,6 +33,8 @@ public:
      * Destructor.
      */
     ~FileDescriptorManager();
+
+    int32_t registerFile(Filesystem::Node *node);
 
     int32_t openFile(const Util::Memory::String &path);
 
