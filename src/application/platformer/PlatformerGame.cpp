@@ -11,6 +11,8 @@
 #include "application/platformer/block/PlatformerBrickBlockEntity.h"
 #include "application/platformer/block/PlatformerItemBlockEntity.h"
 #include "lib/util/file/File.h"
+#include "application/platformer/block/PlatformerDirtBlockEntity.h"
+#include "application/platformer/block/PlatformerGrassBlockEntity.h"
 
 void PlatformerGame::onUpdate(double delta) {
 
@@ -56,6 +58,7 @@ void PlatformerGame::createSceneFromSceneFile(Util::Game::Scene *scene, const ch
     auto y = (Util::Game::GameManager::getResolution().getY() / 2);
 
     auto dirtPositions = Util::Data::ArrayList<Util::Data::Pair<int, double>>();
+    auto grassPositions = Util::Data::ArrayList<Util::Data::Pair<int, double>>();
 
     auto c = fileReader.read();
     while (c != -1) {
@@ -74,15 +77,20 @@ void PlatformerGame::createSceneFromSceneFile(Util::Game::Scene *scene, const ch
             case '3':
                 dirtPositions.add({x, y});
                 break;
+            case '4':
+                grassPositions.add({x, y});
+                break;
         }
         c = fileReader.read();
         x += 1;
     }
-    spawnLargeColliderFromArray(*scene, dirtPositions);
+    spawnLargeColliderFromArray(*scene, dirtPositions, DIRT);
+    spawnLargeColliderFromArray(*scene, grassPositions, GRASS);
 }
 
 void PlatformerGame::spawnLargeColliderFromArray(Util::Game::Scene &scene,
-                                                 Util::Data::ArrayList<Util::Data::Pair<int, double>> &positions) {
+                                                 Util::Data::ArrayList<Util::Data::Pair<int, double>> &positions,
+                                                 LargeColliderType type) const {
     if (positions.isEmpty()) return;
 
     auto lastPoint = positions.get(0);
@@ -94,8 +102,18 @@ void PlatformerGame::spawnLargeColliderFromArray(Util::Game::Scene &scene,
             auto rectangleStartVec = Vector2(
                     rectangleStartPoint.first * blockSize - (Util::Game::GameManager::getResolution().getX() / 2),
                     rectangleStartPoint.second);
-            scene.addEntity(
-                    new PlatformerBrickBlockEntity(rectangleStartVec, lastPoint.first - rectangleStartPoint.first));
+
+            auto countX = lastPoint.first - rectangleStartPoint.first + 1;
+            PlatformerBlockEntity *entity;
+            switch (type) {
+                case GRASS:
+                    entity = new PlatformerGrassBlockEntity(rectangleStartVec, countX);
+                    break;
+                default:
+                    entity = new PlatformerDirtBlockEntity(rectangleStartVec, countX);
+                    break;
+            }
+            scene.addEntity(entity);
 
             rectangleStartPoint = point;
         }

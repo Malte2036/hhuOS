@@ -25,8 +25,12 @@ private:
 
     void onUpdate(double delta) override;
 
+    enum LargeColliderType {
+        DIRT, GRASS
+    };
+
     void spawnLargeColliderFromArray(Util::Game::Scene &scene,
-                                     Util::Data::ArrayList<Util::Data::Pair<int, double>> &positions);
+                                     Util::Data::ArrayList<Util::Data::Pair<int, double>> &positions, LargeColliderType type) const;
 
     double blockSize = 0.08;
 
