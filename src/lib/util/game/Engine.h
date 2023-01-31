@@ -64,6 +64,9 @@ public:
      */
     ~Engine() override = default;
 
+    //template<typename GameType>
+    static Engine* setup(Game &game);
+
     void runWithScene(Scene *initialScene);
 
 private:

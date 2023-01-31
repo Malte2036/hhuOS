@@ -46,16 +46,13 @@ int32_t main(int32_t argc, char *argv[]) {
     auto speed = arguments.length() == 0 ? DEFAULT_SPEED : Util::Memory::String::parseInt(arguments[0]);
 
     auto game = new CubeDemo();
-    auto lfbFile = Util::File::File("/device/lfb");
-    auto lfb = Util::Graphic::LinearFrameBuffer(lfbFile);
 
-    auto engine = Util::Game::Engine(*game, lfb);
+    auto engine = Util::Game::Engine::setup(*game);
 
     Util::Game::GameManager::setGame<CubeDemo>(game);
 
     auto scene = new CubeDemoScene(speed);
 
-    engine.runWithScene(scene);
-
+    engine->runWithScene(scene);
     return 0;
 }

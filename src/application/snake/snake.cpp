@@ -16,15 +16,12 @@ bool isRunning = true;
 int32_t main(int32_t argc, char *argv[]) {
     Logger::logMessage("Starting SnakeGame");
 
-    auto lfbFile = Util::File::File("/device/lfb");
-    auto lfb = Util::Graphic::LinearFrameBuffer(lfbFile);
-
     auto game = new SnakeGame();
-    auto engine = Util::Game::Engine(*game, lfb);
+    auto engine = Util::Game::Engine::setup(*game);
     Util::Game::GameManager::setGame<SnakeGame>(game);
 
     auto scene = new SnakeScene();
 
-    engine.runWithScene(scene);
+    engine->runWithScene(scene);
     return 0;
 }

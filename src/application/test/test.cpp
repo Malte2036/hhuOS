@@ -29,16 +29,13 @@ bool isRunning = true;
 int32_t main(int32_t argc, char *argv[]) {
     Logger::logMessage("Starting test game!");
 
-    auto lfbFile = Util::File::File("/device/lfb");
-    auto lfb = Util::Graphic::LinearFrameBuffer(lfbFile);
-
     auto game = new TestDemo();
-    auto engine = Util::Game::Engine(*game, lfb);
+    auto engine = Util::Game::Engine::setup(*game);
 
     Util::Game::GameManager::setGame<TestDemo>(game);
 
     auto scene = new TestDemoScene();
 
-    engine.runWithScene(scene);
+    engine->runWithScene(scene);
     return 0;
 }

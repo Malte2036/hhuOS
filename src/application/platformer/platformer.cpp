@@ -13,21 +13,15 @@
 #include "application/platformer/scene/PlatformerScene1.h"
 #include "lib/util/file/File.h"
 
-bool isRunning = true;
-
 int32_t main(int32_t argc, char *argv[]) {
     Logger::logMessage("Starting platformer game!");
 
-    auto lfbFile = Util::File::File("/device/lfb");
-    auto lfb = Util::Graphic::LinearFrameBuffer(lfbFile);
-
     auto game = new PlatformerGame();
-    auto engine = Util::Game::Engine(*game, lfb);
-
+    auto engine = Util::Game::Engine::setup(*game);
     Util::Game::GameManager::setGame<PlatformerGame>(game);
 
     auto scene = new PlatformerScene1();
 
-    engine.runWithScene(scene);
+    engine->runWithScene(scene);
     return 0;
 }

@@ -40,14 +40,13 @@ int32_t main(int32_t argc, char *argv[]) {
     }
 
     auto game = new MouseGame();
-    auto lfbFile = Util::File::File("/device/lfb");
-    auto lfb = Util::Graphic::LinearFrameBuffer(lfbFile);
-    auto engine = Util::Game::Engine(*game, lfb);
+
+    auto engine = Util::Game::Engine::setup(*game);
 
     Util::Game::GameManager::setGame<MouseGame>(game);
 
     auto scene = new MouseGameScene();
 
-    engine.runWithScene(scene);
+    engine->runWithScene(scene);
     return 0;
 }

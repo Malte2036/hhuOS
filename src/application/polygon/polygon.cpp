@@ -49,15 +49,13 @@ int32_t main(int32_t argc, char *argv[])
     auto count = arguments.length() == 0 ? DEFAULT_COUNT : Util::Memory::String::parseInt(arguments[0]);
 
     auto game = new PolygonDemo();
-    auto lfbFile = Util::File::File("/device/lfb");
-    auto lfb = Util::Graphic::LinearFrameBuffer(lfbFile);
 
-    auto engine = Util::Game::Engine(*game, lfb);
+    auto engine = Util::Game::Engine::setup(*game);
 
     Util::Game::GameManager::setGame<PolygonDemo>(game);
 
     auto scene = new PolygonDemoScene(count);
 
-    engine.runWithScene(scene);
+    engine->runWithScene(scene);
     return 0;
 }

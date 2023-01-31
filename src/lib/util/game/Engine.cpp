@@ -36,6 +36,15 @@ namespace Util::Game
         GameManager::setTransformation((int)((resX > resY ? resY : resX) / 2));
     }
 
+    //template<typename GameType>
+    Engine* Engine::setup(Game &game) {
+        auto lfbFile = new Util::File::File("/device/lfb");
+        auto lfb = new Util::Graphic::LinearFrameBuffer(*lfbFile);
+
+        //Util::Game::GameManager::setGame<GameType>(game);
+        return new Util::Game::Engine(game, *lfb);
+    }
+
     void Engine::runWithScene(Scene *initialScene)
     {
         game.scene = initialScene;
