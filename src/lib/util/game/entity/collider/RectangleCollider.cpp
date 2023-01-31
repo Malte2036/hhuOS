@@ -30,7 +30,10 @@ Util::Game::RectangleCollidedSide Util::Game::RectangleCollider::isColliding(Rec
         auto centerXDistance = lastCenter.getX() - otherLastCenter.getX();
         auto centerYDistance = lastCenter.getY() - otherLastCenter.getY();
 
-        if (Math::Math::absolute(centerXDistance) < Math::Math::absolute(centerYDistance)) {
+        auto absoluteXDistance = getWidth() / 2 + other.getWidth() / 2 - Math::Math::absolute(centerXDistance);
+        auto absoluteYDistance = getHeight() / 2 + other.getHeight() / 2 - Math::Math::absolute(centerYDistance);
+
+        if (absoluteXDistance >= absoluteYDistance) {
             if (centerYDistance < 0) {
                 return TOP_SIDE;
             }
