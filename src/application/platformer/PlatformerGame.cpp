@@ -94,7 +94,6 @@ void PlatformerGame::createSceneFromSceneFile(Util::Game::Scene *scene, const ch
     spawnLargeColliderFromArray(*scene, dirtPositions, DIRT);
     spawnLargeColliderFromArray(*scene, grassPositions, GRASS);
 }
-
 void PlatformerGame::spawnLargeColliderFromArray(Util::Game::Scene &scene,
                                                  Util::Data::ArrayList<Util::Data::Pair<int, double>> &positions,
                                                  LargeColliderType type) const {
@@ -102,7 +101,8 @@ void PlatformerGame::spawnLargeColliderFromArray(Util::Game::Scene &scene,
 
     auto lastPoint = positions.get(0);
     auto rectangleStartPoint = lastPoint;
-    for (auto point: positions) {
+    for (int i = 1; i < positions.size(); i++) {
+        auto point = positions.get(i);
         if (point.first - 1 == lastPoint.first) {
 
         } else {
@@ -126,6 +126,19 @@ void PlatformerGame::spawnLargeColliderFromArray(Util::Game::Scene &scene,
         }
         lastPoint = point;
     }
+    auto rectangleStartVec = Vector2(
+            rectangleStartPoint.first * blockSize - (Util::Game::GameManager::getResolution().getX() / 2),
+            rectangleStartPoint.second);
+
+    auto countX = lastPoint.first - rectangleStartPoint.first + 1;
+    PlatformerBlockEntity *entity;
+    switch (type) {
+        case GRASS:
+            entity = new PlatformerGrassBlockEntity(rectangleStartVec, countX);
+            break;
+        default:
+            entity = new PlatformerDirtBlockEntity(rectangleStartVec, countX);
+            break;
+    }
+    scene.addEntity(entity);
 }
-
-
