@@ -108,9 +108,13 @@ void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent *event)
             }
         }
         scene->removeEntity(&event->getCollidedWith());
-    } else if (collidedWithTag == "Chest"){
+    } else if (collidedWithTag == "Chest") {
         Logger::logMessage("Player finished Level by collecting chest!");
         game->nextLevel();
+        return;
+    } else if (collidedWithTag == "LavaBlock") {
+        Logger::logMessage("Player was killed by LavaBlock");
+        game->stop();
         return;
     }
 }

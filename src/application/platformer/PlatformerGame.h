@@ -26,7 +26,7 @@ private:
     void onUpdate(double delta) override;
 
     enum LargeColliderType {
-        DIRT, GRASS
+        DIRT, GRASS, LAVA
     };
 
     void spawnLargeColliderFromArray(Util::Game::Scene &scene,

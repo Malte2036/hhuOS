@@ -14,6 +14,7 @@
 #include "application/platformer/block/PlatformerDirtBlockEntity.h"
 #include "application/platformer/block/PlatformerGrassBlockEntity.h"
 #include "application/platformer/special/PlatformerChestEntity.h"
+#include "application/platformer/block/PlatformerLavaBlockEntity.h"
 
 void PlatformerGame::onUpdate(double delta) {
 
@@ -60,6 +61,7 @@ void PlatformerGame::createSceneFromSceneFile(Util::Game::Scene *scene, const ch
 
     auto dirtPositions = Util::Data::ArrayList<Util::Data::Pair<int, double>>();
     auto grassPositions = Util::Data::ArrayList<Util::Data::Pair<int, double>>();
+    auto lavaPositions = Util::Data::ArrayList<Util::Data::Pair<int, double>>();
 
     auto c = fileReader.read();
     while (c != -1) {
@@ -87,13 +89,18 @@ void PlatformerGame::createSceneFromSceneFile(Util::Game::Scene *scene, const ch
             case '6':
                 spawnNinja(pos);
                 break;
+            case '7':
+                lavaPositions.add({x, y});
+                break;
         }
         c = fileReader.read();
         x += 1;
     }
     spawnLargeColliderFromArray(*scene, dirtPositions, DIRT);
     spawnLargeColliderFromArray(*scene, grassPositions, GRASS);
+    spawnLargeColliderFromArray(*scene, lavaPositions, LAVA);
 }
+
 void PlatformerGame::spawnLargeColliderFromArray(Util::Game::Scene &scene,
                                                  Util::Data::ArrayList<Util::Data::Pair<int, double>> &positions,
                                                  LargeColliderType type) const {
@@ -115,6 +122,9 @@ void PlatformerGame::spawnLargeColliderFromArray(Util::Game::Scene &scene,
             switch (type) {
                 case GRASS:
                     entity = new PlatformerGrassBlockEntity(rectangleStartVec, countX);
+                    break;
+                case LAVA:
+                    entity = new PlatformerLavaBlockEntity(rectangleStartVec, countX);
                     break;
                 default:
                     entity = new PlatformerDirtBlockEntity(rectangleStartVec, countX);

@@ -18,6 +18,7 @@ set(SOURCE_FILES
         ${HHUOS_SRC_DIR}/application/platformer/block/PlatformerItemBlockEntity.cpp
         ${HHUOS_SRC_DIR}/application/platformer/block/PlatformerDirtBlockEntity.cpp
         ${HHUOS_SRC_DIR}/application/platformer/block/PlatformerGrassBlockEntity.cpp
+        ${HHUOS_SRC_DIR}/application/platformer/block/PlatformerLavaBlockEntity.cpp
         ${HHUOS_SRC_DIR}/application/platformer/special/PlatformerChestEntity.cpp
         ${HHUOS_SRC_DIR}/application/platformer/text/PlatformerScoreText.cpp
         ${HHUOS_SRC_DIR}/application/platformer/scene/PlatformerScene1.cpp

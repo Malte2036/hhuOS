@@ -41,8 +41,8 @@ PlatformerNinjaEntity::PlatformerNinjaEntity(const Vector2 &position) : Util::Ga
 
 void PlatformerNinjaEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.drawImage(position, *currentImage, directionLeft);
-    if (collider != nullptr)
-        graphics.drawRectangle(position, collider->getHeight(), collider->getWidth());
+    /*if (collider != nullptr)
+        graphics.drawRectangle(position, collider->getHeight(), collider->getWidth());*/
 }
 
 auto i = 1;
