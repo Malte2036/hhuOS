@@ -48,6 +48,10 @@ namespace Util::Game {
          */
         void removeEntity(Entity *entity);
 
+        void addObject(Drawable *drawable);
+
+        void removeObject(Drawable *drawable);
+
     protected:
         virtual void init() = 0;
 
@@ -55,25 +59,11 @@ namespace Util::Game {
 
         void setMouseListener(MouseListener &listener);
 
-        [[nodiscard]] uint32_t getObjectCount() const;
-
-        void applyChanges();
-
-        void draw(Graphics2D &graphics);
-
         /**
          * this function is called every frame
          * @param dt
          */
         virtual void onUpdate(double dt) = 0;
-
-        void addObject(Drawable *drawable);
-
-        void removeObject(Drawable *drawable);
-
-        void updateEntities(double dt);
-
-        void checkCollision();
 
         /**
          * draw the statically drawn background
@@ -94,7 +84,18 @@ namespace Util::Game {
         Util::Data::ArrayList<Drawable *> removeList;
         Util::Data::ArrayList<Entity *> removeEntityList;
 
+
+        [[nodiscard]] uint32_t getObjectCount() const;
+
+        void applyChanges();
+
+        void draw(Graphics2D &graphics);
+
         void update(float dt);
+
+        void updateEntities(double dt);
+
+        void checkCollision();
 
         static Data::Pair<Entity *, Entity *> createEntityPair(Entity *a, Entity *b);
     };
