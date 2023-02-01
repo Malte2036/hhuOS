@@ -32,6 +32,11 @@ private:
     const double groundY;
     bool canJump = false;
 
+    Util::File::Image::Image *currentImage = nullptr;
+
+    Util::Game::Sprite *idleSprite = nullptr;
+    Util::Game::SpriteAnimation *runAnimation = nullptr;
+
     void draw(Util::Game::Graphics2D &graphics) const override;
 
     void onTranslateEvent(Util::Game::TranslateEvent *event) override;

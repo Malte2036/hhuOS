@@ -4,6 +4,7 @@
 
 #include "Scene.h"
 #include "lib/util/game/Game.h"
+#include "lib/util/log/Logger.h"
 
 namespace Util::Game {
 
@@ -102,12 +103,9 @@ namespace Util::Game {
                         detectedCollisions.contains(createEntityPair(entity, otherEntity)))
                         continue;
 
-                    // removing this leads to a null pointer exception after a few seconds
-                    // TODO: replace
-                    //if (entity->tag == otherEntity->tag) continue;
-                    if (entity->tag == "Ninja" && otherEntity->tag == "Ninja") continue;
+                    entity->collisionEvent(CollisionEvent(*otherEntity, BOTTOM_SIDE));
 
-                    auto otherCollider = otherEntity->getCollider();
+                    /*auto otherCollider = otherEntity->getCollider();
                     if (otherCollider == nullptr) continue;
 
                     auto side = collider->isColliding(*otherCollider);
@@ -137,7 +135,7 @@ namespace Util::Game {
 
                         detectedCollisions.add(createEntityPair(entity, otherEntity));
 
-                    }
+                    }*/
                 }
             }
         }

@@ -18,11 +18,11 @@ PlatformerBlockEntity::PlatformerBlockEntity(const Util::Memory::String &tag, co
 
 void PlatformerBlockEntity::draw(Util::Game::Graphics2D &graphics) const {
     auto size = Util::Game::GameManager::getGame<PlatformerGame>()->getBlockSize();
-    for (int i = 0; i < countX; ++i) {
+    /*for (int i = 0; i < countX; ++i) {
         graphics.drawImage(Vector2(position.getX() + i * size, position.getY()), *sprite->getImage());
-    }
-    //graphics.setColor(Util::Graphic::Colors::RED);
-    //graphics.drawRectangle(position, size, size * countX);
+    }*/
+    graphics.setColor(Util::Graphic::Colors::RED);
+    graphics.drawRectangle(position, size, size * countX);
 }
 
 void PlatformerBlockEntity::onUpdate(double dt) {

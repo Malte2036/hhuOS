@@ -7,11 +7,6 @@
 #include "lib/util/game/GameManager.h"
 #include "../PlatformerGame.h"
 
-Util::File::Image::Image *currentImage = nullptr;
-
-Util::Game::Sprite *idleSprite = nullptr;
-Util::Game::SpriteAnimation *runAnimation = nullptr;
-
 PlatformerPlayerEntity::PlatformerPlayerEntity(const Util::Memory::String &tag, const Vector2 &position,
                                                const double groundY)
         : Util::Game::Entity(tag, position), groundY{groundY} {
@@ -103,7 +98,7 @@ void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent *event)
                 setBig(false);
             } else {
                 Logger::logMessage("Player was killed by Ninja");
-                game->stop();
+                //game->stop();
                 return;
             }
         }

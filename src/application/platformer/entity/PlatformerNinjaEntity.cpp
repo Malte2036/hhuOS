@@ -69,9 +69,9 @@ void PlatformerNinjaEntity::onCollisionEvent(Util::Game::CollisionEvent *event) 
 void PlatformerNinjaEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
     if (event == nullptr) return;
 
-    if (event->getTranslateTo().getY() < -2) {
+    /*if (event->getTranslateTo().getY() < -2) {
         Logger::logMessage("Remove Ninja");
         Util::Game::GameManager::getGame<PlatformerGame>()->getScene()->removeEntity(this);
         return;
-    }
+    }*/
 }

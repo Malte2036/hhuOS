@@ -6,14 +6,14 @@
 #include "lib/util/game/GameManager.h"
 #include "lib/util/game/entity/component/GravityComponent.h"
 #include "application/platformer/PlatformerGame.h"
-#include "application/platformer/special/PlatformerChestEntity.h"
 
 void PlatformerScene1::init() {
     setKeyListener(*this);
 
-    player = new PlatformerPlayerEntity("Player", Vector2(-0.2, 0), groundY);
-    player->addComponent(new Util::Game::GravityComponent(groundY));
-    addEntity(player);
+    // wenn das auskommentiert wird, crashed es nach 4 sekunden
+    //player = new PlatformerPlayerEntity("Player", Vector2(-0.2, 0), groundY);
+    //player->addComponent(new Util::Game::GravityComponent(groundY));
+    //addEntity(player);
 
     scoreText = new PlatformerScoreText(Vector2(-1, 0.95), 0);
     addObject(scoreText);

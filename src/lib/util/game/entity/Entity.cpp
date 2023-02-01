@@ -72,41 +72,44 @@ namespace Util::Game {
         onTranslateEvent(event);
     }
 
-    void Entity::collisionEvent(CollisionEvent *event) {
-        if (getCollider()->getColliderType() == DYNAMIC_COLLIDER) {
-            switch (event->getRectangleCollidedSide()) {
+    void Entity::collisionEvent(CollisionEvent event) {
+        if (!collider) return;
+
+        /*if (collider->getColliderType() == DYNAMIC_COLLIDER) {
+            switch (event.getRectangleCollidedSide()) {
                 case BOTTOM_SIDE:
-                    setPosition(Vector2(position.getX(), event->getCollidedWith().getPosition().getY() +
-                                                         event->getCollidedWith().getCollider()->getHeight()));
+                    setPosition(Vector2(position.getX(), event.getCollidedWith().getPosition().getY() +
+                                                         event.getCollidedWith().getCollider()->getHeight()));
                     if (velocity.getY() < 0) {
                         setVelocity(Vector2(velocity.getX(), 0));
                     }
                     break;
                 case TOP_SIDE:
                     setPosition(Vector2(position.getX(),
-                                        event->getCollidedWith().getPosition().getY() - getCollider()->getHeight()));
+                                        event.getCollidedWith().getPosition().getY() - collider->getHeight()));
                     if (velocity.getY() > 0) {
                         setVelocity(Vector2(velocity.getX(), 0));
                     }
                     break;
                 case LEFT_SIDE:
-                    setPosition(Vector2(event->getCollidedWith().getPosition().getX() +
-                                        event->getCollidedWith().getCollider()->getWidth(), position.getY()));
+                    setPosition(Vector2(event.getCollidedWith().getPosition().getX() +
+                                        event.getCollidedWith().collider->getWidth(), position.getY()));
                     if (velocity.getX() < 0) {
                         setVelocity(Vector2(0, velocity.getY()));
                     }
                     break;
                 case RIGHT_SIDE:
-                    setPosition(Vector2(event->getCollidedWith().getPosition().getX() - getCollider()->getWidth(),
+                    setPosition(Vector2(event.getCollidedWith().getPosition().getX() - collider->getWidth(),
                                         position.getY()));
                     if (velocity.getX() > 0) {
                         setVelocity(Vector2(0, velocity.getY()));
                     }
                     break;
             }
-        }
+        }*/
 
-        onCollisionEvent(event);
+        // implement !!!
+        //onCollisionEvent(event);
     }
 
     RectangleCollider *Entity::getCollider() const {

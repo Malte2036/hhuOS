@@ -17,6 +17,7 @@ namespace Util::Game {
 
     class Entity : public Drawable {
         friend class Game;
+
         friend class Scene;
 
         friend class GravityComponent;
@@ -30,7 +31,7 @@ namespace Util::Game {
          * @param position initial position of the entity
          * @param collider collider of the entity (can be omitted)
          */
-        explicit Entity(const Memory::String& tag, const Vector2 &position, RectangleCollider *collider = nullptr);
+        explicit Entity(const Memory::String &tag, const Vector2 &position, RectangleCollider *collider = nullptr);
 
         /**
          * this function is called every frame
@@ -68,6 +69,9 @@ namespace Util::Game {
          */
         virtual void onCollisionEvent(CollisionEvent *event) = 0;
 
+        // TODO: replace
+        void onCollisionEvent(CollisionEvent event) {};
+
         [[nodiscard]] Memory::String getTag() const;
 
         [[nodiscard]] Vector2 getPosition() const;
@@ -96,7 +100,7 @@ namespace Util::Game {
 
         void translateEvent(TranslateEvent *event);
 
-        void collisionEvent(CollisionEvent *event);
+        void collisionEvent(CollisionEvent event);
 
         bool positionChanged = false;
 
