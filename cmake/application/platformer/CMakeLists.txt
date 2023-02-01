@@ -22,7 +22,8 @@ set(SOURCE_FILES
         ${HHUOS_SRC_DIR}/application/platformer/special/PlatformerChestEntity.cpp
         ${HHUOS_SRC_DIR}/application/platformer/text/PlatformerScoreText.cpp
         ${HHUOS_SRC_DIR}/application/platformer/scene/PlatformerScene1.cpp
-        ${HHUOS_SRC_DIR}/application/platformer/scene/PlatformerScene2.cpp)
+        ${HHUOS_SRC_DIR}/application/platformer/scene/PlatformerScene2.cpp
+        ${HHUOS_SRC_DIR}/application/platformer/scene/PlatformerScene3.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 

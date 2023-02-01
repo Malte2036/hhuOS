@@ -15,6 +15,7 @@
 #include "application/platformer/block/PlatformerGrassBlockEntity.h"
 #include "application/platformer/special/PlatformerChestEntity.h"
 #include "application/platformer/block/PlatformerLavaBlockEntity.h"
+#include "application/platformer/scene/PlatformerScene3.h"
 
 void PlatformerGame::onUpdate(double delta) {
 
@@ -35,6 +36,8 @@ void PlatformerGame::nextLevel() {
     Util::Game::Scene *newScene = nullptr;
     if (currentLevel == 2) {
         newScene = new PlatformerScene2();
+    } else if (currentLevel == 3) {
+        newScene = new PlatformerScene3();
     }
 
     if (newScene != nullptr) {
