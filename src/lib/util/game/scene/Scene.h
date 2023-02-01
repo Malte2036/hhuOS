@@ -91,7 +91,7 @@ namespace Util::Game {
 
         void draw(Graphics2D &graphics);
 
-        void update(float dt);
+        void update(double dt);
 
         void updateEntities(double dt);
 

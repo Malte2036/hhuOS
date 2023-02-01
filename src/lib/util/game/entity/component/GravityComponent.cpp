@@ -16,8 +16,11 @@ namespace Util::Game {
     }
 
     void GravityComponent::update(double dt) {
-        auto position = getEntity()->getPosition();
-        auto velocity = getEntity()->getVelocity();
+        auto entity = getEntity();
+        if (entity == nullptr) return;
+
+        auto position = entity->getPosition();
+        auto velocity = entity->getVelocity();
         if (Math::Math::absolute(position.getY() - groundY) > 0.01) {
             auto force = Vector2(0, mass * gravityValue);
             auto acceleration = Vector2(force.getX() / mass, force.getY() / mass);
@@ -32,17 +35,17 @@ namespace Util::Game {
         auto computedPosition = position + Vector2(velocity.getX() * dt, velocity.getY() * dt);
 
         auto event = new TranslateEvent(computedPosition);
-        getEntity()->translateEvent(event);
+        entity->translateEvent(event);
 
         if (!event->isCanceled()) {
-            getEntity()->setPosition(computedPosition);
+            //BUG: Null Pointer Exception wird hier irgendwie ausgelöst (Platformer: Ninja)
+            entity->setPosition(computedPosition);
 
             velocity = Vector2(velocity.getX() * stopFactorX, velocity.getY());
         } else {
             velocity = Vector2();
         }
 
-        getEntity()->setVelocity(velocity);
-
+        entity->setVelocity(velocity);
     }
 }

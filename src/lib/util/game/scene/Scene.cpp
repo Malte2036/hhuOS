@@ -66,6 +66,8 @@ namespace Util::Game {
 
     void Scene::draw(Graphics2D &graphics) {
         for (const auto *object: drawables) {
+            if (object == nullptr) continue;
+
             object->draw(graphics);
         }
     }
@@ -80,6 +82,8 @@ namespace Util::Game {
 
     void Scene::updateEntities(double dt) {
         for (Entity *entity: entities) {
+            if (entity == nullptr) continue;
+
             entity->update(dt);
         }
     }
@@ -87,43 +91,54 @@ namespace Util::Game {
     void Scene::checkCollision() {
         auto detectedCollisions = Data::ArrayList<Data::Pair<Entity *, Entity *>>();
         for (Entity *entity: entities) {
+            if (entity == nullptr) continue;
+
             if (entity->positionChanged) {
+                auto collider = entity->getCollider();
+                if (collider == nullptr) continue;
+
                 for (Entity *otherEntity: entities) {
-                    if (entity != otherEntity && !detectedCollisions.contains(createEntityPair(entity, otherEntity))) {
-                        auto side = entity->getCollider()->isColliding(*otherEntity->getCollider());
-                        if (side != NO_SIDE) {
-                            entity->collisionEvent(new CollisionEvent(*otherEntity, side));
+                    if (otherEntity == nullptr || entity == otherEntity ||
+                        detectedCollisions.contains(createEntityPair(entity, otherEntity)))
+                        continue;
 
-                            RectangleCollidedSide otherSide;
-                            switch (side) {
-                                case RIGHT_SIDE:
-                                    otherSide = LEFT_SIDE;
-                                    break;
-                                case LEFT_SIDE:
-                                    otherSide = RIGHT_SIDE;
-                                    break;
-                                case TOP_SIDE:
-                                    otherSide = BOTTOM_SIDE;
-                                    break;
-                                case BOTTOM_SIDE:
-                                    otherSide = TOP_SIDE;
-                                    break;
-                                default:
-                                    otherSide = NO_SIDE;
-                                    break;
-                            }
+                    auto otherCollider = otherEntity->getCollider();
+                    if (otherCollider == nullptr) continue;
 
-                            otherEntity->collisionEvent(new CollisionEvent(*entity, otherSide));
+                    auto side = collider->isColliding(*otherCollider);
+                    if (side != NO_SIDE) {
+                        entity->collisionEvent(new CollisionEvent(*otherEntity, side));
 
-                            detectedCollisions.add(createEntityPair(entity, otherEntity));
+                        RectangleCollidedSide otherSide;
+                        switch (side) {
+                            case RIGHT_SIDE:
+                                otherSide = LEFT_SIDE;
+                                break;
+                            case LEFT_SIDE:
+                                otherSide = RIGHT_SIDE;
+                                break;
+                            case TOP_SIDE:
+                                otherSide = BOTTOM_SIDE;
+                                break;
+                            case BOTTOM_SIDE:
+                                otherSide = TOP_SIDE;
+                                break;
+                            default:
+                                otherSide = NO_SIDE;
+                                break;
                         }
+
+                        otherEntity->collisionEvent(new CollisionEvent(*entity, otherSide));
+
+                        detectedCollisions.add(createEntityPair(entity, otherEntity));
+
                     }
                 }
             }
         }
     }
 
-    void Scene::update(float dt) {
+    void Scene::update(double dt) {
         onUpdate(dt);
     }
 

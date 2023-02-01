@@ -21,11 +21,13 @@
 #include "lib/util/game/Drawable.h"
 
 namespace Util {
-namespace Game {
-class Graphics2D;
-class KeyListener;
-class MouseListener;
-}  // namespace Game
+    namespace Game {
+        class Graphics2D;
+
+        class KeyListener;
+
+        class MouseListener;
+    }  // namespace Game
 }  // namespace Util
 
 namespace Util::Game {
@@ -47,6 +49,8 @@ namespace Util::Game {
     }
 
     void Game::pushScene(Scene *newScene) {
+        if (newScene == nullptr) return;
+
         scene = newScene;
         newScenePushed = true;
     }

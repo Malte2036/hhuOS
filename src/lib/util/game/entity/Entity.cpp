@@ -37,6 +37,7 @@ namespace Util::Game {
     void Entity::setPosition(const Vector2 &vector2) {
         position = vector2;
         if (collider != nullptr) {
+            //BUG: Null Pointer Exception wird hier irgendwie ausgelöst (Platformer: Ninja > GravityComponent)
             collider->setPosition(position);
         }
         positionChanged = true;
@@ -60,6 +61,8 @@ namespace Util::Game {
         positionChanged = false;
 
         for (const auto &component: components) {
+            if (component == nullptr) continue;
+
             component->update(dt);
         }
         onUpdate(dt);

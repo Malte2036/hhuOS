@@ -30,22 +30,21 @@
 #include "lib/util/data/Pair.h"
 #include "lib/util/game/scene/Scene.h"
 
-namespace Util
-{
-    namespace Game
-    {
+namespace Util {
+    namespace Game {
         class Drawable;
+
         class Graphics2D;
+
         class KeyListener;
+
         class MouseListener;
     } // namespace Game
 } // namespace Util
 
-namespace Util::Game
-{
+namespace Util::Game {
 
-    class Game
-    {
+    class Game {
         friend class Engine;
 
     public:
@@ -92,7 +91,7 @@ namespace Util::Game
         [[nodiscard]] bool isNewScenePushed() const;
 
     private:
-        virtual void init(){};
+        virtual void init() {};
 
         Scene *scene = nullptr;
         bool newScenePushed = true;

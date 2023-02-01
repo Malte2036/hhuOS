@@ -38,7 +38,7 @@ namespace Util::Game {
 
         friend class Entity;
 
-        Vector2 setPosition(Vector2 vector2);
+        Vector2 setPosition(const Vector2& vector2);
 
     private:
         Memory::String type;

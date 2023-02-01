@@ -88,7 +88,7 @@ void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent *event)
     if (collidedWithTag == "BrickBlock") {
         if (side == Util::Game::TOP_SIDE) {
             scene->removeEntity(&event->getCollidedWith());
-            Logger::logMessage("Mario destroyed Block");
+            Logger::logMessage("Player destroyed Block");
         }
     } else if (collidedWithTag == "Mushroom") {
         Logger::logMessage("Mushroom collected");

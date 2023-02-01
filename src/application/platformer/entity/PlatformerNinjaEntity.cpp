@@ -6,6 +6,7 @@
 #include "lib/util/game/GameManager.h"
 #include "lib/util/game/entity/component/GravityComponent.h"
 #include "application/platformer/PlatformerGame.h"
+#include "lib/util/log/Logger.h"
 
 PlatformerNinjaEntity::PlatformerNinjaEntity(const Vector2 &position) : Util::Game::Entity("Ninja",
                                                                                            position) {
@@ -40,20 +41,23 @@ PlatformerNinjaEntity::PlatformerNinjaEntity(const Vector2 &position) : Util::Ga
 
 void PlatformerNinjaEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.drawImage(position, *currentImage, directionLeft);
-    //graphics.drawRectangle(position, getCollider()->getHeight(), getCollider()->getWidth());
+    if (collider != nullptr)
+        graphics.drawRectangle(position, collider->getHeight(), collider->getWidth());
 }
 
 auto i = 1;
 
 void PlatformerNinjaEntity::onUpdate(double dt) {
     translateX(speed * (directionLeft ? -1 : 1));
-    if (i == 0) {
+    if (i == 0 && runAnimation != nullptr) {
         currentImage = runAnimation->getNextSprite().getImage();
     }
     i = (i + 1) % 3;
 }
 
 void PlatformerNinjaEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
+    if (event == nullptr) return;
+
     auto collidedWithSide = event->getRectangleCollidedSide();
     if (collidedWithSide == Util::Game::LEFT_SIDE) {
         directionLeft = false;
@@ -63,7 +67,10 @@ void PlatformerNinjaEntity::onCollisionEvent(Util::Game::CollisionEvent *event) 
 }
 
 void PlatformerNinjaEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
-    if(event->getTranslateTo().getY() < -2){
+    if (event == nullptr) return;
+
+    if (event->getTranslateTo().getY() < -2) {
+        Logger::logMessage("Remove Ninja");
         Util::Game::GameManager::getGame<PlatformerGame>()->getScene()->removeEntity(this);
         return;
     }

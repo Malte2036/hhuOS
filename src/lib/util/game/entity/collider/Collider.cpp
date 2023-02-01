@@ -20,6 +20,6 @@ Util::Game::ColliderType Util::Game::Collider::getColliderType() {
     return colliderType;
 }
 
-Vector2 Util::Game::Collider::setPosition(Vector2 vector2) {
+Vector2 Util::Game::Collider::setPosition(const Vector2& vector2) {
     position = vector2;
 }
