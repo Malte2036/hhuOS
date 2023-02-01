@@ -102,6 +102,11 @@ namespace Util::Game {
                         detectedCollisions.contains(createEntityPair(entity, otherEntity)))
                         continue;
 
+                    // removing this leads to a null pointer exception after a few seconds
+                    // TODO: replace
+                    //if (entity->tag == otherEntity->tag) continue;
+                    if (entity->tag == "Ninja" && otherEntity->tag == "Ninja") continue;
+
                     auto otherCollider = otherEntity->getCollider();
                     if (otherCollider == nullptr) continue;
 
