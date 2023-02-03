@@ -15,17 +15,17 @@ void DemoEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.drawImage(getPosition(), *sprite->getImage());
 }
 
-void DemoEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
-    auto transformTo = event->getTranslateTo();
+void DemoEntity::onTranslateEvent(Util::Game::TranslateEvent &event) {
+    auto transformTo = event.getTranslateTo();
     if (transformTo.getX() > 1 || transformTo.getX() < -1) {
-        event->setCanceled(true);
+        event.setCanceled(true);
     }
     if (transformTo.getY() > (1 - size) || transformTo.getY() < -1) {
-        event->setCanceled(true);
+        event.setCanceled(true);
     }
 }
 
-void DemoEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
+void DemoEntity::onCollisionEvent(Util::Game::CollisionEvent &event) {
 
 }
 

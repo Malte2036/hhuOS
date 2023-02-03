@@ -36,8 +36,8 @@ private:
     double size;
     double speed;
 
-    void onTranslateEvent(Util::Game::TranslateEvent *event) override;
-    void onCollisionEvent(Util::Game::CollisionEvent *event) override;
+    void onTranslateEvent(Util::Game::TranslateEvent &event) override;
+    void onCollisionEvent(Util::Game::CollisionEvent &event) override;
 };
 
 

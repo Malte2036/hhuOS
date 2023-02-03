@@ -17,9 +17,9 @@ public:
 
     void draw(Util::Game::Graphics2D &graphics) const override;
 
-    void onTranslateEvent(Util::Game::TranslateEvent *event) override;
+    void onTranslateEvent(Util::Game::TranslateEvent &event) override;
 
-    void onCollisionEvent(Util::Game::CollisionEvent *event) override;
+    void onCollisionEvent(Util::Game::CollisionEvent &event) override;
 
 private:
     double size;

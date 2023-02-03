@@ -61,16 +61,13 @@ namespace Util::Game {
          * every time translate(...), translateX(...) or translateY(...) is called, this function is automatically triggered. If the event is canceled (event→setCanceled(true)), the entity will not be translated.
          * @param event
          */
-        virtual void onTranslateEvent(TranslateEvent *event) = 0;
+        virtual void onTranslateEvent(TranslateEvent &event) = 0;
 
         /**
          * is called when the collider of this entity overlaps with another collider.
          * @param event
          */
-        virtual void onCollisionEvent(CollisionEvent *event) = 0;
-
-        // TODO: replace
-        void onCollisionEvent(CollisionEvent event) {};
+        virtual void onCollisionEvent(CollisionEvent &event) = 0;
 
         [[nodiscard]] Memory::String getTag() const;
 
@@ -98,9 +95,9 @@ namespace Util::Game {
     private:
         void update(double dt);
 
-        void translateEvent(const TranslateEvent &event);
+        void translateEvent(TranslateEvent &event);
 
-        void collisionEvent(CollisionEvent event);
+        void collisionEvent(CollisionEvent &event);
 
         bool positionChanged = false;
 

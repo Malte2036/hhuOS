@@ -23,8 +23,8 @@ void PlatformerMushroomEntity::onUpdate(double dt) {
     translateX(speed * (directionLeft ? -1 : 1));
 }
 
-void PlatformerMushroomEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
-    auto collidedWithSide = event->getRectangleCollidedSide();
+void PlatformerMushroomEntity::onCollisionEvent(Util::Game::CollisionEvent &event) {
+    auto collidedWithSide = event.getRectangleCollidedSide();
     if (collidedWithSide == Util::Game::LEFT_SIDE) {
         directionLeft = false;
     } else if (collidedWithSide == Util::Game::RIGHT_SIDE) {
@@ -32,7 +32,7 @@ void PlatformerMushroomEntity::onCollisionEvent(Util::Game::CollisionEvent *even
     }
 }
 
-void PlatformerMushroomEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
+void PlatformerMushroomEntity::onTranslateEvent(Util::Game::TranslateEvent &event) {
 
 }
 

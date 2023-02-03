@@ -68,14 +68,14 @@ namespace Util::Game {
         onUpdate(dt);
     }
 
-    void Entity::translateEvent(const TranslateEvent &event) {
-        //onTranslateEvent(event);
+    void Entity::translateEvent(TranslateEvent &event) {
+        onTranslateEvent(event);
     }
 
-    void Entity::collisionEvent(CollisionEvent event) {
+    void Entity::collisionEvent(CollisionEvent &event) {
         if (!collider) return;
 
-        /*if (collider->getColliderType() == DYNAMIC_COLLIDER) {
+        if (collider->getColliderType() == DYNAMIC_COLLIDER) {
             switch (event.getRectangleCollidedSide()) {
                 case BOTTOM_SIDE:
                     setPosition(Vector2(position.getX(), event.getCollidedWith().getPosition().getY() +
@@ -106,10 +106,7 @@ namespace Util::Game {
                     }
                     break;
             }
-        }*/
-
-        // implement !!!
-        //onCollisionEvent(event);
+        }
     }
 
     RectangleCollider *Entity::getCollider() const {

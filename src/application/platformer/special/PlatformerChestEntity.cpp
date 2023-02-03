@@ -17,11 +17,11 @@ void PlatformerChestEntity::onUpdate(double dt) {
 
 }
 
-void PlatformerChestEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
+void PlatformerChestEntity::onTranslateEvent(Util::Game::TranslateEvent &event) {
 
 }
 
-void PlatformerChestEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
+void PlatformerChestEntity::onCollisionEvent(Util::Game::CollisionEvent &event) {
 
 }
 

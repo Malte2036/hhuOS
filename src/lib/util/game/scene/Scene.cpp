@@ -103,14 +103,13 @@ namespace Util::Game {
                         detectedCollisions.contains(createEntityPair(entity, otherEntity)))
                         continue;
 
-                    entity->collisionEvent(CollisionEvent(*otherEntity, BOTTOM_SIDE));
-
-                    /*auto otherCollider = otherEntity->getCollider();
+                    auto otherCollider = otherEntity->getCollider();
                     if (otherCollider == nullptr) continue;
 
                     auto side = collider->isColliding(*otherCollider);
                     if (side != NO_SIDE) {
-                        entity->collisionEvent(new CollisionEvent(*otherEntity, side));
+                        auto event =  CollisionEvent(*otherEntity, side);
+                        entity->collisionEvent(event);
 
                         RectangleCollidedSide otherSide;
                         switch (side) {
@@ -131,11 +130,12 @@ namespace Util::Game {
                                 break;
                         }
 
-                        otherEntity->collisionEvent(new CollisionEvent(*entity, otherSide));
+                        auto otherEvent = CollisionEvent(*entity, otherSide);
+                        otherEntity->collisionEvent(otherEvent);
 
                         detectedCollisions.add(createEntityPair(entity, otherEntity));
 
-                    }*/
+                    }
                 }
             }
         }

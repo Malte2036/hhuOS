@@ -13,9 +13,9 @@ PlatformerItemBlockEntity::PlatformerItemBlockEntity(const Vector2 &position)
         : PlatformerBlockEntity("ItemBlock", position, "/initrd/game/platformer/block/block_item.bmp") {
 }
 
-void PlatformerItemBlockEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
-    if (event->getCollidedWith().getTag() == "Player") {
-        if (event->getRectangleCollidedSide() == Util::Game::BOTTOM_SIDE) {
+void PlatformerItemBlockEntity::onCollisionEvent(Util::Game::CollisionEvent &event) {
+    if (event.getCollidedWith().getTag() == "Player") {
+        if (event.getRectangleCollidedSide() == Util::Game::BOTTOM_SIDE) {
             auto game = Util::Game::GameManager::getGame<PlatformerGame>();
             auto scene = game->getScene();
             scene->addEntity(new PlatformerSolidBlockEntity(position));

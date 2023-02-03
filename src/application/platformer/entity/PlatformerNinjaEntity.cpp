@@ -55,10 +55,8 @@ void PlatformerNinjaEntity::onUpdate(double dt) {
     i = (i + 1) % 3;
 }
 
-void PlatformerNinjaEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
-    if (event == nullptr) return;
-
-    auto collidedWithSide = event->getRectangleCollidedSide();
+void PlatformerNinjaEntity::onCollisionEvent(Util::Game::CollisionEvent &event) {
+    auto collidedWithSide = event.getRectangleCollidedSide();
     if (collidedWithSide == Util::Game::LEFT_SIDE) {
         directionLeft = false;
     } else if (collidedWithSide == Util::Game::RIGHT_SIDE) {
@@ -66,12 +64,10 @@ void PlatformerNinjaEntity::onCollisionEvent(Util::Game::CollisionEvent *event) 
     }
 }
 
-void PlatformerNinjaEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
-    if (event == nullptr) return;
-
-    /*if (event->getTranslateTo().getY() < -2) {
+void PlatformerNinjaEntity::onTranslateEvent(Util::Game::TranslateEvent &event) {
+    if (event.getTranslateTo().getY() < -2) {
         Logger::logMessage("Remove Ninja");
         Util::Game::GameManager::getGame<PlatformerGame>()->getScene()->removeEntity(this);
         return;
-    }*/
+    }
 }

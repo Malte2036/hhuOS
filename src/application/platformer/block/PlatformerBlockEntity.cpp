@@ -29,10 +29,10 @@ void PlatformerBlockEntity::onUpdate(double dt) {
 
 }
 
-void PlatformerBlockEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
+void PlatformerBlockEntity::onTranslateEvent(Util::Game::TranslateEvent &event) {
 
 }
 
-void PlatformerBlockEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
+void PlatformerBlockEntity::onCollisionEvent(Util::Game::CollisionEvent &event) {
 
 }

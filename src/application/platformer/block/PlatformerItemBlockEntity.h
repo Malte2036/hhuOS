@@ -13,7 +13,7 @@ public:
     explicit PlatformerItemBlockEntity(const Vector2 &position);
 
 private:
-    void onCollisionEvent(Util::Game::CollisionEvent *event) override;
+    void onCollisionEvent(Util::Game::CollisionEvent &event) override;
 };
 
 

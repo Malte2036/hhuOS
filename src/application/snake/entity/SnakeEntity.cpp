@@ -32,11 +32,11 @@ void SnakeEntity::setColor(Util::Graphic::Color value) {
     color = value;
 }
 
-void SnakeEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
-    auto transformTo = event->getTranslateTo();
+void SnakeEntity::onTranslateEvent(Util::Game::TranslateEvent &event) {
+    auto transformTo = event.getTranslateTo();
     if (transformTo.getX() > 1 || transformTo.getX() < (-1 - size)
         || transformTo.getY() > (1 - size) || transformTo.getY() < -1) {
-        event->setCanceled(true);
+        event.setCanceled(true);
         setDirection(none);
 
         Logger::logMessage("TransformEvent cancelled");
@@ -45,7 +45,7 @@ void SnakeEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
     }
 }
 
-void SnakeEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
+void SnakeEntity::onCollisionEvent(Util::Game::CollisionEvent &event) {
     Logger::logMessage("Snake collided!");
 }
 

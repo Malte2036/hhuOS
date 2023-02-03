@@ -18,9 +18,9 @@ public:
 
     void onUpdate(double dt) override;
 
-    void onCollisionEvent(Util::Game::CollisionEvent *event) override;
+    void onCollisionEvent(Util::Game::CollisionEvent &event) override;
 
-    void onTranslateEvent(Util::Game::TranslateEvent *event) override;
+    void onTranslateEvent(Util::Game::TranslateEvent &event) override;
 
 private:
     const double speed = 0.3;

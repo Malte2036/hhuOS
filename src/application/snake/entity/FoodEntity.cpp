@@ -19,12 +19,12 @@ void FoodEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.drawSquare(getPosition(), size);
 }
 
-void FoodEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
+void FoodEntity::onTranslateEvent(Util::Game::TranslateEvent &event) {
 
 }
 
-void FoodEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
-    if (event->getCollidedWith().getTag() == "SnakeEntity") {
+void FoodEntity::onCollisionEvent(Util::Game::CollisionEvent &event) {
+    if (event.getCollidedWith().getTag() == "SnakeEntity") {
         Logger::logMessage("FoodEntity collided with SnakeEntity!");
 
         auto game = Util::Game::GameManager::getGame<SnakeGame>();

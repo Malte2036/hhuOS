@@ -44,8 +44,8 @@ void PlatformerPlayerEntity::draw(Util::Game::Graphics2D &graphics) const {
     }
 }
 
-void PlatformerPlayerEntity::onTranslateEvent(Util::Game::TranslateEvent *event) {
-    const Vector2 translateTo = event->getTranslateTo();
+void PlatformerPlayerEntity::onTranslateEvent(Util::Game::TranslateEvent &event) {
+    const Vector2 translateTo = event.getTranslateTo();
 
     auto camera = Util::Game::GameManager::getGame<PlatformerGame>()->getScene()->getCamera();
 
@@ -53,25 +53,25 @@ void PlatformerPlayerEntity::onTranslateEvent(Util::Game::TranslateEvent *event)
     auto windowBorderOffset = Util::Game::GameManager::getResolution().getX() / 2;
 
     if (translateTo.getX() <= (camera->getPosition().getX() - windowBorderOffset)) {
-        event->setCanceled(true);
+        event.setCanceled(true);
     }
     if (translateTo.getY() < groundY - 0.2) {
         Util::Game::GameManager::getGame<PlatformerGame>()->stop();
         return;
     }
 
-    if (event->getTranslateTo().getX() >= camera->getPosition().getX()) {
+    if (event.getTranslateTo().getX() >= camera->getPosition().getX()) {
         camera->setPosition(
-                Vector2(event->getTranslateTo().getX(), 0));
+                Vector2(event.getTranslateTo().getX(), 0));
     }
-    if (event->isCanceled()) {
+    if (event.isCanceled()) {
         currentImage = idleSprite->getImage();
         Logger::logMessage("setIdle");
     }
 }
 
-void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent *event) {
-    auto side = event->getRectangleCollidedSide();
+void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent &event) {
+    auto side = event.getRectangleCollidedSide();
     if (side == Util::Game::BOTTOM_SIDE) {
         canJump = true;
     }
@@ -79,17 +79,17 @@ void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent *event)
     auto game = Util::Game::GameManager::getGame<PlatformerGame>();
     auto scene = game->getScene();
 
-    auto collidedWithTag = event->getCollidedWith().getTag();
+    auto collidedWithTag = event.getCollidedWith().getTag();
     if (collidedWithTag == "BrickBlock") {
         if (side == Util::Game::TOP_SIDE) {
-            scene->removeEntity(&event->getCollidedWith());
+            scene->removeEntity(&event.getCollidedWith());
             Logger::logMessage("Player destroyed Block");
         }
     } else if (collidedWithTag == "Mushroom") {
         Logger::logMessage("Mushroom collected");
 
         setBig(true);
-        scene->removeEntity(&event->getCollidedWith());
+        scene->removeEntity(&event.getCollidedWith());
     } else if (collidedWithTag == "Ninja") {
         if (side == Util::Game::BOTTOM_SIDE) {
             Logger::logMessage("Player killed Ninja");
@@ -102,7 +102,7 @@ void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent *event)
                 return;
             }
         }
-        scene->removeEntity(&event->getCollidedWith());
+        scene->removeEntity(&event.getCollidedWith());
     } else if (collidedWithTag == "Chest") {
         Logger::logMessage("Player finished Level by collecting chest!");
         game->nextLevel();
