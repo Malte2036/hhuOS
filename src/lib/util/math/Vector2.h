@@ -26,7 +26,7 @@ public:
 
     Vector2 &operator-(const Vector2 &other);
 
-    Vector2 normalize();
+    Vector2 &normalize();
 
     [[nodiscard]] double length() const;
 

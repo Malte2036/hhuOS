@@ -18,26 +18,30 @@ double Vector2::getY() const {
 }
 
 Vector2 &Vector2::operator*(const double value) {
-    return *new Vector2(x * value, y * value);
+    auto vec = Vector2(x * value, y * value);
+    return vec;
 }
 
 Vector2 &Vector2::operator/(double value) {
-    return *new Vector2(x / value, y / value);
+    auto vec = Vector2(x / value, y / value);
+    return vec;
 }
 
 Vector2 &Vector2::operator+(const Vector2 &other) {
-    return *new Vector2(x + other.x, y + other.y);
+    auto vec = Vector2(x + other.x, y + other.y);
+    return vec;
 }
 
 Vector2 &Vector2::operator-(const Vector2 &other) {
-    return *new Vector2(x - other.x, y - other.y);
+    auto vec = Vector2(x - other.x, y - other.y);
+    return vec;
 }
 
 double Vector2::length() const {
     return Util::Math::Math::sqrt(x * x + y * y);
 }
 
-Vector2 Vector2::normalize() {
+Vector2 &Vector2::normalize() {
     return *this * (1 / length());
 }
 

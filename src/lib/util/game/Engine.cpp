@@ -23,6 +23,7 @@
 #include "lib/util/stream/FileInputStream.h"
 #include "lib/util/io/KeyDecoder.h"
 #include "lib/util/file/File.h"
+#include "lib/util/memory/HeapMemoryManager.h"
 
 namespace Util::Game
 {
@@ -124,6 +125,12 @@ namespace Util::Game
         graphics.setColor(Util::Graphic::Colors::WHITE);
         graphics.drawStringSmall(-1, 1,
                                  status + Memory::String::format(", Objects: %u", game.getScene()->getObjectCount()));
+        auto *memoryManager = (Memory::HeapMemoryManager*) 0x1000;
+        auto heapUsed = (memoryManager->getTotalMemory() - memoryManager->getFreeMemory());
+        auto heapUsedM = heapUsed / 1000 / 1000;
+        auto heapUsedK = (heapUsed - heapUsedM * 1000 * 1000) / 1000;
+        graphics.drawStringSmall(-1, 0.97, Memory::String::format("Heap used: %u.%03u MB", heapUsedM, heapUsedK));
+
         graphics.setColor(color);
     }
 

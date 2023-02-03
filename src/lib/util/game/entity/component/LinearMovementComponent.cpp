@@ -12,10 +12,10 @@ namespace Util::Game {
 
         auto newPosition = position + velocity;
 
-        auto event = new TranslateEvent(newPosition);
+        auto event = TranslateEvent(newPosition);
         getEntity()->translateEvent(event);
 
-        if (!event->isCanceled()) {
+        if (!event.isCanceled()) {
             getEntity()->setPosition(newPosition);
         }
         getEntity()->setVelocity(Vector2());

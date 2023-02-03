@@ -68,8 +68,8 @@ namespace Util::Game {
         onUpdate(dt);
     }
 
-    void Entity::translateEvent(TranslateEvent *event) {
-        onTranslateEvent(event);
+    void Entity::translateEvent(const TranslateEvent &event) {
+        //onTranslateEvent(event);
     }
 
     void Entity::collisionEvent(CollisionEvent event) {

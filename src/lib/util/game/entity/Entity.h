@@ -98,7 +98,7 @@ namespace Util::Game {
     private:
         void update(double dt);
 
-        void translateEvent(TranslateEvent *event);
+        void translateEvent(const TranslateEvent &event);
 
         void collisionEvent(CollisionEvent event);
 

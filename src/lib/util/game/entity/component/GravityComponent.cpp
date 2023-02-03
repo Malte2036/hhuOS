@@ -34,10 +34,10 @@ namespace Util::Game {
 
         auto computedPosition = position + Vector2(velocity.getX() * dt, velocity.getY() * dt);
 
-        auto event = new TranslateEvent(computedPosition);
+        auto event = TranslateEvent(computedPosition);
         entity->translateEvent(event);
 
-        if (!event->isCanceled()) {
+        if (!event.isCanceled()) {
             //BUG: Null Pointer Exception wird hier irgendwie ausgelöst (Platformer: Ninja)
             entity->setPosition(computedPosition);
 
