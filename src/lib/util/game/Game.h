@@ -94,6 +94,7 @@ namespace Util::Game {
         virtual void init() {};
 
         Scene *scene = nullptr;
+        Scene *oldScene = nullptr;
         bool newScenePushed = true;
 
         bool running = true;

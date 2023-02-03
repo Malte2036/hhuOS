@@ -56,7 +56,7 @@ namespace Util::Game {
         /**
          * Destructor.
          */
-        ~Graphics2D() = default;
+        ~Graphics2D();
 
         void drawLine(const Vector2 &from, const Vector2 &to) const;
 

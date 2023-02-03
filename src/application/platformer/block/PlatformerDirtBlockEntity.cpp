@@ -4,7 +4,8 @@
 
 #include "PlatformerDirtBlockEntity.h"
 
-PlatformerDirtBlockEntity::PlatformerDirtBlockEntity(const Vector2 &position, int countX) : PlatformerBlockEntity(
-        "DirtBlock", position, "/initrd/game/platformer/ground/ground_dirt_middle.bmp", countX) {
+PlatformerDirtBlockEntity::PlatformerDirtBlockEntity(const Vector2 &position, int countX, int countY)
+        : PlatformerBlockEntity(
+        "DirtBlock", position, "/initrd/game/platformer/ground/ground_dirt_middle.bmp", countX, countY) {
 
 }

@@ -39,6 +39,10 @@ PlatformerNinjaEntity::PlatformerNinjaEntity(const Vector2 &position) : Util::Ga
     currentImage = runAnimation->getNextSprite().getImage();
 }
 
+PlatformerNinjaEntity::~PlatformerNinjaEntity() {
+    delete runAnimation;
+}
+
 void PlatformerNinjaEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.drawImage(position, *currentImage, directionLeft);
     /*if (collider != nullptr)

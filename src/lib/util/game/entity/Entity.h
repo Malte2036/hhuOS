@@ -34,6 +34,21 @@ namespace Util::Game {
         explicit Entity(const Memory::String &tag, const Vector2 &position, RectangleCollider *collider = nullptr);
 
         /**
+         * Copy Constructor.
+         */
+        Entity(const Entity &other) = delete;
+
+        /**
+         * Assignment operator.
+         */
+        Entity &operator=(const Entity &other) = delete;
+
+        /**
+        * Destructor.
+        */
+        ~Entity() override;
+
+        /**
          * this function is called every frame
          * @param dt
          */

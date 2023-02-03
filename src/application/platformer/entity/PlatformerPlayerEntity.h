@@ -13,6 +13,11 @@ class PlatformerPlayerEntity : public Util::Game::Entity {
 public:
     PlatformerPlayerEntity(const Util::Memory::String &tag, const Vector2 &position, double groundY);
 
+    /**
+    * Destructor.
+    */
+    ~PlatformerPlayerEntity() override;
+
     void onUpdate(double dt) override;
 
     void moveRight();

@@ -14,6 +14,14 @@ namespace Util::Game {
                                                                                                               collider},
                                                                                                       components() {}
 
+    Entity::~Entity() {
+        delete (collider);
+
+        for (const auto *component: components) {
+            delete (component);
+        }
+    }
+
     void Entity::translate(const Vector2 &vector2) {
         velocity = velocity + vector2;
     }

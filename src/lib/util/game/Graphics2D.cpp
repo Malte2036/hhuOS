@@ -33,6 +33,10 @@ namespace Util::Game {
                     (lfb.getResolutionY() > lfb.getResolutionX() ? (lfb.getResolutionY() - lfb.getResolutionX()) / 2
                                                                  : 0)) {}
 
+    Graphics2D::~Graphics2D() {
+        delete backgroundBuffer;
+    }
+
     void Graphics2D::drawLine(const Vector2 &from, const Vector2 &to) const {
         auto camera = game.getScene()->getCamera();
         lineDrawer.drawLine(

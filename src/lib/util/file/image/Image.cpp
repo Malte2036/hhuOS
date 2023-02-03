@@ -7,12 +7,12 @@
 
 namespace Util::File::Image {
 
-    Image::~Image() {
-        delete pixelBuf;
-    }
-
     Image::Image(int width, int height, Graphic::Color *pixelBuff) : pixelBuf{pixelBuff}, width{width}, height{height} {
 
+    }
+
+    Image::~Image() {
+        delete pixelBuf;
     }
 
     Graphic::Color *Image::getPixelBuffer() const {

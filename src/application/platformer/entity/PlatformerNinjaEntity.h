@@ -13,6 +13,10 @@ class PlatformerNinjaEntity : public Util::Game::Entity {
 public:
     explicit PlatformerNinjaEntity(const Vector2 &position);
 
+    /**
+    * Destructor.
+    */
+    ~PlatformerNinjaEntity() override;
 
     void draw(Util::Game::Graphics2D &graphics) const override;
 

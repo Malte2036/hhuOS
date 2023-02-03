@@ -24,6 +24,11 @@ namespace Util::Game {
          */
         Sprite &operator=(const Sprite &other) = delete;
 
+        /**
+        * Destructor.
+        */
+        ~Sprite();
+
         [[nodiscard]] File::Image::Image* getImage() const;
 
 

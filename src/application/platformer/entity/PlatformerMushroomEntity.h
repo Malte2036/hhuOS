@@ -13,6 +13,10 @@ class PlatformerMushroomEntity : public Util::Game::Entity {
 public:
     explicit PlatformerMushroomEntity(const Vector2 &position);
 
+    /**
+    * Destructor.
+    */
+    ~PlatformerMushroomEntity() override;
 
     void draw(Util::Game::Graphics2D &graphics) const override;
 

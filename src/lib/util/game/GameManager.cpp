@@ -21,6 +21,7 @@ namespace Util::Game {
     }
 
     void GameManager::setResolution(Vector2 *vector2) {
+        delete resolution;
         resolution = vector2;
     }
 

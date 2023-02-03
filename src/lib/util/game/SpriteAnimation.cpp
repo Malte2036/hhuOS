@@ -19,7 +19,7 @@ namespace Util::Game {
     }
 
     SpriteAnimation::~SpriteAnimation() {
-        for (auto sprite: sprites) {
+        for (const auto *sprite: sprites) {
             delete sprite;
         }
     }

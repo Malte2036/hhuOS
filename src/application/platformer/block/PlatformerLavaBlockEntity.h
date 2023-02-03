@@ -10,7 +10,7 @@
 
 class PlatformerLavaBlockEntity : public PlatformerBlockEntity {
 public:
-    PlatformerLavaBlockEntity(const Vector2 &position, int countX);
+    PlatformerLavaBlockEntity(const Vector2 &position, int countX = 1, int countY = 1);
 };
 
 

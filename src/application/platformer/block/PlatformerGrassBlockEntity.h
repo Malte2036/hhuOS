@@ -10,7 +10,7 @@
 
 class PlatformerGrassBlockEntity : public PlatformerBlockEntity {
 public:
-    explicit PlatformerGrassBlockEntity(const Vector2 &position, int countX = 1);
+    explicit PlatformerGrassBlockEntity(const Vector2 &position, int countX = 1, int countY = 1);
 };
 
 

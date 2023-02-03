@@ -4,15 +4,19 @@
 
 #include "Scene.h"
 #include "lib/util/game/Game.h"
-#include "lib/util/log/Logger.h"
 
 namespace Util::Game {
 
     Scene::~Scene() {
-        for (const auto *drawable: drawables) {
-            delete drawable;
+        for (const auto *entity: entities) {
+            delete entity;
         }
 
+        /*for (const auto *drawable: drawables) {
+            delete drawable;
+        }*/
+
+        entities.clear();
         drawables.clear();
     }
 
@@ -108,7 +112,7 @@ namespace Util::Game {
 
                     auto side = collider->isColliding(*otherCollider);
                     if (side != NO_SIDE) {
-                        auto event =  CollisionEvent(*otherEntity, side);
+                        auto event = CollisionEvent(*otherEntity, side);
                         entity->collisionEvent(event);
 
                         RectangleCollidedSide otherSide;

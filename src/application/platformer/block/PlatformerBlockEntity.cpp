@@ -7,22 +7,24 @@
 #include "application/platformer/PlatformerGame.h"
 
 PlatformerBlockEntity::PlatformerBlockEntity(const Util::Memory::String &tag, const Vector2 &position,
-                                             const Util::Memory::String &spriteBmpPath, int countX)
+                                             const Util::Memory::String &spriteBmpPath, int countX, int countY)
         : Util::Game::Entity(tag,
-                             position), countX{countX} {
+                             position), countX{countX}, countY{countY} {
     auto size = Util::Game::GameManager::getGame<PlatformerGame>()->getBlockSize();
     sprite = new Util::Game::Sprite(spriteBmpPath, size, size);
-    collider = new Util::Game::RectangleCollider(position, size, size * countX, Util::Game::STATIC_COLLIDER);
+    collider = new Util::Game::RectangleCollider(position, size * countY, size * countX, Util::Game::STATIC_COLLIDER);
 
 }
 
 void PlatformerBlockEntity::draw(Util::Game::Graphics2D &graphics) const {
     auto size = Util::Game::GameManager::getGame<PlatformerGame>()->getBlockSize();
-    for (int i = 0; i < countX; ++i) {
-        graphics.drawImage(Vector2(position.getX() + i * size, position.getY()), *sprite->getImage());
+    for (int y = 0; y < countY; ++y) {
+        for (int x = 0; x < countX; ++x) {
+            graphics.drawImage(Vector2(position.getX() + x * size, position.getY() + y * size), *sprite->getImage());
+        }
     }
     //graphics.setColor(Util::Graphic::Colors::RED);
-    //graphics.drawRectangle(position, size, size * countX);
+    //graphics.drawRectangle(position, size * countY, size * countX);
 }
 
 void PlatformerBlockEntity::onUpdate(double dt) {

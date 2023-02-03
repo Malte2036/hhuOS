@@ -4,7 +4,8 @@
 
 #include "PlatformerGrassBlockEntity.h"
 
-PlatformerGrassBlockEntity::PlatformerGrassBlockEntity(const Vector2 &position, int countX) : PlatformerBlockEntity(
-        "GrassBlock", position, "/initrd/game/platformer/ground/ground_grass_middle.bmp", countX) {
+PlatformerGrassBlockEntity::PlatformerGrassBlockEntity(const Vector2 &position, int countX, int countY)
+        : PlatformerBlockEntity(
+        "GrassBlock", position, "/initrd/game/platformer/ground/ground_grass_middle.bmp", countX, countY) {
 
 }

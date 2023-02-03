@@ -16,6 +16,19 @@ namespace Util::File::Image {
     public:
         Image(int width, int height, Graphic::Color *pixelBuff);
 
+        /**
+         * Copy Constructor.
+        */
+        Image(const Image &other) = default;
+
+        /**
+         * Assignment operator.
+         */
+        Image &operator=(const Image &other) = delete;
+
+        /**
+        * Destructor.
+        */
         ~Image();
 
         [[nodiscard]] Graphic::Color *getPixelBuffer() const;
@@ -24,7 +37,7 @@ namespace Util::File::Image {
 
         [[nodiscard]] int getHeight() const;
 
-        static Image * scale(int newWidth, int newHeight, const Image& other);
+        static Image *scale(int newWidth, int newHeight, const Image &other);
 
     private:
         Graphic::Color *pixelBuf = nullptr;

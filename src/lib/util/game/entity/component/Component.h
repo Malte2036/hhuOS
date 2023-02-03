@@ -23,6 +23,11 @@ namespace Util::Game {
          */
         Component &operator=(const Component &other) = delete;
 
+        /**
+        * Destructor.
+        */
+        virtual ~Component() = default;
+
         Memory::String getType();
 
     protected:

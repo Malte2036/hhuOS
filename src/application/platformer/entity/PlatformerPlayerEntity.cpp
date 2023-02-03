@@ -36,6 +36,11 @@ PlatformerPlayerEntity::PlatformerPlayerEntity(const Util::Memory::String &tag, 
     collider = new Util::Game::RectangleCollider(position, height * (big ? 2 : 1), width, Util::Game::DYNAMIC_COLLIDER);
 }
 
+PlatformerPlayerEntity::~PlatformerPlayerEntity() {
+    delete idleSprite;
+    delete runAnimation;
+}
+
 
 void PlatformerPlayerEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.drawImage(position, *currentImage, directionLeft);
@@ -65,13 +70,12 @@ void PlatformerPlayerEntity::onTranslateEvent(Util::Game::TranslateEvent &event)
                 Vector2(event.getTranslateTo().getX(), 0));
     }
     if (event.isCanceled()) {
-        currentImage = idleSprite->getImage();
-        Logger::logMessage("setIdle");
+        if (idleSprite)
+            currentImage = idleSprite->getImage();
     }
 }
 
 void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent &event) {
-    Logger::logMessage("draw");
     auto side = event.getRectangleCollidedSide();
     if (side == Util::Game::BOTTOM_SIDE) {
         canJump = true;
@@ -118,13 +122,15 @@ void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent &event)
 void PlatformerPlayerEntity::moveRight() {
     translateX(speed);
     directionLeft = false;
-    currentImage = runAnimation->getNextSprite().getImage();
+    if (runAnimation != nullptr)
+        currentImage = runAnimation->getNextSprite().getImage();
 }
 
 void PlatformerPlayerEntity::moveLeft() {
     translateX(-speed);
     directionLeft = true;
-    currentImage = runAnimation->getNextSprite().getImage();
+    if (runAnimation != nullptr)
+        currentImage = runAnimation->getNextSprite().getImage();
 }
 
 void PlatformerPlayerEntity::jump() {
@@ -139,5 +145,4 @@ void PlatformerPlayerEntity::onUpdate(double dt) {
 
 void PlatformerPlayerEntity::setBig(bool val) {
     big = val;
-    //collider->setHeight(height * (big ? 2 : 1));
 }

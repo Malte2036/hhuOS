@@ -49,14 +49,17 @@ namespace Util::Game {
     }
 
     void Game::pushScene(Scene *newScene) {
-        if (newScene == nullptr) return;
+        if (newScene == nullptr || newScene == scene) return;
 
+        oldScene = scene;
         scene = newScene;
         newScenePushed = true;
     }
 
     void Game::initScene(Graphics2D &graphics) {
         newScenePushed = false;
+
+        delete oldScene;
 
         scene->init();
         scene->drawInitialBackground(graphics);

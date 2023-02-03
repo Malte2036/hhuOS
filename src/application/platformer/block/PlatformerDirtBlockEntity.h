@@ -11,7 +11,7 @@
 
 class PlatformerDirtBlockEntity : public PlatformerBlockEntity {
 public:
-    explicit PlatformerDirtBlockEntity(const Vector2 &position, int countX = 1);
+    explicit PlatformerDirtBlockEntity(const Vector2 &position, int countX = 1, int countY = 1);
 };
 
 

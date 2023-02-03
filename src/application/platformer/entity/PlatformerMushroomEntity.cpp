@@ -12,6 +12,10 @@ PlatformerMushroomEntity::PlatformerMushroomEntity(const Vector2 &position) : Ut
     collider = new Util::Game::RectangleCollider(position, height, width, Util::Game::DYNAMIC_COLLIDER);
 }
 
+PlatformerMushroomEntity::~PlatformerMushroomEntity() {
+    delete sprite;
+}
+
 void PlatformerMushroomEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.drawImage(position, *sprite->getImage(), directionLeft);
     graphics.drawRectangle(position,
@@ -35,4 +39,3 @@ void PlatformerMushroomEntity::onCollisionEvent(Util::Game::CollisionEvent &even
 void PlatformerMushroomEntity::onTranslateEvent(Util::Game::TranslateEvent &event) {
 
 }
-
