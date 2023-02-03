@@ -38,7 +38,6 @@ namespace Util::Game {
         entity->translateEvent(event);
 
         if (!event.isCanceled()) {
-            //BUG: Null Pointer Exception wird hier irgendwie ausgelöst (Platformer: Ninja)
             entity->setPosition(computedPosition);
 
             velocity = Vector2(velocity.getX() * stopFactorX, velocity.getY());

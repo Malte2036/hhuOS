@@ -17,31 +17,27 @@ double Vector2::getY() const {
     return y;
 }
 
-Vector2 &Vector2::operator*(const double value) {
-    auto vec = Vector2(x * value, y * value);
-    return vec;
+Vector2 Vector2::operator*(const double value) {
+    return Vector2(x * value, y * value);
 }
 
-Vector2 &Vector2::operator/(double value) {
-    auto vec = Vector2(x / value, y / value);
-    return vec;
+Vector2 Vector2::operator/(double value) {
+    return Vector2(x / value, y / value);
 }
 
-Vector2 &Vector2::operator+(const Vector2 &other) {
-    auto vec = Vector2(x + other.x, y + other.y);
-    return vec;
+Vector2 Vector2::operator+(const Vector2 &other) {
+    return Vector2(x + other.x, y + other.y);
 }
 
-Vector2 &Vector2::operator-(const Vector2 &other) {
-    auto vec = Vector2(x - other.x, y - other.y);
-    return vec;
+Vector2 Vector2::operator-(const Vector2 &other) {
+    return Vector2(x - other.x, y - other.y);
 }
 
 double Vector2::length() const {
     return Util::Math::Math::sqrt(x * x + y * y);
 }
 
-Vector2 &Vector2::normalize() {
+Vector2 Vector2::normalize() {
     return *this * (1 / length());
 }
 

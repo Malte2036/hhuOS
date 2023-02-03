@@ -10,10 +10,9 @@
 void PlatformerScene1::init() {
     setKeyListener(*this);
 
-    // wenn das auskommentiert wird, crashed es nach 4 sekunden
-    //player = new PlatformerPlayerEntity("Player", Vector2(-0.2, 0), groundY);
-    //player->addComponent(new Util::Game::GravityComponent(groundY));
-    //addEntity(player);
+    player = new PlatformerPlayerEntity("Player", Vector2(-0.2, 0), groundY);
+    player->addComponent(new Util::Game::GravityComponent(groundY));
+    addEntity(player);
 
     scoreText = new PlatformerScoreText(Vector2(-1, 0.95), 0);
     addObject(scoreText);

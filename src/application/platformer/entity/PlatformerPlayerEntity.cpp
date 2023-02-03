@@ -39,9 +39,9 @@ PlatformerPlayerEntity::PlatformerPlayerEntity(const Util::Memory::String &tag, 
 
 void PlatformerPlayerEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.drawImage(position, *currentImage, directionLeft);
-    if (collider != nullptr) {
-        //graphics.drawRectangle(position, collider->getHeight(), collider->getWidth());
-    }
+    /*if (collider != nullptr) {
+        graphics.drawRectangle(position, collider->getHeight(), collider->getWidth());
+    }*/
 }
 
 void PlatformerPlayerEntity::onTranslateEvent(Util::Game::TranslateEvent &event) {
@@ -71,6 +71,7 @@ void PlatformerPlayerEntity::onTranslateEvent(Util::Game::TranslateEvent &event)
 }
 
 void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent &event) {
+    Logger::logMessage("draw");
     auto side = event.getRectangleCollidedSide();
     if (side == Util::Game::BOTTOM_SIDE) {
         canJump = true;
@@ -98,7 +99,7 @@ void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent &event)
                 setBig(false);
             } else {
                 Logger::logMessage("Player was killed by Ninja");
-                //game->stop();
+                game->stop();
                 return;
             }
         }

@@ -18,15 +18,15 @@ public:
 
     virtual ~Vector2() = default;
 
-    Vector2 &operator*(double value);
+    Vector2 operator*(double value);
 
-    Vector2 &operator/(double value);
+    Vector2 operator/(double value);
 
-    Vector2 &operator+(const Vector2 &other);
+    Vector2 operator+(const Vector2 &other);
 
-    Vector2 &operator-(const Vector2 &other);
+    Vector2 operator-(const Vector2 &other);
 
-    Vector2 &normalize();
+    Vector2 normalize();
 
     [[nodiscard]] double length() const;
 

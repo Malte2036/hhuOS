@@ -37,7 +37,6 @@ namespace Util::Game {
     void Entity::setPosition(const Vector2 &vector2) {
         position = vector2;
         if (collider != nullptr) {
-            //BUG: Null Pointer Exception wird hier irgendwie ausgelöst (Platformer: Ninja > GravityComponent)
             collider->setPosition(position);
         }
         positionChanged = true;
@@ -73,7 +72,7 @@ namespace Util::Game {
     }
 
     void Entity::collisionEvent(CollisionEvent &event) {
-        if (!collider) return;
+        if (collider == nullptr) return;
 
         if (collider->getColliderType() == DYNAMIC_COLLIDER) {
             switch (event.getRectangleCollidedSide()) {
@@ -107,6 +106,7 @@ namespace Util::Game {
                     break;
             }
         }
+        onCollisionEvent(event);
     }
 
     RectangleCollider *Entity::getCollider() const {
