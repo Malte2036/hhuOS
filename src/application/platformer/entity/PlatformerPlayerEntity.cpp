@@ -127,16 +127,16 @@ void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent &event)
 }
 
 void PlatformerPlayerEntity::moveRight() {
-    translateX(speed);
+    translateX(speed * (canJump ? 1 : 0.75));
     directionLeft = false;
-    if (runAnimation != nullptr)
+    if (canJump && runAnimation != nullptr)
         currentImage = runAnimation->getNextSprite().getImage();
 }
 
 void PlatformerPlayerEntity::moveLeft() {
-    translateX(-speed);
+    translateX(-speed * (canJump ? 1 : 0.75));
     directionLeft = true;
-    if (runAnimation != nullptr)
+    if (canJump && runAnimation != nullptr)
         currentImage = runAnimation->getNextSprite().getImage();
 }
 

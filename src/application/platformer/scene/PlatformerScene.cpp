@@ -36,8 +36,6 @@ void PlatformerScene::onUpdate(double dt) {
         player->moveLeft();
     if (moveRight)
         player->moveRight();
-    if (moveJump)
-        player->jump();
 }
 
 void PlatformerScene::keyPressed(Util::Io::Key key) {
@@ -49,7 +47,10 @@ void PlatformerScene::keyPressed(Util::Io::Key key) {
             moveRight = true;
             return;
         case 'w':
-            moveJump = true;
+            if (!moveJump) {
+                moveJump = true;
+                player->jump();
+            }
             return;
         case 'q':
             Util::Game::GameManager::getGame<PlatformerGame>()->stop();
