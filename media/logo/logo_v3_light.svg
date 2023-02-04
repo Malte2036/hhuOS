@@ -30,7 +30,7 @@
          id="path5274"
          d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
          style="fill:#006ab3;fill-opacity:1;fill-rule:evenodd;stroke:#006ab3;stroke-width:1pt;stroke-opacity:1"
-         translate="matrix(0.8,0,0,0.8,10,0)"
+         transform="matrix(0.8,0,0,0.8,10,0)"
          inkscape:connector-curvature="0" />
     </marker>
   </defs>
@@ -83,7 +83,7 @@
      inkscape:label="Ebene 1"
      inkscape:groupmode="layer"
      id="layer1"
-     translate="translate(-248.4844,-431.41314)">
+     transform="translate(-248.4844,-431.41314)">
     <flowRoot
        xml:space="preserve"
        id="flowRoot4150"
