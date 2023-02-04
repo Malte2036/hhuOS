@@ -18,7 +18,7 @@ public:
 
     double getBlockSize();
 
-    void createSceneFromSceneFile(Util::Game::Scene *scene, const char *fileName);
+    void createSceneFromSceneFile(Util::Game::Scene *scene, const Util::Memory::String &fileName);
 
 private:
     void init() override;

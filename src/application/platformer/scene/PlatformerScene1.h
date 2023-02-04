@@ -9,28 +9,14 @@
 #include "application/platformer/entity/PlatformerPlayerEntity.h"
 #include "application/platformer/text/PlatformerScoreText.h"
 #include "lib/util/game/KeyListener.h"
+#include "PlatformerScene.h"
 
-class PlatformerScene1 : public Util::Game::Scene, public Util::Game::KeyListener {
+class PlatformerScene1 : public PlatformerScene {
 public:
-    PlatformerScene1() = default;
+    PlatformerScene1();
 
 private:
-    void init() override;
-
     void drawInitialBackground(Util::Game::Graphics2D &graphics) override;
-
-    void onUpdate(double dt) override;
-
-    void keyPressed(Util::Io::Key key) override;
-
-    void keyReleased(Util::Io::Key key) override;
-
-private:
-
-    PlatformerPlayerEntity *player = nullptr;
-    const double groundY = -2;
-
-    PlatformerScoreText *scoreText = nullptr;
 };
 
 

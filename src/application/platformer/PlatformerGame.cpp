@@ -55,7 +55,7 @@ void PlatformerGame::init() {
     //Util::Game::GameManager::playSound("/initrd/beep/mario.beep");
 }
 
-void PlatformerGame::createSceneFromSceneFile(Util::Game::Scene *scene, const char *fileName) {
+void PlatformerGame::createSceneFromSceneFile(Util::Game::Scene *scene, const Util::Memory::String &fileName) {
     auto sceneFile = Util::File::File(fileName);
     auto fileReader = Util::Stream::FileReader(sceneFile);
 
