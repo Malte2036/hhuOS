@@ -6,6 +6,8 @@
 #include "lib/util/log/Logger.h"
 #include "lib/util/game/GameManager.h"
 #include "../PlatformerGame.h"
+#include "PlatformerPlayerProjectileEntity.h"
+#include "lib/util/game/entity/component/LinearMovementComponent.h"
 
 PlatformerPlayerEntity::PlatformerPlayerEntity(const Util::Memory::String &tag, const Vector2 &position,
                                                const double groundY)
@@ -72,8 +74,8 @@ void PlatformerPlayerEntity::onTranslateEvent(Util::Game::TranslateEvent &event)
     if (event.isCanceled()) {
         if (idleSprite)
             currentImage = idleSprite->getImage();
-    }else{
-        if(translateTo.getY() < position.getY()){
+    } else {
+        if (translateTo.getY() < position.getY()) {
             canJump = false;
         }
     }
@@ -98,6 +100,7 @@ void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent &event)
         Logger::logMessage("Mushroom collected");
 
         setBig(true);
+        projectileCount++;
         scene->removeEntity(&event.getCollidedWith());
     } else if (collidedWithTag == "Ninja") {
         if (side == Util::Game::BOTTOM_SIDE) {
@@ -141,6 +144,19 @@ void PlatformerPlayerEntity::jump() {
     if (canJump) {
         translateY(jumpSpeed);
         canJump = false;
+    }
+}
+
+void PlatformerPlayerEntity::shoot() {
+    if (projectileCount > 0) {
+        projectileCount--;
+
+        Logger::logMessage("Shoot");
+        auto directionFactor = directionLeft ? -1 : 1;
+        auto projectile = new PlatformerPlayerProjectileEntity(position + Vector2(directionFactor * width, height / 2),
+                                                               Vector2(directionFactor * 0.05, 0));
+        projectile->addComponent(new Util::Game::LinearMovementComponent());
+        Util::Game::GameManager::getGame<PlatformerGame>()->getScene()->addEntity(projectile);
     }
 }
 

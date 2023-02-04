@@ -24,6 +24,8 @@ public:
     void moveLeft();
     void jump();
 
+    void shoot();
+
 private:
     const double speed = 0.6;
     const double jumpSpeed = 1.125;
@@ -31,6 +33,8 @@ private:
     const double width = height;
 
     bool big = false;
+
+    int projectileCount = 3;
 
     bool directionLeft = false;
 
@@ -49,6 +53,7 @@ private:
     void onCollisionEvent(Util::Game::CollisionEvent &event) override;
 
     void setBig(bool val);
+
 };
 
 

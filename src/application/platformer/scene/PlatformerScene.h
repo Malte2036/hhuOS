@@ -10,7 +10,7 @@
 #include "application/platformer/entity/PlatformerPlayerEntity.h"
 #include "application/platformer/text/PlatformerScoreText.h"
 
-class PlatformerScene : public Util::Game::Scene, public Util::Game::KeyListener {
+class PlatformerScene : public Util::Game::Scene, public Util::Game::KeyListener{
 public:
     explicit PlatformerScene(const Util::Memory::String &sceneFilePath);
 

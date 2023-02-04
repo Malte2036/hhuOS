@@ -4,7 +4,9 @@
 
 #include "PlatformerScene.h"
 #include "lib/util/game/entity/component/GravityComponent.h"
+#include "lib/util/game/entity/component/LinearMovementComponent.h"
 #include "application/platformer/PlatformerGame.h"
+#include "application/platformer/entity/PlatformerPlayerProjectileEntity.h"
 #include "lib/util/game/GameManager.h"
 #include "lib/util/log/Logger.h"
 
@@ -52,6 +54,10 @@ void PlatformerScene::keyPressed(Util::Io::Key key) {
         case 'q':
             Util::Game::GameManager::getGame<PlatformerGame>()->stop();
             return;
+    }
+    if (key.getScancode() == key.SPACE) {
+        player->shoot();
+        return;
     }
 }
 

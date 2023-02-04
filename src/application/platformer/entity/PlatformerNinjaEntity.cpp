@@ -60,6 +60,12 @@ void PlatformerNinjaEntity::onUpdate(double dt) {
 }
 
 void PlatformerNinjaEntity::onCollisionEvent(Util::Game::CollisionEvent &event) {
+    auto tag = event.getCollidedWith().getTag();
+    if (tag == "PlayerProjectile") {
+        Util::Game::GameManager::getGame<PlatformerGame>()->getScene()->removeEntity(this);
+        return;
+    }
+
     auto collidedWithSide = event.getRectangleCollidedSide();
     if (collidedWithSide == Util::Game::LEFT_SIDE) {
         directionLeft = false;

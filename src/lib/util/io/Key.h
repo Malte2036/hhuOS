@@ -43,7 +43,8 @@ public:
         DOWN = 80,
         LEFT = 75,
         RIGHT = 77,
-        DIV = 8
+        DIV = 8,
+        SPACE = 57,
     };
 
     /**
