@@ -40,7 +40,7 @@ namespace Util::Game {
         if (!event.isCanceled()) {
             entity->setPosition(computedPosition);
 
-            velocity = Vector2(velocity.getX() * stopFactorX, velocity.getY());
+            velocity = Vector2(velocity.getX() * (1 - stopFactorX), velocity.getY());
         } else {
             velocity = Vector2();
         }

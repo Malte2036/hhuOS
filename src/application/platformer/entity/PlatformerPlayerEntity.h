@@ -25,8 +25,8 @@ public:
     void jump();
 
 private:
-    const double speed = 0.75;
-    const double jumpSpeed = speed * 1.5;
+    const double speed = 0.6;
+    const double jumpSpeed = 1.125;
     const double height = 0.1;
     const double width = height;
 

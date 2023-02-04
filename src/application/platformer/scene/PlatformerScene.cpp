@@ -29,18 +29,25 @@ void PlatformerScene::init() {
 
 void PlatformerScene::onUpdate(double dt) {
     scoreText->increaseScore();
+
+    if (moveLeft)
+        player->moveLeft();
+    if (moveRight)
+        player->moveRight();
+    if (moveJump)
+        player->jump();
 }
 
 void PlatformerScene::keyPressed(Util::Io::Key key) {
     switch (key.getAscii()) {
         case 'a':
-            player->moveLeft();
+            moveLeft = true;
             return;
         case 'd':
-            player->moveRight();
+            moveRight = true;
             return;
         case 'w':
-            player->jump();
+            moveJump = true;
             return;
         case 'q':
             Util::Game::GameManager::getGame<PlatformerGame>()->stop();
@@ -49,6 +56,16 @@ void PlatformerScene::keyPressed(Util::Io::Key key) {
 }
 
 void PlatformerScene::keyReleased(Util::Io::Key key) {
-
+    switch (key.getAscii()) {
+        case 'a':
+            moveLeft = false;
+            return;
+        case 'd':
+            moveRight = false;
+            return;
+        case 'w':
+            moveJump = false;
+            return;
+    }
 }
 

@@ -18,7 +18,7 @@ namespace Util::Game {
          * @param stopFactorX movement stop factor
          * @param gravityValue
          */
-        explicit GravityComponent(double groundY, double mass = 2, double stopFactorX = 0.9, double gravityValue = -1.25);
+        explicit GravityComponent(double groundY, double mass = 2, double stopFactorX = 0.15, double gravityValue = -1.25);
 
         /**
          * Copy Constructor.

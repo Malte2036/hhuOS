@@ -29,6 +29,10 @@ private:
     PlatformerPlayerEntity *player = nullptr;
     const double groundY = -2;
 
+    bool moveLeft = false;
+    bool moveRight = false;
+    bool moveJump = false;
+
     PlatformerScoreText *scoreText = nullptr;
 };
 
