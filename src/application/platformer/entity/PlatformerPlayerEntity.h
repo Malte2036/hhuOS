@@ -26,7 +26,7 @@ public:
 
 private:
     const double speed = 0.75;
-    const double jumpSpeed = speed * 1.35;
+    const double jumpSpeed = speed * 1.5;
     const double height = 0.1;
     const double width = height;
 

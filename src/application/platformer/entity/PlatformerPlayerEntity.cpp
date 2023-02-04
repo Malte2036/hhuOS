@@ -72,6 +72,10 @@ void PlatformerPlayerEntity::onTranslateEvent(Util::Game::TranslateEvent &event)
     if (event.isCanceled()) {
         if (idleSprite)
             currentImage = idleSprite->getImage();
+    }else{
+        if(translateTo.getY() < position.getY()){
+            canJump = false;
+        }
     }
 }
 
