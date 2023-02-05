@@ -10,17 +10,18 @@ namespace Util::Game {
             sprites{allSprites} {
     }
 
-    Sprite SpriteAnimation::getNextSprite() {
+    Sprite *SpriteAnimation::getNextSprite() {
         frame++;
         if (frame >= sprites.length()) {
             frame = 0;
         }
-        return *sprites[frame];
+        return sprites[frame];
     }
 
     SpriteAnimation::~SpriteAnimation() {
-        for (const auto *sprite: sprites) {
+        for (auto *sprite: sprites) {
             delete sprite;
         }
+        sprites.clear();
     }
 }

@@ -25,7 +25,7 @@ namespace Util::Game {
     }
 
     Sprite::~Sprite() {
-        //delete image;
+        delete image;
     }
 
 }

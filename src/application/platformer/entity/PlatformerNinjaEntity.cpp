@@ -36,7 +36,7 @@ PlatformerNinjaEntity::PlatformerNinjaEntity(const Vector2 &position) : Util::Ga
                             "/initrd/game/platformer/ninja/run/ninja_run_11.bmp", width, height)});
     collider = new Util::Game::RectangleCollider(position, height, width, Util::Game::DYNAMIC_COLLIDER);
 
-    currentImage = runAnimation->getNextSprite().getImage();
+    currentImage = runAnimation->getNextSprite()->getImage();
 }
 
 PlatformerNinjaEntity::~PlatformerNinjaEntity() {
@@ -54,7 +54,7 @@ auto i = 1;
 void PlatformerNinjaEntity::onUpdate(double dt) {
     translateX(speed * (directionLeft ? -1 : 1));
     if (i == 0 && runAnimation != nullptr) {
-        currentImage = runAnimation->getNextSprite().getImage();
+        currentImage = runAnimation->getNextSprite()->getImage();
     }
     i = (i + 1) % 3;
 }

@@ -31,7 +31,6 @@ namespace Util::Game {
 
         [[nodiscard]] File::Image::Image* getImage() const;
 
-
     private:
         Util::File::Image::Image *image = nullptr;
     };

@@ -29,7 +29,7 @@ namespace Util::Game {
          */
         virtual ~SpriteAnimation();
 
-        Sprite getNextSprite();
+        Sprite *getNextSprite();
 
     private:
         int frame = 0;

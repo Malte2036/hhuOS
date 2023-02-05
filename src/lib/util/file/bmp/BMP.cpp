@@ -18,9 +18,12 @@ namespace Util::File::Image {
 
         auto *header = reinterpret_cast<Header *>(buffer);
 
-        auto dataOffset = (*(header->data_offset + 3) << 24) | (*(header->data_offset + 2) << 16) | (*(header->data_offset + 1) << 8) | *header->data_offset;
-        auto bitmapWidth = (*(header->bitmap_width + 3) << 24) | (*(header->bitmap_width + 2) << 16) | (*(header->bitmap_width + 1) << 8) | *header->bitmap_width;
-        auto bitmapHeight = (*(header->bitmap_height + 3) << 24) | (*(header->bitmap_height + 2) << 16) | (*(header->bitmap_height + 1) << 8) | *header->bitmap_height;
+        auto dataOffset = (*(header->data_offset + 3) << 24) | (*(header->data_offset + 2) << 16) |
+                          (*(header->data_offset + 1) << 8) | *header->data_offset;
+        auto bitmapWidth = (*(header->bitmap_width + 3) << 24) | (*(header->bitmap_width + 2) << 16) |
+                           (*(header->bitmap_width + 1) << 8) | *header->bitmap_width;
+        auto bitmapHeight = (*(header->bitmap_height + 3) << 24) | (*(header->bitmap_height + 2) << 16) |
+                            (*(header->bitmap_height + 1) << 8) | *header->bitmap_height;
         auto bitmapBitsPerPixel = (*(header->bitmap_bits_per_pixel + 1) << 8) | *header->bitmap_bits_per_pixel;
 
         auto bitmap = buffer + dataOffset;
@@ -49,6 +52,8 @@ namespace Util::File::Image {
             }
 
         }
+
+        delete bitmap;
 
         return new BMP(bitmapWidth, bitmapHeight, pixelBuf);
     }

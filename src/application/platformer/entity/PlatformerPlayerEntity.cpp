@@ -130,14 +130,14 @@ void PlatformerPlayerEntity::moveRight() {
     translateX(speed * (canJump ? 1 : 0.75));
     directionLeft = false;
     if (canJump && runAnimation != nullptr)
-        currentImage = runAnimation->getNextSprite().getImage();
+        currentImage = runAnimation->getNextSprite()->getImage();
 }
 
 void PlatformerPlayerEntity::moveLeft() {
     translateX(-speed * (canJump ? 1 : 0.75));
     directionLeft = true;
     if (canJump && runAnimation != nullptr)
-        currentImage = runAnimation->getNextSprite().getImage();
+        currentImage = runAnimation->getNextSprite()->getImage();
 }
 
 void PlatformerPlayerEntity::jump() {

@@ -12,7 +12,7 @@ namespace Util::File::Image {
     }
 
     Image::~Image() {
-        delete pixelBuf;
+        delete[] pixelBuf;
     }
 
     Graphic::Color *Image::getPixelBuffer() const {
@@ -27,7 +27,7 @@ namespace Util::File::Image {
         return height;
     }
 
-    Image *Image::scale(int newWidth, int newHeight, const Image& other) {
+    Image *Image::scale(int newWidth, int newHeight, const Image &other) {
         auto *newPixelBuf = new Graphic::Color[newWidth * newHeight];
 
         double factorX = (double) newWidth / other.width;
