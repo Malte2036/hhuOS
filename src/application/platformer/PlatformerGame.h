@@ -6,6 +6,7 @@
 #define HHUOS_PLATFORMERGAME_H
 
 #include "lib/util/game/Game.h"
+#include "application/platformer/text/PlatformerProjectileText.h"
 
 class PlatformerGame : public Util::Game::Game {
 
@@ -19,6 +20,12 @@ public:
     double getBlockSize();
 
     void createSceneFromSceneFile(Util::Game::Scene *scene, const Util::Memory::String &fileName);
+
+    void showProjectileCount(int count);
+
+protected:
+    friend class PlatformerScene;
+    PlatformerProjectileText *projectileText = nullptr;
 
 private:
     void init() override;
@@ -36,6 +43,7 @@ private:
     double blockSize = 0.08;
 
     int currentLevel = 1;
+
 };
 
 #endif //HHUOS_PLATFORMERGAME_H

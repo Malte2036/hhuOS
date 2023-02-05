@@ -22,6 +22,11 @@ public:
 
     void onUpdate(double dt) override;
 
+protected:
+    void init() override;
+
+public:
+
     void onCollisionEvent(Util::Game::CollisionEvent &event) override;
 
     void onTranslateEvent(Util::Game::TranslateEvent &event) override;

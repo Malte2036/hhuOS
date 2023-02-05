@@ -27,6 +27,10 @@ public:
 
 private:
     Util::Graphic::Color color;
+protected:
+    void init() override;
+
+private:
     double size;
 
     Util::Game::Sprite *sprite;

@@ -19,6 +19,11 @@ private:
 
     void draw(Util::Game::Graphics2D &graphics) const override;
 
+protected:
+    void init() override;
+
+private:
+
     void onUpdate(double dt) override;
 
     void onTranslateEvent(Util::Game::TranslateEvent &event) override;

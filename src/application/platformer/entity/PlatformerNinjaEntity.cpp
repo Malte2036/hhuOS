@@ -81,3 +81,7 @@ void PlatformerNinjaEntity::onTranslateEvent(Util::Game::TranslateEvent &event) 
         return;
     }
 }
+
+void PlatformerNinjaEntity::init() {
+
+}

@@ -30,6 +30,14 @@ void PlatformerGame::spawnNinja(const Vector2 &position, double groundY) {
     }
 }
 
+
+void PlatformerGame::showProjectileCount(int count) {
+    if (projectileText == nullptr) return;
+
+    projectileText->setCount(count);
+}
+
+
 void PlatformerGame::nextLevel() {
     currentLevel++;
 

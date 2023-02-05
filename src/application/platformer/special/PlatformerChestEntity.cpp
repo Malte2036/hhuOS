@@ -25,3 +25,7 @@ void PlatformerChestEntity::onCollisionEvent(Util::Game::CollisionEvent &event) 
 
 }
 
+void PlatformerChestEntity::init() {
+
+}
+

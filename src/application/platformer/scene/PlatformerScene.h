@@ -9,6 +9,7 @@
 #include "lib/util/game/scene/Scene.h"
 #include "application/platformer/entity/PlatformerPlayerEntity.h"
 #include "application/platformer/text/PlatformerScoreText.h"
+#include "application/platformer/text/PlatformerProjectileText.h"
 
 class PlatformerScene : public Util::Game::Scene, public Util::Game::KeyListener{
 public:

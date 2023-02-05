@@ -64,6 +64,10 @@ namespace Util::Game {
         scene->init();
         scene->drawInitialBackground(graphics);
         graphics.saveAsBackground();
+
+        for (auto *entity: scene->entities) {
+            entity->init();
+        }
     }
 
     bool Game::isNewScenePushed() const {

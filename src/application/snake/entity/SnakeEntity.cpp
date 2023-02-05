@@ -70,4 +70,8 @@ void SnakeEntity::onUpdate(double dt) {
 
 }
 
+void SnakeEntity::init() {
+
+}
+
 

@@ -35,7 +35,11 @@ PlatformerPlayerEntity::PlatformerPlayerEntity(const Util::Memory::String &tag, 
                             "/initrd/game/platformer/player/run/player_run_9.bmp", width, height)});
     currentImage = idleSprite->getImage();
 
-    collider = new Util::Game::RectangleCollider(position, height * (big ? 2 : 1), width, Util::Game::DYNAMIC_COLLIDER);
+    collider = new Util::Game::RectangleCollider(position, height, width, Util::Game::DYNAMIC_COLLIDER);
+}
+
+void PlatformerPlayerEntity::init() {
+    setProjectileCount(projectileCount);
 }
 
 PlatformerPlayerEntity::~PlatformerPlayerEntity() {
@@ -99,20 +103,16 @@ void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent &event)
     } else if (collidedWithTag == "Mushroom") {
         Logger::logMessage("Mushroom collected");
 
-        setBig(true);
-        projectileCount++;
+        setProjectileCount(projectileCount + 1);
         scene->removeEntity(&event.getCollidedWith());
     } else if (collidedWithTag == "Ninja") {
         if (side == Util::Game::BOTTOM_SIDE) {
             Logger::logMessage("Player killed Ninja");
         } else {
-            if (big) {
-                setBig(false);
-            } else {
-                Logger::logMessage("Player was killed by Ninja");
-                game->stop();
-                return;
-            }
+            Logger::logMessage("Player was killed by Ninja");
+            game->stop();
+            return;
+
         }
         scene->removeEntity(&event.getCollidedWith());
     } else if (collidedWithTag == "Chest") {
@@ -149,7 +149,7 @@ void PlatformerPlayerEntity::jump() {
 
 void PlatformerPlayerEntity::shoot() {
     if (projectileCount > 0) {
-        projectileCount--;
+        setProjectileCount(projectileCount - 1);
 
         Logger::logMessage("Shoot");
         auto directionFactor = directionLeft ? -1 : 1;
@@ -161,8 +161,10 @@ void PlatformerPlayerEntity::shoot() {
 }
 
 void PlatformerPlayerEntity::onUpdate(double dt) {
+
 }
 
-void PlatformerPlayerEntity::setBig(bool val) {
-    big = val;
+void PlatformerPlayerEntity::setProjectileCount(int count) {
+    projectileCount = count;
+    Util::Game::GameManager::getGame<PlatformerGame>()->showProjectileCount(count);
 }

@@ -25,6 +25,10 @@ private:
 
     Vector2 direction;
     Util::Game::Sprite *sprite;
+protected:
+    void init() override;
+
+private:
 
     Vector2 startPosition;
 };

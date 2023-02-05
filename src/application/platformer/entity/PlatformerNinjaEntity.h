@@ -31,6 +31,10 @@ private:
 
     const double height = 0.1;
     const double width = 0.07;
+protected:
+    void init() override;
+
+private:
 
     bool directionLeft = true;
 

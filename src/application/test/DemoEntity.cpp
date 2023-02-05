@@ -46,3 +46,7 @@ void DemoEntity::jump() {
 void DemoEntity::onUpdate(double dt) {
 
 }
+
+void DemoEntity::init() {
+
+}

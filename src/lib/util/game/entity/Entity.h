@@ -72,18 +72,6 @@ namespace Util::Game {
          */
         void translateY(double y);
 
-        /**
-         * every time translate(...), translateX(...) or translateY(...) is called, this function is automatically triggered. If the event is canceled (event→setCanceled(true)), the entity will not be translated.
-         * @param event
-         */
-        virtual void onTranslateEvent(TranslateEvent &event) = 0;
-
-        /**
-         * is called when the collider of this entity overlaps with another collider.
-         * @param event
-         */
-        virtual void onCollisionEvent(CollisionEvent &event) = 0;
-
         [[nodiscard]] Memory::String getTag() const;
 
         [[nodiscard]] Vector2 getPosition() const;
@@ -105,6 +93,22 @@ namespace Util::Game {
          * @param component
          */
         void addComponent(Component *component);
+
+
+    protected:
+        virtual void init() = 0;
+
+        /**
+         * every time translate(...), translateX(...) or translateY(...) is called, this function is automatically triggered. If the event is canceled (event→setCanceled(true)), the entity will not be translated.
+         * @param event
+         */
+        virtual void onTranslateEvent(TranslateEvent &event) = 0;
+
+        /**
+         * is called when the collider of this entity overlaps with another collider.
+         * @param event
+         */
+        virtual void onCollisionEvent(CollisionEvent &event) = 0;
 
 
     private:

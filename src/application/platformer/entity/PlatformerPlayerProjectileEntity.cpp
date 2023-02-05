@@ -42,3 +42,7 @@ void PlatformerPlayerProjectileEntity::onCollisionEvent(Util::Game::CollisionEve
 
     Util::Game::GameManager::getGame<PlatformerGame>()->getScene()->removeEntity(this);
 }
+
+void PlatformerPlayerProjectileEntity::init() {
+
+}

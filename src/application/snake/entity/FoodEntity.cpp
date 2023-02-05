@@ -43,3 +43,7 @@ void FoodEntity::onUpdate(double dt) {
 
 }
 
+void FoodEntity::init() {
+
+}
+

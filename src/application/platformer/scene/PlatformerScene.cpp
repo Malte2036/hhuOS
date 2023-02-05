@@ -6,7 +6,6 @@
 #include "lib/util/game/entity/component/GravityComponent.h"
 #include "lib/util/game/entity/component/LinearMovementComponent.h"
 #include "application/platformer/PlatformerGame.h"
-#include "application/platformer/entity/PlatformerPlayerProjectileEntity.h"
 #include "lib/util/game/GameManager.h"
 #include "lib/util/log/Logger.h"
 
@@ -25,6 +24,10 @@ void PlatformerScene::init() {
     addObject(scoreText);
 
     auto game = Util::Game::GameManager::getGame<PlatformerGame>();
+
+    game->projectileText = new PlatformerProjectileText(Vector2(-1, 0.9));
+    addObject(game->projectileText);
+
     Logger::logMessage(sceneFilePath);
     game->createSceneFromSceneFile(this, sceneFilePath);
 }
@@ -75,4 +78,3 @@ void PlatformerScene::keyReleased(Util::Io::Key key) {
             return;
     }
 }
-

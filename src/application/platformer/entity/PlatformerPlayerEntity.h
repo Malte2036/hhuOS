@@ -32,8 +32,6 @@ private:
     const double height = 0.1;
     const double width = height;
 
-    bool big = false;
-
     int projectileCount = 3;
 
     bool directionLeft = false;
@@ -45,6 +43,10 @@ private:
 
     Util::Game::Sprite *idleSprite = nullptr;
     Util::Game::SpriteAnimation *runAnimation = nullptr;
+protected:
+    void init() override;
+
+private:
 
     void draw(Util::Game::Graphics2D &graphics) const override;
 
@@ -52,8 +54,7 @@ private:
 
     void onCollisionEvent(Util::Game::CollisionEvent &event) override;
 
-    void setBig(bool val);
-
+    void setProjectileCount(int count);
 };
 
 

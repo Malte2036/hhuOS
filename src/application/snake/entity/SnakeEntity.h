@@ -22,6 +22,11 @@ public:
 
     void draw(Util::Game::Graphics2D &graphics) const override;
 
+protected:
+    void init() override;
+
+public:
+
     void setColor(Util::Graphic::Color value);
 
     DirectionType getDirection();

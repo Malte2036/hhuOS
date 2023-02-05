@@ -39,3 +39,7 @@ void PlatformerMushroomEntity::onCollisionEvent(Util::Game::CollisionEvent &even
 void PlatformerMushroomEntity::onTranslateEvent(Util::Game::TranslateEvent &event) {
 
 }
+
+void PlatformerMushroomEntity::init() {
+
+}

@@ -19,6 +19,10 @@ public:
 
     void onTranslateEvent(Util::Game::TranslateEvent &event) override;
 
+protected:
+    void init() override;
+
+public:
     void onCollisionEvent(Util::Game::CollisionEvent &event) override;
 
 private:
