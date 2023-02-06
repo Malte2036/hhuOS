@@ -24,6 +24,7 @@
 #include "lib/util/io/KeyDecoder.h"
 #include "lib/util/file/File.h"
 #include "lib/util/memory/HeapMemoryManager.h"
+#include "RessourceManager.h"
 
 namespace Util::Game
 {
@@ -109,6 +110,7 @@ namespace Util::Game
             statistics.stopFrameTime();
         }
 
+        RessourceManager::deleteAllImages();
         Graphic::Ansi::cleanupGraphicalApplication();
     }
 
