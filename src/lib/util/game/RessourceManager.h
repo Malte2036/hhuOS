@@ -24,6 +24,7 @@ namespace Util::Game {
 
     private:
         inline static auto images = Data::HashMap<Memory::String, File::Image::Image *>();
+        inline static auto imagesCount = Data::HashMap<Memory::String, int>();
     };
 }
 

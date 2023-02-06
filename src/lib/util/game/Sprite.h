@@ -33,6 +33,7 @@ namespace Util::Game {
 
     private:
         Util::File::Image::Image *image = nullptr;
+        Memory::String key;
     };
 }
 

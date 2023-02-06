@@ -13,7 +13,7 @@ namespace Util::Game {
         width += 0.0025;
         height += 0.0025;
 
-        auto key = filename + Memory::String::format("_%d_%d", width, height);
+        key = filename + Memory::String::format("_%d_%d", width, height);
         if (RessourceManager::hasImage(key)) {
             image = RessourceManager::getImage(key);
         } else {
@@ -33,7 +33,7 @@ namespace Util::Game {
     }
 
     Sprite::~Sprite() {
-        //delete image;
+        RessourceManager::deleteImage(key);
     }
 
 }
