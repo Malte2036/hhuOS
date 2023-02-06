@@ -14,14 +14,15 @@ public:
                                    const Util::Memory::String &spriteBmpPath, int countX = 1, int countY = 1);
 
 private:
-    Util::Game::Sprite *sprite;
-    int countX, countY;
 
     void draw(Util::Game::Graphics2D &graphics) const override;
 
 protected:
     void init() override;
 
+    int countY;
+    int countX;
+    Util::Game::Sprite *sprite;
 private:
 
     void onUpdate(double dt) override;

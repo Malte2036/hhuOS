@@ -10,7 +10,16 @@
 
 class PlatformerLavaBlockEntity : public PlatformerBlockEntity {
 public:
-    PlatformerLavaBlockEntity(const Vector2 &position, int countX = 1, int countY = 1);
+    explicit PlatformerLavaBlockEntity(const Vector2 &position, int countX = 1, int countY = 1);
+
+private:
+
+    void draw(Util::Game::Graphics2D &graphics) const override;
+
+    void onUpdate(double dt) override;
+
+    int animateIndex = 0;
+    bool flip = false;
 };
 
 

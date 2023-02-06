@@ -71,7 +71,7 @@ namespace Util::Game {
         auto width = image.getWidth();
         auto pixelBuf = image.getPixelBuffer();
 
-        auto xFlipOffset = flipX ? width : 0;
+        auto xFlipOffset = flipX ? width - 1 : 0;
 
         auto camera = game.getScene()->getCamera();
         int32_t xPixelOffset = (position.getX() - camera->getPosition().getX()) * transformation + offsetX;
