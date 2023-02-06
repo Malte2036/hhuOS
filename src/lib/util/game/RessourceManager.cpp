@@ -3,6 +3,7 @@
 //
 
 #include "RessourceManager.h"
+#include "lib/util/log/Logger.h"
 
 namespace Util::Game {
     void RessourceManager::addImage(const Util::Memory::String &key, Util::File::Image::Image *image) {

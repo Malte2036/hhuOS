@@ -12,6 +12,8 @@ class PlatformerPlayerProjectileEntity : public Util::Game::Entity {
 public:
     explicit PlatformerPlayerProjectileEntity(const Vector2 &position, const Vector2 &direction);
 
+    ~PlatformerPlayerProjectileEntity();
+
     void draw(Util::Game::Graphics2D &graphics) const override;
 
     void onUpdate(double dt) override;

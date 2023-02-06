@@ -17,6 +17,14 @@ PlatformerPlayerProjectileEntity::PlatformerPlayerProjectileEntity(const Vector2
     collider = new Util::Game::RectangleCollider(position, size, size, Util::Game::DYNAMIC_COLLIDER);
 }
 
+void PlatformerPlayerProjectileEntity::init() {
+
+}
+
+PlatformerPlayerProjectileEntity::~PlatformerPlayerProjectileEntity() {
+    delete sprite;
+}
+
 
 void PlatformerPlayerProjectileEntity::draw(Util::Game::Graphics2D &graphics) const {
     graphics.drawImage(Vector2(position.getX() + (direction.getX() > 0 ? -1 : 1) * size * 2, position.getY()),
@@ -41,8 +49,4 @@ void PlatformerPlayerProjectileEntity::onCollisionEvent(Util::Game::CollisionEve
         return;
 
     Util::Game::GameManager::getGame<PlatformerGame>()->getScene()->removeEntity(this);
-}
-
-void PlatformerPlayerProjectileEntity::init() {
-
 }
