@@ -54,7 +54,7 @@ auto i = 1;
 void PlatformerNinjaEntity::onUpdate(double dt) {
     translateX(speed * (directionLeft ? -1 : 1));
     if (i == 0 && runAnimation != nullptr) {
-        currentImage = runAnimation->getNextSprite()->getImage();
+        currentImage = runAnimation->getCurrentSprite(dt)->getImage();
     }
     i = (i + 1) % 3;
 }

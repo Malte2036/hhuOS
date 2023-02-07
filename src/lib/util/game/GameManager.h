@@ -41,6 +41,8 @@ namespace Util::Game {
          */
         static Vector2 getResolution();
 
+        static uint8_t getTargetFrameRate();
+
         static void playSound(const Memory::String &soundFileName);
 
     protected:
@@ -48,6 +50,8 @@ namespace Util::Game {
         friend Sprite;
 
         static void setResolution(Vector2 *vector2);
+
+        static void setTargetFrameRate(uint8_t value);
 
         static void setTransformation(int value);
 
@@ -58,6 +62,7 @@ namespace Util::Game {
         inline static GameType *game = nullptr;
         inline static Vector2 *resolution = nullptr;
         inline static int transformation = 0;
+        inline static uint8_t targetFrameRate = 0;
     };
 
     class SoundRunnable : public Async::Runnable {

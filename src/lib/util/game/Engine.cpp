@@ -36,6 +36,7 @@ namespace Util::Game
         GameManager::setResolution(
             new Vector2((resX > resY ? resX / resY : 1) * 2, (resY > resX ? resY / resX : 1) * 2));
         GameManager::setTransformation((int)((resX > resY ? resY : resX) / 2));
+        GameManager::setTargetFrameRate(targetFrameRate);
     }
 
     //template<typename GameType>

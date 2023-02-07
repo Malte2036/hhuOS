@@ -12,7 +12,7 @@ namespace Util::Game {
     class SpriteAnimation {
 
     public:
-        explicit SpriteAnimation(const Data::Array<Sprite *> &allSprites);
+        explicit SpriteAnimation(const Data::Array<Sprite *> &allSprites, int animationTimeMiliSeconds = 100);
 
         /**
          * Copy Constructor.
@@ -31,8 +31,12 @@ namespace Util::Game {
 
         Sprite *getNextSprite();
 
+        Sprite *getCurrentSprite(double dt);
+
     private:
         int frame = 0;
+        int animationFrame = 0;
+        int animationTimeMiliSeconds;
         Data::Array<Sprite *> sprites;
     };
 }

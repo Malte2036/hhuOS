@@ -33,6 +33,14 @@ namespace Util::Game {
         transformation = value;
     }
 
+    void GameManager::setTargetFrameRate(uint8_t value) {
+        targetFrameRate = value;
+    }
+
+    uint8_t GameManager::getTargetFrameRate() {
+        return targetFrameRate;
+    }
+
     void SoundRunnable::run() {
         auto beepFile = Util::File::File(soundFileName);
         if (!beepFile.exists() || beepFile.isDirectory()) {
