@@ -13,7 +13,7 @@ void SnakeScene::init() {
     auto game = Util::Game::GameManager::getGame<SnakeGame>();
     game->setSnakeGameData({0});
 
-    snake = new SnakeEntity(Vector2(0, 0), 0.1, Util::Graphic::Colors::MAGENTA, none, 0.02);
+    snake = new SnakeEntity(Vector2(0, 0), 0.1, Util::Graphic::Colors::MAGENTA, none, 1);
     snake->addComponent(new Util::Game::LinearMovementComponent());
     addEntity(snake);
 
