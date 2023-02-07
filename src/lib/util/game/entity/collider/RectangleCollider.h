@@ -16,12 +16,12 @@ namespace Util::Game {
         friend class Scene;
 
     public:
-        explicit RectangleCollider(const Vector2& position, double height, double width, ColliderType colliderType);
+        explicit RectangleCollider(const Vector2 &position, double height, double width, ColliderType colliderType);
 
         /**
          * Copy Constructor.
         */
-        RectangleCollider(const RectangleCollider &other) = default;
+        RectangleCollider(const RectangleCollider &other) = delete;
 
         /**
          * Assignment operator.
@@ -37,7 +37,7 @@ namespace Util::Game {
         void setWidth(double val);
 
     protected:
-        RectangleCollidedSide isColliding(RectangleCollider other);
+        RectangleCollidedSide isColliding(RectangleCollider &other);
 
     private:
         double height, width;

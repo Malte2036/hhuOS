@@ -10,15 +10,7 @@ Util::Game::RectangleCollider::RectangleCollider(const Vector2 &position, double
                                                  ColliderType colliderType) : Collider(
         "RectangleCollider", position, colliderType), height{height}, width{width} {}
 
-double Util::Game::RectangleCollider::getHeight() {
-    return height;
-}
-
-double Util::Game::RectangleCollider::getWidth() {
-    return width;
-}
-
-Util::Game::RectangleCollidedSide Util::Game::RectangleCollider::isColliding(RectangleCollider other) {
+Util::Game::RectangleCollidedSide Util::Game::RectangleCollider::isColliding(RectangleCollider &other) {
     if (getPosition().getX() < other.getPosition().getX() + other.getWidth() &&
         getPosition().getX() + getWidth() > other.getPosition().getX() &&
         getPosition().getY() < other.getPosition().getY() + other.getHeight() &&
@@ -46,6 +38,14 @@ Util::Game::RectangleCollidedSide Util::Game::RectangleCollider::isColliding(Rec
         return RIGHT_SIDE;
     }
     return NO_SIDE;
+}
+
+double Util::Game::RectangleCollider::getHeight() {
+    return height;
+}
+
+double Util::Game::RectangleCollider::getWidth() {
+    return width;
 }
 
 void Util::Game::RectangleCollider::setHeight(double val) {
