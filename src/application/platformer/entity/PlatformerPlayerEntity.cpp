@@ -154,7 +154,7 @@ void PlatformerPlayerEntity::shoot() {
         Logger::logMessage("Shoot");
         auto directionFactor = directionLeft ? -1 : 1;
         auto projectile = new PlatformerPlayerProjectileEntity(position + Vector2(directionFactor * width, height / 2),
-                                                               Vector2(directionFactor * 0.05, 0));
+                                                               Vector2(directionFactor * 1, 0));
         projectile->addComponent(new Util::Game::LinearMovementComponent());
         Util::Game::GameManager::getGame<PlatformerGame>()->getScene()->addEntity(projectile);
     }
