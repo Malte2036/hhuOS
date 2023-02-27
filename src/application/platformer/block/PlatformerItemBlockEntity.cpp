@@ -6,7 +6,7 @@
 #include "lib/util/game/GameManager.h"
 #include "../PlatformerGame.h"
 #include "PlatformerSolidBlockEntity.h"
-#include "../entity/PlatformerMushroomEntity.h"
+#include "../entity/PlatformerItemEntity.h"
 #include "lib/util/game/entity/component/GravityComponent.h"
 
 PlatformerItemBlockEntity::PlatformerItemBlockEntity(const Vector2 &position)
@@ -20,7 +20,7 @@ void PlatformerItemBlockEntity::onCollisionEvent(Util::Game::CollisionEvent &eve
             auto scene = game->getScene();
             scene->addEntity(new PlatformerSolidBlockEntity(position));
 
-            auto mushroom = new PlatformerMushroomEntity(position + Vector2(0, game->getBlockSize()));
+            auto mushroom = new PlatformerItemEntity(position + Vector2(0, game->getBlockSize()));
             mushroom->addComponent(new Util::Game::GravityComponent(-0.5));
             scene->addEntity(mushroom);
 

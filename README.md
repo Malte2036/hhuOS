@@ -80,3 +80,14 @@ hhuOS can be configured via kernel parameters, that are passed to the system by 
 - `bios` can be set to `true` to activate support for BIOS-calls. This enables support for *VESA* and *CGA* graphics modes. CAUTION: Enabling this option will cause hhuOS to not boot on most UEFI-based systems.
 - `lfb_provider` is used to set the framebuffer-implementation, that should be used to draw on the screen. The default implementation is named `Kernel::Multiboot::MultibootLinearFrameBufferProvider` and should always work (as long as the bootloader finds a video mode). However, the resolution stays fixed with this configuration. If BIOS-calls are activated, `Device::Graphic::VesaBiosExtensions` may be used to enable support for multiple resolutions and resolution switching.
 - `text_provider` is used to set the implementation for drawing text on the screen. The default implementation is named `Device::Graphic::LinearFrameBufferTerminalProvider` and uses rasterized fonts to draw on an underlying linear framebuffer. It works with `lfb_provider` being set to `Kernel::Multiboot::MultibootLinearFrameBufferProvider` or `Device::Graphic::VesaBiosExtensions`. As an alternative, it may be set to `Device::Graphic::ColorGraphicsAdapterProvider` (with activated BIOS-calls), to make use of *CGA* text modes, providing a higher drawing speed, but lower resolutions and only 16 colors.
+## Notes
+
+Assets for the platformer game:
+- [Platform, Chest and Player](https://bayat.itch.io/platform-game-assets) by *Bayat Games*
+- [Item Block](https://moonempire.itch.io/free-pixel-art-nature-platformer-tileset) by *Moon Empire*
+- [Cake Item](https://opengameart.org/content/sweet-cake-in-game-item) by *bevouliin.com*
+- [Ninja](https://robocelot.itch.io/nimble-gumdrop-ninja) by *Robocelot*
+- [Lava](https://opengameart.org/content/2d-platformer-volcano-pack-11) by *Tio Aimar*
+- [Projectile](https://opengameart.org/content/high-res-fire-ball) by *Game Developer Studio*
+- [Brick Block](https://opengameart.org/content/pixel-wooden-crate) by *PolygonixGames*
+- [Solid Block](https://opengameart.org/content/platformer-art-deluxe) by *Kenney*

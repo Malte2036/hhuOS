@@ -6,5 +6,5 @@
 #include "lib/util/game/GameManager.h"
 
 PlatformerSolidBlockEntity::PlatformerSolidBlockEntity(const Vector2 &position)
-        : PlatformerBlockEntity("SolidBlock", position, "/initrd/mario_solidblock.bmp") {
+        : PlatformerBlockEntity("SolidBlock", position, "/initrd/game/platformer/block/block_solid.bmp") {
 }

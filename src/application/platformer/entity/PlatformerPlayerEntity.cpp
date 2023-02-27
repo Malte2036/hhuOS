@@ -100,7 +100,7 @@ void PlatformerPlayerEntity::onCollisionEvent(Util::Game::CollisionEvent &event)
             scene->removeEntity(&event.getCollidedWith());
             Logger::logMessage("Player destroyed Block");
         }
-    } else if (collidedWithTag == "Mushroom") {
+    } else if (collidedWithTag == "Item") {
         Logger::logMessage("Mushroom collected");
 
         setProjectileCount(projectileCount + 1);

@@ -2,21 +2,21 @@
 // Created by Malte Sehmer on 03.01.23.
 //
 
-#ifndef HHUOS_PLATFORMERMUSHROOMENTITY_H
-#define HHUOS_PLATFORMERMUSHROOMENTITY_H
+#ifndef HHUOS_PLATFORMERITEMENTITY_H
+#define HHUOS_PLATFORMERITEMENTITY_H
 
 #include "lib/util/game/entity/Entity.h"
 #include "lib/util/game/SpriteAnimation.h"
 
 
-class PlatformerMushroomEntity : public Util::Game::Entity {
+class PlatformerItemEntity : public Util::Game::Entity {
 public:
-    explicit PlatformerMushroomEntity(const Vector2 &position);
+    explicit PlatformerItemEntity(const Vector2 &position);
 
     /**
     * Destructor.
     */
-    ~PlatformerMushroomEntity() override;
+    ~PlatformerItemEntity() override;
 
     void draw(Util::Game::Graphics2D &graphics) const override;
 
@@ -38,7 +38,7 @@ private:
 
     bool directionLeft = false;
 
-    const double height = 0.09;
+    const double height = 0.07;
     const double width = 0.08;
 
     Util::File::Image::Image *currentImage = nullptr;
@@ -46,4 +46,4 @@ private:
 };
 
 
-#endif //HHUOS_PLATFORMERMUSHROOMENTITY_H
+#endif //HHUOS_PLATFORMERITEMENTITY_H
