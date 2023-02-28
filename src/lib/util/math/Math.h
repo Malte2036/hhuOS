@@ -66,6 +66,10 @@ public:
     static double sqrt(double value);
 
     static double pow(double value, int exponent);
+
+    static double min(double value1, double value2);
+
+    static double max(double value1, double value2);
 };
 
 }

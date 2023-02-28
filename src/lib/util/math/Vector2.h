@@ -28,6 +28,8 @@ public:
 
     Vector2 normalize();
 
+    [[nodiscard]] double dotProduct(const Vector2 &other) const;
+
     [[nodiscard]] double length() const;
 
     [[nodiscard]] double getX() const;

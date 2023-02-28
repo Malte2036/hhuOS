@@ -38,6 +38,11 @@ double Vector2::length() const {
 }
 
 Vector2 Vector2::normalize() {
-    return *this * (1 / length());
+    if (length() == 0) return *this;
+    return *this / length();
+}
+
+double Vector2::dotProduct(const Vector2 &other) const {
+    return (x * other.x) + (y * other.y);
 }
 
