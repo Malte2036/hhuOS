@@ -32,10 +32,11 @@ namespace Util::Game {
         }
         imagesCount.put(key, 0);
 
-        auto image = images.get(key);
+        // TODO: free memory correctly
+        /*auto image = images.get(key);
         delete image;
 
-        images.remove(key);
+        images.remove(key);*/
     }
 
     void RessourceManager::deleteAllImages() {
